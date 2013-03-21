@@ -1,8 +1,8 @@
 
 define( function( require ) {
   return {
-    isArray: require( 'CORE/isArray' ),
-    extend: require( 'CORE/extend' ),
-    loadScript: require( 'CORE/loadScript' )
+    isArray: require( 'PHET-CORE/isArray' ),
+    extend: require( 'PHET-CORE/extend' ),
+    loadScript: require( 'PHET-CORE/loadScript' )
   };
 } );
