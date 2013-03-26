@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
   
-  var extend = require( 'extend' );
+  var extend = require( 'PHET_CORE/extend' );
   
   /**
    * Experimental inheritance prototype, similar to Inheritance.inheritPrototype, but maintains
