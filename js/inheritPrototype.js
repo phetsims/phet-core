@@ -32,7 +32,7 @@ define( function( require ) {
     var prototype = Object( supertype.prototype ); // create a clone of the supertype's prototype
     prototype.constructor = subtype; // account for losing the default constructor when prototype is overwritten
     subtype.prototype = prototype; // assign cloned prototype to subtype
-  };
+  }
 
   return inheritPrototype;
 } );

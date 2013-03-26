@@ -40,7 +40,7 @@ define( function( require ) {
       var fn = supertype.prototype[name];
       Function.call.apply( fn, arguments );
     })( context );
-  };
+  }
 
   return callSuper;
 } );
