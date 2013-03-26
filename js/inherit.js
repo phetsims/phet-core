@@ -15,6 +15,8 @@ define( function( require ) {
    * supertype.prototype.constructor while properly copying ES5 getters and setters.
    *
    * TODO: find problems with this! It's effectively what is being used by Scenery
+   * TODO: consider inspecting arguments to see whether they are functions or just objects, to support
+   *       something like inherit( subtype, supertypeA, supertypeB, properties )
    *
    * Usage:
    * function A() { scenery.Node.call( this ); };
