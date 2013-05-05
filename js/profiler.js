@@ -19,11 +19,15 @@ define( function( require ) {
   var stack = [];
   var results = {};
   var count = 0;
+  var listeners = [];
   var profiler = {
     displayCount: 1000,
     start: function( name ) {
       var time = Date.now();
       stack.push( {name: name, time: time} );
+    },
+    addListener: function( listener ) {
+      listeners.push( listener );
     },
     stop: function() {
       var end = Date.now();
@@ -36,7 +40,14 @@ define( function( require ) {
       results[top.name].push( elapsed );
       count++;
       if ( count % this.displayCount === 0 ) {
-        console.log( JSON.stringify( this.toJSON() ) );
+        var summary = JSON.stringify( this.toJSON() );
+
+        console.log( summary );
+
+        //Also notify listeners that a new result was obtained
+        for ( var i = 0; i < listeners.length; i++ ) {
+          listeners[i]( summary );
+        }
         results = {};
       }
     },
