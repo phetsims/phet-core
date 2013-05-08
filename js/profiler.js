@@ -80,7 +80,7 @@ define( function( require ) {
           profiler.stop();
           profiler.start( 'xloop' );
           for ( var x = 0; x < 20000; x++ ) {
-            var a = 100 * 200;
+            var b = 100 * 200;
           }
           profiler.stop();
         }
