@@ -7,7 +7,7 @@
  */
 
 define( function( require ) {
-  "use strict";
+  'use strict';
   
   /*
    * Load a script. The only required argument is src, and can be specified either as

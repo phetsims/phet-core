@@ -9,7 +9,7 @@
  */
 
 define( function( require ) {
-  "use strict";
+  'use strict';
   
   return function extend( obj ) {
     _.each( Array.prototype.slice.call( arguments, 1 ), function( source ) {

@@ -11,7 +11,7 @@
  */
 
 define( function( require ) {
-  "use strict";
+  'use strict';
   
   return function collect( iterate ) {
     var result = [];
