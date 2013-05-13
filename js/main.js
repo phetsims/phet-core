@@ -1,5 +1,7 @@
 
 define( function( require ) {
+  'use strict';
+  
   return {
     callSuper: require( 'PHET_CORE/callSuper' ),
     collect: require( 'PHET_CORE/collect' ),
