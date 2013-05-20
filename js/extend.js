@@ -1,4 +1,4 @@
-// Copyright 2002-2012, University of Colorado
+// Copyright 2002-2013, University of Colorado
 
 /**
  * Like Underscore's _.extend, but with hardcoded support for ES5 getters/setters.
