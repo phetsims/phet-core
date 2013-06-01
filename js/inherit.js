@@ -41,6 +41,8 @@ define( function( require ) {
       { constructor: subtype }, // overrides the constructor properly
       prototypeProperties       // [optional] additional properties for the prototype, as an object.
     );
+    
+    return subtype; // pass back the subtype so it can be returned immediately as a module export
   }
 
   return inherit;
