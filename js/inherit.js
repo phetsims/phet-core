@@ -20,7 +20,7 @@ define( function( require ) {
    *
    * Usage:
    * function A() { scenery.Node.call( this ); };
-   * inherit( A, scenery.Node, {
+   * inherit( scenery.Node, A, {
    *   customBehavior: function() { ... },
    *   isAnA: true
    * } );
@@ -32,7 +32,7 @@ define( function( require ) {
    * @param supertype           Constructor for the supertype.
    * @param prototypeProperties [optional] object containing properties that will be set on the prototype.
    */
-  function inherit( subtype, supertype, prototypeProperties ) {
+  function inherit( supertype, subtype, prototypeProperties ) {
     function F() {}
     F.prototype = supertype.prototype; // so new F().__proto__ === supertype.prototype
     
