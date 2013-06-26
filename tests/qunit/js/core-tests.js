@@ -19,4 +19,25 @@
 
     equal( core.escapeHTML( '&amp; & ""' ), '&amp;amp; &amp; &quot;&quot;', 'multiple escaping' );
   } );
+
+  test( 'inherit', function() {
+    var Person = function( name ) {
+      this.name = name;
+    };
+    var Warrior = function( name, strength ) {
+      Person.call( this, name );
+      this.strength = strength;
+    };
+    var attacked = false;
+    core.inherit( Person, Warrior, {attack: function() {
+      attacked = true;
+    }}, {warriorType: 'swordsman', getWarriorCastle: function() {return 'camelot';}} );
+    var galahad = new Warrior( 'galahad', 95 );
+    equal( attacked, false, 'Dont call methods before they are invoked' );
+    galahad.attack();
+    equal( attacked, true, 'call a method added with inherit' );
+    equal( Warrior.warriorType, 'swordsman', 'access static field on the constructor method' );
+    equal( Warrior.getWarriorCastle(), 'camelot', 'access static method on the constructor method' );
+
+  } );
 })();
