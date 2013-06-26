@@ -31,8 +31,9 @@ define( function( require ) {
    * @param subtype             Constructor for the subtype. Generally should contain supertype.call( this, ... )
    * @param supertype           Constructor for the supertype.
    * @param prototypeProperties [optional] object containing properties that will be set on the prototype.
+   * @param staticProperties [optional] object containing properties that will be set on the constructor function itself
    */
-  function inherit( supertype, subtype, prototypeProperties ) {
+  function inherit( supertype, subtype, prototypeProperties, staticProperties ) {
     function F() {}
     F.prototype = supertype.prototype; // so new F().__proto__ === supertype.prototype
     
@@ -41,6 +42,9 @@ define( function( require ) {
       { constructor: subtype }, // overrides the constructor properly
       prototypeProperties       // [optional] additional properties for the prototype, as an object.
     );
+
+    //Copy the static properties onto the subtype constructor so they can be accessed 'statically'
+    extend( subtype, staticProperties );
     
     return subtype; // pass back the subtype so it can be returned immediately as a module export
   }
