@@ -1,4 +1,4 @@
-// Copyright 2013, University of Colorado
+// Copyright 2002-2013, University of Colorado Boulder
 
 /**
  * Simple profiler which handles nested calls which provides a composite view, to help for micro-optimization.
