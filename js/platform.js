@@ -12,6 +12,9 @@ define( function( require ) {
   'use strict';
 
   return {
-    get firefox() { return navigator.userAgent.toLowerCase().indexOf( 'firefox' ) > -1; }
+    get firefox() { return navigator.userAgent.toLowerCase().indexOf( 'firefox' ) > -1; },
+
+    //see http://stackoverflow.com/questions/3007480/determine-if-user-navigated-from-mobile-safari
+    get mobileSafari() { return navigator.userAgent.match( /(iPod|iPhone|iPad)/ ) && navigator.userAgent.match( /AppleWebKit/ );}
   };
 } );
