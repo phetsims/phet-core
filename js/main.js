@@ -11,6 +11,7 @@ define( function( require ) {
     inheritPrototype: require( 'PHET_CORE/inheritPrototype' ),
     isArray: require( 'PHET_CORE/isArray' ),
     extend: require( 'PHET_CORE/extend' ),
-    loadScript: require( 'PHET_CORE/loadScript' )
+    loadScript: require( 'PHET_CORE/loadScript' ),
+    phetAllocation: require( 'PHET_CORE/phetAllocation' )
   };
 } );
