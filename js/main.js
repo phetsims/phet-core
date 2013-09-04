@@ -12,6 +12,7 @@ define( function( require ) {
     isArray: require( 'PHET_CORE/isArray' ),
     extend: require( 'PHET_CORE/extend' ),
     loadScript: require( 'PHET_CORE/loadScript' ),
-    phetAllocation: require( 'PHET_CORE/phetAllocation' )
+    phetAllocation: require( 'PHET_CORE/phetAllocation' ),
+    Poolable: require( 'PHET_CORE/Poolable' )
   };
 } );
