@@ -4,14 +4,7 @@
  */
 
 function unitTestLintFilesMatching( predicate ) {
-  var filenames = _.filter( $( 'head script' ).map( function( i, script ) { return script.src; } ), function( src ) {
-    return src.indexOf( 'build-a-molecule/js' ) !== -1 ||
-           src.indexOf( 'scenery/js' ) !== -1 ||
-           src.indexOf( 'kite/js' ) !== -1 ||
-           src.indexOf( 'dot/js' ) !== -1 ||
-           src.indexOf( 'phet-core/js' ) !== -1 ||
-           src.indexOf( 'assert/js' ) !== -1;
-  } );
+  var filenames = _.filter( $( 'head script' ).map( function( i, script ) { return script.src; } ), predicate );
   
   var options = window.jshintOptions;
   var globals = window.jshintGlobals;
