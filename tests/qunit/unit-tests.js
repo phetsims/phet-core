@@ -13,4 +13,5 @@ function runPhetCoreTests( pathToTestBase ) {
   }
   
   loadTestFile( 'js/core-tests.js' );
+  loadTestFile( 'js/linting.js' );
 };
