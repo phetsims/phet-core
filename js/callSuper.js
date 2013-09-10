@@ -25,7 +25,7 @@ define( function( require ) {
    * SubType.prototype = new SuperType(); // prototype chaining
    *
    * SubType.prototype.reset = function() {
-   *     Inheritance.callSuper( SuperType, "reset", this ); // call overridden super method
+   *     callSuper( SuperType, "reset", this ); // call overridden super method
    *     // do subtype-specific stuff
    * }
    * </code>
