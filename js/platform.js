@@ -25,7 +25,7 @@ define( function( require ) {
     
     get ie9() { return isIE( 9 ); },
     get ie10() { return isIE( 10 ); },
-    get ie() { return navigator.userAgent.indexOf( 'MSIE' ); },
+    get ie() { return navigator.userAgent.indexOf( 'MSIE' ) !== -1; },
     
     // from HomeScreen
     get android() { return navigator.userAgent.indexOf( 'Android' ) > 0; }
