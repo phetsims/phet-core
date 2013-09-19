@@ -6,7 +6,7 @@ require.config( {
   deps: [ 'main' ],
 
   paths: {
-    underscore: '../lib/lodash.min-1.0.0-rc.3',
+    underscore: '../../sherpa/lodash-2.0.0',
     PHET_CORE: '.'
   },
   
