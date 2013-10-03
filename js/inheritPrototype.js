@@ -7,6 +7,8 @@
  */
 define( function( require ) {
   'use strict';
+  
+  var core = require( 'PHET_CORE/core' );
 
   /**
    * Use this function to do prototype chaining using Parasitic Combination Inheritance.
@@ -28,11 +30,11 @@ define( function( require ) {
    * <br>
    * (source: JavaScript for Web Developers, N. Zakas, Wrox Press, p. 212-215)
    */
-  function inheritPrototype( subtype, supertype ) {
+  var inheritPrototype = core.inheritPrototype = function inheritPrototype( subtype, supertype ) {
     var prototype = Object( supertype.prototype ); // create a clone of the supertype's prototype
     prototype.constructor = subtype; // account for losing the default constructor when prototype is overwritten
     subtype.prototype = prototype; // assign cloned prototype to subtype
-  }
+  };
 
   return inheritPrototype;
 } );

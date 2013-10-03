@@ -16,11 +16,14 @@
  */
 define( function( require ) {
   'use strict';
+  
+  var core = require( 'PHET_CORE/core' );
+  
   var stack = [];
   var results = {};
   var count = 0;
   var listeners = [];
-  var profiler = {
+  var profiler = core.profiler = {
     displayCount: 1000,
     start: function( name ) {
       var time = Date.now();

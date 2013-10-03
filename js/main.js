@@ -1,17 +1,19 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
-define( function( require ) {
-  'use strict';
-  
-  return {
-    collect: require( 'PHET_CORE/collect' ),
-    escapeHTML: require( 'PHET_CORE/escapeHTML' ),
-    inherit: require( 'PHET_CORE/inherit' ),
-    inheritPrototype: require( 'PHET_CORE/inheritPrototype' ),
-    isArray: require( 'PHET_CORE/isArray' ),
-    extend: require( 'PHET_CORE/extend' ),
-    loadScript: require( 'PHET_CORE/loadScript' ),
-    phetAllocation: require( 'PHET_CORE/phetAllocation' ),
-    Poolable: require( 'PHET_CORE/Poolable' )
-  };
+define( [
+  'PHET_CORE/core',
+  'PHET_CORE/collect',
+  'PHET_CORE/escapeHTML',
+  'PHET_CORE/extend',
+  'PHET_CORE/inherit',
+  'PHET_CORE/inheritPrototype',
+  'PHET_CORE/isArray',
+  'PHET_CORE/loadScript',
+  'PHET_CORE/phetAllocation',
+  'PHET_CORE/platform',
+  'PHET_CORE/Poolable',
+  'PHET_CORE/profiler'
+  ], function( core ) {
+    'use strict';
+    return core;
 } );

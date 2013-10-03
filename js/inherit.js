@@ -8,6 +8,7 @@
 define( function( require ) {
   'use strict';
   
+  var core = require( 'PHET_CORE/core' );
   var extend = require( 'PHET_CORE/extend' );
   
   /**
@@ -33,7 +34,9 @@ define( function( require ) {
    * @param prototypeProperties [optional] object containing properties that will be set on the prototype.
    * @param staticProperties [optional] object containing properties that will be set on the constructor function itself
    */
-  function inherit( supertype, subtype, prototypeProperties, staticProperties ) {
+  var inherit = core.inherit = function inherit( supertype, subtype, prototypeProperties, staticProperties ) {
+    assert && assert( typeof supertype === 'function' );
+    
     function F() {}
     F.prototype = supertype.prototype; // so new F().__proto__ === supertype.prototype
     
@@ -47,7 +50,7 @@ define( function( require ) {
     extend( subtype, staticProperties );
     
     return subtype; // pass back the subtype so it can be returned immediately as a module export
-  }
+  };
 
   return inherit;
 } );

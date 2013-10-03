@@ -9,12 +9,13 @@
 define( function( require ) {
   'use strict';
   
+  var core = require( 'PHET_CORE/core' );
   var extend = require( 'PHET_CORE/extend' );
   
   /*
    * For option details, please see documentation inside this constructor body for now
    */
-  return function Poolable( type, options ) {
+  var Poolable = core.Poolable = function Poolable( type, options ) {
     var proto = type.prototype;
     
     // defaults
@@ -77,4 +78,5 @@ define( function( require ) {
       }
     };
   };
+  return Poolable;
 } );

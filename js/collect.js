@@ -13,11 +13,15 @@
 define( function( require ) {
   'use strict';
   
-  return function collect( iterate ) {
+  var core = require( 'PHET_CORE/core' );
+  
+  var collect = core.collect = function collect( iterate ) {
+    assert && assert( typeof iterate === 'function' );
     var result = [];
     iterate( function( ob ) {
       result.push( ob );
     } );
     return result;
   };
+  return collect;
 } );

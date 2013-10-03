@@ -11,13 +11,15 @@
 define( function( require ) {
   'use strict';
   
+  var core = require( 'PHET_CORE/core' );
+  
   // taken from HomeScreen
   function isIE( version ) {
     var r = new RegExp( 'msie' + (!isNaN( version ) ? ('\\s' + version) : ''), 'i' );
     return r.test( navigator.userAgent );
   }
   
-  return {
+  var platform = core.platform = {
     get firefox() { return navigator.userAgent.toLowerCase().indexOf( 'firefox' ) > -1; },
 
     //see http://stackoverflow.com/questions/3007480/determine-if-user-navigated-from-mobile-safari
@@ -30,4 +32,5 @@ define( function( require ) {
     // from HomeScreen
     get android() { return navigator.userAgent.indexOf( 'Android' ) > 0; }
   };
+  return platform;
 } );

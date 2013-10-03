@@ -1,5 +1,11 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+if ( window.has ) {
+  // default config only enables basic assertions
+  window.has.add( 'assert.basic', function( global, document, anElement ) { 'use strict'; return true; } );
+  // window.has.add( 'assert.slow', function( global, document, anElement ) { 'use strict'; return true; } );
+}
+
 window.loadedPhetCoreConfig = true;
 
 require.config( {
@@ -7,7 +13,8 @@ require.config( {
 
   paths: {
     underscore: '../../sherpa/lodash-2.0.0',
-    PHET_CORE: '.'
+    PHET_CORE: '.',
+    ASSERT: '../../assert/js'
   },
   
   // shim: {

@@ -9,7 +9,9 @@
 define( function( require ) {
   'use strict';
   
-  return function phetAllocation( name ) {
+  var core = require( 'PHET_CORE/core' );
+  
+  var phetAllocation = core.phetAllocation = function phetAllocation( name ) {
     if ( window.alloc ) {
       var stack;
       try { throw new Error(); } catch ( e ) { stack = e.stack; }
@@ -34,4 +36,5 @@ define( function( require ) {
       };
     }
   };
+  return phetAllocation;
 } );

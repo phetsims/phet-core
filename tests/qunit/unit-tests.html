@@ -15,6 +15,10 @@
   <!-- CDN reference for now, so we don't pull in unneeded deps -->
   <script src="../../../sherpa/jquery-2.0.3.js"></script>
   <script src="../../../sherpa/has.js"></script>
+  <script type="text/javascript">
+    has.add( 'assert.basic', function( global, document, anElement ) { return true; } );
+    has.add( 'assert.slow', function( global, document, anElement ) { return true; } );
+  </script>
   <script src = "../../../sherpa/lodash-2.0.0.js"></script>
   <script type="text/javascript" src="../../../sherpa/jshint-2.1.2.js"></script>
   <script type="text/javascript" src="../../../sherpa/qhint.js"></script>

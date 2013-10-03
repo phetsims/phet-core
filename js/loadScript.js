@@ -9,6 +9,8 @@
 define( function( require ) {
   'use strict';
   
+  var core = require( 'PHET_CORE/core' );
+  
   /*
    * Load a script. The only required argument is src, and can be specified either as
    * loadScript( "<url>" ) or loadScript( { src: "<url>", ... other options ... } ).
@@ -19,7 +21,7 @@ define( function( require ) {
    *   async:       Whether the script should be loaded asynchronously. Defaults to true
    *   cacheBuster: Whether the URL should have an appended query string to work around caches
    */
-  return function loadScript( args ) {
+  var loadScript = core.loadScript = function loadScript( args ) {
     // handle a string argument
     if ( typeof args === 'string' ) {
       args = { src: args };
@@ -56,4 +58,5 @@ define( function( require ) {
     var other = document.getElementsByTagName( 'script' )[0];
     other.parentNode.insertBefore( script, other );
   };
+  return loadScript;
 } );
