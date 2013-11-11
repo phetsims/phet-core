@@ -3,6 +3,14 @@
 /**
  * Object instance allocation tracking, so we can cut down on garbage collection.
  *
+ * Sample usage:
+ * 1. Run the sim and set up the scenario that you wish to profile
+ * 2. In the JS console, type: window.alloc={}
+ * 3. Wait until you have taken enough data
+ * 4. Type x = window.alloc; delete window.alloc;
+ *
+ * Now you can inspect the x variable which contains the allocation information.
+ *
  * @author Jonathan Olson <olsonsjc@gmail.com>
  */
 
