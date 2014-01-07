@@ -16,9 +16,9 @@
  */
 define( function( require ) {
   'use strict';
-  
+
   var core = require( 'PHET_CORE/core' );
-  
+
   var stack = [];
   var results = {};
   var count = 0;
@@ -71,6 +71,7 @@ define( function( require ) {
 
     //sanity test
     testSelf: function() {
+      var a, b;
       var profiler = this;
       this.displayCount = 10000000;//Only show final result
       for ( var i = 0; i < 10; i++ ) {
@@ -78,18 +79,19 @@ define( function( require ) {
         for ( var k = 0; k < 10000; k++ ) {
           profiler.start( 'mloop' );
           for ( var m = 0; m < 10000; m++ ) {
-            var a = 100 * 200;
+            a = 100 * 200;
           }
           profiler.stop();
           profiler.start( 'xloop' );
           for ( var x = 0; x < 20000; x++ ) {
-            var b = 100 * 200;
+            b = 100 * 200;
           }
           profiler.stop();
         }
         profiler.stop();
       }
 
+      console.log( 'results: ', a, b );
       console.log( JSON.stringify( this.toJSON() ) );
 
       //sample correct output on chrome: {"mloop":{"average":0.01675,"count":100000},"xloop":{"average":0.03254,"count":100000},"physics":{"average":498.9,"count":10}}
