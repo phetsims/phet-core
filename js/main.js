@@ -6,7 +6,6 @@ define( [
   'PHET_CORE/escapeHTML',
   'PHET_CORE/extend',
   'PHET_CORE/inherit',
-  'PHET_CORE/inheritPrototype',
   'PHET_CORE/isArray',
   'PHET_CORE/loadScript',
   'PHET_CORE/phetAllocation',
