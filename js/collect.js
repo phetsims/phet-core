@@ -7,7 +7,7 @@
  * collect( function( callback ) { f( callback ); } );
  * will return [1,2,3].
  *
- * @author Jonathan Olson <olsonsjc@gmail.com>
+ * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
 define( function( require ) {

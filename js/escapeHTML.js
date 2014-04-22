@@ -5,7 +5,7 @@
  *
  * This is NOT for escaping something in other HTML contexts, for example as an attribute value
  *
- * @author Jonathan Olson <olsonsjc@gmail.com>
+ * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 define( function( require ) {
   'use strict';

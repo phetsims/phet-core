@@ -5,7 +5,7 @@
  *
  * See https://github.com/documentcloud/underscore/pull/986.
  *
- * @author Jonathan Olson <olsonsjc@gmail.com>
+ * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
 define( function( require ) {
