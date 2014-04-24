@@ -53,4 +53,15 @@
     equal( Warrior.getWarriorCastle(), 'camelot', 'access static method on the constructor method' );
     equal( Warrior.totalWarriorCount, 1234, 'es5 get/set should work on statics' );
   } );
+
+  test( 'cleanArray', function() {
+    ok( core.cleanArray().length === 0, 'Given no argument, should return a fresh empty array' );
+    ok( core.cleanArray( undefined ).length === 0, 'Given undefined, should return a fresh empty array' );
+    ok( core.cleanArray( null ).length === 0, 'Given null, should return a fresh empty array' );
+    var arr1 = ['5'];
+    var arr2 = core.cleanArray( arr1 );
+    ok( arr1 === arr2, 'Should use the same array object provided' );
+    ok( arr2.length === 0, 'Should empty it out' );
+    ok( arr1.length === 0, 'Also empties the original (sanity check)' );
+  } );
 })();

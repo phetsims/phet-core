@@ -2,6 +2,7 @@
 
 define( [
   'PHET_CORE/core',
+  'PHET_CORE/cleanArray',
   'PHET_CORE/collect',
   'PHET_CORE/escapeHTML',
   'PHET_CORE/extend',
