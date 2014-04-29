@@ -16,23 +16,25 @@
 
 define( function( require ) {
   'use strict';
-  
+
   var core = require( 'PHET_CORE/core' );
-  
+
   var phetAllocation = core.phetAllocation = function phetAllocation( name ) {
     if ( window.alloc ) {
       var stack;
-      try { throw new Error(); } catch ( e ) { stack = e.stack; }
-      
+      try { throw new Error(); }
+      catch( e ) { stack = e.stack; }
+
       if ( !window.alloc[name] ) {
         window.alloc[name] = { count: 0, stacks: {} };
       }
       var log = window.alloc[name];
-      
+
       log.count++;
       if ( !log.stacks[stack] ) {
         log.stacks[stack] = 1;
-      } else {
+      }
+      else {
         log.stacks[stack] += 1;
       }
       log.report = function() {
