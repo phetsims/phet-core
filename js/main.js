@@ -4,6 +4,7 @@ define( [
   'PHET_CORE/core',
   'PHET_CORE/cleanArray',
   'PHET_CORE/collect',
+  'PHET_CORE/detectPrefix',
   'PHET_CORE/escapeHTML',
   'PHET_CORE/extend',
   'PHET_CORE/inherit',
