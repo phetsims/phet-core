@@ -14,6 +14,7 @@ define( function( require ) {
   
   var core = require( 'PHET_CORE/core' );
   
+  // @returns the best String str where obj[str] !== undefined, or returns undefined if that is not available
   var detectPrefix = core.detectPrefix = function detectPrefix( obj, name ) {
     if ( obj[name] !== undefined ) { return name; }
     
