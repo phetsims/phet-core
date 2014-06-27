@@ -16,7 +16,7 @@ require.config( {
     PHET_CORE: '.',
     ASSERT: '../../assert/js'
   },
-  
+
   // shim: {
   //   underscore: { exports: '_' }
   // },

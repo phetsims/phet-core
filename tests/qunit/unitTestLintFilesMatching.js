@@ -5,7 +5,7 @@
 
 function unitTestLintFilesMatching( predicate ) {
   var filenames = _.filter( $( 'head script' ).map( function( i, script ) { return script.src; } ), predicate );
-  
+
   var options = window.jshintOptions;
   var globals = window.jshintGlobals;
   if ( options && globals ) {

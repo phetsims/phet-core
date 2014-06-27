@@ -64,24 +64,24 @@
     ok( arr2.length === 0, 'Should empty it out' );
     ok( arr1.length === 0, 'Also empties the original (sanity check)' );
   } );
-  
+
   test( 'detectPrefix', function() {
     var obj = {
       'main': false,
       'mozProp': ''
     };
-    
+
     equal( core.detectPrefix( obj, 'main' ), 'main' );
     equal( core.detectPrefix( obj, 'prop' ), 'mozProp' );
     equal( core.detectPrefix( obj, 'nothing' ), undefined );
   } );
-  
+
   test( 'detectPrefixEvent', function() {
     var obj = {
       'onmain': false,
       'onmozprop': ''
     };
-    
+
     equal( core.detectPrefixEvent( obj, 'main' ), 'main' );
     equal( core.detectPrefixEvent( obj, 'prop' ), 'mozprop' );
     equal( core.detectPrefixEvent( obj, 'nothing' ), undefined );

@@ -12,9 +12,9 @@
 
 define( function( require ) {
   'use strict';
-  
+
   var core = require( 'PHET_CORE/core' );
-  
+
   var collect = core.collect = function collect( iterate ) {
     assert && assert( typeof iterate === 'function' );
     var result = [];

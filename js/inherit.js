@@ -7,10 +7,10 @@
  */
 define( function( require ) {
   'use strict';
-  
+
   var core = require( 'PHET_CORE/core' );
   var extend = require( 'PHET_CORE/extend' );
-  
+
   /**
    * Experimental inheritance prototype, similar to Inheritance.inheritPrototype, but maintains
    * supertype.prototype.constructor while properly copying ES5 getters and setters.
@@ -36,10 +36,10 @@ define( function( require ) {
    */
   var inherit = core.inherit = function inherit( supertype, subtype, prototypeProperties, staticProperties ) {
     assert && assert( typeof supertype === 'function' );
-    
+
     function F() {}
     F.prototype = supertype.prototype; // so new F().__proto__ === supertype.prototype
-    
+
     subtype.prototype = extend( // extend will combine the properties and constructor into the new F copy
       new F(),                  // so new F().__proto__ === supertype.prototype, and the prototype chain is set up nicely
       { constructor: subtype }, // overrides the constructor properly
@@ -48,7 +48,7 @@ define( function( require ) {
 
     //Copy the static properties onto the subtype constructor so they can be accessed 'statically'
     extend( subtype, staticProperties );
-    
+
     return subtype; // pass back the subtype so it can be returned immediately as a module export
   };
 

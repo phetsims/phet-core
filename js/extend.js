@@ -10,9 +10,9 @@
 
 define( function( require ) {
   'use strict';
-  
+
   var core = require( 'PHET_CORE/core' );
-  
+
   var extend = core.extend = function extend( obj ) {
     _.each( Array.prototype.slice.call( arguments, 1 ), function( source ) {
       if ( source ) {

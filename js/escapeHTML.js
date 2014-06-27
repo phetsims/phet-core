@@ -9,9 +9,9 @@
  */
 define( function( require ) {
   'use strict';
-  
+
   var core = require( 'PHET_CORE/core' );
-  
+
   var escapeHTML = core.escapeHTML = function escapeHTML( str ) {
     // see https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet
     // HTML Entity Encoding

@@ -8,24 +8,24 @@
 
 define( function( require ) {
   'use strict';
-  
+
   var core = require( 'PHET_CORE/core' );
   var extend = require( 'PHET_CORE/extend' );
-  
+
   /*
    * For option details, please see documentation inside this constructor body for now
    */
   var Poolable = core.Poolable = function Poolable( type, options ) {
     var proto = type.prototype;
-    
+
     // defaults
     options = extend( {
       maxPoolSize: 50, // since we don't want to blow too much memory
       initialSize: 0
     }, options );
-    
+
     var pool = type.pool = [];
-    
+
     /*
      * For example: defaultFactory: function() { return new Vector2(); }
      */
@@ -39,7 +39,7 @@ define( function( require ) {
           return options.defaultFactory();
         }
       };
-      
+
       // fills the object pool up to n instances
       type.fillPool = function( n ) {
         // fill up the object pool to the initial size
@@ -47,11 +47,11 @@ define( function( require ) {
           pool.push( options.defaultFactory() );
         }
       };
-      
+
       // fill the pool initially to the initial size
       type.fillPool( options.initialSize );
     }
-    
+
     /*
      * For example: constructorDuplicateFactory:
      *                function( pool ) {
@@ -68,7 +68,7 @@ define( function( require ) {
     if ( options.constructorDuplicateFactory ) {
       type.createFromPool = options.constructorDuplicateFactory( pool );
     }
-    
+
     /*
      * Frees the object to the pool (instance.freeToPool())
      */

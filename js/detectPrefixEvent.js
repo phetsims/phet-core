@@ -11,13 +11,13 @@
 
 define( function( require ) {
   'use strict';
-  
+
   var core = require( 'PHET_CORE/core' );
-  
+
   // @returns the best String str where obj['on'+str] !== undefined, or returns undefined if that is not available
   var detectPrefixEvent = core.detectPrefixEvent = function detectPrefixEvent( obj, name, isEvent ) {
     if ( obj['on' + name] !== undefined ) { return name; }
-    
+
     // Chrome planning to not introduce prefixes in the future, hopefully we will be safe
     if ( obj['on' + 'moz' + name] !== undefined ) { return 'moz' + name; }
     if ( obj['on' + 'Moz' + name] !== undefined ) { return 'Moz' + name; } // some prefixes seem to have all-caps?
@@ -26,6 +26,6 @@ define( function( require ) {
     if ( obj['on' + 'o' + name] !== undefined ) { return 'o' + name; }
     return undefined;
   };
-  
+
   return detectPrefixEvent;
 } );

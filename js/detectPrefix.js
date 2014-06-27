@@ -11,16 +11,16 @@
 
 define( function( require ) {
   'use strict';
-  
+
   var core = require( 'PHET_CORE/core' );
-  
+
   // @returns the best String str where obj[str] !== undefined, or returns undefined if that is not available
   var detectPrefix = core.detectPrefix = function detectPrefix( obj, name ) {
     if ( obj[name] !== undefined ) { return name; }
-    
+
     // prepare for camelCase
     name = name.charAt( 0 ).toUpperCase() + name.slice( 1 );
-    
+
     // Chrome planning to not introduce prefixes in the future, hopefully we will be safe
     if ( obj['moz' + name] !== undefined ) { return 'moz' + name; }
     if ( obj['Moz' + name] !== undefined ) { return 'Moz' + name; } // some prefixes seem to have all-caps?
@@ -29,6 +29,6 @@ define( function( require ) {
     if ( obj['o' + name] !== undefined ) { return 'o' + name; }
     return undefined;
   };
-  
+
   return detectPrefix;
 } );
