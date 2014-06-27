@@ -1,4 +1,3 @@
-
 // path to test base, without a slash, e.g. '../../common/phet-core/tests/qunit'
 function runPhetCoreTests( pathToTestBase ) {
   function loadTestFile( src ) {
@@ -14,4 +13,4 @@ function runPhetCoreTests( pathToTestBase ) {
 
   loadTestFile( 'js/core-tests.js' );
   loadTestFile( 'js/linting.js' );
-};
+}

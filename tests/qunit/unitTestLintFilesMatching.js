@@ -1,4 +1,3 @@
-
 /*
  * Meant to be called in qUnit modules to run linting tests
  */
@@ -15,7 +14,8 @@ function unitTestLintFilesMatching( predicate ) {
       lib = lib.slice( lib.lastIndexOf( '/' ) + 1 );
       qHint( lib + ': ' + name, filename, options, globals );
     } );
-  } else {
+  }
+  else {
     test( 'Linter options', function() {
       equal( 0, 1, 'Linter options missing' );
     } );

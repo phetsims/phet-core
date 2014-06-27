@@ -15,12 +15,13 @@ define( function( require ) {
   var escapeHTML = core.escapeHTML = function escapeHTML( str ) {
     // see https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet
     // HTML Entity Encoding
-    return str.replace( /&/g, '&amp;' )
-              .replace( /</g, '&lt;' )
-              .replace( />/g, '&gt;' )
-              .replace( /\"/g, '&quot;' )
-              .replace( /\'/g, '&#x27;' )
-              .replace( /\//g, '&#x2F;' );
+    return str
+      .replace( /&/g, '&amp;' )
+      .replace( /</g, '&lt;' )
+      .replace( />/g, '&gt;' )
+      .replace( /\"/g, '&quot;' )
+      .replace( /\'/g, '&#x27;' )
+      .replace( /\//g, '&#x2F;' );
   };
   return escapeHTML;
 } );

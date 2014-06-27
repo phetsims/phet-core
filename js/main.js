@@ -15,7 +15,7 @@ define( [
   'PHET_CORE/platform',
   'PHET_CORE/Poolable',
   'PHET_CORE/profiler'
-  ], function( core ) {
-    'use strict';
-    return core;
+], function( core ) {
+  'use strict';
+  return core;
 } );

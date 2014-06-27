@@ -22,7 +22,8 @@ define( function( require ) {
         arr.pop();
       }
       return arr;
-    } else {
+    }
+    else {
       return [];
     }
   };

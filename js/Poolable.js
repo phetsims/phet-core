@@ -34,7 +34,8 @@ define( function( require ) {
         if ( pool.length ) {
           // return an instance in an arbitrary (dirty) state
           return pool.pop();
-        } else {
+        }
+        else {
           // else return a new default instance
           return options.defaultFactory();
         }

@@ -20,7 +20,7 @@ define( function( require ) {
           Object.defineProperty( obj, prop, Object.getOwnPropertyDescriptor( source, prop ) );
         }
       }
-    });
+    } );
     return obj;
   };
   return extend;

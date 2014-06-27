@@ -38,6 +38,7 @@ define( function( require ) {
     assert && assert( typeof supertype === 'function' );
 
     function F() {}
+
     F.prototype = supertype.prototype; // so new F().__proto__ === supertype.prototype
 
     subtype.prototype = extend( // extend will combine the properties and constructor into the new F copy

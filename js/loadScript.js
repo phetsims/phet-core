@@ -27,9 +27,9 @@ define( function( require ) {
       args = { src: args };
     }
 
-    var src         = args.src;
-    var callback    = args.callback;
-    var async       = args.async === undefined ? true : args.async;
+    var src = args.src;
+    var callback = args.callback;
+    var async = args.async === undefined ? true : args.async;
     var cacheBuster = args.cacheBuster === undefined ? false : args.cacheBuster;
 
     var called = false;
