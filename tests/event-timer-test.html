@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <title>EventTimer test</title>
+
+  <script src="../../sherpa/lodash-2.4.1.js"></script>
+  <script src="../../sherpa/has.js"></script>
+
+  <script data-main="../js/config.js" src="../../sherpa/require-2.1.11.js"></script>
+
+</head>
+<body>
+  <p>
+    Top: using ConstantEventModel (constant period between events)<br>
+    Middle: using UniformEventModel (uniformly random period between events)<br>
+    Bottom: using PoissonEventModel (poisson process, exponential distribution between events)
+  </p>
+  <script>
+    /*---------------------------------------------------------------------------*
+     * window.requestAnimationFrame polyfill, by Erik Moller (http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating)
+     * referenced by initial Paul Irish article at http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+     *----------------------------------------------------------------------------*/
+    var lastTime = 0;
+    var vendors = [ 'ms', 'moz', 'webkit', 'o' ];
+    for ( var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x ) {
+      window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+      window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
+    }
+
+    if ( !window.requestAnimationFrame ) {
+      window.requestAnimationFrame = function( callback ) {
+        var currTime = new Date().getTime();
+        var timeToCall = Math.max( 0, 16 - (currTime - lastTime) );
+        var id = window.setTimeout( function() { callback( currTime + timeToCall ); },
+          timeToCall );
+        lastTime = currTime + timeToCall;
+        return id;
+      };
+    }
+
+    if ( !window.cancelAnimationFrame ) {
+      window.cancelAnimationFrame = function( id ) {
+        clearTimeout( id );
+      };
+    }
+
+    // we need to wait until our config file is loaded before our require statement. apparently this was not guaranteed
+    function check() {
+      if ( window.loadedPhetCoreConfig ) {
+        require( [ 'main' ], function( core ) {
+          window.core = core;
+
+          var width = 512;
+          var height = 256;
+
+          var barHeight = 64;
+
+          var canvas = document.createElement( 'canvas' );
+          canvas.width = width;
+          canvas.height = height;
+          document.body.appendChild( canvas );
+
+          var context = canvas.getContext( '2d' );
+
+          context.fillStyle = '#eee';
+          context.fillRect( 0, 0, width, height );
+
+          var constantPositions = [];
+          var poissonPositions = [];
+          var uniformPositions = [];
+
+          var lastTime = 0;
+          var frameTimeElapsed = 0;
+
+          var totalConstantEvents = 0;
+          var totalPoissonEvents = 0;
+          var totalUniformEvents = 0;
+
+          var constantTimer = new core.EventTimer( new core.EventTimer.ConstantEventModel( 5 ), function( timeElapsed ) {
+            totalConstantEvents++;
+            constantPositions.unshift( timeElapsed );
+          } );
+
+          var poissonTimer = new core.EventTimer( new core.EventTimer.PoissonEventModel( 5, Math.random ), function( timeElapsed ) {
+            totalPoissonEvents++;
+            poissonPositions.unshift( timeElapsed );
+          } );
+
+          var uniformTimer = new core.EventTimer( new core.EventTimer.UniformEventModel( 5, Math.random ), function( timeElapsed ) {
+            totalUniformEvents++;
+            uniformPositions.unshift( timeElapsed );
+          } );
+
+          var xMultiplier = 100;
+          var maxPosition = xMultiplier * width;
+
+          function advanceArray( arr, frameTimeElapsed ) {
+            for ( var i = arr.length - 1; i >= 0; i-- ) {
+              arr[i] += frameTimeElapsed;
+
+              // limit how long we display things
+              if ( arr[i] > maxPosition ) {
+                arr.pop();
+              }
+            }
+          }
+
+          ( function step() {
+            window.requestAnimationFrame( step, canvas );
+
+            // calculate how much time has elapsed since we rendered the last frame
+            var timeNow = new Date().getTime();
+            if ( lastTime !== 0 ) {
+              frameTimeElapsed = ( timeNow - lastTime ) / 1000.0;
+            }
+            lastTime = timeNow;
+
+            // constant-time update
+            advanceArray( constantPositions, frameTimeElapsed );
+            constantTimer.step( frameTimeElapsed );
+
+            // poisson update
+            advanceArray( poissonPositions, frameTimeElapsed );
+            poissonTimer.step( frameTimeElapsed );
+
+            // random offset update
+            advanceArray( uniformPositions, frameTimeElapsed );
+            uniformTimer.step( frameTimeElapsed );
+
+            context.strokeStyle = 'rgba(0,0,0,0.8)';
+            context.fillStyle = '#eee';
+            context.fillRect( 0, 0, width, height );
+
+            context.beginPath();
+            for ( var j = constantPositions.length; j >= 0; j-- ) {
+              var x = xMultiplier * constantPositions[j];
+              context.moveTo( x, 0 );
+              context.lineTo( x, barHeight );
+            }
+            for ( var l = uniformPositions.length; l >= 0; l-- ) {
+              var x = xMultiplier * uniformPositions[l];
+              context.moveTo( x, barHeight );
+              context.lineTo( x, 2 * barHeight );
+            }
+            for ( var k = poissonPositions.length; k >= 0; k-- ) {
+              var x = xMultiplier * poissonPositions[k];
+              context.moveTo( x, 2 * barHeight );
+              context.lineTo( x, 3 * barHeight );
+            }
+            context.stroke();
+
+            context.fillStyle = '#000';
+            context.font = '18px Arial';
+            context.fillText( 'Total event count: ' +
+                              totalConstantEvents + ' constant, ' +
+                              totalUniformEvents + ' uniform, ' +
+                              totalPoissonEvents + ' poisson' , 10, 4 * barHeight - 10 );
+          } )();
+        } );
+      } else {
+        setTimeout( check, 4 );
+      }
+    }
+    setTimeout( check, 4 );
+  </script>
+</body>
+</html>
