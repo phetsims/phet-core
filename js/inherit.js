@@ -1,7 +1,26 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Experimental prototype inheritance
+ * Utility function for setting up prototypal inheritance.
+ * Maintains supertype.prototype.constructor while properly copying ES5 getters and setters.
+ * Supports adding functions to both the prototype itself and the constructor function.
+ *
+ * Usage:
+ *
+ * // Call the supertype constructor somewhere in the subtype's constructor.
+ * function A() { scenery.Node.call( this ); };
+ *
+ * // Add prototype functions and/or 'static' functions
+ * inherit( scenery.Node, A, {
+ *   customBehavior: function() { ... },
+ *   isAnA: true
+ * }, {
+ *   someStaticFunction: function() { ...}
+ * } );
+ * new A().isAnA; // true
+ * new scenery.Node().isAnA; // undefined
+ * new A().constructor.name; // 'A'
+ * A.someStaticFunction();
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
@@ -12,25 +31,8 @@ define( function( require ) {
   var extend = require( 'PHET_CORE/extend' );
 
   /**
-   * Experimental inheritance prototype, similar to Inheritance.inheritPrototype, but maintains
-   * supertype.prototype.constructor while properly copying ES5 getters and setters.
-   *
-   * TODO: find problems with this! It's effectively what is being used by Scenery
-   * TODO: consider inspecting arguments to see whether they are functions or just objects, to support
-   *       something like inherit( subtype, supertypeA, supertypeB, properties )
-   *
-   * Usage:
-   * function A() { scenery.Node.call( this ); };
-   * inherit( scenery.Node, A, {
-   *   customBehavior: function() { ... },
-   *   isAnA: true
-   * } );
-   * new A().isAnA // true
-   * new scenery.Node().isAnA // undefined
-   * new A().constructor.name // 'A'
-   *
-   * @param subtype             Constructor for the subtype. Generally should contain supertype.call( this, ... )
    * @param supertype           Constructor for the supertype.
+   * @param subtype             Constructor for the subtype. Generally should contain supertype.call( this, ... )
    * @param prototypeProperties [optional] object containing properties that will be set on the prototype.
    * @param staticProperties [optional] object containing properties that will be set on the constructor function itself
    */
