@@ -11,12 +11,14 @@
  * function A() { scenery.Node.call( this ); };
  *
  * // Add prototype functions and/or 'static' functions
- * inherit( scenery.Node, A, {
+ * return inherit( scenery.Node, A, {
  *   customBehavior: function() { ... },
  *   isAnA: true
  * }, {
  *   someStaticFunction: function() { ...}
  * } );
+ *
+ * // client calls
  * new A().isAnA; // true
  * new scenery.Node().isAnA; // undefined
  * new A().constructor.name; // 'A'
