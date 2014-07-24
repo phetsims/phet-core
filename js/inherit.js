@@ -38,7 +38,7 @@ define( function( require ) {
    * @param prototypeProperties [optional] object containing properties that will be set on the prototype.
    * @param staticProperties [optional] object containing properties that will be set on the constructor function itself
    */
-  var inherit = core.inherit = function inherit( supertype, subtype, prototypeProperties, staticProperties ) {
+  core.inherit = function inherit( supertype, subtype, prototypeProperties, staticProperties ) {
     assert && assert( typeof supertype === 'function' );
 
     function F() {}
@@ -57,5 +57,5 @@ define( function( require ) {
     return subtype; // pass back the subtype so it can be returned immediately as a module export
   };
 
-  return inherit;
+  return core.inherit;
 } );
