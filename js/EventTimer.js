@@ -62,7 +62,7 @@ define( function( require ) {
    *    our event would have occurred 1 second into that step, the timeElapsed will be 4 seconds, since after the end
    *    of the 5 seconds the event would have happened 4 seconds ago.
    */
-  var EventTimer = core.EventTimer = function EventTimer( eventModel, eventCallback ) {
+  core.EventTimer = function EventTimer( eventModel, eventCallback ) {
     assert && assert( typeof eventCallback === 'function', 'EventTimer requires a callback' );
 
     this.eventModel = eventModel;
@@ -71,7 +71,7 @@ define( function( require ) {
     this.timeBeforeNextEvent = this.eventModel.getPeriodBeforeNextEvent();
   };
 
-  inherit( Object, EventTimer, {
+  inherit( Object, core.EventTimer, {
     step: function( dt ) {
       while ( dt >= this.timeBeforeNextEvent ) {
         dt -= this.timeBeforeNextEvent;
@@ -90,7 +90,7 @@ define( function( require ) {
    * Event model that will fire events at a constant rate. An event will occur every 1/rate time units.
    * @param {Number} rate
    */
-  EventTimer.ConstantEventModel = inherit( Object, function ConstantEventRate( rate ) {
+  core.EventTimer.ConstantEventModel = inherit( Object, function ConstantEventRate( rate ) {
     assert && assert( typeof rate === 'number',
       'The rate should be a number' );
     assert && assert( rate > 0,
@@ -110,7 +110,7 @@ define( function( require ) {
    * @param {Number} rate
    * @param {Function} pseudoRandomNumberSource() : Number
    */
-  EventTimer.UniformEventModel = inherit( Object, function UniformEventModel( rate, pseudoRandomNumberSource ) {
+  core.EventTimer.UniformEventModel = inherit( Object, function UniformEventModel( rate, pseudoRandomNumberSource ) {
     assert && assert( typeof rate === 'number',
       'The rate should be a number' );
     assert && assert( typeof pseudoRandomNumberSource === 'function',
@@ -138,7 +138,7 @@ define( function( require ) {
    * @param {Number} rate
    * @param {Function} pseudoRandomNumberSource() : Number
    */
-  EventTimer.PoissonEventModel = inherit( Object, function PoissonEventModel( rate, pseudoRandomNumberSource ) {
+  core.EventTimer.PoissonEventModel = inherit( Object, function PoissonEventModel( rate, pseudoRandomNumberSource ) {
     assert && assert( typeof rate === 'number',
       'The time between events should be a number' );
     assert && assert( typeof pseudoRandomNumberSource === 'function',
@@ -165,5 +165,5 @@ define( function( require ) {
     }
   } );
 
-  return EventTimer;
+  return core.EventTimer;
 } );

@@ -15,7 +15,7 @@ define( function( require ) {
   /*
    * For option details, please see documentation inside this constructor body for now
    */
-  var Poolable = core.Poolable = function Poolable( type, options ) {
+  core.Poolable = function Poolable( type, options ) {
     var proto = type.prototype;
 
     // defaults
@@ -79,5 +79,6 @@ define( function( require ) {
       }
     };
   };
-  return Poolable;
+
+  return core.Poolable;
 } );

@@ -12,7 +12,7 @@ define( function( require ) {
 
   var core = require( 'PHET_CORE/core' );
 
-  var cleanArray = core.cleanArray = function cleanArray( arr ) {
+  core.cleanArray = function cleanArray( arr ) {
     assert && assert( !arr || ( arr instanceof Array ), 'cleanArray either takes an Array' );
 
     if ( arr ) {
@@ -27,5 +27,6 @@ define( function( require ) {
       return [];
     }
   };
-  return cleanArray;
+
+  return core.cleanArray;
 } );

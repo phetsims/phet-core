@@ -23,7 +23,7 @@ define( function( require ) {
   var results = {};
   var count = 0;
   var listeners = [];
-  var profiler = core.profiler = {
+  core.profiler = {
     displayCount: 1000,
     start: function( name ) {
       var time = Date.now();
@@ -98,5 +98,5 @@ define( function( require ) {
     }
   };
 //  profiler.testSelf();
-  return profiler;
+  return core.profiler;
 } );

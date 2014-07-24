@@ -21,7 +21,7 @@ define( function( require ) {
     return r.test( ua );
   }
 
-  var platform = core.platform = {
+  core.platform = {
     get firefox() { return ua.toLowerCase().indexOf( 'firefox' ) > -1; },
 
     //see http://stackoverflow.com/questions/3007480/determine-if-user-navigated-from-mobile-safari
@@ -38,5 +38,6 @@ define( function( require ) {
     // from HomeScreen
     get android() { return ua.indexOf( 'Android' ) > 0; }
   };
-  return platform;
+
+  return core.platform;
 } );

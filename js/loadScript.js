@@ -21,7 +21,7 @@ define( function( require ) {
    *   async:       Whether the script should be loaded asynchronously. Defaults to true
    *   cacheBuster: Whether the URL should have an appended query string to work around caches
    */
-  var loadScript = core.loadScript = function loadScript( args ) {
+  core.loadScript = function loadScript( args ) {
     // handle a string argument
     if ( typeof args === 'string' ) {
       args = { src: args };
@@ -58,5 +58,6 @@ define( function( require ) {
     var other = document.getElementsByTagName( 'script' )[0];
     other.parentNode.insertBefore( script, other );
   };
-  return loadScript;
+
+  return core.loadScript;
 } );
