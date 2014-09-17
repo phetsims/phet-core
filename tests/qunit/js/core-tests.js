@@ -86,4 +86,17 @@
     equal( core.detectPrefixEvent( obj, 'prop' ), 'mozprop' );
     equal( core.detectPrefixEvent( obj, 'nothing' ), undefined );
   } );
+
+  test( 'pairs', function() {
+    equal( core.pairs( [] ).length, 0 );
+    equal( core.pairs( [ 'a' ] ).length, 0 );
+    equal( core.pairs( [ 'a', 'b' ] ).length, 1 );
+    equal( core.pairs( [ 'a', 'b', 'c' ] ).length, 3 );
+    equal( core.pairs( [ 'a', 'b', 'c' ] )[0][0], 'a' );
+    equal( core.pairs( [ 'a', 'b', 'c' ] )[0][1], 'b' );
+    equal( core.pairs( [ 'a', 'b', 'c' ] )[1][0], 'a' );
+    equal( core.pairs( [ 'a', 'b', 'c' ] )[1][1], 'c' );
+    equal( core.pairs( [ 'a', 'b', 'c' ] )[2][0], 'b' );
+    equal( core.pairs( [ 'a', 'b', 'c' ] )[2][1], 'c' );
+  } );
 })();
