@@ -57,7 +57,7 @@ define( function( require ) {
    *
    * @param {Object with getPeriodBeforeNextEvent(): Number} eventModel: getPeriodBeforeNextEvent() will be called at
    *    the start and after every event to determine the time required to pass by before the next event occurs.
-   * @param {Function} eventCallback( timeElapsed ): Will be called for every event. The timeElapsed passed in as the
+   * @param {function} eventCallback( timeElapsed ): Will be called for every event. The timeElapsed passed in as the
    *    only argument denotes the time elapsed since the event would have occurred. E.g. if we step for 5 seconds and
    *    our event would have occurred 1 second into that step, the timeElapsed will be 4 seconds, since after the end
    *    of the 5 seconds the event would have happened 4 seconds ago.
@@ -88,7 +88,7 @@ define( function( require ) {
 
   /*
    * Event model that will fire events at a constant rate. An event will occur every 1/rate time units.
-   * @param {Number} rate
+   * @param {number} rate
    */
   core.EventTimer.ConstantEventModel = inherit( Object, function ConstantEventRate( rate ) {
     assert && assert( typeof rate === 'number',
@@ -107,8 +107,8 @@ define( function( require ) {
    * Event model that will fire events averaging a certain rate, but with the time between events being uniformly
    * random.
    * The pseudoRandomNumberSource, when called, should generate uniformly distributed random numbers in the range [0,1).
-   * @param {Number} rate
-   * @param {Function} pseudoRandomNumberSource() : Number
+   * @param {number} rate
+   * @param {function} pseudoRandomNumberSource() : Number
    */
   core.EventTimer.UniformEventModel = inherit( Object, function UniformEventModel( rate, pseudoRandomNumberSource ) {
     assert && assert( typeof rate === 'number',
@@ -135,8 +135,8 @@ define( function( require ) {
   /*
    * Event model that will fire events corresponding to a Poisson process with the specified rate.
    * The pseudoRandomNumberSource, when called, should generate uniformly distributed random numbers in the range [0,1).
-   * @param {Number} rate
-   * @param {Function} pseudoRandomNumberSource() : Number
+   * @param {number} rate
+   * @param {function} pseudoRandomNumberSource() : Number
    */
   core.EventTimer.PoissonEventModel = inherit( Object, function PoissonEventModel( rate, pseudoRandomNumberSource ) {
     assert && assert( typeof rate === 'number',
