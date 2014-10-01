@@ -136,7 +136,7 @@ define( function( require ) {
    * Event model that will fire events corresponding to a Poisson process with the specified rate.
    * The pseudoRandomNumberSource, when called, should generate uniformly distributed random numbers in the range [0,1).
    * @param {number} rate
-   * @param {function} pseudoRandomNumberSource() : Number
+   * @param {function} pseudoRandomNumberSource() : number
    */
   core.EventTimer.PoissonEventModel = inherit( Object, function PoissonEventModel( rate, pseudoRandomNumberSource ) {
     assert && assert( typeof rate === 'number',
