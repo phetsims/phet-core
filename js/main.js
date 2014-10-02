@@ -13,6 +13,7 @@ define( [
   'PHET_CORE/isArray',
   'PHET_CORE/loadScript',
   'PHET_CORE/pairs',
+  'PHET_CORE/partition',
   'PHET_CORE/phetAllocation',
   'PHET_CORE/platform',
   'PHET_CORE/Poolable',

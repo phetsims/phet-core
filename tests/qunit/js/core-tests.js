@@ -99,4 +99,12 @@
     equal( core.pairs( [ 'a', 'b', 'c' ] )[2][0], 'b' );
     equal( core.pairs( [ 'a', 'b', 'c' ] )[2][1], 'c' );
   } );
+
+  test( 'partition', function() {
+    var parityTest = core.partition( [1,2,3,4], function( n ) { return n % 2 === 0; } );
+    equal( parityTest[0][0], 2 );
+    equal( parityTest[0][1], 4 );
+    equal( parityTest[1][0], 1 );
+    equal( parityTest[1][1], 3 );
+  } );
 })();
