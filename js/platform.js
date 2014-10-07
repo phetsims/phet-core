@@ -55,7 +55,9 @@ define( function( require ) {
     get ie() { return getInternetExplorerVersion() !== -1; },
 
     // from HomeScreen
-    get android() { return ua.indexOf( 'Android' ) > 0; }
+    get android() { return ua.indexOf( 'Android' ) > 0; },
+
+    get chromium() { return /chrom(e|ium)/.test( ua.toLowerCase() ); }
   };
 
   return core.platform;
