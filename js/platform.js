@@ -57,7 +57,7 @@ define( function( require ) {
     // from HomeScreen
     get android() { return ua.indexOf( 'Android' ) > 0; },
 
-    get chromium() { return /chrom(e|ium)/.test( ua.toLowerCase() ); }
+    get chromium() { return (/chrom(e|ium)/).test( ua.toLowerCase() ); }
   };
 
   return core.platform;
