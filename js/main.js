@@ -2,6 +2,7 @@
 
 define( [
   'PHET_CORE/core',
+  'PHET_CORE/arrayRemove',
   'PHET_CORE/cleanArray',
   'PHET_CORE/collect',
   'PHET_CORE/detectPrefix',

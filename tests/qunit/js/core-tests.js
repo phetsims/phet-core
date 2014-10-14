@@ -107,4 +107,27 @@
     equal( parityTest[1][0], 1 );
     equal( parityTest[1][1], 3 );
   } );
+
+  test( 'arrayRemove', function() {
+    var arr = [4,3,2,1,3];
+    core.arrayRemove( arr, 3 );
+
+    equal( arr[0], 4 );
+    equal( arr[1], 2 );
+    equal( arr[2], 1 );
+    equal( arr[3], 3 ); // doesn't remove the second instance
+    equal( arr.length, 4 );
+
+    // check reference removal
+    var a = {};
+    var b = {};
+    var c = {};
+
+    arr = [a,b,c];
+    core.arrayRemove( arr, b );
+
+    equal( arr[0], a );
+    equal( arr[1], c );
+    equal( arr.length, 2 );
+  } );
 })();
