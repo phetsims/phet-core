@@ -15,7 +15,7 @@ define( function( require ) {
   /*
    * For option details, please see documentation inside this constructor body for now
    */
-  core.Poolable = function Poolable( type, options ) {
+  core.PoolableMixin = function PoolableMixin( type, options ) {
     var proto = type.prototype;
 
     // defaults
@@ -80,5 +80,5 @@ define( function( require ) {
     };
   };
 
-  return core.Poolable;
+  return core.PoolableMixin;
 } );
