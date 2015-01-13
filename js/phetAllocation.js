@@ -25,23 +25,23 @@ define( function( require ) {
       try { throw new Error(); }
       catch( e ) { stack = e.stack; }
 
-      if ( !window.alloc[name] ) {
-        window.alloc[name] = { count: 0, stacks: {} };
+      if ( !window.alloc[ name ] ) {
+        window.alloc[ name ] = { count: 0, stacks: {} };
       }
-      var log = window.alloc[name];
+      var log = window.alloc[ name ];
 
       log.count++;
-      if ( !log.stacks[stack] ) {
-        log.stacks[stack] = 1;
+      if ( !log.stacks[ stack ] ) {
+        log.stacks[ stack ] = 1;
       }
       else {
-        log.stacks[stack] += 1;
+        log.stacks[ stack ] += 1;
       }
       log.report = function() {
         var stacks = Object.keys( log.stacks );
-        stacks = _.sortBy( stacks, function( key ) { return log.stacks[key]; } );
+        stacks = _.sortBy( stacks, function( key ) { return log.stacks[ key ]; } );
         _.each( stacks, function( stack ) {
-          console.log( log.stacks[stack] + ': ' + stack );
+          console.log( log.stacks[ stack ] + ': ' + stack );
         } );
       };
     }

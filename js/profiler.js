@@ -27,7 +27,7 @@ define( function( require ) {
     displayCount: 1000,
     start: function( name ) {
       var time = Date.now();
-      stack.push( {name: name, time: time} );
+      stack.push( { name: name, time: time } );
     },
     addListener: function( listener ) {
       listeners.push( listener );
@@ -36,11 +36,11 @@ define( function( require ) {
       var end = Date.now();
       var top = stack.pop();
       var elapsed = end - top.time;
-      if ( !results[top.name] ) {
-        results[top.name] = [];
+      if ( !results[ top.name ] ) {
+        results[ top.name ] = [];
       }
       //TODO: this may be a memory problem, consider coalescing (averaging or summing) values here
-      results[top.name].push( elapsed );
+      results[ top.name ].push( elapsed );
       count++;
       if ( count % this.displayCount === 0 ) {
         var summary = JSON.stringify( this.toJSON() );
@@ -49,7 +49,7 @@ define( function( require ) {
 
         //Also notify listeners that a new result was obtained
         for ( var i = 0; i < listeners.length; i++ ) {
-          listeners[i]( summary );
+          listeners[ i ]( summary );
         }
         results = {};
       }
@@ -59,12 +59,12 @@ define( function( require ) {
       var sum;
       for ( var property in results ) {
         sum = 0;
-        for ( var i = 0; i < results[property].length; i++ ) {
-          var time = results[property][i];
+        for ( var i = 0; i < results[ property ].length; i++ ) {
+          var time = results[ property ][ i ];
           sum += time;
         }
-        var average = sum / results[property].length;
-        summary[property] = {average: average, count: results[property].length};
+        var average = sum / results[ property ].length;
+        summary[ property ] = { average: average, count: results[ property ].length };
       }
       return summary;
     },

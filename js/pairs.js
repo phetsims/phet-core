@@ -19,9 +19,9 @@ define( function( require ) {
     var length = array.length;
     if ( length > 1 ) {
       for ( var i = 0; i < length - 1; i++ ) {
-        var first = array[i];
+        var first = array[ i ];
         for ( var j = i + 1; j < length; j++ ) {
-          result.push( [ first, array[j] ] );
+          result.push( [ first, array[ j ] ] );
         }
       }
     }

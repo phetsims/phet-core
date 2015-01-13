@@ -55,7 +55,7 @@ define( function( require ) {
     // make sure things aren't cached, just in case
     script.src = src + ( cacheBuster ? '?random=' + Math.random().toFixed( 10 ) : '' );
 
-    var other = document.getElementsByTagName( 'script' )[0];
+    var other = document.getElementsByTagName( 'script' )[ 0 ];
     other.parentNode.insertBefore( script, other );
   };
 

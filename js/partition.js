@@ -22,14 +22,15 @@ define( function( require ) {
     var unsatisfied = [];
     var length = array.length;
     for ( var i = 0; i < length; i++ ) {
-      if ( predicate( array[i] ) ) {
-        satisfied.push( array[i] );
-      } else {
-        unsatisfied.push( array[i] );
+      if ( predicate( array[ i ] ) ) {
+        satisfied.push( array[ i ] );
+      }
+      else {
+        unsatisfied.push( array[ i ] );
       }
     }
 
-    return [satisfied, unsatisfied];
+    return [ satisfied, unsatisfied ];
   };
   return core.partition;
 } );
