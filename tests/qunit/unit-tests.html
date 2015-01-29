@@ -3,7 +3,7 @@
 <!-- To run these tests, please launch this HTML file in a browser. It will use require.js to dynamically load the required files -->
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 
   <title>Unit tests for Phet-core</title>
   <link rel="stylesheet" href="../../../sherpa/qunit-1.14.0.css">
@@ -21,7 +21,7 @@
     window.assertions.enableAssert();
     window.assertions.enableAssertSlow();
   </script>
-  <script src = "../../../sherpa/lodash-2.4.1.js"></script>
+  <script src="../../../sherpa/lodash-2.4.1.js"></script>
   <script type="text/javascript" src="../../../sherpa/jshint-2.5.0.js"></script>
   <script type="text/javascript" src="../../../sherpa/qhint.js"></script>
 
@@ -39,31 +39,32 @@
 </head>
 <body>
 <!-- Where test results HTML is placed -->
-  <div id="qunit"></div>
+<div id="qunit"></div>
 <!-- Div for holding temporary HTML content needed by tests, which is reset by QUnit before every test -->
-  <div id="qunit-fixture"></div>
-  <script src="../../../sherpa/qunit-1.14.0.js"></script>
-  <script>
-    // QUnit.moduleDone( function( details ) {
-    //   collapseTests();
-    // } );
-  </script>
-  <script>
+<div id="qunit-fixture"></div>
+<script src="../../../sherpa/qunit-1.14.0.js"></script>
+<script>
+  // QUnit.moduleDone( function( details ) {
+  //   collapseTests();
+  // } );
+</script>
+<script>
 
-    // we need to wait until our config file is loaded before our require statement. apparently this was not guaranteed
-    function check() {
-      if ( window.loadedPhetCoreConfig ) {
-        require( [ 'main' ], function( core ) {
-          window.core = core;
+  // we need to wait until our config file is loaded before our require statement. apparently this was not guaranteed
+  function check() {
+    if ( window.loadedPhetCoreConfig ) {
+      require( [ 'main' ], function( core ) {
+        window.core = core;
 
-          runPhetCoreTests( '.' );
-        } );
-      } else {
-        setTimeout( check, 4 );
-      }
+        runPhetCoreTests( '.' );
+      } );
     }
-    setTimeout( check, 4 );
+    else {
+      setTimeout( check, 4 );
+    }
+  }
+  setTimeout( check, 4 );
 
-  </script>
+</script>
 </body>
 </html>

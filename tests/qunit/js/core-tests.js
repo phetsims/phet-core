@@ -58,7 +58,7 @@
     ok( core.cleanArray().length === 0, 'Given no argument, should return a fresh empty array' );
     ok( core.cleanArray( undefined ).length === 0, 'Given undefined, should return a fresh empty array' );
     ok( core.cleanArray( null ).length === 0, 'Given null, should return a fresh empty array' );
-    var arr1 = ['5'];
+    var arr1 = [ '5' ];
     var arr2 = core.cleanArray( arr1 );
     ok( arr1 === arr2, 'Should use the same array object provided' );
     ok( arr2.length === 0, 'Should empty it out' );
@@ -92,30 +92,30 @@
     equal( core.pairs( [ 'a' ] ).length, 0 );
     equal( core.pairs( [ 'a', 'b' ] ).length, 1 );
     equal( core.pairs( [ 'a', 'b', 'c' ] ).length, 3 );
-    equal( core.pairs( [ 'a', 'b', 'c' ] )[0][0], 'a' );
-    equal( core.pairs( [ 'a', 'b', 'c' ] )[0][1], 'b' );
-    equal( core.pairs( [ 'a', 'b', 'c' ] )[1][0], 'a' );
-    equal( core.pairs( [ 'a', 'b', 'c' ] )[1][1], 'c' );
-    equal( core.pairs( [ 'a', 'b', 'c' ] )[2][0], 'b' );
-    equal( core.pairs( [ 'a', 'b', 'c' ] )[2][1], 'c' );
+    equal( core.pairs( [ 'a', 'b', 'c' ] )[ 0 ][ 0 ], 'a' );
+    equal( core.pairs( [ 'a', 'b', 'c' ] )[ 0 ][ 1 ], 'b' );
+    equal( core.pairs( [ 'a', 'b', 'c' ] )[ 1 ][ 0 ], 'a' );
+    equal( core.pairs( [ 'a', 'b', 'c' ] )[ 1 ][ 1 ], 'c' );
+    equal( core.pairs( [ 'a', 'b', 'c' ] )[ 2 ][ 0 ], 'b' );
+    equal( core.pairs( [ 'a', 'b', 'c' ] )[ 2 ][ 1 ], 'c' );
   } );
 
   test( 'partition', function() {
-    var parityTest = core.partition( [1,2,3,4], function( n ) { return n % 2 === 0; } );
-    equal( parityTest[0][0], 2 );
-    equal( parityTest[0][1], 4 );
-    equal( parityTest[1][0], 1 );
-    equal( parityTest[1][1], 3 );
+    var parityTest = core.partition( [ 1, 2, 3, 4 ], function( n ) { return n % 2 === 0; } );
+    equal( parityTest[ 0 ][ 0 ], 2 );
+    equal( parityTest[ 0 ][ 1 ], 4 );
+    equal( parityTest[ 1 ][ 0 ], 1 );
+    equal( parityTest[ 1 ][ 1 ], 3 );
   } );
 
   test( 'arrayRemove', function() {
-    var arr = [4,3,2,1,3];
+    var arr = [ 4, 3, 2, 1, 3 ];
     core.arrayRemove( arr, 3 );
 
-    equal( arr[0], 4 );
-    equal( arr[1], 2 );
-    equal( arr[2], 1 );
-    equal( arr[3], 3 ); // doesn't remove the second instance
+    equal( arr[ 0 ], 4 );
+    equal( arr[ 1 ], 2 );
+    equal( arr[ 2 ], 1 );
+    equal( arr[ 3 ], 3 ); // doesn't remove the second instance
     equal( arr.length, 4 );
 
     // check reference removal
@@ -123,11 +123,11 @@
     var b = {};
     var c = {};
 
-    arr = [a,b,c];
+    arr = [ a, b, c ];
     core.arrayRemove( arr, b );
 
-    equal( arr[0], a );
-    equal( arr[1], c );
+    equal( arr[ 0 ], a );
+    equal( arr[ 1 ], c );
     equal( arr.length, 2 );
   } );
 })();
