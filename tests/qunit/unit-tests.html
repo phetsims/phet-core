@@ -31,11 +31,7 @@
   <script data-main="../../js/config.js" src="../../../sherpa/require-2.1.11.js"></script>
   <!-- Loads the code needed to run unit tests for each particular library/codebase -->
   <script src="unit-tests.js"></script>
-  <script>
-    function collapseTests() {
-      $( '#qunit-tests .fail ol' ).css( 'display', 'none' );
-    }
-  </script>
+
 </head>
 <body>
 <!-- Where test results HTML is placed -->
@@ -43,28 +39,15 @@
 <!-- Div for holding temporary HTML content needed by tests, which is reset by QUnit before every test -->
 <div id="qunit-fixture"></div>
 <script src="../../../sherpa/qunit-1.14.0.js"></script>
+
 <script>
-  // QUnit.moduleDone( function( details ) {
-  //   collapseTests();
-  // } );
-</script>
-<script>
+  require( [ 'config' ], function() {
+    require( [ 'main' ], function( core ) {
+      window.core = core;
 
-  // we need to wait until our config file is loaded before our require statement. apparently this was not guaranteed
-  function check() {
-    if ( window.loadedPhetCoreConfig ) {
-      require( [ 'main' ], function( core ) {
-        window.core = core;
-
-        runPhetCoreTests( '.' );
-      } );
-    }
-    else {
-      setTimeout( check, 4 );
-    }
-  }
-  setTimeout( check, 4 );
-
+      runPhetCoreTests( '.' );
+    } );
+  } );
 </script>
 </body>
 </html>
