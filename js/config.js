@@ -1,7 +1,5 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
-window.loadedPhetCoreConfig = true;
-
 require.config( {
   deps: [ 'main' ],
 
