@@ -8,9 +8,5 @@ require.config( {
     PHET_CORE: '.'
   },
 
-  // shim: {
-  //   underscore: { exports: '_' }
-  // },
-
   urlArgs: new Date().getTime() // add cache buster query string to make browser refresh actually reload everything
 } );
