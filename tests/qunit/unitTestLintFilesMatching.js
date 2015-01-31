@@ -5,8 +5,8 @@
 function unitTestLintFilesMatching( predicate ) {
   var filenames = _.filter( $( 'head script' ).map( function( i, script ) { return script.src; } ), predicate );
 
-  var options = window.jshintOptions;
-  var globals = window.jshintGlobals;
+  var options = window.phet.phetCore.jshintOptions;
+  var globals = window.phet.phetCore.jshintGlobals;
   if ( options && globals ) {
     _.each( filenames, function( filename ) {
       var name = filename.slice( filename.lastIndexOf( '/' ) + 1, filename.indexOf( '?' ) );
