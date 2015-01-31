@@ -17,7 +17,7 @@ define( [
   'PHET_CORE/partition',
   'PHET_CORE/phetAllocation',
   'PHET_CORE/platform',
-  'PHET_CORE/PoolableMixin',
+  'PHET_CORE/Poolable',
   'PHET_CORE/profiler'
 ], function( core ) {
   'use strict';
