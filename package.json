@@ -1,9 +1,8 @@
 {
   "name": "phet-core",
-  "version": "1.0.0-dev.1",
-  "phetLibs": "phetcore",
-  "preload": "",
+  "version": "0.0.0",
   "license": "MIT",
+  "phetLibs": "phetcore",
   "repository": {
     "type": "git",
     "url": "https://github.com/phetsims/phet-core.git"
