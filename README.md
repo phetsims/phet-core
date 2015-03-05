@@ -1,17 +1,14 @@
-Core utilities for PhET libraries
-=================================
+phet-core
+=========
 
-This is intended as a small core of useful utility functions that is lightweight enough to
-be included in all PhET libraries.
+Core utilities used by all PhET simulations.
 
 By PhET Interactive Simulations
 http://phet.colorado.edu/
 
-NOTE: This repository has dependencies on other repositories. Those repositories
-much be checked out as siblings to this repository in your directory structure.
+### Documentation
+The [PhET Development Overview](http://bit.ly/phet-development-overview) is the most complete guide to PhET Simulation Development. This guide includes how
+to obtain simulation code and its dependencies, notes about architecture & design, how to test and build the sims, as well as other important issues.
 
-Third-Party Dependencies
-=============
-
-This repository uses third-party libraries.
-Those libraries and their licenses are available in: https://github.com/phetsims/sherpa.
+### License
+See the [license](LICENSE)
