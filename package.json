@@ -2,7 +2,6 @@
   "name": "phet-core",
   "version": "0.0.0",
   "license": "MIT",
-  "phetLibs": "phetcore",
   "repository": {
     "type": "git",
     "url": "https://github.com/phetsims/phet-core.git"
