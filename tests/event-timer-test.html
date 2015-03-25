@@ -12,7 +12,6 @@
   <script src="../../sherpa/lodash-2.4.1.js"></script>
   <script src="../../sherpa/has.js"></script>
   <script src="../../assert/js/assert.js"></script>
-  <script src="../../chipper/js/initialize-globals.js"></script>
 
   <script data-main="../js/config.js" src="../../sherpa/require-2.1.11.js"></script>
 
@@ -53,8 +52,8 @@
   }
 
   require( [ 'config' ], function() {
-    require( [ 'main' ], function( core ) {
-      window.core = core;
+    require( [ 'main' ], function( phetCore ) {
+      window.phetCore = phetCore;
 
       var width = 512;
       var height = 256;
@@ -82,17 +81,17 @@
       var totalPoissonEvents = 0;
       var totalUniformEvents = 0;
 
-      var constantTimer = new core.EventTimer( new core.EventTimer.ConstantEventModel( 5 ), function( timeElapsed ) {
+      var constantTimer = new phetCore.EventTimer( new phetCore.EventTimer.ConstantEventModel( 5 ), function( timeElapsed ) {
         totalConstantEvents++;
         constantPositions.unshift( timeElapsed );
       } );
 
-      var poissonTimer = new core.EventTimer( new core.EventTimer.PoissonEventModel( 5, Math.random ), function( timeElapsed ) {
+      var poissonTimer = new phetCore.EventTimer( new phetCore.EventTimer.PoissonEventModel( 5, Math.random ), function( timeElapsed ) {
         totalPoissonEvents++;
         poissonPositions.unshift( timeElapsed );
       } );
 
-      var uniformTimer = new core.EventTimer( new core.EventTimer.UniformEventModel( 5, Math.random ), function( timeElapsed ) {
+      var uniformTimer = new phetCore.EventTimer( new phetCore.EventTimer.UniformEventModel( 5, Math.random ), function( timeElapsed ) {
         totalUniformEvents++;
         uniformPositions.unshift( timeElapsed );
       } );

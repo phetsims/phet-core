@@ -9,13 +9,13 @@
 define( function( require ) {
   'use strict';
 
-  var core = require( 'PHET_CORE/core' );
+  var phetCore = require( 'PHET_CORE/phetCore' );
   var extend = require( 'PHET_CORE/extend' );
 
   /*
    * For option details, please see documentation inside this constructor body for now
    */
-  core.Poolable = {
+  phetCore.Poolable = {
     mixin: function ( type, options ) {
       var proto = type.prototype;
 
@@ -82,5 +82,5 @@ define( function( require ) {
     }
   };
 
-  return core.Poolable;
+  return phetCore.Poolable;
 } );

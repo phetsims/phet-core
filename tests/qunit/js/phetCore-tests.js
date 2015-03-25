@@ -2,22 +2,22 @@
   module( 'Phet-core' );
 
   test( 'isArray', function() {
-    ok( core.isArray( [ 1, 2, 3 ] ) );
-    ok( core.isArray( [] ) );
-    ok( !core.isArray( 0 ) );
-    ok( !core.isArray( {} ) );
-    ok( !core.isArray( function() {} ) );
+    ok( phetCore.isArray( [ 1, 2, 3 ] ) );
+    ok( phetCore.isArray( [] ) );
+    ok( !phetCore.isArray( 0 ) );
+    ok( !phetCore.isArray( {} ) );
+    ok( !phetCore.isArray( function() {} ) );
   } );
 
   test( 'escapeHTML', function() {
-    equal( core.escapeHTML( 'A&B' ), 'A&amp;B', 'simple &' );
-    equal( core.escapeHTML( 'A<B' ), 'A&lt;B', 'simple <' );
-    equal( core.escapeHTML( 'A>B' ), 'A&gt;B', 'simple >' );
-    equal( core.escapeHTML( 'A"B' ), 'A&quot;B', 'simple "' );
-    equal( core.escapeHTML( 'A\'B' ), 'A&#x27;B', 'simple \'' );
-    equal( core.escapeHTML( 'A/B' ), 'A&#x2F;B', 'simple /' );
+    equal( phetCore.escapeHTML( 'A&B' ), 'A&amp;B', 'simple &' );
+    equal( phetCore.escapeHTML( 'A<B' ), 'A&lt;B', 'simple <' );
+    equal( phetCore.escapeHTML( 'A>B' ), 'A&gt;B', 'simple >' );
+    equal( phetCore.escapeHTML( 'A"B' ), 'A&quot;B', 'simple "' );
+    equal( phetCore.escapeHTML( 'A\'B' ), 'A&#x27;B', 'simple \'' );
+    equal( phetCore.escapeHTML( 'A/B' ), 'A&#x2F;B', 'simple /' );
 
-    equal( core.escapeHTML( '&amp; & ""' ), '&amp;amp; &amp; &quot;&quot;', 'multiple escaping' );
+    equal( phetCore.escapeHTML( '&amp; & ""' ), '&amp;amp; &amp; &quot;&quot;', 'multiple escaping' );
   } );
 
   test( 'inherit', function() {
@@ -29,7 +29,7 @@
       this.strength = strength;
     };
     var attacked = false;
-    core.inherit( Person, Warrior,
+    phetCore.inherit( Person, Warrior,
 
       //Instance Methods
       {
@@ -55,11 +55,11 @@
   } );
 
   test( 'cleanArray', function() {
-    ok( core.cleanArray().length === 0, 'Given no argument, should return a fresh empty array' );
-    ok( core.cleanArray( undefined ).length === 0, 'Given undefined, should return a fresh empty array' );
-    ok( core.cleanArray( null ).length === 0, 'Given null, should return a fresh empty array' );
+    ok( phetCore.cleanArray().length === 0, 'Given no argument, should return a fresh empty array' );
+    ok( phetCore.cleanArray( undefined ).length === 0, 'Given undefined, should return a fresh empty array' );
+    ok( phetCore.cleanArray( null ).length === 0, 'Given null, should return a fresh empty array' );
     var arr1 = [ '5' ];
-    var arr2 = core.cleanArray( arr1 );
+    var arr2 = phetCore.cleanArray( arr1 );
     ok( arr1 === arr2, 'Should use the same array object provided' );
     ok( arr2.length === 0, 'Should empty it out' );
     ok( arr1.length === 0, 'Also empties the original (sanity check)' );
@@ -71,9 +71,9 @@
       'mozProp': ''
     };
 
-    equal( core.detectPrefix( obj, 'main' ), 'main' );
-    equal( core.detectPrefix( obj, 'prop' ), 'mozProp' );
-    equal( core.detectPrefix( obj, 'nothing' ), undefined );
+    equal( phetCore.detectPrefix( obj, 'main' ), 'main' );
+    equal( phetCore.detectPrefix( obj, 'prop' ), 'mozProp' );
+    equal( phetCore.detectPrefix( obj, 'nothing' ), undefined );
   } );
 
   test( 'detectPrefixEvent', function() {
@@ -82,26 +82,26 @@
       'onmozprop': ''
     };
 
-    equal( core.detectPrefixEvent( obj, 'main' ), 'main' );
-    equal( core.detectPrefixEvent( obj, 'prop' ), 'mozprop' );
-    equal( core.detectPrefixEvent( obj, 'nothing' ), undefined );
+    equal( phetCore.detectPrefixEvent( obj, 'main' ), 'main' );
+    equal( phetCore.detectPrefixEvent( obj, 'prop' ), 'mozprop' );
+    equal( phetCore.detectPrefixEvent( obj, 'nothing' ), undefined );
   } );
 
   test( 'pairs', function() {
-    equal( core.pairs( [] ).length, 0 );
-    equal( core.pairs( [ 'a' ] ).length, 0 );
-    equal( core.pairs( [ 'a', 'b' ] ).length, 1 );
-    equal( core.pairs( [ 'a', 'b', 'c' ] ).length, 3 );
-    equal( core.pairs( [ 'a', 'b', 'c' ] )[ 0 ][ 0 ], 'a' );
-    equal( core.pairs( [ 'a', 'b', 'c' ] )[ 0 ][ 1 ], 'b' );
-    equal( core.pairs( [ 'a', 'b', 'c' ] )[ 1 ][ 0 ], 'a' );
-    equal( core.pairs( [ 'a', 'b', 'c' ] )[ 1 ][ 1 ], 'c' );
-    equal( core.pairs( [ 'a', 'b', 'c' ] )[ 2 ][ 0 ], 'b' );
-    equal( core.pairs( [ 'a', 'b', 'c' ] )[ 2 ][ 1 ], 'c' );
+    equal( phetCore.pairs( [] ).length, 0 );
+    equal( phetCore.pairs( [ 'a' ] ).length, 0 );
+    equal( phetCore.pairs( [ 'a', 'b' ] ).length, 1 );
+    equal( phetCore.pairs( [ 'a', 'b', 'c' ] ).length, 3 );
+    equal( phetCore.pairs( [ 'a', 'b', 'c' ] )[ 0 ][ 0 ], 'a' );
+    equal( phetCore.pairs( [ 'a', 'b', 'c' ] )[ 0 ][ 1 ], 'b' );
+    equal( phetCore.pairs( [ 'a', 'b', 'c' ] )[ 1 ][ 0 ], 'a' );
+    equal( phetCore.pairs( [ 'a', 'b', 'c' ] )[ 1 ][ 1 ], 'c' );
+    equal( phetCore.pairs( [ 'a', 'b', 'c' ] )[ 2 ][ 0 ], 'b' );
+    equal( phetCore.pairs( [ 'a', 'b', 'c' ] )[ 2 ][ 1 ], 'c' );
   } );
 
   test( 'partition', function() {
-    var parityTest = core.partition( [ 1, 2, 3, 4 ], function( n ) { return n % 2 === 0; } );
+    var parityTest = phetCore.partition( [ 1, 2, 3, 4 ], function( n ) { return n % 2 === 0; } );
     equal( parityTest[ 0 ][ 0 ], 2 );
     equal( parityTest[ 0 ][ 1 ], 4 );
     equal( parityTest[ 1 ][ 0 ], 1 );
@@ -110,7 +110,7 @@
 
   test( 'arrayRemove', function() {
     var arr = [ 4, 3, 2, 1, 3 ];
-    core.arrayRemove( arr, 3 );
+    phetCore.arrayRemove( arr, 3 );
 
     equal( arr[ 0 ], 4 );
     equal( arr[ 1 ], 2 );
@@ -124,7 +124,7 @@
     var c = {};
 
     arr = [ a, b, c ];
-    core.arrayRemove( arr, b );
+    phetCore.arrayRemove( arr, b );
 
     equal( arr[ 0 ], a );
     equal( arr[ 1 ], c );

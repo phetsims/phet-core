@@ -9,7 +9,7 @@
 define( function( require ) {
   'use strict';
 
-  var core = require( 'PHET_CORE/core' );
+  var phetCore = require( 'PHET_CORE/phetCore' );
 
   /*
    * Load a script. The only required argument is src, and can be specified either as
@@ -21,7 +21,7 @@ define( function( require ) {
    *   async:       Whether the script should be loaded asynchronously. Defaults to true
    *   cacheBuster: Whether the URL should have an appended query string to work around caches
    */
-  core.loadScript = function loadScript( args ) {
+  phetCore.loadScript = function loadScript( args ) {
     // handle a string argument
     if ( typeof args === 'string' ) {
       args = { src: args };
@@ -59,5 +59,5 @@ define( function( require ) {
     other.parentNode.insertBefore( script, other );
   };
 
-  return core.loadScript;
+  return phetCore.loadScript;
 } );

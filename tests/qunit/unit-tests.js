@@ -11,6 +11,6 @@ function runPhetCoreTests( pathToTestBase ) {
     document.getElementsByTagName( 'head' )[ 0 ].appendChild( script );
   }
 
-  loadTestFile( 'js/core-tests.js' );
+  loadTestFile( 'js/phetCore-tests.js' );
   loadTestFile( 'js/linting.js' );
 }

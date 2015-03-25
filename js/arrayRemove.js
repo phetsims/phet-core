@@ -9,13 +9,13 @@
 define( function( require ) {
   'use strict';
 
-  var core = require( 'PHET_CORE/core' );
+  var phetCore = require( 'PHET_CORE/phetCore' );
 
   /*
    * @param {Array} arr
    * @param {*} item - The item to remove from the array
    */
-  core.arrayRemove = function arrayRemove( arr, item ) {
+  phetCore.arrayRemove = function arrayRemove( arr, item ) {
     assert && assert( arr instanceof Array, 'arrayRemove either takes an Array' );
 
     var index = _.indexOf( arr, item );
@@ -24,5 +24,5 @@ define( function( require ) {
     arr.splice( index, 1 );
   };
 
-  return core.arrayRemove;
+  return phetCore.arrayRemove;
 } );

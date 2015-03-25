@@ -17,13 +17,13 @@
 define( function( require ) {
   'use strict';
 
-  var core = require( 'PHET_CORE/core' );
+  var phetCore = require( 'PHET_CORE/phetCore' );
 
   var stack = [];
   var results = {};
   var count = 0;
   var listeners = [];
-  core.profiler = {
+  phetCore.profiler = {
     displayCount: 1000,
     start: function( name ) {
       var time = Date.now();
@@ -98,5 +98,5 @@ define( function( require ) {
     }
   };
 //  profiler.testSelf();
-  return core.profiler;
+  return phetCore.profiler;
 } );

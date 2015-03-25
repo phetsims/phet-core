@@ -12,7 +12,7 @@
  *
  * For example, create a timer with a constant rate that it will fire events every 1 time units:
  *
- * var timer = new core.EventTimer( new core.EventTimer.ConstantEventModel( 1 ), function( timeElapsed ) {
+ * var timer = new phetCore.EventTimer( new phetCore.EventTimer.ConstantEventModel( 1 ), function( timeElapsed ) {
  *   console.log( 'event with timeElapsed: ' + timeElapsed );
  * } );
  *
@@ -48,7 +48,7 @@
 define( function( require ) {
   'use strict';
 
-  var core = require( 'PHET_CORE/core' );
+  var phetCore = require( 'PHET_CORE/phetCore' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   /*
@@ -62,7 +62,7 @@ define( function( require ) {
    *    our event would have occurred 1 second into that step, the timeElapsed will be 4 seconds, since after the end
    *    of the 5 seconds the event would have happened 4 seconds ago.
    */
-  core.EventTimer = function EventTimer( eventModel, eventCallback ) {
+  phetCore.EventTimer = function EventTimer( eventModel, eventCallback ) {
     assert && assert( typeof eventCallback === 'function', 'EventTimer requires a callback' );
 
     this.eventModel = eventModel;
@@ -71,7 +71,7 @@ define( function( require ) {
     this.timeBeforeNextEvent = this.eventModel.getPeriodBeforeNextEvent();
   };
 
-  inherit( Object, core.EventTimer, {
+  inherit( Object, phetCore.EventTimer, {
     step: function( dt ) {
       while ( dt >= this.timeBeforeNextEvent ) {
         dt -= this.timeBeforeNextEvent;
@@ -90,7 +90,7 @@ define( function( require ) {
    * Event model that will fire events at a constant rate. An event will occur every 1/rate time units.
    * @param {number} rate
    */
-  core.EventTimer.ConstantEventModel = inherit( Object, function ConstantEventRate( rate ) {
+  phetCore.EventTimer.ConstantEventModel = inherit( Object, function ConstantEventRate( rate ) {
     assert && assert( typeof rate === 'number',
       'The rate should be a number' );
     assert && assert( rate > 0,
@@ -110,7 +110,7 @@ define( function( require ) {
    * @param {number} rate
    * @param {function} pseudoRandomNumberSource() : Number
    */
-  core.EventTimer.UniformEventModel = inherit( Object, function UniformEventModel( rate, pseudoRandomNumberSource ) {
+  phetCore.EventTimer.UniformEventModel = inherit( Object, function UniformEventModel( rate, pseudoRandomNumberSource ) {
     assert && assert( typeof rate === 'number',
       'The rate should be a number' );
     assert && assert( typeof pseudoRandomNumberSource === 'function',
@@ -138,7 +138,7 @@ define( function( require ) {
    * @param {number} rate
    * @param {function} pseudoRandomNumberSource() : number
    */
-  core.EventTimer.PoissonEventModel = inherit( Object, function PoissonEventModel( rate, pseudoRandomNumberSource ) {
+  phetCore.EventTimer.PoissonEventModel = inherit( Object, function PoissonEventModel( rate, pseudoRandomNumberSource ) {
     assert && assert( typeof rate === 'number',
       'The time between events should be a number' );
     assert && assert( typeof pseudoRandomNumberSource === 'function',
@@ -165,5 +165,5 @@ define( function( require ) {
     }
   } );
 
-  return core.EventTimer;
+  return phetCore.EventTimer;
 } );

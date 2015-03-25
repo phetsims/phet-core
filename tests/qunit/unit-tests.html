@@ -16,7 +16,6 @@
   <script src="../../../assert/js/assert.js"></script>
   <script src="../../../sherpa/jquery-2.1.0.js"></script>
   <script src="../../../sherpa/has.js"></script>
-  <script src="../../../chipper/js/initialize-globals.js"></script>
   <script type="text/javascript">
     window.assertions.enableAssert();
     window.assertions.enableAssertSlow();
@@ -42,8 +41,8 @@
 
 <script>
   require( [ 'config' ], function() {
-    require( [ 'main' ], function( core ) {
-      window.core = core;
+    require( [ 'main' ], function( phetCore ) {
+      window.phetCore = phetCore;
 
       runPhetCoreTests( '.' );
 

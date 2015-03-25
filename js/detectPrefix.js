@@ -4,7 +4,7 @@
  * Scans through potential properties on an object to detect prefixed forms, and returns the first match.
  *
  * E.g. currently:
- * core.detectPrefix( document.createElement( 'div' ).style, 'transform' ) === 'webkitTransform'
+ * phetCore.detectPrefix( document.createElement( 'div' ).style, 'transform' ) === 'webkitTransform'
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
@@ -12,10 +12,10 @@
 define( function( require ) {
   'use strict';
 
-  var core = require( 'PHET_CORE/core' );
+  var phetCore = require( 'PHET_CORE/phetCore' );
 
   // @returns the best String str where obj[str] !== undefined, or returns undefined if that is not available
-  core.detectPrefix = function detectPrefix( obj, name ) {
+  phetCore.detectPrefix = function detectPrefix( obj, name ) {
     if ( obj[ name ] !== undefined ) { return name; }
 
     // prepare for camelCase
@@ -30,5 +30,5 @@ define( function( require ) {
     return undefined;
   };
 
-  return core.detectPrefix;
+  return phetCore.detectPrefix;
 } );

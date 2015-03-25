@@ -13,9 +13,9 @@
 define( function( require ) {
   'use strict';
 
-  var core = require( 'PHET_CORE/core' );
+  var phetCore = require( 'PHET_CORE/phetCore' );
 
-  core.collect = function collect( iterate ) {
+  phetCore.collect = function collect( iterate ) {
     assert && assert( typeof iterate === 'function' );
     var result = [];
     iterate( function( ob ) {
@@ -23,5 +23,5 @@ define( function( require ) {
     } );
     return result;
   };
-  return core.collect;
+  return phetCore.collect;
 } );

@@ -12,9 +12,9 @@
 define( function( require ) {
   'use strict';
 
-  var core = require( 'PHET_CORE/core' );
+  var phetCore = require( 'PHET_CORE/phetCore' );
 
-  core.partition = function partition( array, predicate ) {
+  phetCore.partition = function partition( array, predicate ) {
     assert && assert( array instanceof Array );
     assert && assert( typeof predicate === 'function' );
 
@@ -32,5 +32,5 @@ define( function( require ) {
 
     return [ satisfied, unsatisfied ];
   };
-  return core.partition;
+  return phetCore.partition;
 } );

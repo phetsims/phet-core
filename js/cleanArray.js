@@ -10,9 +10,9 @@
 define( function( require ) {
   'use strict';
 
-  var core = require( 'PHET_CORE/core' );
+  var phetCore = require( 'PHET_CORE/phetCore' );
 
-  core.cleanArray = function cleanArray( arr ) {
+  phetCore.cleanArray = function cleanArray( arr ) {
     assert && assert( !arr || ( arr instanceof Array ), 'cleanArray either takes an Array' );
 
     if ( arr ) {
@@ -28,5 +28,5 @@ define( function( require ) {
     }
   };
 
-  return core.cleanArray;
+  return phetCore.cleanArray;
 } );

@@ -11,7 +11,7 @@
 define( function( require ) {
   'use strict';
 
-  var core = require( 'PHET_CORE/core' );
+  var phetCore = require( 'PHET_CORE/phetCore' );
 
   var ua = navigator.userAgent;
 
@@ -40,7 +40,7 @@ define( function( require ) {
     return rv;
   }
 
-  core.platform = {
+  phetCore.platform = {
     get firefox() { return ua.toLowerCase().indexOf( 'firefox' ) > -1; },
 
     //see http://stackoverflow.com/questions/3007480/determine-if-user-navigated-from-mobile-safari
@@ -60,5 +60,5 @@ define( function( require ) {
     get chromium() { return (/chrom(e|ium)/).test( ua.toLowerCase() ); }
   };
 
-  return core.platform;
+  return phetCore.platform;
 } );

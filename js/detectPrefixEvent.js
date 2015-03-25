@@ -4,7 +4,7 @@
  * Scans through potential event properties on an object to detect prefixed forms, and returns the first match.
  *
  * E.g. currently:
- * core.detectPrefixEvent( document, 'fullscreenchange' ) === 'webkitfullscreenchange'
+ * phetCore.detectPrefixEvent( document, 'fullscreenchange' ) === 'webkitfullscreenchange'
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
@@ -12,10 +12,10 @@
 define( function( require ) {
   'use strict';
 
-  var core = require( 'PHET_CORE/core' );
+  var phetCore = require( 'PHET_CORE/phetCore' );
 
   // @returns the best String str where obj['on'+str] !== undefined, or returns undefined if that is not available
-  core.detectPrefixEvent = function detectPrefixEvent( obj, name, isEvent ) {
+  phetCore.detectPrefixEvent = function detectPrefixEvent( obj, name, isEvent ) {
     if ( obj[ 'on' + name ] !== undefined ) { return name; }
 
     // Chrome planning to not introduce prefixes in the future, hopefully we will be safe
@@ -27,5 +27,5 @@ define( function( require ) {
     return undefined;
   };
 
-  return core.detectPrefixEvent;
+  return phetCore.detectPrefixEvent;
 } );

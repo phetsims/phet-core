@@ -11,9 +11,9 @@
 define( function( require ) {
   'use strict';
 
-  var core = require( 'PHET_CORE/core' );
+  var phetCore = require( 'PHET_CORE/phetCore' );
 
-  core.extend = function extend( obj ) {
+  phetCore.extend = function extend( obj ) {
     _.each( Array.prototype.slice.call( arguments, 1 ), function( source ) {
       if ( source ) {
         for ( var prop in source ) {
@@ -24,5 +24,5 @@ define( function( require ) {
     return obj;
   };
 
-  return core.extend;
+  return phetCore.extend;
 } );

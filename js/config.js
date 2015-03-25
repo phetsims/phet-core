@@ -4,10 +4,8 @@ require.config( {
   deps: [ 'main' ],
 
   paths: {
-    underscore: '../../sherpa/lodash-2.4.1',
     PHET_CORE: '.'
   },
 
-  // optional cache buster to make browser refresh load all included scripts, can be disabled with ?cacheBuster=false
-  urlArgs: phet.chipper.getCacheBusterArgs()
+  urlArgs: Date.now()
 } );

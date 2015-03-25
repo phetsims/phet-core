@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 define( [
-  'PHET_CORE/core',
+  'PHET_CORE/phetCore',
   'PHET_CORE/arrayRemove',
   'PHET_CORE/cleanArray',
   'PHET_CORE/collect',
@@ -19,7 +19,7 @@ define( [
   'PHET_CORE/platform',
   'PHET_CORE/Poolable',
   'PHET_CORE/profiler'
-], function( core ) {
+], function( phetCore ) {
   'use strict';
-  return core;
+  return phetCore;
 } );
