@@ -17,8 +17,7 @@ define( [
   'PHET_CORE/partition',
   'PHET_CORE/phetAllocation',
   'PHET_CORE/platform',
-  'PHET_CORE/Poolable',
-  'PHET_CORE/profiler'
+  'PHET_CORE/Poolable'
 ], function( phetCore ) {
   'use strict';
   return phetCore;
