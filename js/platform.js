@@ -15,7 +15,7 @@ define( function( require ) {
 
   var ua = navigator.userAgent;
 
-  // taken from HomeScreen
+  // Checks to see whether we are IE, and if so whether the version matches.
   function isIE( version ) {
     return getInternetExplorerVersion() === version;
   }
@@ -41,24 +41,33 @@ define( function( require ) {
   }
 
   phetCore.platform = {
+    // Whether the browser is most likely Firefox
     get firefox() { return ua.toLowerCase().indexOf( 'firefox' ) > -1; },
 
-    //see http://stackoverflow.com/questions/3007480/determine-if-user-navigated-from-mobile-safari
+    // Whether the browser is most likely Safari running on iOS
+    // See http://stackoverflow.com/questions/3007480/determine-if-user-navigated-from-mobile-safari
     get mobileSafari() { return !!( ua.match( /(iPod|iPhone|iPad)/ ) && ua.match( /AppleWebKit/ ) ); },
+
+    // Whether the browser is a matching version of Safari running on OS X
     get safari5() { return !!( ua.match( /Version\/5\./ ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ); },
     get safari6() { return !!( ua.match( /Version\/6\./ ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ); },
     get safari7() { return !!( ua.match( /Version\/7\./ ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ); },
 
+    // Whether the browser is some type of IE (Internet Explorer)
+    get ie() { return getInternetExplorerVersion() !== -1; },
+
+    // Whether the browser is a specific version of IE (Internet Explorer)
     get ie9() { return isIE( 9 ); },
     get ie10() { return isIE( 10 ); },
     get ie11() { return isIE( 11 ); },
-    get ie() { return getInternetExplorerVersion() !== -1; },
 
-    // from HomeScreen
+    // Whether the browser has Android in its user agent
     get android() { return ua.indexOf( 'Android' ) > 0; },
 
+    // Whether the browser is Microsoft Edge
     get edge() { return !!ua.match( /Edge\// ); },
 
+    // Whether the browser is Chromium-based (usually Chrome)
     get chromium() { return (/chrom(e|ium)/).test( ua.toLowerCase() ) && !ua.match( /Edge\// ); }
   };
 
