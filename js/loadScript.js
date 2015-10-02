@@ -39,7 +39,7 @@ define( function( require ) {
     script.async = async;
     script.onload = script.onreadystatechange = function() {
       var state = this.readyState;
-      if ( state && state !== "complete" && state !== "loaded" ) {
+      if ( state && state !== 'complete' && state !== 'loaded' ) {
         return;
       }
 
