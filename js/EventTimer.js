@@ -1,4 +1,4 @@
-// Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2002-2015, University of Colorado Boulder
 
 /**
  * Abstraction for timed-event series that helps with variable frame-rates. Useful for things that need to happen at a
@@ -54,6 +54,7 @@ define( function( require ) {
   /*
    * Create an event timer with a specific model (determines the time between events), and a callback to be called
    * for events.
+   * @public
    *
    * @param {Object with getPeriodBeforeNextEvent(): Number} eventModel: getPeriodBeforeNextEvent() will be called at
    *    the start and after every event to determine the time required to pass by before the next event occurs.
@@ -65,13 +66,21 @@ define( function( require ) {
   phetCore.EventTimer = function EventTimer( eventModel, eventCallback ) {
     assert && assert( typeof eventCallback === 'function', 'EventTimer requires a callback' );
 
+    // @private
     this.eventModel = eventModel;
     this.eventCallback = eventCallback;
 
+    // @private
     this.timeBeforeNextEvent = this.eventModel.getPeriodBeforeNextEvent();
   };
 
   inherit( Object, phetCore.EventTimer, {
+    /**
+     * Steps the timer forward by a certain amount of time. This may cause 0 or more events to actually occur.
+     * @public
+     *
+     * @param {number} dt
+     */
     step: function( dt ) {
       while ( dt >= this.timeBeforeNextEvent ) {
         dt -= this.timeBeforeNextEvent;
@@ -88,6 +97,8 @@ define( function( require ) {
 
   /*
    * Event model that will fire events at a constant rate. An event will occur every 1/rate time units.
+   * @public
+   *
    * @param {number} rate
    */
   phetCore.EventTimer.ConstantEventModel = inherit( Object, function ConstantEventRate( rate ) {
@@ -98,6 +109,7 @@ define( function( require ) {
 
     this.rate = rate;
   }, {
+    // @public
     getPeriodBeforeNextEvent: function() {
       return 1 / this.rate;
     }
@@ -106,7 +118,10 @@ define( function( require ) {
   /*
    * Event model that will fire events averaging a certain rate, but with the time between events being uniformly
    * random.
+   * @public
+   *
    * The pseudoRandomNumberSource, when called, should generate uniformly distributed random numbers in the range [0,1).
+   *
    * @param {number} rate
    * @param {function} pseudoRandomNumberSource() : Number
    */
@@ -121,6 +136,7 @@ define( function( require ) {
     this.rate = rate;
     this.pseudoRandomNumberSource = pseudoRandomNumberSource;
   }, {
+    // @public
     getPeriodBeforeNextEvent: function() {
       var uniformRandomNumber = this.pseudoRandomNumberSource();
       assert && assert( typeof uniformRandomNumber === 'number' &&
@@ -135,6 +151,8 @@ define( function( require ) {
   /*
    * Event model that will fire events corresponding to a Poisson process with the specified rate.
    * The pseudoRandomNumberSource, when called, should generate uniformly distributed random numbers in the range [0,1).
+   * @public
+   *
    * @param {number} rate
    * @param {function} pseudoRandomNumberSource() : number
    */
@@ -149,6 +167,7 @@ define( function( require ) {
     this.rate = rate;
     this.pseudoRandomNumberSource = pseudoRandomNumberSource;
   }, {
+    // @public
     getPeriodBeforeNextEvent: function() {
       // A poisson process can be described as having an independent exponential distribution for the time between
       // consecutive events.
