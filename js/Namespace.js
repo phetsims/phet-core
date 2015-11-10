@@ -66,6 +66,8 @@ define( function( require ) {
         assert && assert( !parent[ lastKey ], key + ' is already registered for namespace ' + this.name );
         parent[ lastKey ] = value;
       }
+
+      return value;
     }
   } );
 } );
