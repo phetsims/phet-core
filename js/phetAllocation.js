@@ -19,7 +19,7 @@ define( function( require ) {
 
   var phetCore = require( 'PHET_CORE/phetCore' );
 
-  phetCore.phetAllocation = function phetAllocation( name ) {
+  function phetAllocation( name ) {
     if ( window.alloc ) {
       var stack;
       try { throw new Error(); }
@@ -45,7 +45,8 @@ define( function( require ) {
         } );
       };
     }
-  };
+  }
+  phetCore.register( 'phetAllocation', phetAllocation );
 
-  return phetCore.phetAllocation;
+  return phetAllocation;
 } );

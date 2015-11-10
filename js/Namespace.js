@@ -7,9 +7,6 @@
 define( function( require ) {
   'use strict';
 
-  // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-
   /**
    * @param {string} name
    * @constructor
@@ -24,7 +21,8 @@ define( function( require ) {
     }
   }
 
-  return inherit( Object, Namespace, {
+  Namespace.prototype = {
+    constructor: Namespace,
 
     /**
      * Registers a key-value pair with the namespace.
@@ -69,5 +67,7 @@ define( function( require ) {
 
       return value;
     }
-  } );
+  };
+
+  return Namespace;
 } );

@@ -15,13 +15,15 @@ define( function( require ) {
 
   var phetCore = require( 'PHET_CORE/phetCore' );
 
-  phetCore.collect = function collect( iterate ) {
+  function collect( iterate ) {
     assert && assert( typeof iterate === 'function' );
     var result = [];
     iterate( function( ob ) {
       result.push( ob );
     } );
     return result;
-  };
-  return phetCore.collect;
+  }
+  phetCore.register( 'collect', collect );
+
+  return collect;
 } );

@@ -12,7 +12,7 @@ define( function( require ) {
 
   var phetCore = require( 'PHET_CORE/phetCore' );
 
-  phetCore.escapeHTML = function escapeHTML( str ) {
+  function escapeHTML( str ) {
     // see https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet
     // HTML Entity Encoding
     return str
@@ -22,6 +22,8 @@ define( function( require ) {
       .replace( /\"/g, '&quot;' )
       .replace( /\'/g, '&#x27;' )
       .replace( /\//g, '&#x2F;' );
-  };
-  return phetCore.escapeHTML;
+  }
+  phetCore.register( 'escapeHTML', escapeHTML );
+
+  return escapeHTML;
 } );

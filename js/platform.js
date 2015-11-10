@@ -40,7 +40,7 @@ define( function( require ) {
     return rv;
   }
 
-  phetCore.platform = {
+  var platform = {
     // Whether the browser is most likely Firefox
     firefox: ua.toLowerCase().indexOf( 'firefox' ) > -1,
 
@@ -70,6 +70,7 @@ define( function( require ) {
     // Whether the browser is Chromium-based (usually Chrome)
     chromium: (/chrom(e|ium)/).test( ua.toLowerCase() ) && !ua.match( /Edge\// )
   };
+  phetCore.register( 'platform', platform );
 
-  return phetCore.platform;
+  return platform;
 } );

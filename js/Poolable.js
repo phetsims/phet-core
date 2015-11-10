@@ -21,7 +21,7 @@ define( function( require ) {
   var phetCore = require( 'PHET_CORE/phetCore' );
   var extend = require( 'PHET_CORE/extend' );
 
-  phetCore.Poolable = {
+  var Poolable = {
     /**
      * Adds the pool and some static methods to the type, and adds the instance method freeToPool() to the type's
      * prototype.
@@ -107,6 +107,7 @@ define( function( require ) {
       };
     }
   };
+  phetCore.register( 'Poolable', Poolable );
 
-  return phetCore.Poolable;
+  return Poolable;
 } );

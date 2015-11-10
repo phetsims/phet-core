@@ -14,7 +14,7 @@ define( function( require ) {
 
   var phetCore = require( 'PHET_CORE/phetCore' );
 
-  phetCore.partition = function partition( array, predicate ) {
+  function partition( array, predicate ) {
     assert && assert( array instanceof Array );
     assert && assert( typeof predicate === 'function' );
 
@@ -31,6 +31,8 @@ define( function( require ) {
     }
 
     return [ satisfied, unsatisfied ];
-  };
-  return phetCore.partition;
+  }
+  phetCore.register( 'partition', partition );
+
+  return partition;
 } );

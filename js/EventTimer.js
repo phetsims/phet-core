@@ -63,7 +63,7 @@ define( function( require ) {
    *    our event would have occurred 1 second into that step, the timeElapsed will be 4 seconds, since after the end
    *    of the 5 seconds the event would have happened 4 seconds ago.
    */
-  phetCore.EventTimer = function EventTimer( eventModel, eventCallback ) {
+  function EventTimer( eventModel, eventCallback ) {
     assert && assert( typeof eventCallback === 'function', 'EventTimer requires a callback' );
 
     // @private
@@ -72,9 +72,10 @@ define( function( require ) {
 
     // @private
     this.timeBeforeNextEvent = this.eventModel.getPeriodBeforeNextEvent();
-  };
+  }
+  phetCore.register( 'EventTimer', EventTimer );
 
-  inherit( Object, phetCore.EventTimer, {
+  inherit( Object, EventTimer, {
     /**
      * Steps the timer forward by a certain amount of time. This may cause 0 or more events to actually occur.
      * @public
@@ -101,7 +102,7 @@ define( function( require ) {
    *
    * @param {number} rate
    */
-  phetCore.EventTimer.ConstantEventModel = inherit( Object, function ConstantEventRate( rate ) {
+  EventTimer.ConstantEventModel = inherit( Object, function ConstantEventRate( rate ) {
     assert && assert( typeof rate === 'number',
       'The rate should be a number' );
     assert && assert( rate > 0,
@@ -125,7 +126,7 @@ define( function( require ) {
    * @param {number} rate
    * @param {function} pseudoRandomNumberSource() : Number
    */
-  phetCore.EventTimer.UniformEventModel = inherit( Object, function UniformEventModel( rate, pseudoRandomNumberSource ) {
+  EventTimer.UniformEventModel = inherit( Object, function UniformEventModel( rate, pseudoRandomNumberSource ) {
     assert && assert( typeof rate === 'number',
       'The rate should be a number' );
     assert && assert( typeof pseudoRandomNumberSource === 'function',
@@ -156,7 +157,7 @@ define( function( require ) {
    * @param {number} rate
    * @param {function} pseudoRandomNumberSource() : number
    */
-  phetCore.EventTimer.PoissonEventModel = inherit( Object, function PoissonEventModel( rate, pseudoRandomNumberSource ) {
+  EventTimer.PoissonEventModel = inherit( Object, function PoissonEventModel( rate, pseudoRandomNumberSource ) {
     assert && assert( typeof rate === 'number',
       'The time between events should be a number' );
     assert && assert( typeof pseudoRandomNumberSource === 'function',
@@ -184,5 +185,5 @@ define( function( require ) {
     }
   } );
 
-  return phetCore.EventTimer;
+  return EventTimer;
 } );

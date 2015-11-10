@@ -14,7 +14,7 @@ define( function( require ) {
 
   var phetCore = require( 'PHET_CORE/phetCore' );
 
-  phetCore.pairs = function pairs( array ) {
+  function pairs( array ) {
     var result = [];
     var length = array.length;
     if ( length > 1 ) {
@@ -26,6 +26,8 @@ define( function( require ) {
       }
     }
     return result;
-  };
-  return phetCore.pairs;
+  }
+  phetCore.register( 'pairs', pairs );
+
+  return pairs;
 } );

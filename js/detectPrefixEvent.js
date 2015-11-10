@@ -15,7 +15,7 @@ define( function( require ) {
   var phetCore = require( 'PHET_CORE/phetCore' );
 
   // @returns the best String str where obj['on'+str] !== undefined, or returns undefined if that is not available
-  phetCore.detectPrefixEvent = function detectPrefixEvent( obj, name, isEvent ) {
+  function detectPrefixEvent( obj, name, isEvent ) {
     if ( obj[ 'on' + name ] !== undefined ) { return name; }
 
     // Chrome planning to not introduce prefixes in the future, hopefully we will be safe
@@ -25,7 +25,8 @@ define( function( require ) {
     if ( obj[ 'on' + 'ms' + name ] !== undefined ) { return 'ms' + name; }
     if ( obj[ 'on' + 'o' + name ] !== undefined ) { return 'o' + name; }
     return undefined;
-  };
+  }
+  phetCore.register( 'detectPrefixEvent', detectPrefixEvent );
 
-  return phetCore.detectPrefixEvent;
+  return detectPrefixEvent;
 } );

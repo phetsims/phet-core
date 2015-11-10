@@ -13,7 +13,7 @@ define( function( require ) {
 
   var phetCore = require( 'PHET_CORE/phetCore' );
 
-  phetCore.extend = function extend( obj ) {
+  function extend( obj ) {
     _.each( Array.prototype.slice.call( arguments, 1 ), function( source ) {
       if ( source ) {
         for ( var prop in source ) {
@@ -22,7 +22,8 @@ define( function( require ) {
       }
     } );
     return obj;
-  };
+  }
+  phetCore.register( 'extend', extend );
 
-  return phetCore.extend;
+  return extend;
 } );
