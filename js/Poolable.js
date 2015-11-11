@@ -39,7 +39,7 @@ define( function( require ) {
      * @param {function} type - The constructor for the type
      * @param {Object} [options] -
      */
-    mixin: function ( type, options ) {
+    mixin: function( type, options ) {
       var proto = type.prototype;
 
       // defaults

@@ -26,6 +26,7 @@ define( function( require ) {
     if ( obj[ 'on' + 'o' + name ] !== undefined ) { return 'o' + name; }
     return undefined;
   }
+
   phetCore.register( 'detectPrefixEvent', detectPrefixEvent );
 
   return detectPrefixEvent;

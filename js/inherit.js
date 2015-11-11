@@ -56,6 +56,7 @@ define( function( require ) {
 
     return subtype; // pass back the subtype so it can be returned immediately as a module export
   }
+
   phetCore.register( 'inherit', inherit );
 
   return inherit;

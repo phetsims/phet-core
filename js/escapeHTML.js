@@ -23,6 +23,7 @@ define( function( require ) {
       .replace( /\'/g, '&#x27;' )
       .replace( /\//g, '&#x2F;' );
   }
+
   phetCore.register( 'escapeHTML', escapeHTML );
 
   return escapeHTML;

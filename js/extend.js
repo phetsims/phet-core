@@ -23,6 +23,7 @@ define( function( require ) {
     } );
     return obj;
   }
+
   phetCore.register( 'extend', extend );
 
   return extend;

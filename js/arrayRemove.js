@@ -23,6 +23,7 @@ define( function( require ) {
 
     arr.splice( index, 1 );
   }
+
   phetCore.register( 'arrayRemove', arrayRemove );
 
   return arrayRemove;

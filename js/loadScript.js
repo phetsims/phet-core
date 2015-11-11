@@ -58,6 +58,7 @@ define( function( require ) {
     var other = document.getElementsByTagName( 'script' )[ 0 ];
     other.parentNode.insertBefore( script, other );
   }
+
   phetCore.register( 'loadScript', loadScript );
 
   return loadScript;

@@ -27,6 +27,7 @@ define( function( require ) {
     }
     return result;
   }
+
   phetCore.register( 'pairs', pairs );
 
   return pairs;

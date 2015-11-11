@@ -23,6 +23,7 @@ define( function( require ) {
     } );
     return result;
   }
+
   phetCore.register( 'collect', collect );
 
   return collect;

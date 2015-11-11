@@ -29,6 +29,7 @@ define( function( require ) {
     if ( obj[ 'o' + name ] !== undefined ) { return 'o' + name; }
     return undefined;
   }
+
   phetCore.register( 'detectPrefix', detectPrefix );
 
   return detectPrefix;

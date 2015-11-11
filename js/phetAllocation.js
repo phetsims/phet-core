@@ -46,6 +46,7 @@ define( function( require ) {
       };
     }
   }
+
   phetCore.register( 'phetAllocation', phetAllocation );
 
   return phetAllocation;

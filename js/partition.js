@@ -32,6 +32,7 @@ define( function( require ) {
 
     return [ satisfied, unsatisfied ];
   }
+
   phetCore.register( 'partition', partition );
 
   return partition;

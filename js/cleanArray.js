@@ -27,6 +27,7 @@ define( function( require ) {
       return [];
     }
   }
+
   phetCore.register( 'cleanArray', cleanArray );
 
   return cleanArray;

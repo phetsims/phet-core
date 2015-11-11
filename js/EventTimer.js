@@ -73,6 +73,7 @@ define( function( require ) {
     // @private
     this.timeBeforeNextEvent = this.eventModel.getPeriodBeforeNextEvent();
   }
+
   phetCore.register( 'EventTimer', EventTimer );
 
   inherit( Object, EventTimer, {
@@ -141,7 +142,7 @@ define( function( require ) {
     getPeriodBeforeNextEvent: function() {
       var uniformRandomNumber = this.pseudoRandomNumberSource();
       assert && assert( typeof uniformRandomNumber === 'number' &&
-                        uniformRandomNumber >= 0 && uniformRandomNumber < 1,
+      uniformRandomNumber >= 0 && uniformRandomNumber < 1,
         'Our uniform random number is outside of its expected range with a value of ' + uniformRandomNumber );
 
       // sample the exponential distribution
@@ -177,7 +178,7 @@ define( function( require ) {
 
       var uniformRandomNumber = this.pseudoRandomNumberSource();
       assert && assert( typeof uniformRandomNumber === 'number' &&
-                        uniformRandomNumber >= 0 && uniformRandomNumber < 1,
+      uniformRandomNumber >= 0 && uniformRandomNumber < 1,
         'Our uniform random number is outside of its expected range with a value of ' + uniformRandomNumber );
 
       // sample the exponential distribution
