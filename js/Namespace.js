@@ -22,6 +22,7 @@ define( function( require ) {
   }
 
   Namespace.prototype = {
+
     constructor: Namespace,
 
     /**
@@ -41,6 +42,7 @@ define( function( require ) {
      * @public
      */
     register: function( key, value ) {
+
       // If the key isn't compound (doesn't contain '.'), we can just look it up on this namespace
       if ( key.indexOf( '.' ) < 0 ) {
         assert && assert( !this[ key ], key + ' is already registered for namespace ' + this.name );
