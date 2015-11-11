@@ -16,7 +16,7 @@ define( function( require ) {
     this.name = name; // @public (read-only)
 
     if ( window.phet ) {
-      assert && assert( !window.phet[ name ] );
+      assert && assert( !window.phet[ name ], 'namespace ' + name + ' already exists' );
       window.phet[ name ] = this;
     }
   }
