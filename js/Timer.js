@@ -11,7 +11,7 @@ define( function( require ) {
 
   // modules
   var cleanArray = require( 'PHET_CORE/cleanArray' );
-  var joist = require( 'JOIST/joist' );
+  var phetCore = require( 'PHET_CORE/phetCore' );
 
   var listeners = [];
   var listenersDefensiveCopy = []; // separated out to prevent garbage collection issues
@@ -105,7 +105,7 @@ define( function( require ) {
     }
   };
 
-  joist.register( 'Timer', Timer );
+  phetCore.register( 'Timer', Timer );
 
   return Timer;
 } );
