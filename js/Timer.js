@@ -37,14 +37,14 @@ define( function( require ) {
     // @public - Add a listener to be called back once after the specified time (in milliseconds)
     setTimeout: function( listener, timeout ) {
       var elapsed = 0;
-      var timer = this;
+      var self = this;
       var callback = function( dt ) {
         elapsed += dt;
 
         //Convert seconds to ms and see if item has timed out
         if ( elapsed * 1000 >= timeout ) {
           listener();
-          timer.removeStepListener( callback );
+          self.removeStepListener( callback );
         }
       };
       this.addStepListener( callback );
