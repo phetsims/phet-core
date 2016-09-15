@@ -53,7 +53,7 @@ define( function( require ) {
         var keys = key.split( '.' ); // e.g. [ 'A', 'B', 'C' ]
 
         // Walk into the namespace, verifying that each level exists. e.g. parent => x.A.B
-        var parent = this;
+        var parent = this; // eslint-disable-line consistent-this
         for ( var i = 0; i < keys.length - 1; i++ ) { // for all but the last key
           assert && assert( !!parent[ keys[ i ] ],
             [ this.name ].concat( keys.slice( 0, i + 1 ) ).join( '.' ) + ' needs to be defined to register ' + key );
