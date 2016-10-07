@@ -19,8 +19,8 @@ define( function( require ) {
 
   var phetCore = require( 'PHET_CORE/phetCore' );
 
-  function phetAllocation( name ) {
-    if ( window.alloc ) {
+  function phetAllocation( name, x ) {
+    if ( window.alloc && x ) {
       var stack;
       try { throw new Error(); }
       catch( e ) { stack = e.stack; }
@@ -41,7 +41,7 @@ define( function( require ) {
         var stacks = Object.keys( log.stacks );
         stacks = _.sortBy( stacks, function( key ) { return log.stacks[ key ]; } );
         _.each( stacks, function( stack ) {
-          console.log( log.stacks[ stack ] + ': ' + stack );
+          console.log( log.stacks[ stack ] + ' occurrences for this stack: ' + stack );
         } );
       };
     }
