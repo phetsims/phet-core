@@ -21,7 +21,7 @@ define( function( require ) {
         for ( var prop in source ) {
           var descriptor = Object.getOwnPropertyDescriptor( source, prop );
 
-          if ( typeof descriptor.get === 'function' || source[ prop ] !== undefined ) {
+          if ( descriptor && ( typeof descriptor.get === 'function' || source[ prop ] !== undefined ) ) {
             Object.defineProperty( obj, prop, descriptor );
           }
         }
