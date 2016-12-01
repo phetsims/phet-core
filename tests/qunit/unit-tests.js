@@ -1,3 +1,5 @@
+// Copyright 2016, University of Colorado Boulder
+
 // path to test base, without a slash, e.g. '../../common/phet-core/tests/qunit'
 function runPhetCoreTests( pathToTestBase ) {
   function loadTestFile( src ) {
