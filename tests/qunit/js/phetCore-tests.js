@@ -1,6 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 (function() {
+  'use strict';
+  
   module( 'Phet-core' );
 
   test( 'isArray', function() {

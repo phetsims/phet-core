@@ -2,6 +2,8 @@
 
 // path to test base, without a slash, e.g. '../../common/phet-core/tests/qunit'
 function runPhetCoreTests( pathToTestBase ) {
+  'use strict';
+  
   function loadTestFile( src ) {
     var script = document.createElement( 'script' );
     script.type = 'text/javascript';
