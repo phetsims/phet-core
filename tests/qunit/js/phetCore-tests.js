@@ -2,9 +2,10 @@
 
 (function() {
   'use strict';
-  
+
   module( 'Phet-core' );
 
+  /* eslint-disable no-undef */
   test( 'isArray', function() {
     ok( phetCore.isArray( [ 1, 2, 3 ] ) );
     ok( phetCore.isArray( [] ) );
@@ -134,4 +135,5 @@
     equal( arr[ 1 ], c );
     equal( arr.length, 2 );
   } );
+  /* eslint-enable */
 })();
