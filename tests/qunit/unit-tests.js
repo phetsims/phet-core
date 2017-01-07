@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 // path to test base, without a slash, e.g. '../../common/phet-core/tests/qunit'
-function runPhetCoreTests( pathToTestBase ) {
+function runPhetCoreTests( pathToTestBase ) { // eslint-disable-line no-unused-vars
   'use strict';
   
   function loadTestFile( src ) {
