@@ -5,10 +5,14 @@
  * specific rate real-time regardless of the frame-rate.
  *
  * An EventTimer is created with a specific event "model" that determines when events occur, and a callback that will
- * be triggered for each event (with its time elapsed since it should have occurred).
+ * be triggered for each event (with its time elapsed since it should have occurred). Thus, each callback basically
+ * says:
+ * - "an event happened <timeElapsed> ago"
  *
- * To run the EventTimer, call step( realTimeElapsed ), and it will call your callback for every event that would have
- * occurred over that time-frame (possibly zero).
+ * To have the EventTimer step forward in time (firing callbacks for every event that would have occurred over that
+ * time frame, if any), call step( realTimeElapsed ).
+ *
+ * -----------------------------------------
  *
  * For example, create a timer with a constant rate that it will fire events every 1 time units:
  *
@@ -22,6 +26,14 @@
  * timer.step( 1.5 );
  * > event with timeElapsed: 0.5
  *
+ * The 0.5 above is because after 1.5 seconds of time, the event will have happened 0.5 seconds ago:
+ *
+ *           step 1.5
+ * |------------------------>|
+ * |                *        |          *                     *    <- constant time of 1 between each event
+ * |                <--------|
+ *                 0.5 seconds past the event now
+ *
  * Stepping for a longer time will result in more events:
  *
  * timer.step( 6 );
@@ -32,6 +44,17 @@
  * > event with timeElapsed: 1.5
  * > event with timeElapsed: 0.5
  *
+ *       step 1.5                                  step 6                                 step 0   step 1.5
+ * |---------------->|---------------------------------------------------------------------->|---------------->|
+ * |           *           *           *           *           *           *           *           *           *
+ * |           <-----|     <-----------------------------------------------------------------|     <-----------|
+ * |          0.5         5.5          <-----------------------------------------------------|     1           0
+ * |           ^           ^          4.5          <-----------------------------------------|              event at
+ * |           |           |                      3.5          <-----------------------------|              current
+ * |           |           |                                  2.5          <-----------------|              time
+ * |     callback( t ) called, etc.                                       1.5          <-----|
+ * |
+ *
  * A step with zero time will trigger no events:
  *
  * timer.step( 0 );
@@ -41,6 +64,13 @@
  * timer.step( 1.5 );
  * > event with timeElapsed: 1
  * > event with timeElapsed: 0
+ *
+ * NOTE:
+ * If your timer callbacks create model objects that would also get stepped forward, make sure to step forward objects
+ * before calling eventTimer.step(), so that objects don't get stepped twice. Usually the callback will have:
+ * - var modelElemet = new ModelElement();
+ * - modelElement.step( callbackTimeElapsed );
+ * And you don't want to apply step( dt ) to it directly afterwards.
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
