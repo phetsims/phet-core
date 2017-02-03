@@ -14,7 +14,7 @@
  *
  * -----------------------------------------
  *
- * For example, create a timer with a constant rate that it will fire events every 1 time units:
+ * For example, create a timer with a constant rate that will fire events every 1 time units:
  *
  * var timer = new phetCore.EventTimer( new phetCore.EventTimer.ConstantEventModel( 1 ), function( timeElapsed ) {
  *   console.log( 'event with timeElapsed: ' + timeElapsed );
@@ -68,7 +68,7 @@
  * NOTE:
  * If your timer callbacks create model objects that would also get stepped forward, make sure to step forward objects
  * before calling eventTimer.step(), so that objects don't get stepped twice. Usually the callback will have:
- * - var modelElemet = new ModelElement();
+ * - var modelElement = new ModelElement();
  * - modelElement.step( callbackTimeElapsed );
  * And you don't want to apply step( dt ) to it directly afterwards.
  *
