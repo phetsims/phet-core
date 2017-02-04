@@ -14,6 +14,7 @@ define( [
   'PHET_CORE/inherit',
   'PHET_CORE/isArray',
   'PHET_CORE/loadScript',
+  'PHET_CORE/mixedWith',
   'PHET_CORE/Namespace',
   'PHET_CORE/pairs',
   'PHET_CORE/partition',

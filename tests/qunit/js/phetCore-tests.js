@@ -135,5 +135,52 @@
     equal( arr[ 1 ], c );
     equal( arr.length, 2 );
   } );
+
+  test( 'mixedWith', function() {
+    var NAME = 'phet-core-sim';
+
+    // Our basic type that we'll want to extend with a mixin
+    function Simulation() {
+      this.name = NAME;
+    }
+    phetCore.inherit( Object, Simulation );
+
+    // Mixin that doesn't require initialization during construction
+    function Playable( type ) {
+      type.prototype.play = function() {
+        window.thisIsProbablyNotDefinedDoNotLogInTests && console.log( 'many fun, such entertain' );
+      };
+    }
+
+    // Mixin that does require initialization during construction (returned)
+    function Runnable( type ) {
+      type.prototype.run = function() {
+        this.running = true;
+      };
+      return function() {
+        // @private
+        this.running = false;
+      };
+    }
+
+    // Easily create a "subtype" of Simulation that is both playable and runnable.
+    // For debugging purposes, its name is overridden as Simulation_Playable_Runnable (indicating the type and mixins
+    // that were applied). Further mixing would concatenate.
+    var PhETSimulation = phetCore.mixedWith( Simulation, Playable, Runnable );
+
+    // Instantiation shows both mixins are applied to the prototype, and the initializer ran
+    var mixedSim = new PhETSimulation();
+    equal( mixedSim.name, NAME ); // 'phet-core-sim'
+    mixedSim.play(); // >> many fun, such entertain
+    equal( mixedSim.running, false ); // false
+    mixedSim.run();
+    equal( mixedSim.running, true ); // true
+
+    // The original type is unaffected
+    var basicSim = new Simulation();
+    equal( basicSim.play, undefined ); // does not exist
+    equal( basicSim.running, undefined ); // does not exist
+    equal( basicSim.run, undefined ); // does not exist
+  } );
   /* eslint-enable */
 })();
