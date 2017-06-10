@@ -54,6 +54,8 @@ define( function( require ) {
     //Copy the static properties onto the subtype constructor so they can be accessed 'statically'
     extend( subtype, staticProperties );
 
+    subtype.supertype = supertype;
+
     return subtype; // pass back the subtype so it can be returned immediately as a module export
   }
 
