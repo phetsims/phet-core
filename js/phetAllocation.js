@@ -18,6 +18,24 @@ define( function( require ) {
 
   var phetCore = require( 'PHET_CORE/phetCore' );
 
+  window.phetAllocationRecord = function() {
+
+    console.log( 'ready, set...' );
+
+    // start after 2 sec
+    setTimeout( function() {
+      console.log( 'go!' );
+      window.alloc = {};
+
+      setTimeout( function() {
+        window.recordedAllocations = window.alloc;
+        delete window.alloc;
+        console.log( 'after ' + window.recordedAllocations.loop.count + ' loops: window.recordedAllocations = ' );
+        console.log( window.recordedAllocations );
+      }, 1000 );
+    }, 2000 );
+  };
+
   function phetAllocation( name ) {
     if ( window.alloc ) {
       var stack;
