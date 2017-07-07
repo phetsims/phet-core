@@ -13,14 +13,13 @@
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
-
 define( function( require ) {
   'use strict';
 
   var phetCore = require( 'PHET_CORE/phetCore' );
 
-  function phetAllocation( name, x ) {
-    if ( window.alloc && x ) {
+  function phetAllocation( name ) {
+    if ( window.alloc ) {
       var stack;
       try { throw new Error(); }
       catch( e ) { stack = e.stack; }
