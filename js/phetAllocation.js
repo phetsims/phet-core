@@ -9,6 +9,9 @@
  * 3. Wait until you have taken enough data
  * 4. Type x = window.alloc; delete window.alloc;
  *
+ * To record 1 second of data after a 2 second delay
+ * 1. window.phetAllocationRecord()
+ *
  * Now you can inspect the x variable which contains the allocation information.
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
