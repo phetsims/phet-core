@@ -42,11 +42,13 @@ define( function( require ) {
      * @public
      */
     register: function( key, value ) {
+      var lastKey;
 
       // If the key isn't compound (doesn't contain '.'), we can just look it up on this namespace
       if ( key.indexOf( '.' ) < 0 ) {
         assert && assert( !this[ key ], key + ' is already registered for namespace ' + this.name );
         this[ key ] = value;
+        lastKey = key;
       }
       // Compound (contains '.' at least once). x.register( 'A.B.C', C ) should set x.A.B.C.
       else {
@@ -62,9 +64,16 @@ define( function( require ) {
         }
 
         // Write into the inner namespace, e.g. x.A.B[ 'C' ] = C
-        var lastKey = keys[ keys.length - 1 ];
+        lastKey = keys[ keys.length - 1 ];
         assert && assert( !parent[ lastKey ], key + ' is already registered for namespace ' + this.name );
         parent[ lastKey ] = value;
+
+      }
+
+      if ( typeof value === 'function' ) {
+        Object.defineProperty( value, 'name', {
+          value: lastKey
+        } );
       }
 
       return value;
