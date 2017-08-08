@@ -12,6 +12,7 @@ define( [
   'PHET_CORE/extend',
   'PHET_CORE/extendDefined',
   'PHET_CORE/inherit',
+  'PHET_CORE/inheritance',
   'PHET_CORE/isArray',
   'PHET_CORE/loadScript',
   'PHET_CORE/mixedWith',
