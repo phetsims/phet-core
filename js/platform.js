@@ -53,6 +53,9 @@ define( function( require ) {
     safari6: !!( ua.match( /Version\/6\./ ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ),
     safari7: !!( ua.match( /Version\/7\./ ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ),
 
+    // Match Safari on iOS
+    safari9: !!( ua.match( /Version\/9\./ ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ),
+
     // Whether the browser is some type of IE (Internet Explorer)
     ie: getInternetExplorerVersion() !== -1,
 
