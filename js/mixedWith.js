@@ -9,8 +9,8 @@
 define( function( require ) {
   'use strict';
 
-  var phetCore = require( 'PHET_CORE/phetCore' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var phetCore = require( 'PHET_CORE/phetCore' );
 
   /**
    * Returns a new subtype of the passed in type that has mixins applied.

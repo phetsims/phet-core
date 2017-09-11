@@ -78,8 +78,8 @@
 define( function( require ) {
   'use strict';
 
-  var phetCore = require( 'PHET_CORE/phetCore' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var phetCore = require( 'PHET_CORE/phetCore' );
 
   /*
    * Create an event timer with a specific model (determines the time between events), and a callback to be called

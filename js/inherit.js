@@ -29,8 +29,8 @@
 define( function( require ) {
   'use strict';
 
-  var phetCore = require( 'PHET_CORE/phetCore' );
   var extend = require( 'PHET_CORE/extend' );
+  var phetCore = require( 'PHET_CORE/phetCore' );
 
   /**
    * @param supertype           Constructor for the supertype.
