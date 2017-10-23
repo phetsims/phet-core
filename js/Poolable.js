@@ -18,7 +18,6 @@
 define( function( require ) {
   'use strict';
 
-  var extend = require( 'PHET_CORE/extend' );
   var phetCore = require( 'PHET_CORE/phetCore' );
 
   var Poolable = {
@@ -43,7 +42,7 @@ define( function( require ) {
       var proto = type.prototype;
 
       // defaults
-      options = extend( {
+      options = _.extend( {
         maxPoolSize: 50, // since we don't want to blow too much memory
         initialSize: 0
       }, options );
