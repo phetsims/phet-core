@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- * Object pooling mix-in, for cases where creating new objects is expensive, and we'd rather mark some objects as able
+ * Object pooling trait, for cases where creating new objects is expensive, and we'd rather mark some objects as able
  * to be reused (i.e. 'in the pool'). This provides a pool of objects for each type it is invoked on. It allows for
  * getting "new" objects that can either be constructed OR pulled in from a pool, and requires that the objects are
  * essentially able to "re-run" the constructor.
@@ -38,7 +38,7 @@ define( function( require ) {
      * @param {function} type - The constructor for the type
      * @param {Object} [options] -
      */
-    mixin: function( type, options ) {
+    mixInto: function( type, options ) {
       var proto = type.prototype;
 
       // defaults
