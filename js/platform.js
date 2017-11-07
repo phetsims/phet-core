@@ -20,6 +20,12 @@ define( function( require ) {
     return getInternetExplorerVersion() === version;
   }
 
+  // Whether the browser is most likely Safari running on iOS
+  // See http://stackoverflow.com/questions/3007480/determine-if-user-navigated-from-mobile-safari
+  function isMobileSafari() {
+    return !!( ua.match( /(iPod|iPhone|iPad)/ ) && ua.match( /AppleWebKit/ ) );
+  }
+
   //IE11 no longer reports MSIE in the user agent string, see https://github.com/phetsims/phet-core/issues/12
   //This code is adapted from http://stackoverflow.com/questions/17907445/how-to-detect-ie11
   function getInternetExplorerVersion() {
@@ -45,13 +51,15 @@ define( function( require ) {
     firefox: ua.toLowerCase().indexOf( 'firefox' ) > -1,
 
     // Whether the browser is most likely Safari running on iOS
-    // See http://stackoverflow.com/questions/3007480/determine-if-user-navigated-from-mobile-safari
-    mobileSafari: !!( ua.match( /(iPod|iPhone|iPad)/ ) && ua.match( /AppleWebKit/ ) ),
+    mobileSafari: isMobileSafari(),
 
     // Whether the browser is a matching version of Safari running on OS X
     safari5: !!( ua.match( /Version\/5\./ ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ),
     safari6: !!( ua.match( /Version\/6\./ ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ),
     safari7: !!( ua.match( /Version\/7\./ ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ),
+
+    // Whether the browser matches any version of safari, including mobile
+    safari: isMobileSafari() || !!( ua.match( /Version\// ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ),
 
     // Whether the browser is some type of IE (Internet Explorer)
     ie: getInternetExplorerVersion() !== -1,
