@@ -52,6 +52,8 @@ define( function( require ) {
     safari5: !!( ua.match( /Version\/5\./ ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ),
     safari6: !!( ua.match( /Version\/6\./ ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ),
     safari7: !!( ua.match( /Version\/7\./ ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ),
+    safari10: !!( ua.match( /Version\/10\./ ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ),
+    safari11: !!( ua.match( /Version\/11\./ ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ),
 
     // Match Safari on iOS
     safari9: !!( ua.match( /Version\/9\./ ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ),
