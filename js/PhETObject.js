@@ -21,7 +21,7 @@ define( function( require ) {
    */
   function PhETObject( options ) {
     options = _.extend( {
-      tandem: Tandem.tandemOptional(), // By default tandems are optional, but subtypes can specify this as
+      tandem: Tandem.optional, // By default tandems are optional, but subtypes can specify this as
                                        // `Tandem.tandemRequired` to enforce its presence
       phetioType: ObjectIO, // Supply the appropriate IO type
       phetioState: true, // To include the instance in the state
