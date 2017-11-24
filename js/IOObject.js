@@ -19,14 +19,14 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function PhETObject( options ) {
+  function IOObject( options ) {
     options = _.extend( {
       tandem: Tandem.optional, // By default tandems are optional, but subtypes can specify this as
-                                       // `Tandem.tandemRequired` to enforce its presence
-      phetioType: ObjectIO, // Supply the appropriate IO type
-      phetioState: true, // To include the instance in the state
-      phetioEvents: true, // To permit into the phet-io events stream
-      phetioReadOnly: false, // When true, you can only get values from the instance; no setting allowed.
+                               // `Tandem.tandemRequired` to enforce its presence
+      phetioType: ObjectIO,    // Supply the appropriate IO type
+      phetioState: true,       // To include the instance in the state
+      phetioEvents: true,      // To permit into the phet-io events stream
+      phetioReadOnly: false,   // When true, you can only get values from the instance; no setting allowed.
       phetioInstanceDocumentation: '' // Useful notes about an instrumented instance, shown in instance-proxies
     }, options );
 
@@ -42,9 +42,9 @@ define( function( require ) {
     this.phetObjectTandem.addInstance( this, options );
   }
 
-  phetCore.register( 'PhETObject', PhETObject );
+  phetCore.register( 'IOObject', IOObject );
 
-  return inherit( Object, PhETObject, {
+  return inherit( Object, IOObject, {
 
     /**
      * Start an event for the nested PhET-iO event stream.
