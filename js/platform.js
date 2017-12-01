@@ -6,7 +6,8 @@
  * Sample usage:
  * if (platform.firefox) {node.renderer = 'canvas';}
  *
- * @author Sam Reid
+ * @author Jonathan Olson (PhET Interactive Simulations)
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';
