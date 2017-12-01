@@ -61,5 +61,5 @@ define( function( require ) {
     assert.equal( basicSim.play, undefined ); // does not exist
     assert.equal( basicSim.running, undefined ); // does not exist
     assert.equal( basicSim.run, undefined ); // does not exist
-  } )
+  } );
 } );
