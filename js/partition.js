@@ -15,7 +15,7 @@ define( function( require ) {
   var phetCore = require( 'PHET_CORE/phetCore' );
 
   function partition( array, predicate ) {
-    assert && assert( array instanceof Array );
+    assert && assert( Array.isArray(array) );
     assert && assert( typeof predicate === 'function' );
 
     var satisfied = [];

@@ -13,7 +13,7 @@ define( function( require ) {
   var phetCore = require( 'PHET_CORE/phetCore' );
 
   function cleanArray( arr ) {
-    assert && assert( !arr || ( arr instanceof Array ), 'cleanArray either takes an Array' );
+    assert && assert( !arr || ( Array.isArray(arr) ), 'cleanArray either takes an Array' );
 
     if ( arr ) {
       // fastest way to clear an array (http://stackoverflow.com/questions/1232040/how-to-empty-an-array-in-javascript, http://jsperf.com/array-destroy/32)
