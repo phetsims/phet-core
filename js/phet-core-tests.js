@@ -20,6 +20,8 @@ define( function( require ) {
   require( 'PHET_CORE/partitionTests' );
   require( 'PHET_CORE/arrayRemoveTests' );
   require( 'PHET_CORE/mixedWithTests' );
+  require( 'PHET_CORE/dimensionForEachTests' );
+  require( 'PHET_CORE/dimensionMapTests' );
 
   // Since our tests are loaded asynchronously, we must direct QUnit to begin the tests
   QUnit.start();
