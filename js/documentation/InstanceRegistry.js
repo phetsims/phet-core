@@ -39,11 +39,19 @@ define( function( require ) {
     registerDataURL: function( typeName, instance ) {
       if ( phet.chipper.queryParameters.binder ) {
 
-        // Create the map if
+        // Create the map if we haven't seen that component type before
         map[ typeName ] = map[ typeName ] || [];
-        instance.toDataURL( function( dataURL ) {
-          map[ typeName ].push( dataURL );
-        } );
+
+        try {
+          instance.toDataURL( function( dataURL ) {
+            map[ typeName ].push( dataURL );
+          } );
+        }
+        catch( e ) {
+
+          // Ignore nodes that don't draw anything
+          // TODO: is this masking a problem?
+        }
       }
     }
   } );
