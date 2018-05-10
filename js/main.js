@@ -2,6 +2,7 @@
 
 define( [
   'PHET_CORE/phetCore',
+  'PHET_CORE/arrayDifference',
   'PHET_CORE/arrayRemove',
   'PHET_CORE/cleanArray',
   'PHET_CORE/collect',
