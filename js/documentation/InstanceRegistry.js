@@ -32,19 +32,21 @@ define( function( require ) {
 
     /**
      * Adds a screenshot of the given scenery Node
+     * @param {string} repoName
      * @param {string} typeName
      * @param {Node} instance
      * @public
      */
-    registerDataURL: function( typeName, instance ) {
+    registerDataURL: function( repoName, typeName, instance ) {
       if ( phet.chipper.queryParameters.binder ) {
 
         // Create the map if we haven't seen that component type before
-        map[ typeName ] = map[ typeName ] || [];
+        var key = repoName + '/' + typeName;
+        map[ key ] = map[ key ] || [];
 
         try {
           instance.toDataURL( function( dataURL ) {
-            map[ typeName ].push( dataURL );
+            map[ key ].push( dataURL );
           } );
         }
         catch( e ) {
