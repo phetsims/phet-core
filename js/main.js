@@ -12,6 +12,7 @@ define( [
   'PHET_CORE/dimensionMap',
   'PHET_CORE/escapeHTML',
   'PHET_CORE/EventTimer',
+  'PHET_CORE/ExperimentalPoolable',
   'PHET_CORE/extend',
   'PHET_CORE/extendDefined',
   'PHET_CORE/inherit',
