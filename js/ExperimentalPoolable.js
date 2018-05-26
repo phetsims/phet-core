@@ -46,7 +46,7 @@ define( function( require ) {
       assert && assert( options.initialSize <= options.maxSize );
 
       // {Array.<type>} - The actual array we store things in. Always push/pop.
-      var pool = [];
+      var pool = new Array( options.maxSize );
 
       // {number} - How many elements we have in the pool.
       var size = 0;
@@ -75,7 +75,7 @@ define( function( require ) {
          * @returns {type}
          */
         dirtyFromPool: function() {
-          return size ? pool[ --size ] : new DefaultConstructor;
+          return size === 0 ? new DefaultConstructor : pool[ --size ];
         },
 
         /**
@@ -87,15 +87,15 @@ define( function( require ) {
          * @returns {type}
          */
         createFromPool: function() {
-          if ( size ) {
+          if ( size === 0 ) {
+            return new ( partialConstructor.apply( null, arguments ) );
+          }
+          else {
             var result = pool[ --size ];
             type.apply( result, arguments );
 
             // Don't require returning anything now, since we use the constructor
             return result;
-          }
-          else {
-            return new ( partialConstructor.apply( null, arguments ) );
           }
         },
       } );
@@ -115,13 +115,7 @@ define( function( require ) {
 
       // Initialize the pool (if it should have objects)
       while ( size < options.initialSize ) {
-        pool.push( new DefaultConstructor );
-        size++;
-      }
-
-      // Then fill it up to the maxSize with filler values so we don't push/pop during operations.
-      while ( pool.length < options.maxSize ) {
-        pool.push( undefined );
+        pool[ size++ ] = new DefaultConstructor;
       }
     }
   };
