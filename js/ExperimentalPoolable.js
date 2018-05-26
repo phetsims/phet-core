@@ -33,7 +33,7 @@ define( function( require ) {
         defaultArguments: [],
 
         // {number} - A limit for the pool size (so we don't leak memory by growing the pool faster than we take things
-        // from it).
+        // from it). Don't make this super crazy, as we generally create an array of this length.
         maxSize: 100,
 
         // {number} - The initial size of the pool. To fill it, objects will be created with the default arguments.
@@ -43,9 +43,13 @@ define( function( require ) {
       assert && assert( Array.isArray( options.defaultArguments ) );
       assert && assert( typeof options.maxSize === 'number' && options.maxSize >= 0 );
       assert && assert( typeof options.initialSize === 'number' && options.initialSize >= 0 );
+      assert && assert( options.initialSize <= options.maxSize );
 
       // {Array.<type>} - The actual array we store things in. Always push/pop.
       var pool = [];
+
+      // {number} - How many elements we have in the pool.
+      var size = 0;
 
       // {function} - There is a madness to this craziness. We'd want to use the method noted at
       // https://stackoverflow.com/questions/1606797/use-of-apply-with-new-operator-is-this-possible, but the type is
@@ -71,7 +75,7 @@ define( function( require ) {
          * @returns {type}
          */
         dirtyFromPool: function() {
-          return pool.length ? pool.pop() : new DefaultConstructor;
+          return size ? pool[ --size ] : new DefaultConstructor;
         },
 
         /**
@@ -83,8 +87,8 @@ define( function( require ) {
          * @returns {type}
          */
         createFromPool: function() {
-          if ( pool.length ) {
-            var result = pool.pop();
+          if ( size ) {
+            var result = pool[ --size ];
             type.apply( result, arguments );
 
             // Don't require returning anything now, since we use the constructor
@@ -103,15 +107,21 @@ define( function( require ) {
          * @public
          */
         freeToPool: function() {
-          if ( pool.length < options.maxSize ) {
-            pool.push( this );
+          if ( size < options.maxSize ) {
+            pool[ size++ ] = this;
           }
         }
       } );
 
       // Initialize the pool (if it should have objects)
-      while ( pool.length < options.initialSize ) {
+      while ( size < options.initialSize ) {
         pool.push( new DefaultConstructor );
+        size++;
+      }
+
+      // Then fill it up to the maxSize with filler values so we don't push/pop during operations.
+      while ( pool.length < options.maxSize ) {
+        pool.push( undefined );
       }
     }
   };
