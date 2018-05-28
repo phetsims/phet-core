@@ -134,10 +134,8 @@ define( function( require ) {
    * @param {number} rate
    */
   EventTimer.ConstantEventModel = inherit( Object, function ConstantEventRate( rate ) {
-    assert && assert( typeof rate === 'number',
-      'The rate should be a number' );
-    assert && assert( rate > 0,
-      'We need to have a strictly positive rate in order to prevent infinite loops.' );
+    assert && assert( typeof rate === 'number', 'The rate should be a number' );
+    assert && assert( rate > 0, 'We need to have a strictly positive rate in order to prevent infinite loops.' );
 
     this.rate = rate;
   }, {
