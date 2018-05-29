@@ -100,8 +100,11 @@ define( function( require ) {
     this.eventModel = eventModel;
     this.eventCallback = eventCallback;
 
-    // @private
-    this.timeBeforeNextEvent = this.eventModel.getPeriodBeforeNextEvent();
+    // @private {number}
+    this.period = this.eventModel.getPeriodBeforeNextEvent();
+
+    // @private {number}
+    this.timeBeforeNextEvent = this.period;
   }
 
   phetCore.register( 'EventTimer', EventTimer );
@@ -116,7 +119,8 @@ define( function( require ) {
     step: function( dt ) {
       while ( dt >= this.timeBeforeNextEvent ) {
         dt -= this.timeBeforeNextEvent;
-        this.timeBeforeNextEvent = this.eventModel.getPeriodBeforeNextEvent();
+        this.period = this.eventModel.getPeriodBeforeNextEvent();
+        this.timeBeforeNextEvent = this.period;
 
         // how much time has elapsed since this event began
         this.eventCallback( dt );
@@ -124,6 +128,17 @@ define( function( require ) {
 
       // use up the remaining DT
       this.timeBeforeNextEvent -= dt;
+    },
+
+    /**
+     * Returns how far we are to the next event firing (where 0 is an event "just" fired, and 1 is the next event
+     * firing).
+     * @public
+     *
+     * @returns {number} - In the range [0,1). Is inclusive for 0, but exclusive for 1.
+     */
+    getRatio: function() {
+      return ( this.period - this.timeBeforeNextEvent ) / this.period;
     }
   } );
 
