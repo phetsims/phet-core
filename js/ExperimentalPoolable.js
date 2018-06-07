@@ -1,8 +1,6 @@
-// Copyright 2018, University of Colorado Boulder
+// Copyright 2015-2018, University of Colorado Boulder
 
 /**
- * NOTE: This is an experimental improvement to Poolable.js
- *
  * Object pooling trait, for cases where creating new objects is expensive, and we'd rather mark some objects as able
  * to be reused (i.e. 'in the pool'). This provides a pool of objects for each type it is invoked on. It allows for
  * getting "new" objects that can either be constructed OR pulled in from a pool, and requires that the objects are
@@ -32,6 +30,10 @@ define( function( require ) {
         // are the arguments that will be passed into the constructor
         defaultArguments: [],
 
+        // {function} - The function to call on the objects to reinitialize them (that is either the constructor, or
+        // acts like the constructor).
+        initialize: type,
+
         // {number} - A limit for the pool size (so we don't leak memory by growing the pool faster than we take things
         // from it).
         maxSize: 100,
@@ -56,6 +58,8 @@ define( function( require ) {
 
       // {function} - Basically our type constructor, but with the default arguments included already.
       var DefaultConstructor = partialConstructor.apply( null, options.defaultArguments );
+
+      var initialize = options.initialize;
 
       extend( type, {
         /**
@@ -85,7 +89,7 @@ define( function( require ) {
         createFromPool: function() {
           if ( pool.length ) {
             var result = pool.pop();
-            type.apply( result, arguments );
+            initialize.apply( result, arguments );
 
             // Don't require returning anything now, since we use the constructor
             return result;
