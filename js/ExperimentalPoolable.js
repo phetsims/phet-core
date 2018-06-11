@@ -97,7 +97,7 @@ define( function( require ) {
           else {
             return new ( partialConstructor.apply( null, arguments ) );
           }
-        },
+        }
       } );
 
       extend( type.prototype, {
