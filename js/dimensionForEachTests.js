@@ -79,7 +79,7 @@ define( function( require ) {
       { element: 2, idx1: 0, idx2: 1, idx3: 1 },
       { element: 3, idx1: 1, idx2: 0, idx3: 0 },
       { element: 3, idx1: 1, idx2: 0, idx3: 1 },
-      { element: 4, idx1: 1, idx2: 0, idx3: 2 },
+      { element: 4, idx1: 1, idx2: 0, idx3: 2 }
     ];
 
     dimensionForEach( 3, arr, function( element, idx1, idx2, idx3 ) {
