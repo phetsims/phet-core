@@ -75,7 +75,7 @@ define( function( require ) {
          * @returns {type}
          */
         dirtyFromPool: function() {
-          return pool.length ? pool.pop() : new DefaultConstructor;
+          return pool.length ? pool.pop() : new DefaultConstructor();
         },
 
         /**
