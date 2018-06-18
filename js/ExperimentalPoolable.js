@@ -63,8 +63,8 @@ define( function( require ) {
 
       extend( type, {
         /**
-         * @public {Array.<type>} - This should not generally be modified externally, but it's left open so that many
-         * items can be added at a time (or if manual access could potentially be faster).
+         * @private {Array.<type>} - This should not be modified externally. In the future if desired, functions could
+         * be added to help adding/removing poolable instances manually.
          */
         pool: pool,
 
