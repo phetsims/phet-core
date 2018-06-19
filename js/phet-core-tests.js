@@ -23,6 +23,7 @@ define( function( require ) {
   require( 'PHET_CORE/dimensionForEachTests' );
   require( 'PHET_CORE/dimensionMapTests' );
   require( 'PHET_CORE/arrayDifferenceTests' );
+  require( 'PHET_CORE/interleaveTests' );
 
   // Since our tests are loaded asynchronously, we must direct QUnit to begin the tests
   QUnit.start();
