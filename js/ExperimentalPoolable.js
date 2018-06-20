@@ -39,7 +39,11 @@ define( function( require ) {
         maxSize: 100,
 
         // {number} - The initial size of the pool. To fill it, objects will be created with the default arguments.
-        initialSize: 0
+        initialSize: 0,
+
+        // {boolean} - If true, when constructing the default arguments will always be used (and then initialized with
+        // the initializer) instead of just providing the arguments straight to the constructor.
+        useDefaultConstruction: false
       }, options );
 
       assert && assert( Array.isArray( options.defaultArguments ) );
@@ -60,6 +64,7 @@ define( function( require ) {
       var DefaultConstructor = partialConstructor.apply( null, options.defaultArguments );
 
       var initialize = options.initialize;
+      var useDefaultConstruction = options.useDefaultConstruction;
 
       extend( type, {
         /**
@@ -87,16 +92,21 @@ define( function( require ) {
          * @returns {type}
          */
         createFromPool: function() {
-          if ( pool.length ) {
-            var result = pool.pop();
-            initialize.apply( result, arguments );
+          var result;
 
-            // Don't require returning anything now, since we use the constructor
-            return result;
+          if ( pool.length ) {
+            result = pool.pop();
+            initialize.apply( result, arguments );
+          }
+          else if ( useDefaultConstruction ) {
+            result = new DefaultConstructor();
+            initialize.apply( result, arguments );
           }
           else {
-            return new ( partialConstructor.apply( null, arguments ) );
+            result = new ( partialConstructor.apply( null, arguments ) );
           }
+
+          return result;
         }
       } );
 
