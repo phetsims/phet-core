@@ -49,6 +49,8 @@ define( function( require ) {
       assert && assert( Array.isArray( options.defaultArguments ) );
       assert && assert( typeof options.maxSize === 'number' && options.maxSize >= 0 );
       assert && assert( typeof options.initialSize === 'number' && options.initialSize >= 0 );
+      assert && assert( typeof options.initialize === 'function' );
+      assert && assert( typeof options.useDefaultConstruction === 'boolean' );
 
       // {Array.<type>} - The actual array we store things in. Always push/pop.
       var pool = [];
