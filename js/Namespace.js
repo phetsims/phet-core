@@ -39,6 +39,7 @@ define( function( require ) {
      *
      * @param {string} key
      * @param {*} value
+     * @returns {*} value, for chaining
      * @public
      */
     register: function( key, value ) {
