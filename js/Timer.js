@@ -13,16 +13,17 @@ define( function( require ) {
   var phetCore = require( 'PHET_CORE/phetCore' );
   var Emitter = require( 'AXON/Emitter' );
 
-  var emitter = new Emitter();
+  // Emitter used to send notifications when the timer ticks.
+  var stepEmitter = new Emitter();
 
   var Timer = {
 
     // @public {Emitter} - the emitter that sends {number} dt events
-    emitter: emitter,
+    stepEmitter: stepEmitter,
 
     // @public (joist-internal) - Trigger a step event, called by Sim.js in the animation loop
     step: function( dt ) {
-      emitter.emit1( dt );
+      stepEmitter.emit1( dt );
     },
 
     // @public - Add a listener to be called back once after the specified time (in milliseconds)
@@ -79,17 +80,17 @@ define( function( require ) {
 
     // @public - Add a listener to be called back on every animationFrame with a dt value
     addStepListener: function( listener ) {
-      emitter.addListener( listener );
+      stepEmitter.addListener( listener );
     },
 
     // @public - Remove a step listener from being called back
     removeStepListener: function( listener ) {
-      emitter.removeListener( listener );
+      stepEmitter.removeListener( listener );
     },
 
     // @public
     hasStepListener: function( listener ) {
-      return emitter.hasListener( listener );
+      return stepEmitter.hasListener( listener );
     }
   };
 
