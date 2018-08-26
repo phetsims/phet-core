@@ -5,8 +5,6 @@ define( function( require ) {
 
   var Namespace = require( 'PHET_CORE/Namespace' );
 
-  // no phetAllocation initialized, since we don't need it with just phet-core, and this file is required before that
-
   var phetCore = new Namespace( 'phetCore' );
 
   // Namespace can't require this file, so we register it as a special case.

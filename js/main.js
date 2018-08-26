@@ -23,7 +23,6 @@ define( [
   'PHET_CORE/Namespace',
   'PHET_CORE/pairs',
   'PHET_CORE/partition',
-  'PHET_CORE/phetAllocation',
   'PHET_CORE/platform',
   'PHET_CORE/Poolable',
   'PHET_CORE/Timer'
