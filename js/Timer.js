@@ -1,102 +1,75 @@
 // Copyright 2013-2015, University of Colorado Boulder
 
 /**
- * Timer so that other modules can run timing related code through the simulation's requestAnimationFrame.
- * Note: this is not specific to the running screen, it is global across all screens.
+ * Timer so that other modules can run timing related code through the simulation's requestAnimationFrame. Use its
+ * Emitter interface for adding/removing listeners. Note: this is not specific to the running screen, it is global
+ * across all screens.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var phetCore = require( 'PHET_CORE/phetCore' );
-  var Emitter = require( 'AXON/Emitter' );
+  const phetCore = require( 'PHET_CORE/phetCore' );
+  const Emitter = require( 'AXON/Emitter' );
 
-  // Emitter used to send notifications when the timer ticks, using emit1(dt)
-  var stepEmitter = new Emitter();
-
-  var Timer = {
-
-    // @public {Emitter} - the emitter that sends notifications when the timer ticks, using emit1(dt)
-    stepEmitter: stepEmitter,
-
-    // @public (joist-internal) - Trigger a step event, called by Sim.js in the animation loop
-    step: function( dt ) {
-      stepEmitter.emit1( dt );
-    },
+  class TimerType extends Emitter {
 
     // @public - Add a listener (which can take a {number} dt argument) to be called back once after the specified time
     // (in milliseconds)
-    setTimeout: function( listener, timeout ) {
-      var elapsed = 0;
-      var self = this;
-      var callback = function( dt ) {
+    setTimeout( listener, timeout ) {
+      let elapsed = 0;
+      const callback = dt => {
         elapsed += dt;
 
         //Convert seconds to ms and see if item has timed out
         if ( elapsed * 1000 >= timeout ) {
           listener();
-          self.removeStepListener( callback );
+          this.removeListener( callback );
         }
       };
-      this.addStepListener( callback );
+      this.addListener( callback );
 
       //Return the callback so it can be removed with removeStepListener
       return callback;
-    },
+    }
 
     // @public - Clear a scheduled timeout. If there was no timeout, nothing is done.
-    clearTimeout: function( timeoutID ) {
-      if ( this.hasStepListener( timeoutID ) ) {
-        this.removeStepListener( timeoutID );
+    clearTimeout( timeoutID ) {
+      if ( this.hasListener( timeoutID ) ) {
+        this.removeListener( timeoutID );
       }
-    },
+    }
 
     // @public - Add a listener (which can take a {number} dt argument) to be called at specified intervals (in
     // milliseconds)
-    setInterval: function( listener, interval ) {
-      var elapsed = 0;
-      var self = this;
-      var callback = function( dt ) {
+    setInterval( listener, interval ) {
+      let elapsed = 0;
+      const callback = dt => {
         elapsed += dt;
 
         //Convert seconds to ms and see if item has timed out
-        while ( elapsed * 1000 >= interval && self.hasStepListener( callback ) !== -1 ) {
+        while ( elapsed * 1000 >= interval && this.hasListener( callback ) !== -1 ) {
           listener();
           elapsed = elapsed - interval / 1000.0; //Save the leftover time so it won't accumulate
         }
       };
-      this.addStepListener( callback );
+      this.addListener( callback );
 
-      //Return the callback so it can be removed with removeStepListener
+      //Return the callback so it can be removed with removeListener
       return callback;
-    },
+    }
 
     // @public - Clear a scheduled interval. If there was no interval, nothing is done.
-    clearInterval: function( intervalID ) {
-      if ( this.hasStepListener( intervalID ) ) {
-        this.removeStepListener( intervalID );
+    clearInterval( intervalID ) {
+      if ( this.hasListener( intervalID ) ) {
+        this.removeListener( intervalID );
       }
-    },
-
-    // @public - Add a listener (which can take a {number} dt argument) to be called back on every animationFrame
-    addStepListener: function( listener ) {
-      stepEmitter.addListener( listener );
-    },
-
-    // @public - Remove a step listener from being called back
-    removeStepListener: function( listener ) {
-      stepEmitter.removeListener( listener );
-    },
-
-    // @public
-    hasStepListener: function( listener ) {
-      return stepEmitter.hasListener( listener );
     }
-  };
+  }
 
-  phetCore.register( 'Timer', Timer );
+  const Timer = new TimerType();
 
-  return Timer;
+  return phetCore.register( 'Timer', Timer );
 } );
