@@ -14,7 +14,7 @@ define( require => {
   const phetCore = require( 'PHET_CORE/phetCore' );
   const Emitter = require( 'AXON/Emitter' );
 
-  class TimerType extends Emitter {
+  class Timer extends Emitter {
 
     // @public - Add a listener (which can take a {number} dt argument) to be called back once after the specified time
     // (in milliseconds)
@@ -69,7 +69,6 @@ define( require => {
     }
   }
 
-  const Timer = new TimerType();
-
-  return phetCore.register( 'Timer', Timer );
+  // Register and return a singleton
+  return phetCore.register( 'Timer', new Timer() );
 } );
