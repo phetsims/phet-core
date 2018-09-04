@@ -1,4 +1,4 @@
-// Copyright 2013-2015, University of Colorado Boulder
+// Copyright 2013-2018, University of Colorado Boulder
 
 /**
  * Timer so that other modules can run timing related code through the simulation's requestAnimationFrame. Use its
@@ -11,8 +11,8 @@ define( require => {
   'use strict';
 
   // modules
-  const phetCore = require( 'PHET_CORE/phetCore' );
   const Emitter = require( 'AXON/Emitter' );
+  const phetCore = require( 'PHET_CORE/phetCore' );
 
   class Timer extends Emitter {
 
