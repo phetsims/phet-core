@@ -24,7 +24,7 @@ define( require => {
      * Adds a listener to be called back once after the specified time in milliseconds
      * @param {function} listener - called with no arguments
      * @param {number} timeout in milliseconds
-     * @returns {callback} for removal with clearTimeout
+     * @returns {function} an internally-wrapped listener which can be removed with clearTimeout
      * @public
      */
     setTimeout( listener, timeout ) {
@@ -59,7 +59,7 @@ define( require => {
      * Adds a listener to be called at specified intervals (in milliseconds)
      * @param {function} listener - called with no arguments
      * @param {number} interval - in milliseconds
-     * @returns {callback} - for removal in clearInterval
+     * @returns {function} an internally-wrapped listener which can be removed with clearTimeout
      * @public
      */
     setInterval( listener, interval ) {
