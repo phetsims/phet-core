@@ -40,7 +40,7 @@ define( require => {
       };
       this.addListener( callback );
 
-      //Return the callback so it can be removed with removeStepListener
+      // Return the callback so it can be removed with removeStepListener
       return callback;
     }
 
@@ -67,7 +67,7 @@ define( require => {
       const callback = dt => {
         elapsed += dt;
 
-        //Convert seconds to ms and see if item has timed out
+        // Convert seconds to ms and see if item has timed out
         while ( elapsed * 1000 >= interval && this.hasListener( callback ) !== -1 ) {
           listener();
           elapsed = elapsed - interval / 1000.0; // Save the leftover time so it won't accumulate
@@ -75,7 +75,7 @@ define( require => {
       };
       this.addListener( callback );
 
-      //Return the callback so it can be removed with removeListener
+      // Return the callback so it can be removed with removeListener
       return callback;
     }
 
