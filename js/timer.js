@@ -70,5 +70,5 @@ define( require => {
   }
 
   // Register and return a singleton
-  return phetCore.register( 'Timer', new Timer() );
+  return phetCore.register( 'timer', new Timer() );
 } );

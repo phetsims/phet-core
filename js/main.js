@@ -25,7 +25,7 @@ define( [
   'PHET_CORE/partition',
   'PHET_CORE/platform',
   'PHET_CORE/Poolable',
-  'PHET_CORE/Timer'
+  'PHET_CORE/timer'
 ], function( phetCore ) {
   'use strict';
   return phetCore;
