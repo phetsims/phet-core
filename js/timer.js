@@ -59,7 +59,7 @@ define( require => {
      * Adds a listener to be called at specified intervals (in milliseconds)
      * @param {function} listener - called with no arguments
      * @param {number} interval - in milliseconds
-     * @returns {function} an internally-wrapped listener which can be removed with clearTimeout
+     * @returns {function} an internally-wrapped listener which can be removed with clearInterval
      * @public
      */
     setInterval( listener, interval ) {
