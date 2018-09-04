@@ -1,9 +1,13 @@
-// Copyright 2013-2018, University of Colorado Boulder
+// Copyright 2013-2015, University of Colorado Boulder
 
 /**
  * Timer so that other modules can run timing related code through the simulation's requestAnimationFrame. Use its
- * Emitter interface for adding/removing listeners. Note: this is not specific to the running screen, it is global
- * across all screens.
+ * Emitter interface for adding/removing listeners.
+ *
+ * Listeners added with addListener are called with a {number} dt argument (in seconds).
+ * Listeners added with setTimeout/setInterval are called with no arguments.
+ *
+ * Note: this is not specific to the running screen, it is global across all screens.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
