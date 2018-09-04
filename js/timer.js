@@ -11,8 +11,8 @@ define( require => {
   'use strict';
 
   // modules
-  const phetCore = require( 'PHET_CORE/phetCore' );
   const Emitter = require( 'AXON/Emitter' );
+  const phetCore = require( 'PHET_CORE/phetCore' );
 
   class Timer extends Emitter {
 
