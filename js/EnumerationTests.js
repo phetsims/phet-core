@@ -1,0 +1,52 @@
+// Copyright 2018, University of Colorado Boulder
+
+/**
+ * Tests for Enumeration
+ *
+ * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  const Enumeration = require( 'PHET_CORE/Enumeration' );
+
+  QUnit.module( 'Enumeration' );
+
+  QUnit.test( 'Basic enumeration', function( assert ) {
+    const CardinalDirection = new Enumeration( [ 'NORTH', 'SOUTH', 'EAST', 'WEST' ] );
+ 
+    assert.equal( CardinalDirection.NORTH, 'NORTH', 'Equality for NORTH' );
+    assert.equal( CardinalDirection.SOUTH, 'SOUTH', 'Equality for SOUTH' );
+    assert.equal( CardinalDirection.EAST, 'EAST', 'Equality for EAST' );
+    assert.equal( CardinalDirection.WEST, 'WEST', 'Equality for WEST' );
+    assert.deepEqual( CardinalDirection.VALUES, [ 'NORTH', 'SOUTH', 'EAST', 'WEST' ], 'Equality for VALUES' );
+ 
+    assert.equal( CardinalDirection.is( 'NORTH' ), true, 'NORTH is in the enumeration' );
+    assert.equal( CardinalDirection.is( 'YORKSHIRE_TERRIER_WITH_THE_CANDLE_STICK_IN_THE_BALLROOM' ), false,
+      'Not in the enumeration' );
+
+    window.assert && assert.throws( function() {
+      CardinalDirection.SOMETHING_AFTER_THE_FREEZE = 5;
+    }, 'Should not be able to set things after initialization' );
+  } );
+
+  QUnit.test( 'Before freeze test', function( assert ) {
+    const E = new Enumeration( [ 'A', 'B' ], E => {
+      E.opposite = e => {
+        window.assert && window.assert( E.is( e ) );
+        return e === E.A ? E.B : E.A;
+      };
+    } );
+ 
+    assert.equal( E.A, 'A', 'Equality for A' );
+    assert.equal( E.B, 'B', 'Equality for B' );
+    assert.deepEqual( E.VALUES, [ 'A', 'B' ], 'Equality for VALUES' );
+    assert.equal( E.opposite( E.A ), E.B, 'Custom function check 1' );
+    assert.equal( E.opposite( E.B ), E.A, 'Custom function check 2' );
+ 
+    window.assert && assert.throws( function() {
+      E.SOMETHING_AFTER_THE_FREEZE = 5;
+    }, 'Should not be able to set things after initialization' );
+  } );
+} );
