@@ -41,9 +41,12 @@ define( require => {
      */
     constructor( values, beforeFreeze ) {
       assert && assert( Array.isArray( values ), 'Values should be an array' );
+      assert && assert( _.uniq( values ).length === values.length, 'There should be no duplicated values provided' );
       assert && values.forEach( value => assert( typeof value === 'string', 'Each value should be a string' ) );
-      assert && assert( !_.includes( values, 'VALUES' ) );
-      assert && assert( !_.includes( values, 'includes' ) );
+      assert && assert( !_.includes( values, 'VALUES' ),
+        'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
+      assert && assert( !_.includes( values, 'includes' ),
+        'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
 
       for ( let value of values ) {
         // @public {string}
