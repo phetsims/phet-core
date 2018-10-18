@@ -17,8 +17,8 @@
  *
  * And support for checking whether any value is a value of the enumeration:
  *
- *   CardinalDirection.is( 'NORTH' ); // true
- *   CardinalDirection.is( 'YORKSHIRE_TERRIER_WITH_THE_CANDLE_STICK_IN_THE_BALLROOM' ); // false
+ *   CardinalDirection.includes( 'NORTH' ); // true
+ *   CardinalDirection.includes( 'YORKSHIRE_TERRIER_WITH_THE_CANDLE_STICK_IN_THE_BALLROOM' ); // false
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
@@ -43,7 +43,7 @@ define( require => {
       assert && assert( Array.isArray( values ), 'Values should be an array' );
       assert && values.forEach( value => assert( typeof value === 'string', 'Each value should be a string' ) );
       assert && assert( !_.includes( values, 'VALUES' ) );
-      assert && assert( !_.includes( values, 'is' ) );
+      assert && assert( !_.includes( values, 'includes' ) );
 
       for ( let value of values ) {
         // @public {string}
@@ -64,7 +64,7 @@ define( require => {
      * @param {string} value
      * @returns {boolean}
      */
-    is( value ) {
+    includes( value ) {
       return this.VALUES.includes( value );
     }
   }
