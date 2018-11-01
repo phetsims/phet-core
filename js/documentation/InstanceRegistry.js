@@ -9,8 +9,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var phetCore = require( 'PHET_CORE/phetCore' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var phetCore = require( 'PHET_CORE/phetCore' );
 
   // constants
   var map = {};
