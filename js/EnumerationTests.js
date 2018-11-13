@@ -20,11 +20,12 @@ define( function( require ) {
     assert.equal( CardinalDirection.SOUTH, 'SOUTH', 'Equality for SOUTH' );
     assert.equal( CardinalDirection.EAST, 'EAST', 'Equality for EAST' );
     assert.equal( CardinalDirection.WEST, 'WEST', 'Equality for WEST' );
-    assert.deepEqual( CardinalDirection.VALUES, [ 'NORTH', 'SOUTH', 'EAST', 'WEST' ], 'Equality for VALUES' );
 
-    assert.equal( CardinalDirection.includes( 'NORTH' ), true, 'NORTH is in the enumeration' );
+    assert.equal( CardinalDirection.includes( CardinalDirection.NORTH ), true, 'NORTH is in the enumeration' );
+    assert.equal( CardinalDirection.includes( 'NORTH' ), false, 'Strings shouln\'t match' );
     assert.equal( CardinalDirection.includes( 'YORKSHIRE_TERRIER_WITH_THE_CANDLE_STICK_IN_THE_BALLROOM' ), false,
       'Not in the enumeration' );
+    assert.equal( CardinalDirection.includes( { name: 'NORTH' } ), false, 'Should not be able to synthesize Enumeration values' );
 
     window.assert && assert.throws( function() {
       CardinalDirection.SOMETHING_AFTER_THE_FREEZE = 5;
@@ -41,7 +42,6 @@ define( function( require ) {
 
     assert.equal( E.A, 'A', 'Equality for A' );
     assert.equal( E.B, 'B', 'Equality for B' );
-    assert.deepEqual( E.VALUES, [ 'A', 'B' ], 'Equality for VALUES' );
     assert.equal( E.opposite( E.A ), E.B, 'Custom function check 1' );
     assert.equal( E.opposite( E.B ), E.A, 'Custom function check 2' );
 
