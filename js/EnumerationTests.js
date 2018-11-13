@@ -27,6 +27,11 @@ define( function( require ) {
       'Not in the enumeration' );
     assert.equal( CardinalDirection.includes( { name: 'NORTH' } ), false, 'Should not be able to synthesize Enumeration values' );
 
+    // Test toString
+    var object = {};
+    object[ CardinalDirection.NORTH ] = 'exit';
+    assert.equal( object.NORTH, 'exit', 'toString should work seamlessly' );
+
     window.assert && assert.throws( function() {
       CardinalDirection.SOMETHING_AFTER_THE_FREEZE = 5;
     }, 'Should not be able to set things after initialization' );
