@@ -35,6 +35,11 @@ define( function( require ) {
     window.assert && assert.throws( function() {
       CardinalDirection.SOMETHING_AFTER_THE_FREEZE = 5;
     }, 'Should not be able to set things after initialization' );
+
+    window.assert && assert.throws( function() {
+      const x = new Enumeration( [ 'lowercase', 'should', 'fail' ] );
+      assert.ok( !!x, 'fake assertion so x is used' );
+    }, 'Enumeration should fail for lowercase values' );
   } );
 
   QUnit.test( 'Before freeze test', function( assert ) {
