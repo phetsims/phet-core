@@ -59,4 +59,11 @@ define( function( require ) {
       E.SOMETHING_AFTER_THE_FREEZE = 5;
     }, 'Should not be able to set things after initialization' );
   } );
+
+  QUnit.test( 'VALUES', function( assert ) {
+    const People = new Enumeration( [ 'ALICE', 'BOB' ] );
+    window.assert && assert.throws( () => {
+      People.VALUES = 'something else';
+    }, 'Setting values after initialization should throw an error.' );
+  } );
 } );
