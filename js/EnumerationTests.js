@@ -62,6 +62,7 @@ define( function( require ) {
 
   QUnit.test( 'VALUES', function( assert ) {
     const People = new Enumeration( [ 'ALICE', 'BOB' ] );
+    assert.ok( true, 'at least one assertion must run per test' );
     window.assert && assert.throws( () => {
       People.VALUES = 'something else';
     }, 'Setting values after initialization should throw an error.' );
