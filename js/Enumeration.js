@@ -69,6 +69,8 @@ define( require => {
 
       beforeFreeze && beforeFreeze( this );
       assert && Object.freeze( this );
+      assert && Object.freeze( this.VALUES );
+      assert && Object.freeze( this.KEYS );
     }
 
     /**
