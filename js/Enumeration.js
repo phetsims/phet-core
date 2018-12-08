@@ -43,10 +43,8 @@ define( require => {
       assert && assert( Array.isArray( keys ), 'Values should be an array' );
       assert && assert( _.uniq( keys ).length === keys.length, 'There should be no duplicated values provided' );
       assert && keys.forEach( value => assert( typeof value === 'string', 'Each value should be a string' ) );
-      assert && keys.forEach(
-        value => assert( value.match( /^[A-Z][A-Z0-9_]*$/g ),
-          'Enumeration values should be uppercase alphanumeric with underscores and begin with a letter' )
-      );
+      assert && keys.forEach( value => assert( /^[A-Z][A-Z0-9_]*$/g.test( value ),
+        'Enumeration values should be uppercase alphanumeric with underscores and begin with a letter' ) );
       assert && assert( !_.includes( keys, 'VALUES' ),
         'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
       assert && assert( !_.includes( keys, 'includes' ),
