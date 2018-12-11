@@ -56,14 +56,14 @@ define( require => {
       // @public {string[]} (read-only) - the string keys of the enumeration
       this.KEYS = [];
 
-      for ( let key of keys ) {
+      keys.forEach( key => {
         this[ key ] = {
           name: key,
           toString() {return key;}
         };
         this.VALUES.push( this[ key ] );
         this.KEYS.push( key );
-      }
+      } );
 
       beforeFreeze && beforeFreeze( this );
       assert && Object.freeze( this );
