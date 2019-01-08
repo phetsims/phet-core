@@ -44,7 +44,7 @@ define( function( require ) {
      *
      * @param {number} dim
      * @param {MultidimensionalArray.<*>} arr
-     * @return {MultidimensionalArray.<*>}
+     * @returns {MultidimensionalArray.<*>}
      */
     function recur( dim, arr ) {
       return arr.map( function( element, index ) {
