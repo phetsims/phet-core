@@ -20,6 +20,26 @@
  *   CardinalDirection.includes( 'NORTH' ); // true
  *   CardinalDirection.includes( 'YORKSHIRE_TERRIER_WITH_THE_CANDLE_STICK_IN_THE_BALLROOM' ); // false
  *
+ * Conventions for using Enumeration:
+ *
+ * (1) Enumerations are named like classes/types. Nothing in the name needs to identify that they are Enumerations.
+ *    See the example above: CardinalDirection, not CardinalDirectionEum or CardinalDirectionEnumeration.
+ *
+ * (2) Enumeration values are named like constants, using uppercase. See the example above.
+ *
+ * (3) If an Enumeration is closely related to some class, then make it a static field of that class. If an
+ *     Enumeration is specific to a Property, then the Enumeration should likely be owned by the class that
+ *     owns that Property.
+ *
+ * (4) If an Enumeration is not closely related to some class, then put the Enumeration in its own .js file.
+ *     Do not combine multiple Enumerations into one file.
+ *
+ * (5) If a Property takes an Enumeration value, its validation typically looks like this:
+ *
+ *     const cardinalDirectionProperty = new Property( CardinalDirection.NORTH, {
+ *       validValues: CardinalDirection.VALUES
+ *     }
+ *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 define( require => {
