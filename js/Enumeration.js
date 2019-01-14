@@ -23,7 +23,7 @@
  * Conventions for using Enumeration, from https://github.com/phetsims/phet-core/issues/53:
  *
  * (1) Enumerations are named like classes/types. Nothing in the name needs to identify that they are Enumerations.
- *    See the example above: CardinalDirection, not CardinalDirectionEum or CardinalDirectionEnumeration.
+ *     See the example above: CardinalDirection, not CardinalDirectionEum or CardinalDirectionEnumeration.
  *
  * (2) Enumeration values are named like constants, using uppercase. See the example above.
  *
