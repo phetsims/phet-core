@@ -20,7 +20,7 @@
  *   CardinalDirection.includes( 'NORTH' ); // true
  *   CardinalDirection.includes( 'YORKSHIRE_TERRIER_WITH_THE_CANDLE_STICK_IN_THE_BALLROOM' ); // false
  *
- * Conventions for using Enumeration:
+ * Conventions for using Enumeration, from https://github.com/phetsims/phet-core/issues/53:
  *
  * (1) Enumerations are named like classes/types. Nothing in the name needs to identify that they are Enumerations.
  *    See the example above: CardinalDirection, not CardinalDirectionEum or CardinalDirectionEnumeration.
