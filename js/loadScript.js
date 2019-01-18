@@ -1,4 +1,5 @@
 // Copyright 2013-2015, University of Colorado Boulder
+/* eslint-disable bad-sim-text */
 
 /**
  * Loads a script
