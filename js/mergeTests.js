@@ -216,6 +216,7 @@ define( require => {
       assert.throws( function() { merge( original, merges.e ); }, 'merge should not allow functions to be merged' );
       assert.throws( function() { merge( original, getterMerge ); }, 'merge should not work with getters' );
     }
+    assert.equal( 1, 1, 'for no ?ea query param' );
   } );
 
   QUnit.test( 'check for reference level equality (e.g. for Properties and Enumerations)', function( assert ) {
@@ -252,7 +253,7 @@ define( require => {
     mergedFresh.prop.value = 'forty three';
     assert.equal( testProperty2.value, 'forty three', 'merge should pass Property references' );
     assert.equal( testProperty.value, 42, 'original property should be overwritten' );
-    
+
     var merged = merge( original, merger );
     assert.equal( merged.nestedOptions.needsAnEnum, testEnum.B, 'merge should preserve overwritten Enumeration types' );
     assert.equal( merged.nestedOptions.moreOptions.needsAnEnum, testEnum.C, 'merge should preserve Enumeration types from target' );
