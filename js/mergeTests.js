@@ -5,6 +5,8 @@ define( require => {
 
   // modules
   var merge = require( 'PHET_CORE/merge' );
+  var Enumeration = require( 'PHET_CORE/Enumeration' );
+  var Property = require( 'AXON/Property' );
 
   QUnit.module( 'merge' );
 
@@ -214,6 +216,47 @@ define( require => {
       assert.throws( function() { merge( original, merges.e ); }, 'merge should not allow functions to be merged' );
       assert.throws( function() { merge( original, getterMerge ); }, 'merge should not work with getters' );
     }
+  } );
+
+  QUnit.test( 'check for reference level equality (e.g. for Properties and Enumerations)', function( assert ) {
+    var A = 'A';
+    var B = 'B';
+    var C = 'C';
+    var testEnum = new Enumeration( [ A, B, C ] );
+    var testProperty = new Property();
+    var testProperty2 = new Property();
+    testProperty.value = 42;
+    testProperty2.value = 'forty two';
+    var original = {
+      prop: testProperty,
+      nestedOptions: {
+        needsAnEnum: testEnum.A,
+        moreOptions: {
+          needsAnEnum: testEnum.C
+        }
+      }
+    };
+    var merger = {
+      prop: testProperty2,
+      nestedOptions: {
+        needsAnEnum: testEnum.B,
+        moreOptions: {
+          needsDifferentEnum: testEnum.A
+        }
+      }
+    };
+    var mergedFresh = merge( {}, original, merger );
+    assert.equal( mergedFresh.nestedOptions.needsAnEnum, testEnum.B, 'merge should preserve overwritten Enumeration types' );
+    assert.equal( mergedFresh.nestedOptions.moreOptions.needsAnEnum, testEnum.C, 'merge should preserve Enumeration types from target' );
+    assert.equal( mergedFresh.nestedOptions.moreOptions.needsDifferentEnum, testEnum.A, 'merge should preserve Enumeration types from source' );
+    mergedFresh.prop.value = 'forty three';
+    assert.equal( testProperty2.value, 'forty three', 'merge should pass Property references' );
+    assert.equal( testProperty.value, 42, 'original property should be overwritten' );
+    
+    var merged = merge( original, merger );
+    assert.equal( merged.nestedOptions.needsAnEnum, testEnum.B, 'merge should preserve overwritten Enumeration types' );
+    assert.equal( merged.nestedOptions.moreOptions.needsAnEnum, testEnum.C, 'merge should preserve Enumeration types from target' );
+    assert.equal( merged.nestedOptions.moreOptions.needsDifferentEnum, testEnum.A, 'merge should preserve Enumeration types from source' );
   } );
 
   QUnit.test( 'try a horribly nested case', function( assert ) {
