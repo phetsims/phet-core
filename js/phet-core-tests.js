@@ -25,6 +25,7 @@ define( function( require ) {
   require( 'PHET_CORE/arrayDifferenceTests' );
   require( 'PHET_CORE/interleaveTests' );
   require( 'PHET_CORE/EnumerationTests' );
+  require( 'PHET_CORE/mergeTests' );
 
   // Since our tests are loaded asynchronously, we must direct QUnit to begin the tests
   QUnit.start();
