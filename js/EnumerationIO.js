@@ -44,6 +44,7 @@ define( function( require ) {
         documentation: 'Gets the possible values of the enumeration.'
       }
     }, {
+      validator: { valueType: Object },// TODO: https://github.com/phetsims/axon/issues/226
       documentation: 'Enumeration pattern that provides a fixed set of possible values',
 
       // Used to generate the unique parametric typename for each EnumerationIO
