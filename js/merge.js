@@ -1,9 +1,9 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Like LoDash's _.merge, this will recursively merge nested options objects provided that the keys end in 'Options' (case sensitive)
- * and they are pure objects. That is, they must be defined by `... = { ... }` or `someProp: { ... }`; arrays, functions, and inherited
- * types will all throw assertion errors.
+ * Like LoDash's _.merge, this will recursively merge nested options objects provided that the keys end in 'Options'
+ * (case sensitive) and they are pure objects. That is, they must be defined by `... = { ... }` or `someProp: { ... }`;
+ * arrays, functions, and inherited types will all throw assertion errors.
  * @param  {Object} target
  * @param  {Object} ...sources
  * @returns {Object}
