@@ -20,9 +20,11 @@ define( require => {
         for ( var prop in source ) {
           if ( prop.includes( 'Options' ) && obj.hasOwnProperty( prop ) ) {
             // ensure that the ...Options property is a POJSO
-            assert && assert( Object.getPrototypeOf( source[ prop ] ) === Object.prototype, 'merge can only take place between Objects declared by {}' );
+            assert && assert( Object.getPrototypeOf( source[ prop ] ) === Object.prototype,
+              'merge can only take place between Objects declared by {}' );
             // ensure that the ...Options property is not set by a getter
-            assert && assert( !( Object.getOwnPropertyDescriptor( source, prop ).hasOwnProperty( 'get' ) ), 'cannot use merge with a getter' );
+            assert && assert( !( Object.getOwnPropertyDescriptor( source, prop ).hasOwnProperty( 'get' ) ),
+              'cannot use merge with a getter' );
             Object.defineProperty( obj, prop, merge( obj[ prop ], source[ prop ] ) );
           }
           else {
