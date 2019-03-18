@@ -28,6 +28,7 @@ define( require => {
             // ensure that the ...Options property is not set by a getter
             assert && assert( !( Object.getOwnPropertyDescriptor( source, prop ).hasOwnProperty( 'get' ) ),
               'cannot use merge with a getter' );
+            //TODO phet-info#91 by calling recursively, this mutates all except the last arg. Should only mutate the first arg, ala _.merge and _.extend.
             Object.defineProperty( obj, prop, merge( obj[ prop ], source[ prop ] ) );
           }
           else {
