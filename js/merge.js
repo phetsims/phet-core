@@ -4,9 +4,11 @@
  * Like LoDash's _.merge, this will recursively merge nested options objects provided that the keys end in 'Options'
  * (case sensitive) and they are pure objects. That is, they must be defined by `... = { ... }` or `someProp: { ... }`;
  * arrays, functions, and inherited types will all throw assertion errors.
+ * TODO phet-info#91 param names don't match implementation, and should be above function merge, not here
  * @param  {Object} target
  * @param  {Object} ...sources
  * @returns {Object}
+ * TODO phet-info#91 @author
  */
 define( require => {
   'use strict';
