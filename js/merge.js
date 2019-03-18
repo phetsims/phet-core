@@ -14,6 +14,7 @@ define( require => {
   // modules
   const phetCore = require( 'PHET_CORE/phetCore' );
 
+  //TODO phet-info#91 documentation, @param, @returns
   function merge( obj ) {
     _.each( Array.prototype.slice.call( arguments, 1 ), function( source ) {
       if ( source ) {
