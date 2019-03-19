@@ -98,7 +98,7 @@ define( require => {
      * Checks whether the given value is a value of this enumeration. Should generally be used for assertions
      * @public
      *
-     * @param {string} value
+     * @param {Object} value
      * @returns {boolean}
      */
     includes( value ) {
