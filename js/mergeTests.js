@@ -45,7 +45,7 @@ define( require => {
     var merged = merge( original, merge1 );
 
     assert.equal( merged.prop1, 'value1', 'merge should not alter target keys that aren\'t in the source' );
-    assert.equal( merged.prop4, 'value4', 'merge should not alter source keys that aren\'t in the target');
+    assert.equal( merged.prop4, 'value4', 'merge should not alter source keys that aren\'t in the target' );
 
     var shouldBe = {
       subProp1: 'subvalue1 changed',
@@ -121,18 +121,20 @@ define( require => {
     var merge3 = {
       prop6: 'value6',
       prop5: 'value5 from merge3',
+      subcomponentOptions: {
+        subProp5: 'BONJOUR'
+      },
       subcomponentOptions2: {
-        test2: ['test2', 'test3'],
+        test2: [ 'test2', 'test3' ],
         subSubcomponentOptions: {
           test: 'test form merge3',
           subSubProp1: 'subSub from merge3'
         }
       }
     };
-    var merge1Copy = Object.assign( {}, merge1 );
-    var merge2Copy = Object.assign( {}, merge2 );
-    var merge3Copy = Object.assign( {}, merge3 );
-
+    var merge1Copy = _.cloneDeep( merge1 );
+    var merge2Copy = _.cloneDeep( merge2 );
+    var merge3Copy = _.cloneDeep( merge3 );
 
     var merged = merge( original, merge1, merge2, merge3 );
 
@@ -147,7 +149,7 @@ define( require => {
         except: 'me'
       },
       subcomponentOptions2: {
-        test2: ['test2', 'test3'],
+        test2: [ 'test2', 'test3' ],
         subSubcomponentOptions: {
           test: 'test form merge3',
           subSubProp1: 'subSub from merge3'
@@ -291,5 +293,20 @@ define( require => {
       }
     };
     assert.deepEqual( merged, expected, 'merge should handle some deeply nested stuff' );
+  } );
+
+  QUnit.test( 'minor change', assert => {
+    const a = {
+      sliderOptions: {
+        hello: 'there'
+      }
+    };
+    const b = {
+      sliderOptions: {
+        time: 'now'
+      }
+    };
+    merge( {}, a, b );
+    assert.ok( !a.sliderOptions.hasOwnProperty( 'time' ), 'time shouldnt leak over to a' );
   } );
 } );
