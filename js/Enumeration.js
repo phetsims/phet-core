@@ -3,22 +3,25 @@
 /**
  * Creates a simple enumeration, with most of the boilerplate.
  *
- * When you create an enumeration object, it sets up a few things, e.g.:
+ * An Enumeration can be created like this:
  *
  *   const CardinalDirection = new Enumeration( [ 'NORTH', 'SOUTH', 'EAST', 'WEST' ] );
  *
- * Will provide the following:
+ * and values are referenced like this:
  *
- *   CardinalDirection.NORTH; // 'NORTH'
- *   CardinalDirection.SOUTH; // 'SOUTH'
- *   CardinalDirection.EAST; // 'EAST'
- *   CardinalDirection.WEST; // 'WEST'
- *   CardinalDirection.VALUES; // [ 'NORTH', 'SOUTH', 'EAST', 'WEST' ]
+ *   CardinalDirection.NORTH;
+ *   CardinalDirection.SOUTH;
+ *   CardinalDirection.EAST;
+ *   CardinalDirection.WEST;
+ *   
+ *   CardinalDirection.VALUES;
+ *   // returns [ CardinalDirection.NORTH, CardinalDirection.SOUTH, CardinalDirection.EAST, CardinalDirection.WEST ]
  *
  * And support for checking whether any value is a value of the enumeration:
  *
- *   CardinalDirection.includes( 'NORTH' ); // true
- *   CardinalDirection.includes( 'YORKSHIRE_TERRIER_WITH_THE_CANDLE_STICK_IN_THE_BALLROOM' ); // false
+ *   CardinalDirection.includes( CardinalDirection.NORTH ); // true
+ *   CardinalDirection.includes( CardinalDirection.SOUTHWEST ); // false
+ *   CardinalDirection.includes( 'NORTH' ); // false, values are not strings
  *
  * Conventions for using Enumeration, from https://github.com/phetsims/phet-core/issues/53:
  *
@@ -95,7 +98,7 @@ define( require => {
      * Checks whether the given value is a value of this enumeration. Should generally be used for assertions
      * @public
      *
-     * @param {string} value
+     * @param {Object} value
      * @returns {boolean}
      */
     includes( value ) {
