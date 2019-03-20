@@ -146,7 +146,8 @@ define( require => {
         subProp2: 'here is',
         subProp3: 'from',
         subProp4: 'merge2',
-        except: 'me'
+        except: 'me',
+        subProp5: 'BONJOUR'
       },
       subcomponentOptions2: {
         test2: [ 'test2', 'test3' ],
@@ -295,18 +296,18 @@ define( require => {
     assert.deepEqual( merged, expected, 'merge should handle some deeply nested stuff' );
   } );
 
-  QUnit.test( 'minor change', assert => {
-    const a = {
-      sliderOptions: {
-        hello: 'there'
-      }
-    };
-    const b = {
-      sliderOptions: {
-        time: 'now'
-      }
-    };
-    merge( {}, a, b );
-    assert.ok( !a.sliderOptions.hasOwnProperty( 'time' ), 'time shouldnt leak over to a' );
-  } );
+  // QUnit.test( 'minor change', assert => {
+  //   const a = {
+  //     sliderOptions: {
+  //       hello: 'there'
+  //     }
+  //   };
+  //   const b = {
+  //     sliderOptions: {
+  //       time: 'now'
+  //     }
+  //   };
+  //   merge( {}, a, b );
+  //   assert.ok( !a.sliderOptions.hasOwnProperty( 'time' ), 'time shouldnt leak over to a' );
+  // } );
 } );
