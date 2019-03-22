@@ -16,23 +16,38 @@ define( require => {
   // modules
   const phetCore = require( 'PHET_CORE/phetCore' );
 
+  // constants
+  const optionsSuffix = 'Options';
+
   //TODO phet-info#91 documentation, @param, @returns
   function merge( obj ) {
+    assert && assert( obj && typeof obj === 'object' );
+
+    // ensure that options keys are not ES5 setters
+    assert && Object.keys( obj ).forEach( prop => {
+      assert( !Object.getOwnPropertyDescriptor( obj, prop ).hasOwnProperty( 'set' ),
+        'cannot use merge with a setter' );
+    } );
+
     _.each( Array.prototype.slice.call( arguments, 1 ), function( source ) {
       if ( source ) {
         for ( var prop in source ) {
-          if ( prop.includes( 'Options' ) && obj.hasOwnProperty( prop ) ) {
+          const optionsIndex = prop.indexOf( optionsSuffix );
+          const isOptions = optionsIndex >= 0 && optionsIndex === prop.length - optionsSuffix.length;
+
+          // ensure that options keys are not ES5 getters
+          assert && assert( !( Object.getOwnPropertyDescriptor( source, prop ).hasOwnProperty( 'get' ) ),
+            'cannot use merge with a getter' );
+
+          if ( isOptions ) {
             // ensure that the ...Options property is a POJSO
             assert && assert( Object.getPrototypeOf( source[ prop ] ) === Object.prototype,
               'merge can only take place between Objects declared by {}' );
-            // ensure that the ...Options property is not set by a getter
-            assert && assert( !( Object.getOwnPropertyDescriptor( source, prop ).hasOwnProperty( 'get' ) ),
-              'cannot use merge with a getter' );
             //TODO phet-info#91 by calling recursively, this mutates all except the last arg. Should only mutate the first arg, ala _.merge and _.extend.
-            Object.defineProperty( obj, prop, merge( obj[ prop ], source[ prop ] ) );
+            obj[ prop ] = merge( obj[ prop ] || {}, source[ prop ] );
           }
           else {
-            Object.defineProperty( obj, prop, Object.getOwnPropertyDescriptor( source, prop ) );
+            obj[ prop ] = source[ prop ];
           }
         }
       }

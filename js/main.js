@@ -20,6 +20,7 @@ define( [
   'PHET_CORE/interleave',
   'PHET_CORE/isArray',
   'PHET_CORE/loadScript',
+  'PHET_CORE/merge',
   'PHET_CORE/mixedWith',
   'PHET_CORE/Namespace',
   'PHET_CORE/pairs',
