@@ -23,7 +23,7 @@ define( function( require ) {
    */
   function EnumerationIO( enumeration ) {
     assert && assert( enumeration, 'enumeration must be supplied' );
-    assert && assert( enumeration instanceof Enumeration, 'enumeration must be supplied' );
+    assert && assert( enumeration instanceof Enumeration, 'enumeration must be an Enumeration' );
 
     /**
      * @param {Object} value
