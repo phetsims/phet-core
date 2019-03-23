@@ -1,7 +1,7 @@
-// Copyright 2018, University of Colorado Boulder
+// Copyright 2018-2019, University of Colorado Boulder
 
 /**
- * IO type for phet-core enumerations that supports serializing and deserializing values.
+ * IO type for phet-core Enumeration that supports serializing and deserializing values.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
