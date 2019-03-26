@@ -7,7 +7,7 @@
  * This is used in the simulation side to make sure the elements-baseline file is sorted, and used in the phet-io
  * wrapper side to make sure the elements-overrides file is sorted.
  *
- * Namespacing and naming is discussed in https://github.com/phetsims/phet-io/issues/1446#issuecomment-476842068 and below
+ * Namespacing and naming are discussed in https://github.com/phetsims/phet-io/issues/1446#issuecomment-476842068 and below
  *
  * @author Sam Reid (PhET Interactive Simulations)
  * @author Chris Klusendorf (PhET Interactive Simulations)
