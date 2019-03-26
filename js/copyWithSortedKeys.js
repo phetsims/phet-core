@@ -7,6 +7,8 @@
  * This is used in the simulation side to make sure the elements-baseline file is sorted, and used in the phet-io
  * wrapper side to make sure the elements-overrides file is sorted.
  *
+ * Namespacing and naming is discussed in https://github.com/phetsims/phet-io/issues/1446#issuecomment-476842068 and below
+ *
  * @author Sam Reid (PhET Interactive Simulations)
  * @author Chris Klusendorf (PhET Interactive Simulations)
  */
@@ -17,10 +19,6 @@
   window.phet = window.phet || {};
   window.phet.preloads = window.phet.preloads || {};
   window.phet.preloads.phetCore = window.phet.preloads.phetCore || {};
-
-  // Namespace based on repo/location.  Do not declare as phet.phetCore, which will be overwritten as a namespace
-  // We considered naming this as window.copyWithSortedKeys, but this fails a convention we decided about having things
-  // namespaced under phet.
 
   /**
    * Creates a new object, recursively, by sorting the keys at each level.
