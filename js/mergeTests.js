@@ -5,8 +5,6 @@ define( require => {
 
   // modules
   var merge = require( 'PHET_CORE/merge' );
-  var Enumeration = require( 'PHET_CORE/Enumeration' );
-  var Property = require( 'AXON/Property' );
 
   QUnit.module( 'merge' );
 
@@ -222,13 +220,20 @@ define( require => {
     assert.equal( 1, 1, 'for no ?ea query param' );
   } );
 
-  QUnit.test( 'check for reference level equality (e.g. for Properties and Enumerations)', function( assert ) {
-    var A = 'A';
-    var B = 'B';
-    var C = 'C';
-    var testEnum = new Enumeration( [ A, B, C ] );
-    var testProperty = new Property();
-    var testProperty2 = new Property();
+  QUnit.test( 'check for reference level equality (e.g. for object literals, Properties, Enumerations)', function( assert ) {
+    var testEnum = {
+      A: {
+        testA: 'valueA'
+      },
+      B: {
+        testB: 'valueB'
+      },
+      C: {
+        testC: 'valueC'
+      }
+    };
+    var testProperty = {};
+    var testProperty2 = {};
     testProperty.value = 42;
     testProperty2.value = 'forty two';
     var original = {
@@ -249,13 +254,15 @@ define( require => {
         }
       }
     };
+    var originalCopy = _.cloneDeep( original );
     var mergedFresh = merge( {}, original, merger );
-    assert.equal( mergedFresh.nestedOptions.needsAnEnum, testEnum.B, 'merge should preserve overwritten Enumeration types' );
-    assert.equal( mergedFresh.nestedOptions.moreOptions.needsAnEnum, testEnum.C, 'merge should preserve Enumeration types from target' );
-    assert.equal( mergedFresh.nestedOptions.moreOptions.needsDifferentEnum, testEnum.A, 'merge should preserve Enumeration types from source' );
+    assert.equal( original.prop.value, originalCopy.prop.value, 'merge should not alter source objects' );
+    assert.equal( mergedFresh.nestedOptions.needsAnEnum, testEnum.B, 'merge should preserve references to overwritten object literals' );
+    assert.equal( mergedFresh.nestedOptions.moreOptions.needsAnEnum, testEnum.C, 'merge should preserve object literals from target' );
+    assert.equal( mergedFresh.nestedOptions.moreOptions.needsDifferentEnum, testEnum.A, 'merge should preserve object literals from source' );
     mergedFresh.prop.value = 'forty three';
-    assert.equal( testProperty2.value, 'forty three', 'merge should pass Property references' );
-    assert.equal( testProperty.value, 42, 'original property should be overwritten' );
+    assert.equal( testProperty2.value, 'forty three', 'merge should pass object literal references' );
+    assert.equal( testProperty.value, 42, 'original object literal should be overwritten' );
 
     var merged = merge( original, merger );
     assert.equal( merged.nestedOptions.needsAnEnum, testEnum.B, 'merge should preserve overwritten Enumeration types' );
