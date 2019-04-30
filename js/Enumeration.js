@@ -102,7 +102,7 @@ define( require => {
      * @returns {boolean}
      */
     includes( value ) {
-      return this.VALUES.includes( value );
+      return _.includes( this.VALUES, value );
     }
   }
 
