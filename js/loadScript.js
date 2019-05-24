@@ -20,7 +20,7 @@ define( function( require ) {
    *   src:         The source of the script to load
    *   callback:    A callback to call (with no arguments) once the script is loaded and has been executed
    *   async:       Whether the script should be loaded asynchronously. Defaults to true
-   *   cacheBuster: Whether the URL should have an appended query string to work around caches
+   *   cacheBust: Whether the URL should have an appended query string to work around caches
    */
   function loadScript( args ) {
     // handle a string argument
@@ -31,7 +31,7 @@ define( function( require ) {
     var src = args.src;
     var callback = args.callback;
     var async = args.async === undefined ? true : args.async;
-    var cacheBuster = args.cacheBuster === undefined ? false : args.cacheBuster;
+    var cacheBust = args.cacheBust === undefined ? false : args.cacheBust;
 
     var called = false;
 
@@ -54,7 +54,7 @@ define( function( require ) {
     };
 
     // make sure things aren't cached, just in case
-    script.src = src + ( cacheBuster ? '?random=' + Math.random().toFixed( 10 ) : '' );
+    script.src = src + ( cacheBust ? '?random=' + Math.random().toFixed( 10 ) : '' );
 
     var other = document.getElementsByTagName( 'script' )[ 0 ];
     other.parentNode.insertBefore( script, other );
