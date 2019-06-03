@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  require( 'PHET_CORE/assertMutuallyExclusiveOptionsTests' );
   require( 'PHET_CORE/isArrayTests' );
   require( 'PHET_CORE/escapeHTMLTests' );
   require( 'PHET_CORE/inheritTests' );
