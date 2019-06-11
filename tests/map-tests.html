@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Map Tests</title>
+  <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.9.2.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+  <script>
+    ( function () {
+      // Copyright 2019, University of Colorado Boulder
+      
+      /**
+       * A set of tests for Map, driven by QUnit. See https://github.com/phetsims/tasks/issues/992
+       */
+      'use strict';
+
+      QUnit.test( 'Map tests', assert => {
+        assert.notEqual( Map, undefined, 'Map is defined' );
+
+        const constructedMap = new Map();
+        assert.ok( constructedMap instanceof Map, 'Map Constructed' );
+
+        // create keys and values
+        const stringKey = 'stringKey';
+        const stringValue = 'stringValue';
+        const objectKey = {};
+        const objectValue = 'objectValue';
+        const functionKey = () => {};
+        const functionValue = 'functionValue';
+
+        // set values
+        constructedMap.set( stringKey, stringValue );
+        constructedMap.set( objectKey, objectValue );
+        constructedMap.set( functionKey, functionValue );
+
+        assert.equal( constructedMap.size, 3, 'Map has 3 entries' );
+        assert.equal( constructedMap.get( stringKey ), stringValue, 'string value received' );
+        assert.equal( constructedMap.get( objectKey ), objectValue, 'object value received' );
+        assert.equal( constructedMap.get( functionKey ), functionValue, 'function value received' );
+        assert.notEqual( constructedMap.get( functionKey ), stringValue, 'string value not retrieved by function key' );
+        assert.notEqual( constructedMap.get( stringKey ), objectValue, 'object value not retrieved by string key' );
+        assert.notEqual( constructedMap.get( objectKey ), functionValue, 'function value not retrieved by object key' );
+        assert.notEqual( constructedMap.get( {} ), constructedMap.get( objectKey ), 'other object does not retrieve objectValue' );
+        assert.notEqual( constructedMap.get( () => {} ), constructedMap.get( functionKey ), 'other function does not retrieve functionValue' );
+
+        // using NaN
+        const NANValue = 'NANValue';
+        const otherNAN = Number( 'meow' );
+        constructedMap.set( NaN, NANValue );
+
+        assert.equal( constructedMap.get( NaN ), NANValue, 'NaN used as key' );
+        assert.equal( constructedMap.get( otherNAN ), NANValue, 'Other NaN instance used to retrieve NANValue' );
+
+        // iteration - cannot use for...of because Babel transpiles it to use Symbol which is not well supported
+        constructedMap.forEach( ( value, key ) => {
+          assert.equal( constructedMap.get( key ), value, `Iteration: ${key} -> ${value}.` );
+          console.log(key + ' = ' + value);
+        } );
+
+        // test constructing a Map with an iterable array of key value pairs
+        const iterable = [ [ stringKey, stringValue ], [ objectKey, objectValue ] ];
+        const mapFromIterable = new Map( iterable );
+
+        assert.equal( mapFromIterable.get( stringKey ), stringValue, 'map constructed from iterable' );
+        assert.deepEqual( Array.from( mapFromIterable ), iterable,  'Array.from turns map back into iterable' );
+
+        // cloning maps
+        const cloneMap = new Map( constructedMap );
+        assert.equal( constructedMap.get( stringKey ), cloneMap.get( stringKey ), 'Map cloned by passing to constructor' );
+        assert.notEqual( constructedMap, cloneMap, 'cloneMap is a clone, not same instance' );
+
+        // merge maps by constructing a new one
+        const firstMap = new Map( [
+          [ 1, 'one' ],
+          [ 2, 'two' ],
+          [ 3, 'three' ]
+        ] );
+
+        const secondMap = new Map( [
+          [ 1, 'uno' ],
+          [ 2, 'dos' ]
+        ] );
+
+        const mergedMap = new Map( [ ...firstMap, ...secondMap ] );
+        assert.equal( mergedMap.get( 1 ), 'uno', '1 key merged' );
+        assert.equal( mergedMap.get( 2 ), 'dos', '2 key merged' );
+        assert.equal( mergedMap.get( 3 ), 'three', '3 key persists' );
+
+        // test various methods
+        mergedMap.clear();
+        assert.equal( mergedMap.size, 0, 'map cleared' );
+
+        constructedMap.delete( NaN ); // delete NaN, it will interfere with further tests anyway
+        assert.equal( constructedMap.get( NaN ), undefined, 'entry with key NaN deleted' );
+
+        assert.ok( constructedMap.has( stringKey ), 'has method detects key' );
+        assert.notOk( constructedMap.has( 'randomKey' ), 'has method rejects nonexistent key' );
+
+        const entries = constructedMap.entries(); // returns an Iterator
+        constructedMap.forEach( ( value, key ) => {
+          const next = entries.next();
+
+          // next.value is actually the [ key, value ] pair
+          assert.equal( next.value[ 1 ], value, `entries(): ${value} received from entries()` );
+        } );
+
+        const keys = constructedMap.keys(); // returns an Iterator
+        constructedMap.forEach( ( value, key ) => {
+          const next = keys.next();
+          assert.equal( next.value, key, `keys(): ${key} received from keys()` );
+        } );
+
+        const values = constructedMap.values(); // returns an Iterator
+        constructedMap.forEach( ( value, key ) => {
+          const next = values.next();
+          assert.equal( next.value, value, `values(): ${value} received from values()` );
+        } );
+
+        // misc compatibility issues reported by https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
+        const zeroValue = 'zeroValue';
+        constructedMap.set( 0, zeroValue );
+        assert.equal( constructedMap.get( 0 ), constructedMap.get( -0 ), 'key equality for 0 and -0' );
+
+        const testReturn = constructedMap.set( 'testReturnKey', 'testReturnValue' );
+        assert.equal( testReturn, constructedMap, 'set() returns the map object' );
+
+      } );
+    } )();
+  </script>
+</body>
+</html>
