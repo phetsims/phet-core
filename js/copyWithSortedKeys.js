@@ -28,7 +28,7 @@
     const ordered = {};
     Object.keys( unordered ).sort().forEach( function( key ) {
       const value = unordered[ key ];
-      ordered[ key ] = typeof value === 'object' ? window.phet.preloads.phetCore.copyWithSortedKeys( value ) : value;
+      ordered[ key ] = typeof value === 'object' && value !== null ? window.phet.preloads.phetCore.copyWithSortedKeys( value ) : value;
     } );
     return ordered;
   };
