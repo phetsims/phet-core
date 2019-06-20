@@ -11,6 +11,7 @@ define( [
   'PHET_CORE/dimensionForEach',
   'PHET_CORE/dimensionMap',
   'PHET_CORE/Enumeration',
+  'PHET_CORE/EnumerationMap',
   'PHET_CORE/escapeHTML',
   'PHET_CORE/EventTimer',
   'PHET_CORE/extend',
