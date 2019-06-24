@@ -25,10 +25,17 @@
    * @param {Object} unordered - jsonifiable object to be sorted by key name.  Sorting is recursive and hence.
    */
   window.phet.preloads.phetCore.copyWithSortedKeys = unordered => {
+    if ( Array.isArray( unordered ) ) {
+      return unordered.map( window.phet.preloads.phetCore.copyWithSortedKeys );
+    }
+    else if ( typeof unordered !== 'object' || unordered === null ) {
+      return unordered;
+    }
+
     const ordered = {};
     Object.keys( unordered ).sort().forEach( function( key ) {
       const value = unordered[ key ];
-      ordered[ key ] = typeof value === 'object' && value !== null ? window.phet.preloads.phetCore.copyWithSortedKeys( value ) : value;
+      ordered[ key ] = window.phet.preloads.phetCore.copyWithSortedKeys( value );
     } );
     return ordered;
   };
