@@ -46,9 +46,9 @@
  * (6) Values of the Enumeration are considered instances of the Enumeration in documentation. For example, a method
  *     that that takes an Enumeration value as an argument would be documented like this:
  *
- *     // @param {SceneEnum} mode - value from SceneEnum
+ *     // @param {Scene} mode - value from Scene Enumeration
  *     setSceneMode( mode ) {
- *       assert && assert( SceneEnum.includes( mode ) );
+ *       assert && assert( Scene.includes( mode ) );
  *       //...
  *     }
  *
