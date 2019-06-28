@@ -3,6 +3,12 @@
 /**
  * Throws an assertion error if mutually exclusive options are specified.
  *
+ * @example
+ * assertMutuallyExclusiveOptions( { tree:1, flower:2 }, [ 'tree' ], [ 'flower' ] ) => error
+ * assertMutuallyExclusiveOptions( { flower:2 }, [ 'tree' ], [ 'flower' ] ) => no error
+ * assertMutuallyExclusiveOptions( { tree:1 }, [ 'tree' ], [ 'flower' ] ) => no error
+ * assertMutuallyExclusiveOptions( { tree:1, mountain:2 }, [ 'tree', 'mountain' ], [ 'flower' ] ) => no error
+ *
  * @author Sam Reid (PhET Interactive Simulations)
  */
 define( require => {
