@@ -303,18 +303,18 @@ define( require => {
     assert.deepEqual( merged, expected, 'merge should handle some deeply nested stuff' );
   } );
 
-  // QUnit.test( 'minor change', assert => {
-  //   const a = {
-  //     sliderOptions: {
-  //       hello: 'there'
-  //     }
-  //   };
-  //   const b = {
-  //     sliderOptions: {
-  //       time: 'now'
-  //     }
-  //   };
-  //   merge( {}, a, b );
-  //   assert.ok( !a.sliderOptions.hasOwnProperty( 'time' ), 'time shouldnt leak over to a' );
-  // } );
+  QUnit.test( 'minor change', assert => {
+    const a = {
+      sliderOptions: {
+        hello: 'there'
+      }
+    };
+    const b = {
+      sliderOptions: {
+        time: 'now'
+      }
+    };
+    merge( {}, a, b );
+    assert.ok( !a.sliderOptions.hasOwnProperty( 'time' ), 'time shouldnt leak over to a' );
+  } );
 } );
