@@ -5,6 +5,8 @@
  * (case sensitive) and they are pure objects. That is, they must be defined by `... = { ... }` or `someProp: { ... }`;
  * arrays, functions, and inherited types will all throw assertion errors.
  * TODO phet-info#91 param names don't match implementation, and should be above function merge, not here
+ *
+ * TODO: why does this fail? `phet.phetCore.merge( { xOptions: { test: 1 } }, { xOptions: null } )` see https://github.com/phetsims/phet-info/issues/91
  * @param  {Object} target
  * @param  {Object} ...sources
  * @returns {Object}
