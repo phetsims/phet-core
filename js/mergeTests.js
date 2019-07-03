@@ -136,6 +136,9 @@ define( require => {
     const merge2Copy = _.cloneDeep( merge2 );
     const merge3Copy = _.cloneDeep( merge3 );
 
+    Object.freeze( merge1 );
+    Object.freeze( merge2 );
+    Object.freeze( merge3 );
     const merged = merge( original, merge1, merge2, merge3 );
 
     const expected = {
@@ -259,6 +262,7 @@ define( require => {
       }
     };
     const originalCopy = _.cloneDeep( original );
+    Object.freeze( original );
     const mergedFresh = merge( {}, original, merger );
     assert.equal( original.prop.value, originalCopy.prop.value, 'merge should not alter source object values' );
     assert.ok( _.isEqual( original, originalCopy ), 'merge should not alter source objects' );
@@ -269,10 +273,10 @@ define( require => {
     assert.equal( testProperty2.value, 'forty three', 'merge should pass object literal references' );
     assert.equal( testProperty.value, 42, 'original object literal should be overwritten' );
 
-    const merged = merge( original, merger );
-    assert.equal( merged.nestedOptions.needsAnEnum, testEnum.B, 'merge should preserve overwritten Enumeration types' );
-    assert.equal( merged.nestedOptions.moreOptions.needsAnEnum, testEnum.C, 'merge should preserve Enumeration types from target' );
-    assert.equal( merged.nestedOptions.moreOptions.needsDifferentEnum, testEnum.A, 'merge should preserve Enumeration types from source' );
+    const merged = merge( {}, original, merger );
+    assert.ok( merged.nestedOptions.needsAnEnum === testEnum.B, 'merge should preserve overwritten Enumeration types' );
+    assert.ok( merged.nestedOptions.moreOptions.needsAnEnum === testEnum.C, 'merge should preserve Enumeration types from target' );
+    assert.ok( merged.nestedOptions.moreOptions.needsDifferentEnum === testEnum.A, 'merge should preserve Enumeration types from source' );
   } );
 
   QUnit.test( 'try a horribly nested case', assert => {
@@ -314,6 +318,7 @@ define( require => {
       }
     };
 
+    Object.freeze( merge1 );
     const merged = merge( original, merge1 );
     const expected = {
       p1Options: {
@@ -434,6 +439,4 @@ define( require => {
     assert.ok( original.prop === newObject.prop, 'same Property, ignore default' );
     assert.ok( original.enum === newObject.enum, 'same Enumeration, ignore default' );
   } );
-
-
 } );
