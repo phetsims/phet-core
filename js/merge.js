@@ -2,15 +2,13 @@
 
 /**
  * Like LoDash's _.merge, this will recursively merge nested options objects provided that the keys end in 'Options'
- * (case sensitive) and they are pure objects. That is, they must be defined by `... = { ... }` or `someProp: { ... }`;
- * arrays, functions, and inherited types will all throw assertion errors.
- * TODO phet-info#91 param names don't match implementation, and should be above function merge, not here
+ * (case sensitive) and they are pure object literals.
+ * That is, they must be defined by `... = { ... }` or `somePropOptions: { ... }`.
+ * Non object literals (arrays, functions, and inherited types) will all throw assertion errors if passed in as an arg
+ * or as a value to a `*Options` property.
  *
- * TODO: why does this fail? `phet.phetCore.merge( { xOptions: { test: 1 } }, { xOptions: null } )` see https://github.com/phetsims/phet-info/issues/91
- * @param  {Object} target
- * @param  {Object} ...sources
- * @returns {Object}
- * TODO phet-info#91 @author
+ * @author Michael Barlow (PhET Interactive Simulations)
+ * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 define( require => {
   'use strict';
@@ -19,42 +17,58 @@ define( require => {
   const phetCore = require( 'PHET_CORE/phetCore' );
 
   // constants
-  const optionsSuffix = 'Options';
+  const OPTIONS_SUFFIX = 'Options';
 
-  //TODO phet-info#91 documentation, @param, @returns
-  function merge( obj ) {
-    assert && assert( obj && typeof obj === 'object' );
+  /**
+   * @param  {Object} target - the object literal that will have keys set to it
+   * @param  {Object[]} sources
+   * @returns {Object}
+   */
+  function merge( target, ...sources ) {
+    validateMergableObject( target );
 
-    // ensure that options keys are not ES5 setters
-    assert && Object.keys( obj ).forEach( prop => {
-      assert( !Object.getOwnPropertyDescriptor( obj, prop ).hasOwnProperty( 'set' ),
-        'cannot use merge with a setter' );
-    } );
+    _.each( sources, source => {
+      validateMergableObject( source );
+      for ( var property in source ) {
+        if ( source.hasOwnProperty( property ) ) {
+          const optionsIndex = property.indexOf( OPTIONS_SUFFIX );
 
-    _.each( Array.prototype.slice.call( arguments, 1 ), function( source ) {
-      if ( source ) {
-        for ( var prop in source ) {
-          const optionsIndex = prop.indexOf( optionsSuffix );
-          const isOptions = optionsIndex >= 0 && optionsIndex === prop.length - optionsSuffix.length;
+          // if this property is named like an options Object
+          const isOptions = optionsIndex >= 0 && optionsIndex === property.length - OPTIONS_SUFFIX.length;
 
-          // ensure that options keys are not ES5 getters
-          assert && assert( !( Object.getOwnPropertyDescriptor( source, prop ).hasOwnProperty( 'get' ) ),
-            'cannot use merge with a getter' );
-
+          const sourceProperty = source[ property ];
           if ( isOptions ) {
-            // ensure that the ...Options property is a POJSO
-            assert && assert( Object.getPrototypeOf( source[ prop ] ) === Object.prototype,
-              'merge can only take place between Objects declared by {}' );
-            //TODO phet-info#91 by calling recursively, this mutates all except the last arg. Should only mutate the first arg, ala _.merge and _.extend.
-            obj[ prop ] = merge( obj[ prop ] || {}, source[ prop ] );
+
+            // ensure that the *Options property is a POJSO
+            validateMergableObject( sourceProperty );
+
+            target[ property ] = merge( target[ property ] || {}, sourceProperty );
           }
           else {
-            obj[ prop ] = source[ prop ];
+            target[ property ] = sourceProperty;
           }
         }
       }
     } );
-    return obj;
+    return target;
+  }
+
+  /**
+   * Validate that the object is a valid arg, with assertions.
+   * @param {Object} object
+   */
+  function validateMergableObject( object ) {
+    assert && assert( object && typeof object === 'object' && Object.getPrototypeOf( object ) === Object.prototype,
+      'Object should be truthy, an object, and cannot have an extra prototype' );
+
+    // ensure that options keys are not ES5 setters or getters
+    assert && Object.keys( object ).forEach( prop => {
+      const ownPropertyDescriptor = Object.getOwnPropertyDescriptor( object, prop );
+      assert( !ownPropertyDescriptor.hasOwnProperty( 'set' ),
+        'cannot use merge with a setter' );
+      assert( !ownPropertyDescriptor.hasOwnProperty( 'get' ),
+        'cannot use merge with a getter' );
+    } );
   }
 
   return phetCore.register( 'merge', merge );

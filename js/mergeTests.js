@@ -4,7 +4,9 @@ define( require => {
   'use strict';
 
   // modules
-  var merge = require( 'PHET_CORE/merge' );
+  const merge = require( 'PHET_CORE/merge' );
+  const Property = require( 'AXON/Property' );
+  const Enumeration = require( 'PHET_CORE/Enumeration' );
 
   QUnit.module( 'merge' );
 
@@ -209,13 +211,13 @@ define( require => {
     };
 
     if ( window.assert ) {
-      assert.throws( function() { merge( original, merges.a ); }, 'merge should not allow arrays to be merged' );
-      assert.throws( function() { merge( original, merges.b ); }, 'merge should not allow inherited objects to be merged' );
-      assert.throws( function() { merge( original, merges.f ); }, 'merge should not allow instances to be merged' );
-      assert.throws( function() { merge( original, merges.c ); }, 'merge should not allow strings to be merged' );
-      assert.throws( function() { merge( original, merges.d ); }, 'merge should not allow numbers to be merged' );
-      assert.throws( function() { merge( original, merges.e ); }, 'merge should not allow functions to be merged' );
-      assert.throws( function() { merge( original, getterMerge ); }, 'merge should not work with getters' );
+      assert.throws( () => { merge( original, merges.a ); }, 'merge should not allow arrays to be merged' );
+      assert.throws( () => { merge( original, merges.b ); }, 'merge should not allow inherited objects to be merged' );
+      assert.throws( () => { merge( original, merges.f ); }, 'merge should not allow instances to be merged' );
+      assert.throws( () => { merge( original, merges.c ); }, 'merge should not allow strings to be merged' );
+      assert.throws( () => { merge( original, merges.d ); }, 'merge should not allow numbers to be merged' );
+      assert.throws( () => { merge( original, merges.e ); }, 'merge should not allow functions to be merged' );
+      assert.throws( () => { merge( original, getterMerge ); }, 'merge should not work with getters' );
     }
     assert.equal( 1, 1, 'for no ?ea query param' );
   } );
@@ -256,7 +258,8 @@ define( require => {
     };
     var originalCopy = _.cloneDeep( original );
     var mergedFresh = merge( {}, original, merger );
-    assert.equal( original.prop.value, originalCopy.prop.value, 'merge should not alter source objects' );
+    assert.equal( original.prop.value, originalCopy.prop.value, 'merge should not alter source object values' );
+    assert.ok( _.isEqual( original, originalCopy ), 'merge should not alter source objects' );
     assert.equal( mergedFresh.nestedOptions.needsAnEnum, testEnum.B, 'merge should preserve references to overwritten object literals' );
     assert.equal( mergedFresh.nestedOptions.moreOptions.needsAnEnum, testEnum.C, 'merge should preserve object literals from target' );
     assert.equal( mergedFresh.nestedOptions.moreOptions.needsDifferentEnum, testEnum.A, 'merge should preserve object literals from source' );
@@ -280,23 +283,63 @@ define( require => {
       }
     };
     var merge1 = {
-      p1Options: { n1Options: { n2Options: { n3Options: { n4Options: { n5: 'overwritten' } } } } },
+      p1Options: {
+        n1Options: {
+          n2Options: {
+            n3Options: {
+              n4Options: {
+                n5: 'overwritten'
+              }
+            }
+          }
+        }
+      },
       p2Options: {
         n1Options: {
           p4: 'p3 kept',
-          n2Options: { n3Options: { n4Options: { n5Options: { n6Options: { p5: 'never make options like this' } } } } }
+          n2Options: {
+            n3Options: {
+              n4Options: {
+                n5Options: {
+                  n6Options: {
+                    p5: 'never make options like this'
+                  }
+                }
+              }
+            }
+          }
         }
       }
     };
 
     var merged = merge( original, merge1 );
     var expected = {
-      p1Options: { n1Options: { n2Options: { n3Options: { n4Options: { n5: 'overwritten' } } } } },
+      p1Options: {
+        n1Options: {
+          n2Options: {
+            n3Options: {
+              n4Options: {
+                n5: 'overwritten'
+              }
+            }
+          }
+        }
+      },
       p2Options: {
         n1Options: {
           p3: 'keep me',
           p4: 'p3 kept',
-          n2Options: { n3Options: { n4Options: { n5Options: { n6Options: { p5: 'never make options like this' } } } } }
+          n2Options: {
+            n3Options: {
+              n4Options: {
+                n5Options: {
+                  n6Options: {
+                    p5: 'never make options like this'
+                  }
+                }
+              }
+            }
+          }
         }
       }
     };
@@ -316,5 +359,77 @@ define( require => {
     };
     merge( {}, a, b );
     assert.ok( !a.sliderOptions.hasOwnProperty( 'time' ), 'time shouldnt leak over to a' );
+  } );
+
+  // TODO we will decide to support this in https://github.com/phetsims/phet-info/issues/91
+  // QUnit.test( 'test *Options merge with null', assert => {
+  //   merge( { xOptions: { test: 1 } }, { xOptions: null } );
+  //   assert.ok( true, 'code before this should not error out' );
+  // } );
+
+  QUnit.test( 'test wrong args', assert => {
+    if ( window.assert ) {
+
+      // in first arg
+      assert.throws( () => merge( null, {} ), 'unsupported arg "null"' );
+      assert.throws( () => merge( undefined, {} ), 'unsupported arg "undefined"' );
+      assert.throws( () => merge( true, {} ), 'unsupported arg "boolean"' );
+      assert.throws( () => merge( 'hello', {} ), 'unsupported arg "string"' );
+      assert.throws( () => merge( 4, {} ), 'unsupported arg "number"' );
+      assert.throws( () => merge( Image, {} ), 'unsupported arg of Object with extra prototype' );
+      assert.throws( () => merge( { get hi() { return 3; } }, {} ), 'unsupported arg with getter' );
+      assert.throws( () => merge( { set hi( stuff ) {} }, {} ), 'unsupported arg with getter' );
+
+      // in second arg
+      assert.throws( () => merge( {}, null, {} ), 'unsupported arg "null"' );
+      assert.throws( () => merge( {}, undefined, {} ), 'unsupported arg "undefined"' );
+      assert.throws( () => merge( {}, true, {} ), 'unsupported arg "boolean"' );
+      assert.throws( () => merge( {}, 'hello', {} ), 'unsupported arg "string"' );
+      assert.throws( () => merge( {}, 4, {} ), 'unsupported arg "number"' );
+      assert.throws( () => merge( {}, Image, {} ), 'unsupported arg of Object with extra prototype' );
+      assert.throws( () => merge( {}, { get hi() { return 3; } }, {} ), 'unsupported arg with getter' );
+      assert.throws( () => merge( {}, { set hi( stuff ) {} }, {} ), 'unsupported arg with getter' );
+
+      // in some options
+      assert.throws( () => merge( {}, { someOptions: null }, {} ), 'unsupported arg "null"' );
+      assert.throws( () => merge( {}, { someOptions: undefined }, {} ), 'unsupported arg "undefined"' );
+      assert.throws( () => merge( {}, { someOptions: true }, {} ), 'unsupported arg "boolean"' );
+      assert.throws( () => merge( {}, { someOptions: 'hello' }, {} ), 'unsupported arg "string"' );
+      assert.throws( () => merge( {}, { someOptions: 4 }, {} ), 'unsupported arg "number"' );
+      assert.throws( () => merge( {}, { someOptions: Image }, {} ), 'unsupported arg of Object with extra prototype' );
+      assert.throws( () => merge( {}, { someOptions: { get hi() { return 3; } } }, {} ), 'unsupported arg with getter' );
+      assert.throws( () => merge( {}, { someOptions: { set hi( stuff ) {} } }, {} ), 'unsupported arg with getter' );
+    }
+    else {
+      assert.ok( true, 'no assertions enabled' );
+    }
+  } );
+
+  QUnit.test( 'do not recurse for non *Options', assert => {
+
+    const testProperty1 = new Property( 'hi' );
+    const testProperty2 = new Property( 'hi2' );
+    const testEnumeration = new Enumeration( [ 'ONE', 'TWO' ] );
+    const testEnumeration2 = new Enumeration( [ 'ONE1', 'TWO2' ] );
+    const original = {
+      prop: testProperty1,
+      enum: testEnumeration,
+      someOptions: { nestedProp: testProperty1 }
+    };
+
+    let newObject = merge( {}, original );
+    assert.ok( _.isEqual( original, newObject ), 'should be equal from reference equality' );
+    assert.ok( original.prop === newObject.prop, 'same Property' );
+    assert.ok( original.enum === newObject.enum, 'same Enumeration' );
+
+    // test defaults with other non mergable objects
+    newObject = merge( {
+      prop: testProperty2,
+      enum: testEnumeration2,
+      someOptions: { nestedProp: testProperty2 }
+    }, original );
+    assert.ok( _.isEqual( original, newObject ), 'should be equal' );
+    assert.ok( original.prop === newObject.prop, 'same Property, ignore default' );
+    assert.ok( original.enum === newObject.enum, 'same Enumeration, ignore default' );
   } );
 } );
