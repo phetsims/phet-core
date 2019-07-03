@@ -11,8 +11,8 @@ define( require => {
   QUnit.module( 'merge' );
 
   // test proper merger for 2 objects
-  QUnit.test( 'merge two objects', function( assert ) {
-    var original = {
+  QUnit.test( 'merge two objects', assert => {
+    const original = {
       prop1: 'value1',
       prop2: 'value2',
       subcomponentOptions: {
@@ -27,7 +27,7 @@ define( require => {
       prop3: 'value3'
     };
 
-    var merge1 = {
+    const merge1 = {
       subcomponentOptions: {
         subProp1: 'subvalue1 changed',
         subProp3: 'new subvalue'
@@ -41,13 +41,13 @@ define( require => {
       prop3: 'new value3',
       prop4: 'value4'
     };
-    var preMergeSourceCopy = Object.assign( {}, merge1 );
-    var merged = merge( original, merge1 );
+    const preMergeSourceCopy = Object.assign( {}, merge1 );
+    const merged = merge( original, merge1 );
 
     assert.equal( merged.prop1, 'value1', 'merge should not alter target keys that aren\'t in the source' );
     assert.equal( merged.prop4, 'value4', 'merge should not alter source keys that aren\'t in the target' );
 
-    var shouldBe = {
+    let shouldBe = {
       subProp1: 'subvalue1 changed',
       subProp2: 'subValue2',
       subProp3: 'new subvalue'
@@ -76,8 +76,8 @@ define( require => {
   } );
 
   // test multiple objects
-  QUnit.test( 'test multiple objects', function( assert ) {
-    var original = {
+  QUnit.test( 'test multiple objects', assert => {
+    const original = {
       prop1: 'value1',
       prop2: 'value2',
       subcomponentOptions: {
@@ -92,7 +92,7 @@ define( require => {
       prop3: 'value3'
     };
 
-    var merge1 = {
+    const merge1 = {
       subcomponentOptions: {
         subProp1: 'subvalue1 changed',
         subProp3: 'new subvalue',
@@ -108,7 +108,7 @@ define( require => {
       prop4: 'value4'
     };
 
-    var merge2 = {
+    const merge2 = {
       prop5: 'value5',
       subcomponentOptions: {
         subProp1: 'everything',
@@ -118,7 +118,7 @@ define( require => {
       }
     };
 
-    var merge3 = {
+    const merge3 = {
       prop6: 'value6',
       prop5: 'value5 from merge3',
       subcomponentOptions: {
@@ -132,13 +132,13 @@ define( require => {
         }
       }
     };
-    var merge1Copy = _.cloneDeep( merge1 );
-    var merge2Copy = _.cloneDeep( merge2 );
-    var merge3Copy = _.cloneDeep( merge3 );
+    const merge1Copy = _.cloneDeep( merge1 );
+    const merge2Copy = _.cloneDeep( merge2 );
+    const merge3Copy = _.cloneDeep( merge3 );
 
-    var merged = merge( original, merge1, merge2, merge3 );
+    const merged = merge( original, merge1, merge2, merge3 );
 
-    var expected = {
+    const expected = {
       prop1: 'value1',
       prop2: 'value2',
       subcomponentOptions: {
@@ -169,19 +169,21 @@ define( require => {
   } );
 
   // check that it errors loudly if something other than an object is used
-  QUnit.test( 'check for proper assertion errors', function( assert ) {
-    var original = {
+  QUnit.test( 'check for proper assertion errors', assert => {
+    const original = {
       subOptions: {
         test: 'val',
         test2: 'val2'
       }
     };
 
-    function TestClass() {
-      this.test = 'class';
-    }
+    const TestClass = class {
+      constructor() {
+        this.test = 'class';
+      }
+    };
 
-    var merges = {
+    const merges = {
       a: {
         subOptions: [ 'val', 'val2' ]
       },
@@ -195,14 +197,14 @@ define( require => {
         subOptions: 42
       },
       e: {
-        subOptions: function() { this.a = 42; }
+        subOptions: () => { this.a = 42; }
       },
       f: {
         subOptions: new TestClass()
       }
     };
 
-    var getterMerge = {
+    const getterMerge = {
       get subOptions() {
         return {
           test: 'should not work'
@@ -222,8 +224,8 @@ define( require => {
     assert.equal( 1, 1, 'for no ?ea query param' );
   } );
 
-  QUnit.test( 'check for reference level equality (e.g. for object literals, Properties, Enumerations)', function( assert ) {
-    var testEnum = {
+  QUnit.test( 'check for reference level equality (e.g. for object literals, Properties, Enumerations)', assert => {
+    const testEnum = {
       A: {
         testA: 'valueA'
       },
@@ -234,11 +236,11 @@ define( require => {
         testC: 'valueC'
       }
     };
-    var testProperty = {};
-    var testProperty2 = {};
+    const testProperty = {};
+    const testProperty2 = {};
     testProperty.value = 42;
     testProperty2.value = 'forty two';
-    var original = {
+    const original = {
       prop: testProperty,
       nestedOptions: {
         needsAnEnum: testEnum.A,
@@ -247,7 +249,7 @@ define( require => {
         }
       }
     };
-    var merger = {
+    const merger = {
       prop: testProperty2,
       nestedOptions: {
         needsAnEnum: testEnum.B,
@@ -256,8 +258,8 @@ define( require => {
         }
       }
     };
-    var originalCopy = _.cloneDeep( original );
-    var mergedFresh = merge( {}, original, merger );
+    const originalCopy = _.cloneDeep( original );
+    const mergedFresh = merge( {}, original, merger );
     assert.equal( original.prop.value, originalCopy.prop.value, 'merge should not alter source object values' );
     assert.ok( _.isEqual( original, originalCopy ), 'merge should not alter source objects' );
     assert.equal( mergedFresh.nestedOptions.needsAnEnum, testEnum.B, 'merge should preserve references to overwritten object literals' );
@@ -267,14 +269,14 @@ define( require => {
     assert.equal( testProperty2.value, 'forty three', 'merge should pass object literal references' );
     assert.equal( testProperty.value, 42, 'original object literal should be overwritten' );
 
-    var merged = merge( original, merger );
+    const merged = merge( original, merger );
     assert.equal( merged.nestedOptions.needsAnEnum, testEnum.B, 'merge should preserve overwritten Enumeration types' );
     assert.equal( merged.nestedOptions.moreOptions.needsAnEnum, testEnum.C, 'merge should preserve Enumeration types from target' );
     assert.equal( merged.nestedOptions.moreOptions.needsDifferentEnum, testEnum.A, 'merge should preserve Enumeration types from source' );
   } );
 
-  QUnit.test( 'try a horribly nested case', function( assert ) {
-    var original = {
+  QUnit.test( 'try a horribly nested case', assert => {
+    const original = {
       p1Options: { n1Options: { n2Options: { n3Options: { n4Options: { n5: 'overwrite me' } } } } },
       p2Options: {
         n1Options: {
@@ -282,7 +284,7 @@ define( require => {
         }
       }
     };
-    var merge1 = {
+    const merge1 = {
       p1Options: {
         n1Options: {
           n2Options: {
@@ -312,8 +314,8 @@ define( require => {
       }
     };
 
-    var merged = merge( original, merge1 );
-    var expected = {
+    const merged = merge( original, merge1 );
+    const expected = {
       p1Options: {
         n1Options: {
           n2Options: {
@@ -432,4 +434,6 @@ define( require => {
     assert.ok( original.prop === newObject.prop, 'same Property, ignore default' );
     assert.ok( original.enum === newObject.enum, 'same Enumeration, ignore default' );
   } );
+
+
 } );
