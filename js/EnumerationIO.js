@@ -54,11 +54,11 @@ define( function( require ) {
 
       /**
        * Encodes an Enumeration value to a string.
-       * @param {Object} value from an Enumeration
+       * @param {Object} value from an Enumeration instance
        * @returns {Object} - a state object
        */
       toStateObject: function( value ) {
-        return value.name;
+        return value.toString().toLowerCase();
       },
 
       /**
