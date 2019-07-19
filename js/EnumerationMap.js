@@ -1,4 +1,4 @@
-// Copyright 2018, University of Colorado Boulder
+// Copyright 2019, University of Colorado Boulder
 
 /**
  * An object that contains a value for each item in an enumeration.

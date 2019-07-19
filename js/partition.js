@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2014-2018, University of Colorado Boulder
 
 /**
  * Partitions an array into two arrays: the first contains all elements that satisfy the predicate, and the second

@@ -1,4 +1,4 @@
-// Copyright 2014-2015, University of Colorado Boulder
+// Copyright 2017, University of Colorado Boulder
 
 /**
  * Given inheritance using inherit, this will give the full prototype chain.

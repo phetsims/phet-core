@@ -1,4 +1,4 @@
-// Copyright 2015-2018, University of Colorado Boulder
+// Copyright 2015-2019, University of Colorado Boulder
 
 /**
  * Object pooling mixin, for cases where creating new objects is expensive, and we'd rather mark some objects as able
