@@ -58,12 +58,7 @@ define( function( require ) {
        * @returns {Object} - a state object
        */
       toStateObject: function( value ) {
-        return {
-          value: value.toString().toLowerCase(),
-
-          // TODO: this is a bit of a hack, how do we get EnumerationIO.getValues to work? https://github.com/phetsims/phet-io-wrappers/issues/290
-          values: enumeration.VALUES.map( v => v.toString().toLowerCase() )
-        };
+        return value.toString().toLowerCase();
       },
 
       /**
