@@ -39,13 +39,13 @@ define( function( require ) {
         returnType: ArrayIO( StringIO ),
         parameterTypes: [],
         implementation: function() {
-          return enumeration.values.map( v => v.name );
+          return enumeration.values.map( v => EnumerationIOImpl.toStateObject( v ) );
         },
         documentation: 'Gets the possible values of the enumeration.'
       }
     }, {
       validator: ObjectIO.validator,
-      documentation: 'Enumeration pattern that provides a fixed set of possible values',
+      documentation: 'Enumeration pattern that provides a fixed set of possible values: ' + enumeration.KEYS, // TODO: should call toStateObject on these
 
       // Used to generate the unique parametric typename for each EnumerationIO
       parameterTypes: [],
@@ -58,16 +58,24 @@ define( function( require ) {
        * @returns {Object} - a state object
        */
       toStateObject: function( value ) {
-        return value.toString().toLowerCase();
+        return {
+          value: value.toString().toLowerCase(),
+
+          // TODO: this is a bit of a hack, how do we get EnumerationIO.getValues to work? https://github.com/phetsims/phet-io-wrappers/issues/290
+          values: enumeration.VALUES.map( v => v.toString().toLowerCase() )
+        };
       },
 
       /**
        * Decodes a string into an Enumeration value.
-       * @param {Object} stateObject
+       * @param {string} stateObject - Enumeration value call with `toString()`
        * @returns {Object}
        */
       fromStateObject: function( stateObject ) {
-        return enumeration[ stateObject ];
+        assert && assert( typeof stateObject === 'string', 'unsupported EnumerationIO value type, expected string' );
+        const upperCase = stateObject.toUpperCase();
+        assert && assert( enumeration.KEYS.indexOf( upperCase ) >= 0, `Unrecognized value: ${stateObject}` );
+        return enumeration[ upperCase ];
       }
     } );
   }
