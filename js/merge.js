@@ -27,7 +27,10 @@ define( require => {
   function merge( target, ...sources ) {
     validateMergableObject( target );
 
-    _.each( sources, source => {
+    // Support optional args by filtering out any source that is undefined. Don't support this in the target though.
+    const ignoreUndefined = _.filter( sources, source => source !== undefined );
+
+    _.each( ignoreUndefined, source => {
       validateMergableObject( source );
       for ( var property in source ) {
         if ( source.hasOwnProperty( property ) ) {

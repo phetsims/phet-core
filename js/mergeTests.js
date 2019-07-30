@@ -377,9 +377,13 @@ define( require => {
   QUnit.test( 'test wrong args', assert => {
     if ( window.assert ) {
 
+      // TODO: don't we want to support these because options are often optional?
+      // assert.throws( () => merge( {}, undefined, {} ), 'unsupported second arg "undefined"' );
+      // assert.throws( () => merge( {}, undefined ), 'unsupported second arg with no third "undefined"' );
+
       // in first arg
+      assert.throws( () => merge( undefined, {} ), 'unsupported first arg "undefined"' );
       assert.throws( () => merge( null, {} ), 'unsupported arg "null"' );
-      assert.throws( () => merge( undefined, {} ), 'unsupported arg "undefined"' );
       assert.throws( () => merge( true, {} ), 'unsupported arg "boolean"' );
       assert.throws( () => merge( 'hello', {} ), 'unsupported arg "string"' );
       assert.throws( () => merge( 4, {} ), 'unsupported arg "number"' );
@@ -388,24 +392,33 @@ define( require => {
       assert.throws( () => merge( { set hi( stuff ) {} }, {} ), 'unsupported arg with getter' );
 
       // in second arg
-      assert.throws( () => merge( {}, null, {} ), 'unsupported arg "null"' );
-      assert.throws( () => merge( {}, undefined, {} ), 'unsupported arg "undefined"' );
-      assert.throws( () => merge( {}, true, {} ), 'unsupported arg "boolean"' );
-      assert.throws( () => merge( {}, 'hello', {} ), 'unsupported arg "string"' );
-      assert.throws( () => merge( {}, 4, {} ), 'unsupported arg "number"' );
-      assert.throws( () => merge( {}, Image, {} ), 'unsupported arg of Object with extra prototype' );
-      assert.throws( () => merge( {}, { get hi() { return 3; } }, {} ), 'unsupported arg with getter' );
-      assert.throws( () => merge( {}, { set hi( stuff ) {} }, {} ), 'unsupported arg with getter' );
+      assert.throws( () => merge( {}, null, {} ), 'unsupported second arg "null"' );
+      assert.throws( () => merge( {}, true, {} ), 'unsupported second arg "boolean"' );
+      assert.throws( () => merge( {}, 'hello', {} ), 'unsupported second arg "string"' );
+      assert.throws( () => merge( {}, 4, {} ), 'unsupported second arg "number"' );
+      assert.throws( () => merge( {}, Image, {} ), 'unsupported second arg of Object with extra prototype' );
+      assert.throws( () => merge( {}, { get hi() { return 3; } }, {} ), 'unsupported second arg with getter' );
+      assert.throws( () => merge( {}, { set hi( stuff ) {} }, {} ), 'unsupported second arg with getter' );
+
+      // in second arg with no third object
+      assert.throws( () => merge( {}, null ), 'unsupported second arg with no third "null"' );
+      assert.throws( () => merge( {}, true ), 'unsupported second arg with no third "boolean"' );
+      assert.throws( () => merge( {}, 'hello' ), 'unsupported second arg with no third "string"' );
+      assert.throws( () => merge( {}, 4 ), 'unsupported second arg with no third "number"' );
+      assert.throws( () => merge( {}, Image ), 'unsupported second arg with no third of Object with extra prototype' );
+      assert.throws( () => merge( {}, { get hi() { return 3; } } ), 'unsupported second arg with no third with getter' );
+      assert.throws( () => merge( {}, { set hi( stuff ) {} } ), 'unsupported second arg with no third with getter' );
 
       // in some options
-      assert.throws( () => merge( {}, { someOptions: null }, {} ), 'unsupported arg "null"' );
-      assert.throws( () => merge( {}, { someOptions: undefined }, {} ), 'unsupported arg "undefined"' );
-      assert.throws( () => merge( {}, { someOptions: true }, {} ), 'unsupported arg "boolean"' );
-      assert.throws( () => merge( {}, { someOptions: 'hello' }, {} ), 'unsupported arg "string"' );
-      assert.throws( () => merge( {}, { someOptions: 4 }, {} ), 'unsupported arg "number"' );
-      assert.throws( () => merge( {}, { someOptions: Image }, {} ), 'unsupported arg of Object with extra prototype' );
-      assert.throws( () => merge( {}, { someOptions: { get hi() { return 3; } } }, {} ), 'unsupported arg with getter' );
-      assert.throws( () => merge( {}, { someOptions: { set hi( stuff ) {} } }, {} ), 'unsupported arg with getter' );
+      // TODO we will decide to support this in https://github.com/phetsims/phet-info/issues/91
+      assert.throws( () => merge( {}, { someOptions: null }, {} ), 'unsupported arg in options "null"' );
+      assert.throws( () => merge( {}, { someOptions: undefined }, {} ), 'unsupported arg in options "undefined"' );
+      assert.throws( () => merge( {}, { someOptions: true }, {} ), 'unsupported arg in options "boolean"' );
+      assert.throws( () => merge( {}, { someOptions: 'hello' }, {} ), 'unsupported arg in options "string"' );
+      assert.throws( () => merge( {}, { someOptions: 4 }, {} ), 'unsupported arg in options "number"' );
+      assert.throws( () => merge( {}, { someOptions: Image }, {} ), 'unsupported arg in options of Object with extra prototype' );
+      assert.throws( () => merge( {}, { someOptions: { get hi() { return 3; } } }, {} ), 'unsupported arg in options with getter' );
+      assert.throws( () => merge( {}, { someOptions: { set hi( stuff ) {} } }, {} ), 'unsupported arg in options with getter' );
     }
     else {
       assert.ok( true, 'no assertions enabled' );
@@ -438,5 +451,35 @@ define( require => {
     assert.ok( _.isEqual( original, newObject ), 'should be equal' );
     assert.ok( original.prop === newObject.prop, 'same Property, ignore default' );
     assert.ok( original.enum === newObject.enum, 'same Enumeration, ignore default' );
+  } );
+
+  QUnit.test( 'support optional options', assert => {
+
+    const mergeXYZ = options => {
+      return merge( {
+        x: 1,
+        y: 2,
+        z: 3
+      }, options );
+    };
+    let noOptions = mergeXYZ();
+    assert.ok( noOptions.x === 1, 'x property should be merged from default' );
+    assert.ok( noOptions.y === 2, 'y property should be merged from default' );
+    assert.ok( noOptions.z === 3, 'z property should be merged from default' );
+
+    const testNestedFunctionCallOptions = options => {
+      return mergeXYZ( merge( {
+        x: 2,
+        g: 54,
+        treeSays: 'hello'
+      }, options ) );
+    };
+
+    noOptions = testNestedFunctionCallOptions();
+    assert.ok( noOptions.x === 2, 'x property should be merged from default' );
+    assert.ok( noOptions.y === 2, 'y property should be merged from default' );
+    assert.ok( noOptions.z === 3, 'z property should be merged from default' );
+    assert.ok( noOptions.g === 54, 'g property should be merged from default' );
+    assert.ok( noOptions.treeSays === 'hello', 'property should be merged from default' );
   } );
 } );
