@@ -34,23 +34,29 @@ define( function( require ) {
       assert && assert( false, 'This constructor is not called, because enumeration values, like primitives, are never wrapped.' );
     };
 
+    // Enumeration supports additional documentation, so the values can be described.
+    const additionalDocs = enumeration.phetioDocumentation ? `, ${enumeration.phetioDocumentation}` : '';
+
+    const toStateObjectImpl = v => v.name;
+    const valueNames = enumeration.VALUES.map( toStateObjectImpl );
+
     return phetioInherit( ObjectIO, 'EnumerationIO', EnumerationIOImpl, {
       getValues: {
         returnType: ArrayIO( StringIO ),
         parameterTypes: [],
         implementation: function() {
-          return enumeration.values.map( v => EnumerationIOImpl.toStateObject( v ) );
+          return valueNames;
         },
         documentation: 'Gets the possible values of the enumeration.'
       }
     }, {
       validator: ObjectIO.validator,
-      documentation: 'Enumeration pattern that provides a fixed set of possible values: ' + enumeration.KEYS, // TODO: should call toStateObject on these
 
-      // Used to generate the unique parametric typename for each EnumerationIO
-      parameterTypes: [],
+      enumerationValues: valueNames,
 
-      events: [],
+      documentation: `Enumeration pattern that provides a fixed set of possible values: ${valueNames}${additionalDocs}`,
+
+      events: [], // TODO: is this necessary?
 
       /**
        * Encodes an Enumeration value to a string.
@@ -58,19 +64,18 @@ define( function( require ) {
        * @returns {Object} - a state object
        */
       toStateObject: function( value ) {
-        return value.toString().toLowerCase();
+        return toStateObjectImpl( value );
       },
 
       /**
        * Decodes a string into an Enumeration value.
-       * @param {string} stateObject - Enumeration value call with `toString()`
+       * @param {string} stateObject
        * @returns {Object}
        */
       fromStateObject: function( stateObject ) {
         assert && assert( typeof stateObject === 'string', 'unsupported EnumerationIO value type, expected string' );
-        const upperCase = stateObject.toUpperCase();
-        assert && assert( enumeration.KEYS.indexOf( upperCase ) >= 0, `Unrecognized value: ${stateObject}` );
-        return enumeration[ upperCase ];
+        assert && assert( enumeration.KEYS.indexOf( stateObject ) >= 0, `Unrecognized value: ${stateObject}` );
+        return enumeration[ stateObject ];
       }
     } );
   }

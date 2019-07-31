@@ -13,7 +13,7 @@
  *   CardinalDirection.SOUTH;
  *   CardinalDirection.EAST;
  *   CardinalDirection.WEST;
- *   
+ *
  *   CardinalDirection.VALUES;
  *   // returns [ CardinalDirection.NORTH, CardinalDirection.SOUTH, CardinalDirection.EAST, CardinalDirection.WEST ]
  *
@@ -65,13 +65,25 @@ define( require => {
      * @param {Array.<string>} keys - The string keys for the enumeration. Customarily, these are uppercase, using
      *                                underscores where there would be other punctuation. For example,
      *                                `THIS_IS_AN_EXAMPLE` or `DOES_NOT_WANT_TO_BE_AN_EXAMPLE_TOO_BAD`.
-     * @param {function} [beforeFreeze] - If provided, it will be called as beforeFreeze( enumeration ) just before the
-     *                                    enumeration is frozen. Since it's not possible to modify the enumeration after
-     *                                    it is frozen (e.g. adding convenience functions), and there is no reference to
-     *                                    the enumeration object beforehand, this allows defining custom values/methods
-     *                                    on the enumeration object itself.
+     * @param {Object} [options]
      */
-    constructor( keys, beforeFreeze ) {
+    constructor( keys, options ) {
+
+      assert && assert( typeof options !== 'function', 'options should not be a function' );
+
+      options = _.extend( {
+
+        // {string|null} Will be appended to the EnumerationIO documentation, if provided
+        phetioDocumentation: null,
+
+        // {function|null} If provided, it will be called as beforeFreeze( enumeration ) just before the
+        // enumeration is frozen. Since it's not possible to modify the enumeration after
+        // it is frozen (e.g. adding convenience functions), and there is no reference to
+        // the enumeration object beforehand, this allows defining custom values/methods
+        // on the enumeration object itself.
+        beforeFreeze: null
+      }, options );
+
       assert && assert( Array.isArray( keys ), 'Values should be an array' );
       assert && assert( _.uniq( keys ).length === keys.length, 'There should be no duplicated values provided' );
       assert && keys.forEach( value => assert( typeof value === 'string', 'Each value should be a string' ) );
@@ -82,6 +94,10 @@ define( require => {
       assert && assert( !_.includes( keys, 'includes' ),
         'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
 
+      // @public (phet-io) - provides additional documentation for PhET-iO which can be viewed in studio
+      // Note this uses the same term as used by PhetioObject, but via a different channel.
+      this.phetioDocumentation = options.phetioDocumentation;
+
       // @public {Object[]} (read-only) - the object values of the enumeration
       this.VALUES = [];
 
@@ -90,14 +106,14 @@ define( require => {
 
       keys.forEach( key => {
         this[ key ] = {
-          name: key,
+          name: key, // PhET-iO public API relies on this mapping, do not change it lightly
           toString() {return key;}
         };
         this.VALUES.push( this[ key ] );
         this.KEYS.push( key );
       } );
 
-      beforeFreeze && beforeFreeze( this );
+      options.beforeFreeze && options.beforeFreeze( this );
       assert && Object.freeze( this );
       assert && Object.freeze( this.VALUES );
       assert && Object.freeze( this.KEYS );

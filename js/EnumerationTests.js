@@ -43,11 +43,13 @@ define( function( require ) {
   } );
 
   QUnit.test( 'Before freeze test', function( assert ) {
-    const E = new Enumeration( [ 'A', 'B' ], E => {
-      E.opposite = e => {
-        window.assert && window.assert( E.includes( e ) );
-        return e === E.A ? E.B : E.A;
-      };
+    const E = new Enumeration( [ 'A', 'B' ], {
+      beforeFreeze: E => {
+        E.opposite = e => {
+          window.assert && window.assert( E.includes( e ) );
+          return e === E.A ? E.B : E.A;
+        };
+      }
     } );
 
     assert.equal( E.A, 'A', 'Equality for A' );
