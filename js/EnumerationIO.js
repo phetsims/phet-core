@@ -35,7 +35,7 @@ define( function( require ) {
     };
 
     // Enumeration supports additional documentation, so the values can be described.
-    const additionalDocs = enumeration.phetioDocumentation ? `, ${enumeration.phetioDocumentation}` : '';
+    const additionalDocs = enumeration.phetioDocumentation ? ` ${enumeration.phetioDocumentation}` : '';
 
     const toStateObjectImpl = v => v.name;
     const valueNames = enumeration.VALUES.map( toStateObjectImpl );
@@ -54,7 +54,7 @@ define( function( require ) {
 
       enumerationValues: valueNames,
 
-      documentation: `Enumeration pattern that provides a fixed set of possible values: ${valueNames}${additionalDocs}`,
+      documentation: `Enumeration pattern that provides a fixed set of possible values: ${valueNames}.${additionalDocs}`,
 
       events: [], // TODO: is this necessary?
 
