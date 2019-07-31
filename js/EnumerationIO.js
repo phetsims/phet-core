@@ -40,16 +40,7 @@ define( function( require ) {
     const toStateObjectImpl = v => v.name;
     const valueNames = enumeration.VALUES.map( toStateObjectImpl );
 
-    return phetioInherit( ObjectIO, 'EnumerationIO', EnumerationIOImpl, {
-      getValues: {
-        returnType: ArrayIO( StringIO ),
-        parameterTypes: [],
-        implementation: function() {
-          return valueNames;
-        },
-        documentation: 'Gets the possible values of the enumeration.'
-      }
-    }, {
+    return phetioInherit( ObjectIO, 'EnumerationIO', EnumerationIOImpl, {}, {
       validator: ObjectIO.validator,
 
       enumerationValues: valueNames,
