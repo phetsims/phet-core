@@ -13,8 +13,6 @@ define( function( require ) {
   const phetCore = require( 'PHET_CORE/phetCore' );
   const ObjectIO = require( 'TANDEM/types/ObjectIO' );
   const phetioInherit = require( 'TANDEM/phetioInherit' );
-  const ArrayIO = require( 'TANDEM/types/ArrayIO' );
-  const StringIO = require( 'TANDEM/types/StringIO' );
 
   /**
    * @param {Enumeration} enumeration
@@ -67,6 +65,21 @@ define( function( require ) {
         assert && assert( typeof stateObject === 'string', 'unsupported EnumerationIO value type, expected string' );
         assert && assert( enumeration.KEYS.indexOf( stateObject ) >= 0, `Unrecognized value: ${stateObject}` );
         return enumeration[ stateObject ];
+      },
+
+      /**
+       * @override
+       * @param {function(new:ObjectIO)} OtherEnumerationIO
+       */
+      equals: function( OtherEnumerationIO ) {
+        if ( this.typeName !== OtherEnumerationIO.typeName ) {
+          return false;
+        }
+        if ( this.documentation !== OtherEnumerationIO.documentation ) {
+          return false;
+        }
+        return this.supertype.equals( OtherEnumerationIO.supertype ) &&
+               OtherEnumerationIO.supertype.equals( this.supertype );
       }
     } );
   }
