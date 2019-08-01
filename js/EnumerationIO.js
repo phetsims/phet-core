@@ -39,7 +39,7 @@ define( function( require ) {
     const valueNames = enumeration.VALUES.map( toStateObjectImpl );
 
     return phetioInherit( ObjectIO, 'EnumerationIO', EnumerationIOImpl, {}, {
-      validator: ObjectIO.validator,
+      validator: ObjectIO.validator, // TODO: is this redundant?
 
       enumerationValues: valueNames,
 
