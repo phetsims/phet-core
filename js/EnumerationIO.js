@@ -42,6 +42,8 @@ define( function( require ) {
       validator: ObjectIO.validator, // TODO: is this redundant?
 
       enumerationValues: valueNames,
+      enumeration: enumeration,
+      outerType: EnumerationIO,
 
       documentation: `Enumeration pattern that provides a fixed set of possible values: ${valueNames}.${additionalDocs}`,
 
@@ -76,6 +78,12 @@ define( function( require ) {
           return false;
         }
         if ( this.documentation !== OtherEnumerationIO.documentation ) {
+          return false;
+        }
+        if ( this.outerType !== OtherEnumerationIO.outerType ) {
+          return false;
+        }
+        if ( this.enumeration !== OtherEnumerationIO.enumeration ) {
           return false;
         }
         return this.supertype.equals( OtherEnumerationIO.supertype ) &&
