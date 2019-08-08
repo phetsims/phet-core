@@ -17,8 +17,13 @@ define( require => {
   // modules
   const phetCore = require( 'PHET_CORE/phetCore' );
 
+  /**
+   * @param {Object|null|undefined} options - an options object.  Could be before or after _.extend, and may therefore
+   *                                        - be null or undefined
+   * @param {string[][]} sets - families of mutually exclusive option keys, see examples above.
+   */
   const assertMutuallyExclusiveOptions = function( options, ...sets ) {
-    if ( assert ) {
+    if ( assert && options ) {
 
       // Determine which options are used from each set
       const usedElementsFromEachSet = sets.map( set => Object.keys( _.pick( options, ...set ) ) );
