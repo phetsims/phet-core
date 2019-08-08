@@ -5,7 +5,7 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
@@ -24,11 +24,9 @@ define( function( require ) {
     assert && assert( enumeration instanceof Enumeration, 'enumeration must be an Enumeration' );
 
     /**
-     * @param {Object} value
-     * @param {string} phetioID
      * @constructor
      */
-    const EnumerationIOImpl = function EnumerationIOImpl( value, phetioID ) {
+    const EnumerationIOImpl = function EnumerationIOImpl() {
       assert && assert( false, 'This constructor is not called, because enumeration values, like primitives, are never wrapped.' );
     };
 
@@ -38,12 +36,8 @@ define( function( require ) {
     const toStateObjectImpl = v => v.name;
     const valueNames = enumeration.VALUES.map( toStateObjectImpl );
 
-    return phetioInherit( ObjectIO, 'EnumerationIO', EnumerationIOImpl, {}, {
+    return phetioInherit( ObjectIO, `EnumerationIO.(${valueNames.join( '|' )})`, EnumerationIOImpl, {}, {
       validator: ObjectIO.validator, // TODO: is this redundant?
-
-      enumerationValues: valueNames,
-      enumeration: enumeration,
-      outerType: EnumerationIO,
 
       documentation: `Enumeration pattern that provides a fixed set of possible values: ${valueNames}.${additionalDocs}`,
 
@@ -78,9 +72,6 @@ define( function( require ) {
           return false;
         }
         if ( this.documentation !== OtherEnumerationIO.documentation ) {
-          return false;
-        }
-        if ( this.outerType !== OtherEnumerationIO.outerType ) {
           return false;
         }
         if ( this.enumeration !== OtherEnumerationIO.enumeration ) {
