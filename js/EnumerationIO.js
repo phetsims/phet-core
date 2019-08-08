@@ -39,7 +39,7 @@ define( require => {
     return phetioInherit( ObjectIO, `EnumerationIO.(${valueNames.join( '|' )})`, EnumerationIOImpl, {}, {
       validator: ObjectIO.validator, // TODO: is this redundant?
 
-      documentation: `Enumeration pattern that provides a fixed set of possible values: ${valueNames}.${additionalDocs}`,
+      documentation: `Possible values: ${valueNames}.${additionalDocs}`,
 
       events: [], // TODO: is this necessary?
 
