@@ -24,6 +24,7 @@ define( [
   'PHET_CORE/merge',
   'PHET_CORE/mixedWith',
   'PHET_CORE/Namespace',
+  'PHET_CORE/openPopup',
   'PHET_CORE/pairs',
   'PHET_CORE/partition',
   'PHET_CORE/platform',
