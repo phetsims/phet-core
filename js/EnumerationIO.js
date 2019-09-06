@@ -12,7 +12,6 @@ define( require => {
   const Enumeration = require( 'PHET_CORE/Enumeration' );
   const phetCore = require( 'PHET_CORE/phetCore' );
   const ObjectIO = require( 'TANDEM/types/ObjectIO' );
-  const phetioInherit = require( 'TANDEM/phetioInherit' );
 
   /**
    * @param {Enumeration} enumeration
@@ -23,51 +22,37 @@ define( require => {
     assert && assert( enumeration, 'enumeration must be supplied' );
     assert && assert( enumeration instanceof Enumeration, 'enumeration must be an Enumeration' );
 
-    /**
-     * @constructor
-     */
-    const EnumerationIOImpl = function EnumerationIOImpl() {
-      assert && assert( false, 'This constructor is not called, because enumeration values, like primitives, are never wrapped.' );
-    };
-
-    // Enumeration supports additional documentation, so the values can be described.
-    const additionalDocs = enumeration.phetioDocumentation ? ` ${enumeration.phetioDocumentation}` : '';
-
-    const toStateObjectImpl = v => v.name;
-    const valueNames = enumeration.VALUES.map( toStateObjectImpl );
-
-    return phetioInherit( ObjectIO, `EnumerationIO.(${valueNames.join( '|' )})`, EnumerationIOImpl, {}, {
-      validator: ObjectIO.validator, // TODO: is this redundant?
-
-      documentation: `Possible values: ${valueNames}.${additionalDocs}`,
-
-      events: [], // TODO: is this necessary?
+    class EnumerationIOImpl extends ObjectIO {
+      constructor( a, b ) {
+        assert && assert( false, 'This constructor is not called, because enumeration values, like primitives, are never wrapped.' );
+        super( a, b );
+      }
 
       /**
        * Encodes an Enumeration value to a string.
        * @param {Object} value from an Enumeration instance
        * @returns {Object} - a state object
        */
-      toStateObject: function( value ) {
+      static toStateObject( value ) {
         return toStateObjectImpl( value );
-      },
+      }
 
       /**
        * Decodes a string into an Enumeration value.
        * @param {string} stateObject
        * @returns {Object}
        */
-      fromStateObject: function( stateObject ) {
+      static fromStateObject( stateObject ) {
         assert && assert( typeof stateObject === 'string', 'unsupported EnumerationIO value type, expected string' );
         assert && assert( enumeration.KEYS.indexOf( stateObject ) >= 0, `Unrecognized value: ${stateObject}` );
         return enumeration[ stateObject ];
-      },
+      }
 
       /**
        * @override
        * @param {function(new:ObjectIO)} OtherEnumerationIO
        */
-      equals: function( OtherEnumerationIO ) {
+      static equals( OtherEnumerationIO ) {
         if ( this.typeName !== OtherEnumerationIO.typeName ) {
           return false;
         }
@@ -80,7 +65,20 @@ define( require => {
         return this.supertype.equals( OtherEnumerationIO.supertype ) &&
                OtherEnumerationIO.supertype.equals( this.supertype );
       }
-    } );
+    }
+
+    const toStateObjectImpl = v => v.name;
+    const valueNames = enumeration.VALUES.map( toStateObjectImpl );
+
+    // Enumeration supports additional documentation, so the values can be described.
+    const additionalDocs = enumeration.phetioDocumentation ? ` ${enumeration.phetioDocumentation}` : '';
+
+    EnumerationIOImpl.validator = ObjectIO.validator; // TODO: is this redundant?
+    EnumerationIOImpl.documentation = `Possible values: ${valueNames}.${additionalDocs}`;
+    EnumerationIOImpl.typeName = `EnumerationIO.(${valueNames.join( '|' )})`;
+    ObjectIO.validateSubtype( EnumerationIOImpl );
+
+    return EnumerationIOImpl;
   }
 
   phetCore.register( 'EnumerationIO', EnumerationIO );
