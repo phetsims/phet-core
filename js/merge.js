@@ -34,13 +34,10 @@ define( require => {
       validateMergableObject( source );
       for ( var property in source ) {
         if ( source.hasOwnProperty( property ) ) {
-          const optionsIndex = property.indexOf( OPTIONS_SUFFIX );
-
-          // if this property is named like an options Object
-          const isOptions = optionsIndex >= 0 && optionsIndex === property.length - OPTIONS_SUFFIX.length;
-
           const sourceProperty = source[ property ];
-          if ( isOptions ) {
+
+          // don't support recursing on the key "Options" with no prefix
+          if ( _.endsWith( property, OPTIONS_SUFFIX ) && property !== OPTIONS_SUFFIX ) {
 
             // ensure that the *Options property is a POJSO
             validateMergableObject( sourceProperty );

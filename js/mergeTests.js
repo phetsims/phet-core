@@ -368,18 +368,13 @@ define( require => {
     assert.ok( !a.sliderOptions.hasOwnProperty( 'time' ), 'time shouldnt leak over to a' );
   } );
 
-  // TODO we will decide to support this in https://github.com/phetsims/phet-info/issues/91
-  // QUnit.test( 'test *Options merge with null', assert => {
-  //   merge( { xOptions: { test: 1 } }, { xOptions: null } );
-  //   assert.ok( true, 'code before this should not error out' );
-  // } );
+  QUnit.test( 'test *Options merge with null', assert => {
+    window.assert && assert.throws( () => {merge( { xOptions: { test: 1 } }, { xOptions: null } );}, 'options object cannot be null' );
+    assert.ok( true, 'when assertions not enabled' );
+  } );
 
   QUnit.test( 'test wrong args', assert => {
     if ( window.assert ) {
-
-      // TODO: don't we want to support these because options are often optional?
-      // assert.throws( () => merge( {}, undefined, {} ), 'unsupported second arg "undefined"' );
-      // assert.throws( () => merge( {}, undefined ), 'unsupported second arg with no third "undefined"' );
 
       // in first arg
       assert.throws( () => merge( undefined, {} ), 'unsupported first arg "undefined"' );
@@ -410,7 +405,6 @@ define( require => {
       assert.throws( () => merge( {}, { set hi( stuff ) {} } ), 'unsupported second arg with no third with getter' );
 
       // in some options
-      // TODO we will decide to support this in https://github.com/phetsims/phet-info/issues/91
       assert.throws( () => merge( {}, { someOptions: null }, {} ), 'unsupported arg in options "null"' );
       assert.throws( () => merge( {}, { someOptions: undefined }, {} ), 'unsupported arg in options "undefined"' );
       assert.throws( () => merge( {}, { someOptions: true }, {} ), 'unsupported arg in options "boolean"' );
@@ -481,5 +475,25 @@ define( require => {
     assert.ok( noOptions.z === 3, 'z property should be merged from default' );
     assert.ok( noOptions.g === 54, 'g property should be merged from default' );
     assert.ok( noOptions.treeSays === 'hello', 'property should be merged from default' );
+  } );
+
+  QUnit.test( 'does not support deep equals on keyname of "Options"', assert => {
+
+    const referenceObject = {
+      hello: 2
+    };
+
+    const merged = merge( {}, {
+      Options: referenceObject
+    } );
+
+    const deepMerged = merge( {}, {
+      someOptions: referenceObject
+    } );
+
+    assert.ok( merged.Options === referenceObject, '"Options" should not deep equal' );
+    referenceObject.hello = 3;
+    assert.ok( merged.Options.hello === 3, 'value should change because it is a reference' );
+    assert.ok( deepMerged.someOptions.hello === 2, 'value should not change because it was deep copied' );
   } );
 } );
