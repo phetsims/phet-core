@@ -48,23 +48,6 @@ define( require => {
         return enumeration[ stateObject ];
       }
 
-      /**
-       * @override
-       * @param {function(new:ObjectIO)} OtherEnumerationIO
-       */
-      static equals( OtherEnumerationIO ) {
-        if ( this.typeName !== OtherEnumerationIO.typeName ) {
-          return false;
-        }
-        if ( this.documentation !== OtherEnumerationIO.documentation ) {
-          return false;
-        }
-        if ( this.enumeration !== OtherEnumerationIO.enumeration ) {
-          return false;
-        }
-        return this.supertype.equals( OtherEnumerationIO.supertype ) &&
-               OtherEnumerationIO.supertype.equals( this.supertype );
-      }
     }
 
     const toStateObjectImpl = v => v.name;
