@@ -18,10 +18,10 @@ define( require => {
     assert && assert( Array.isArray( array ) );
     assert && assert( typeof predicate === 'function' );
 
-    var satisfied = [];
-    var unsatisfied = [];
-    var length = array.length;
-    for ( var i = 0; i < length; i++ ) {
+    const satisfied = [];
+    const unsatisfied = [];
+    const length = array.length;
+    for ( let i = 0; i < length; i++ ) {
       if ( predicate( array[ i ] ) ) {
         satisfied.push( array[ i ] );
       }

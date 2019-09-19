@@ -15,12 +15,12 @@ define( require => {
   const phetCore = require( 'PHET_CORE/phetCore' );
 
   function pairs( array ) {
-    var result = [];
-    var length = array.length;
+    const result = [];
+    const length = array.length;
     if ( length > 1 ) {
-      for ( var i = 0; i < length - 1; i++ ) {
-        var first = array[ i ];
-        for ( var j = i + 1; j < length; j++ ) {
+      for ( let i = 0; i < length - 1; i++ ) {
+        const first = array[ i ];
+        for ( let j = i + 1; j < length; j++ ) {
           result.push( [ first, array[ j ] ] );
         }
       }

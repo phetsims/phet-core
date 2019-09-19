@@ -16,10 +16,10 @@ define( require => {
   QUnit.module( 'arrayDifference' );
 
   function assertDifferences( assert, a, b, expectedAOnly, expectedBOnly, expectedBoth ) {
-    var aOnly = [];
-    var bOnly = [];
-    var inBoth = [];
-    var result = arrayDifference( a, b, aOnly, bOnly, inBoth );
+    const aOnly = [];
+    const bOnly = [];
+    const inBoth = [];
+    const result = arrayDifference( a, b, aOnly, bOnly, inBoth );
 
     assert.ok( _.isEqual( aOnly, expectedAOnly ), 'aOnly: ' + a.toString() + ' diff ' + b.toString() + ' expected: ' + expectedAOnly.toString() + ' actual: ' + aOnly.toString() );
     assert.ok( _.isEqual( bOnly, expectedBOnly ), 'bOnly: ' + a.toString() + ' diff ' + b.toString() + ' expected: ' + expectedBOnly.toString() + ' actual: ' + bOnly.toString() );
@@ -28,16 +28,16 @@ define( require => {
   }
 
   function generatedTest( assert, maxNumber, aSize, bSize ) {
-    var a = [];
-    var b = [];
-    var aOnly = [];
-    var bOnly = [];
-    var inBoth = [];
-    var item;
+    const a = [];
+    const b = [];
+    const aOnly = [];
+    const bOnly = [];
+    const inBoth = [];
+    let item;
 
-    var range = _.range( 1, maxNumber );
-    var aRange = range.slice();
-    var bRange = range.slice();
+    const range = _.range( 1, maxNumber );
+    const aRange = range.slice();
+    const bRange = range.slice();
 
     while ( a.length < aSize ) {
       item = _.sample( aRange );
@@ -50,11 +50,11 @@ define( require => {
       b.push( item );
     }
 
-    for ( var i = 0; i < range.length; i++ ) {
+    for ( let i = 0; i < range.length; i++ ) {
       item = range[ i ];
 
-      var inA = _.includes( a, item );
-      var inB = _.includes( b, item );
+      const inA = _.includes( a, item );
+      const inB = _.includes( b, item );
 
       if ( inA && inB ) {
         inBoth.push( item );
@@ -81,8 +81,8 @@ define( require => {
   }
 
   QUnit.test( 'Simple Usage 1', function( assert ) {
-    var a = [ 1, 2 ];
-    var b = [ 2, 3 ];
+    const a = [ 1, 2 ];
+    const b = [ 2, 3 ];
     assert.ok( _.isEqual( arrayDifference( a, b ), [ 1 ] ) );
   } );
 
@@ -91,11 +91,11 @@ define( require => {
   } );
 
   QUnit.test( 'General Usage 2', function( assert ) {
-    var a = [ 2, 19, 7, 12, 8, 6, 14, 5, 4, 9 ];
-    var b = [ 17, 18, 9, 14, 20, 4, 3, 15 ];
-    var aOnly = [ 2, 19, 7, 12, 8, 6, 5 ];
-    var bOnly = [ 17, 18, 20, 3, 15 ];
-    var inBoth = [ 14, 4, 9 ];
+    const a = [ 2, 19, 7, 12, 8, 6, 14, 5, 4, 9 ];
+    const b = [ 17, 18, 9, 14, 20, 4, 3, 15 ];
+    const aOnly = [ 2, 19, 7, 12, 8, 6, 5 ];
+    const bOnly = [ 17, 18, 20, 3, 15 ];
+    const inBoth = [ 14, 4, 9 ];
     assertDifferences( assert, a, b, aOnly, bOnly, inBoth );
   } );
 
@@ -116,8 +116,8 @@ define( require => {
       generatedTest( assert, 20, 10, 10 );
     } );
     _.times( 4, function() {
-      var size = 30;
-      for ( var i = 0; i <= size; i++ ) {
+      const size = 30;
+      for ( let i = 0; i <= size; i++ ) {
         generatedTest( assert, size + 5, i, size - i );
       }
     } );

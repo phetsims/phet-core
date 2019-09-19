@@ -32,7 +32,7 @@ define( require => {
 
     _.each( ignoreUndefined, source => {
       validateMergableObject( source );
-      for ( var property in source ) {
+      for ( const property in source ) {
         if ( source.hasOwnProperty( property ) ) {
           const sourceProperty = source[ property ];
 

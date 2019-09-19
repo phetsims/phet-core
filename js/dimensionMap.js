@@ -36,7 +36,7 @@ define( require => {
 
     // Will get indices pushed when we go deeper into the multidimensional array, and popped when we go back, so that
     // this essentially represents our "position" in the multidimensional array during iteration.
-    var indices = [];
+    const indices = [];
 
     /**
      * Responsible for mapping a multidimensional array of the given dimension, while accumulating
@@ -53,7 +53,7 @@ define( require => {
         indices.push( index );
 
         // If our dimension is 1, it's our base case (apply the normal map function), otherwise continue recursively.
-        var result = dim === 1 ? map.apply( null, [ element ].concat( indices ) ) : recur( dim - 1, element );
+        const result = dim === 1 ? map.apply( null, [ element ].concat( indices ) ) : recur( dim - 1, element );
 
         // We are done with iteration
         indices.pop();

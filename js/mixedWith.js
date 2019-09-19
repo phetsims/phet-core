@@ -77,7 +77,7 @@ define( require => {
     mixins = Array.prototype.slice.call( arguments, 1 );
 
     // Figure out the preferred type name for our subtype constructor
-    var name = supertype.name;
+    let name = supertype.name;
     mixins.forEach( function( mixin ) {
       // A common pattern for mixins with type-scope parameters should be:
       //   mixedWith( super, someMixin.bind( null, someParameter ) )
@@ -88,14 +88,14 @@ define( require => {
     } );
 
     // Holds all initializer functions that need to be called during construction
-    var initializers = [];
+    const initializers = [];
 
     // Creates the constructor.
     // The 'new Function' pattern is used so that we can have a useful type/constructor name that is type-specific.
     // This is not "essential", but it is highly preferred so that types in devtools are understandable.
     // The inner closure runs the "wrapped" implicit function. We then call the inner function with our supertype
     // and initializer array. Initializers don't have to be appended to the array yet.
-    var subtype = ( new Function( 'return function( suptype, inits ) {' +
+    const subtype = ( new Function( 'return function( suptype, inits ) {' +
                                   '  return function ' + name + '() {' +
                                   '    var self = this;' +
                                   '    var args = Array.prototype.slice.call( arguments );' +
@@ -109,7 +109,7 @@ define( require => {
 
     // Apply the mixins in order, and process initializers
     mixins.forEach( function( mixin ) {
-      var optionalInitializer = mixin( subtype );
+      const optionalInitializer = mixin( subtype );
       if ( typeof optionalInitializer === 'function' ) {
         initializers.push( optionalInitializer );
       }

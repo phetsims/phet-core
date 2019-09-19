@@ -18,8 +18,8 @@ define( require => {
   function extendDefined( obj ) {
     _.each( Array.prototype.slice.call( arguments, 1 ), function( source ) {
       if ( source ) {
-        for ( var prop in source ) {
-          var descriptor = Object.getOwnPropertyDescriptor( source, prop );
+        for ( const prop in source ) {
+          const descriptor = Object.getOwnPropertyDescriptor( source, prop );
 
           if ( descriptor && ( typeof descriptor.get === 'function' || source[ prop ] !== undefined ) ) {
             Object.defineProperty( obj, prop, descriptor );

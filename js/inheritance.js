@@ -16,9 +16,9 @@ define( require => {
    * @returns {Array.<*>}
    */
   function inheritance( type ) {
-    var types = [ type ];
+    const types = [ type ];
 
-    var proto = type.prototype;
+    let proto = type.prototype;
     while ( proto && ( proto = Object.getPrototypeOf( proto ) ) ) {
       if ( proto.constructor ) {
         types.push( proto.constructor );

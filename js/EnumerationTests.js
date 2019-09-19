@@ -28,7 +28,7 @@ define( require => {
     assert.equal( CardinalDirection.includes( { name: 'NORTH' } ), false, 'Should not be able to synthesize Enumeration values' );
 
     // Test toString
-    var object = {};
+    const object = {};
     object[ CardinalDirection.NORTH ] = 'exit';
     assert.equal( object.NORTH, 'exit', 'toString should work seamlessly' );
 

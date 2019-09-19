@@ -14,7 +14,7 @@ define( require => {
 
   const phetCore = require( 'PHET_CORE/phetCore' );
 
-  var ua = navigator.userAgent;
+  const ua = navigator.userAgent;
 
   // Checks to see whether we are IE, and if so whether the version matches.
   function isIE( version ) {
@@ -30,8 +30,8 @@ define( require => {
   //IE11 no longer reports MSIE in the user agent string, see https://github.com/phetsims/phet-core/issues/12
   //This code is adapted from http://stackoverflow.com/questions/17907445/how-to-detect-ie11
   function getInternetExplorerVersion() {
-    var rv = -1;
-    var re = null;
+    let rv = -1;
+    let re = null;
     if ( navigator.appName === 'Microsoft Internet Explorer' ) {
       re = new RegExp( 'MSIE ([0-9]{1,}[.0-9]{0,})' );
       if ( re.exec( ua ) !== null ) {
@@ -47,7 +47,7 @@ define( require => {
     return rv;
   }
 
-  var platform = {
+  const platform = {
     // Whether the browser is most likely Firefox
     firefox: ua.toLowerCase().indexOf( 'firefox' ) > -1,
 

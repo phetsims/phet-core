@@ -17,7 +17,7 @@ define( require => {
 
   function collect( iterate ) {
     assert && assert( typeof iterate === 'function' );
-    var result = [];
+    const result = [];
     iterate( function( ob ) {
       result.push( ob );
     } );

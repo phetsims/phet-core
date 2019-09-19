@@ -16,7 +16,7 @@ define( require => {
   const extend = require( 'PHET_CORE/extend' );
   const phetCore = require( 'PHET_CORE/phetCore' );
 
-  var Poolable = {
+  const Poolable = {
     /**
      * Changes the given type (and its prototype) to support object pooling.
      * @public
@@ -53,20 +53,20 @@ define( require => {
       assert && assert( typeof options.useDefaultConstruction === 'boolean' );
 
       // {Array.<type>} - The actual array we store things in. Always push/pop.
-      var pool = [];
+      const pool = [];
 
       // {function} - There is a madness to this craziness. We'd want to use the method noted at
       // https://stackoverflow.com/questions/1606797/use-of-apply-with-new-operator-is-this-possible, but the type is
       // not provided in the arguments array below. By calling bind on itself, we're able to get a version of bind that
       // inserts the constructor as the first argument of the .apply called later so we don't create garbage by having
       // to pack `arguments` into an array AND THEN concatenate it with a new first element (the type itself).
-      var partialConstructor = Function.prototype.bind.bind( type, type );
+      const partialConstructor = Function.prototype.bind.bind( type, type );
 
       // {function} - Basically our type constructor, but with the default arguments included already.
-      var DefaultConstructor = partialConstructor.apply( null, options.defaultArguments );
+      const DefaultConstructor = partialConstructor.apply( null, options.defaultArguments );
 
-      var initialize = options.initialize;
-      var useDefaultConstruction = options.useDefaultConstruction;
+      const initialize = options.initialize;
+      const useDefaultConstruction = options.useDefaultConstruction;
 
       extend( type, {
         /**
@@ -94,7 +94,7 @@ define( require => {
          * @returns {type}
          */
         createFromPool: function() {
-          var result;
+          let result;
 
           if ( pool.length ) {
             result = pool.pop();

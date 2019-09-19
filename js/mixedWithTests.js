@@ -16,7 +16,7 @@ define( require => {
   QUnit.module( 'mixedWith' );
 
   QUnit.test( 'mixedWith', function( assert ) {
-    var NAME = 'phet-core-sim';
+    const NAME = 'phet-core-sim';
 
     // Our basic type that we'll want to extend with a mixin
     function Simulation() {
@@ -46,10 +46,10 @@ define( require => {
     // Easily create a "subtype" of Simulation that is both playable and runnable.
     // For debugging purposes, its name is overridden as Simulation_Playable_Runnable (indicating the type and mixins
     // that were applied). Further mixing would concatenate.
-    var PhETSimulation = mixedWith( Simulation, Playable, Runnable );
+    const PhETSimulation = mixedWith( Simulation, Playable, Runnable );
 
     // Instantiation shows both mixins are applied to the prototype, and the initializer ran
-    var mixedSim = new PhETSimulation();
+    const mixedSim = new PhETSimulation();
     assert.equal( mixedSim.name, NAME ); // 'phet-core-sim'
     mixedSim.play(); // >> many fun, such entertain
     assert.equal( mixedSim.running, false ); // false
@@ -57,7 +57,7 @@ define( require => {
     assert.equal( mixedSim.running, true ); // true
 
     // The original type is unaffected
-    var basicSim = new Simulation();
+    const basicSim = new Simulation();
     assert.equal( basicSim.play, undefined ); // does not exist
     assert.equal( basicSim.running, undefined ); // does not exist
     assert.equal( basicSim.run, undefined ); // does not exist

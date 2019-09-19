@@ -15,7 +15,7 @@ define( require => {
   QUnit.module( 'detectPrefix' );
 
   QUnit.test( 'detectPrefix', function( assert ) {
-    var obj = {
+    const obj = {
       'main': false,
       'mozProp': ''
     };

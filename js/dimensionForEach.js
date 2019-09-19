@@ -34,7 +34,7 @@ define( require => {
 
     // Will get indices pushed when we go deeper into the multidimensional array, and popped when we go back, so that
     // this essentially represents our "position" in the multidimensional array during iteration.
-    var indices = [];
+    const indices = [];
 
     /**
      * Responsible for iterating through a multidimensional array of the given dimension, while accumulating

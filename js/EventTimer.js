@@ -185,7 +185,7 @@ define( require => {
   }, {
     // @public
     getPeriodBeforeNextEvent: function() {
-      var uniformRandomNumber = this.pseudoRandomNumberSource();
+      const uniformRandomNumber = this.pseudoRandomNumberSource();
       assert && assert( typeof uniformRandomNumber === 'number' &&
       uniformRandomNumber >= 0 && uniformRandomNumber < 1,
         'Our uniform random number is outside of its expected range with a value of ' + uniformRandomNumber );
@@ -221,7 +221,7 @@ define( require => {
       // see http://en.wikipedia.org/wiki/Exponential_distribution#Generating_exponential_variates and
       // http://en.wikipedia.org/wiki/Poisson_process
 
-      var uniformRandomNumber = this.pseudoRandomNumberSource();
+      const uniformRandomNumber = this.pseudoRandomNumberSource();
       assert && assert( typeof uniformRandomNumber === 'number' &&
       uniformRandomNumber >= 0 && uniformRandomNumber < 1,
         'Our uniform random number is outside of its expected range with a value of ' + uniformRandomNumber );

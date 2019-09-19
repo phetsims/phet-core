@@ -32,12 +32,12 @@ define( require => {
   } );
 
   QUnit.test( 'multidimensional', function( assert ) {
-    var dim2 = [
+    const dim2 = [
       [ 1, 4, 10 ],
       [ 5, 3, -1 ]
     ];
 
-    var dim3 = [
+    const dim3 = [
       [
         [ 1, 9, 25 ],
         [ 23 ]

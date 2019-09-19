@@ -28,18 +28,18 @@ define( require => {
       args = { src: args };
     }
 
-    var src = args.src;
-    var callback = args.callback;
-    var async = args.async === undefined ? true : args.async;
-    var cacheBust = args.cacheBust === undefined ? false : args.cacheBust;
+    const src = args.src;
+    const callback = args.callback;
+    const async = args.async === undefined ? true : args.async;
+    const cacheBust = args.cacheBust === undefined ? false : args.cacheBust;
 
-    var called = false;
+    let called = false;
 
-    var script = document.createElement( 'script' );
+    const script = document.createElement( 'script' );
     script.type = 'text/javascript';
     script.async = async;
     script.onload = script.onreadystatechange = function() {
-      var state = this.readyState;
+      const state = this.readyState;
       if ( state && state !== 'complete' && state !== 'loaded' ) {
         return;
       }
@@ -56,7 +56,7 @@ define( require => {
     // make sure things aren't cached, just in case
     script.src = src + ( cacheBust ? '?random=' + Math.random().toFixed( 10 ) : '' );
 
-    var other = document.getElementsByTagName( 'script' )[ 0 ];
+    const other = document.getElementsByTagName( 'script' )[ 0 ];
     other.parentNode.insertBefore( script, other );
   }
 

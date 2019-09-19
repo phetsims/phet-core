@@ -16,7 +16,7 @@ define( require => {
   function extend( obj ) {
     _.each( Array.prototype.slice.call( arguments, 1 ), function( source ) {
       if ( source ) {
-        for ( var prop in source ) {
+        for ( const prop in source ) {
           Object.defineProperty( obj, prop, Object.getOwnPropertyDescriptor( source, prop ) );
         }
       }

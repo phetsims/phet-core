@@ -14,10 +14,10 @@ define( require => {
   QUnit.module( 'dimensionForEach' );
 
   QUnit.test( '1 dimensional', function( assert ) {
-    var normalValues = [];
-    var ourValues = [];
+    const normalValues = [];
+    const ourValues = [];
 
-    var arr = [ 1, 2, 4, 9 ];
+    const arr = [ 1, 2, 4, 9 ];
 
     arr.forEach( function( element, index ) {
       normalValues.push( {
@@ -37,12 +37,12 @@ define( require => {
   } );
 
   QUnit.test( '2 dimensional', function( assert ) {
-    var arr = [
+    const arr = [
       [ 1, 2, 4 ],
       [ 9, 5 ]
     ];
-    var values = [];
-    var expectedValues = [
+    const values = [];
+    const expectedValues = [
       { element: 1, idx1: 0, idx2: 0 },
       { element: 2, idx1: 0, idx2: 1 },
       { element: 4, idx1: 0, idx2: 2 },
@@ -62,7 +62,7 @@ define( require => {
   } );
 
   QUnit.test( '3 dimensional', function( assert ) {
-    var arr = [
+    const arr = [
       [
         [ 1, 5 ],
         [ 9, 2 ]
@@ -71,8 +71,8 @@ define( require => {
         [ 3, 3, 4 ]
       ]
     ];
-    var values = [];
-    var expectedValues = [
+    const values = [];
+    const expectedValues = [
       { element: 1, idx1: 0, idx2: 0, idx3: 0 },
       { element: 5, idx1: 0, idx2: 0, idx3: 1 },
       { element: 9, idx1: 0, idx2: 1, idx3: 0 },

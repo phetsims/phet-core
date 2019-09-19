@@ -51,11 +51,11 @@ define( require => {
       }
       // Compound (contains '.' at least once). x.register( 'A.B.C', C ) should set x.A.B.C.
       else {
-        var keys = key.split( '.' ); // e.g. [ 'A', 'B', 'C' ]
+        const keys = key.split( '.' ); // e.g. [ 'A', 'B', 'C' ]
 
         // Walk into the namespace, verifying that each level exists. e.g. parent => x.A.B
-        var parent = this; // eslint-disable-line consistent-this
-        for ( var i = 0; i < keys.length - 1; i++ ) { // for all but the last key
+        let parent = this; // eslint-disable-line consistent-this
+        for ( let i = 0; i < keys.length - 1; i++ ) { // for all but the last key
           assert && assert( !!parent[ keys[ i ] ],
             [ this.name ].concat( keys.slice( 0, i + 1 ) ).join( '.' ) + ' needs to be defined to register ' + key );
 
@@ -63,7 +63,7 @@ define( require => {
         }
 
         // Write into the inner namespace, e.g. x.A.B[ 'C' ] = C
-        var lastKey = keys[ keys.length - 1 ];
+        const lastKey = keys[ keys.length - 1 ];
         assert && assert( !parent[ lastKey ], key + ' is already registered for namespace ' + this.name );
         parent[ lastKey ] = value;
       }

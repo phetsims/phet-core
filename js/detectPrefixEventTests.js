@@ -15,7 +15,7 @@ define( require => {
   QUnit.module( 'detectPrefixEvent' );
 
   QUnit.test( 'detectPrefixEvent', function( assert ) {
-    var obj = {
+    const obj = {
       'onmain': false,
       'onmozprop': ''
     };

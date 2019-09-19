@@ -25,10 +25,10 @@ define( require => {
     assert && assert( Array.isArray( arr ) );
     assert && assert( typeof generator === 'function' );
 
-    var result = [];
-    var finalLength = arr.length * 2 - 1;
+    const result = [];
+    const finalLength = arr.length * 2 - 1;
 
-    for ( var i = 0; i < finalLength; i++ ) {
+    for ( let i = 0; i < finalLength; i++ ) {
       if ( i % 2 === 0 ) {
         result.push( arr[ i / 2 ] );
       }

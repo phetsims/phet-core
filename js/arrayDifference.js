@@ -54,11 +54,11 @@ define( require => {
     Array.prototype.push.apply( bOnly, b );
 
     outerLoop:
-    for ( var i = 0; i < aOnly.length; i++ ) {
-      var aItem = aOnly[ i ];
+    for ( let i = 0; i < aOnly.length; i++ ) {
+      const aItem = aOnly[ i ];
 
-      for ( var j = 0; j < bOnly.length; j++ ) {
-        var bItem = bOnly[ j ];
+      for ( let j = 0; j < bOnly.length; j++ ) {
+        const bItem = bOnly[ j ];
 
         if ( aItem === bItem ) {
           inBoth.push( aItem );

@@ -15,14 +15,14 @@ define( require => {
   QUnit.module( 'inherit' );
 
   QUnit.test( 'inherit', function( assert ) {
-    var Person = function( name ) {
+    const Person = function( name ) {
       this.name = name;
     };
-    var Warrior = function( name, strength ) {
+    const Warrior = function( name, strength ) {
       Person.call( this, name );
       this.strength = strength;
     };
-    var attacked = false;
+    let attacked = false;
     inherit( Person, Warrior,
 
       //Instance Methods
@@ -39,7 +39,7 @@ define( require => {
         get totalWarriorCount() {return 1234;}
       }
     );
-    var galahad = new Warrior( 'galahad', 95 );
+    const galahad = new Warrior( 'galahad', 95 );
     assert.equal( attacked, false, 'Dont call methods before they are invoked' );
     galahad.attack();
     assert.equal( attacked, true, 'call a method added with inherit' );

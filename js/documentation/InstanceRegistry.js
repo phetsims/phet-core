@@ -13,7 +13,7 @@ define( require => {
   const phetCore = require( 'PHET_CORE/phetCore' );
 
   // constants
-  var map = {};
+  const map = {};
 
   /**
    * @constructor
@@ -41,7 +41,7 @@ define( require => {
       if ( phet.chipper.queryParameters.binder ) {
 
         // Create the map if we haven't seen that component type before
-        var key = repoName + '/' + typeName;
+        const key = repoName + '/' + typeName;
         map[ key ] = map[ key ] || [];
 
         try {

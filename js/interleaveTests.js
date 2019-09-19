@@ -14,7 +14,7 @@ define( require => {
   QUnit.module( 'interleave' );
 
   QUnit.test( 'interleave', function( assert ) {
-    var result = interleave( [ 3, 5, 7, 8, 9 ], function( index ) {
+    const result = interleave( [ 3, 5, 7, 8, 9 ], function( index ) {
       return index;
     } );
 

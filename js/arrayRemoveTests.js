@@ -15,7 +15,7 @@ define( require => {
   QUnit.module( 'arrayRemove' );
 
   QUnit.test( 'arrayRemove', function( assert ) {
-    var arr = [ 4, 3, 2, 1, 3 ];
+    let arr = [ 4, 3, 2, 1, 3 ];
     arrayRemove( arr, 3 );
 
     assert.equal( arr[ 0 ], 4 );
@@ -25,9 +25,9 @@ define( require => {
     assert.equal( arr.length, 4 );
 
     // check reference removal
-    var a = {};
-    var b = {};
-    var c = {};
+    const a = {};
+    const b = {};
+    const c = {};
 
     arr = [ a, b, c ];
     arrayRemove( arr, b );
