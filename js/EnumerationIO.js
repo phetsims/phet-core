@@ -58,7 +58,7 @@ define( require => {
 
     EnumerationIOImpl.validator = ObjectIO.validator; // TODO: is this redundant?
     EnumerationIOImpl.documentation = `Possible values: ${valueNames}.${additionalDocs}`;
-    EnumerationIOImpl.typeName = `EnumerationIO.(${valueNames.join( '|' )})`;
+    EnumerationIOImpl.typeName = `EnumerationIO(${valueNames.join( '|' )})`;
     ObjectIO.validateSubtype( EnumerationIOImpl );
 
     return EnumerationIOImpl;
