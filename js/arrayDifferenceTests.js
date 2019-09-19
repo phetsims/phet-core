@@ -6,12 +6,12 @@
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var arrayDifference = require( 'PHET_CORE/arrayDifference' );
-  var arrayRemove = require( 'PHET_CORE/arrayRemove' );
+  const arrayDifference = require( 'PHET_CORE/arrayDifference' );
+  const arrayRemove = require( 'PHET_CORE/arrayRemove' );
 
   QUnit.module( 'arrayDifference' );
 

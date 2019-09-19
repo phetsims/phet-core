@@ -6,11 +6,11 @@
  * @author Jonathan Olson (PhET Interactive Simulations)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var detectPrefix = require( 'PHET_CORE/detectPrefix' );
+  const detectPrefix = require( 'PHET_CORE/detectPrefix' );
 
   QUnit.module( 'detectPrefix' );
 

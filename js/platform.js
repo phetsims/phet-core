@@ -9,10 +9,10 @@
  * @author Jonathan Olson (PhET Interactive Simulations)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
-  var phetCore = require( 'PHET_CORE/phetCore' );
+  const phetCore = require( 'PHET_CORE/phetCore' );
 
   var ua = navigator.userAgent;
 

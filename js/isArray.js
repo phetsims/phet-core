@@ -6,10 +6,10 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
-  var phetCore = require( 'PHET_CORE/phetCore' );
+  const phetCore = require( 'PHET_CORE/phetCore' );
 
   function isArray( array ) {
     // yes, this is actually how to do this. see http://stackoverflow.com/questions/4775722/javascript-check-if-object-is-array

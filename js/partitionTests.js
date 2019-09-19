@@ -6,11 +6,11 @@
  * @author Jonathan Olson (PhET Interactive Simulations)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var partition = require( 'PHET_CORE/partition' );
+  const partition = require( 'PHET_CORE/partition' );
 
   QUnit.module( 'partition' );
 

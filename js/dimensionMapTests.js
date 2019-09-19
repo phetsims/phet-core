@@ -5,11 +5,11 @@
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var dimensionMap = require( 'PHET_CORE/dimensionMap' );
+  const dimensionMap = require( 'PHET_CORE/dimensionMap' );
 
   QUnit.module( 'dimensionMap' );
 

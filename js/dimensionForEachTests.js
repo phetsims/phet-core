@@ -5,11 +5,11 @@
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var dimensionForEach = require( 'PHET_CORE/dimensionForEach' );
+  const dimensionForEach = require( 'PHET_CORE/dimensionForEach' );
 
   QUnit.module( 'dimensionForEach' );
 

@@ -5,12 +5,12 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var phetCore = require( 'PHET_CORE/phetCore' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const phetCore = require( 'PHET_CORE/phetCore' );
 
   // constants
   var map = {};

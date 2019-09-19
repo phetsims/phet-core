@@ -7,10 +7,10 @@
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
-  var phetCore = require( 'PHET_CORE/phetCore' );
+  const phetCore = require( 'PHET_CORE/phetCore' );
 
   function escapeHTML( str ) {
     // see https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet

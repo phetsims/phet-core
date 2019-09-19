@@ -75,11 +75,11 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
-  var inherit = require( 'PHET_CORE/inherit' );
-  var phetCore = require( 'PHET_CORE/phetCore' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const phetCore = require( 'PHET_CORE/phetCore' );
 
   /*
    * Create an event timer with a specific model (determines the time between events), and a callback to be called

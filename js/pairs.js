@@ -9,10 +9,10 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
-  var phetCore = require( 'PHET_CORE/phetCore' );
+  const phetCore = require( 'PHET_CORE/phetCore' );
 
   function pairs( array ) {
     var result = [];

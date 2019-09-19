@@ -3,10 +3,10 @@
 /**
  * Utility function for converting a string to camel case.
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
-  var phetCore = require( 'PHET_CORE/phetCore' );
+  const phetCore = require( 'PHET_CORE/phetCore' );
 
   /**
    * Converts a string to camel case, eg: 'simula-rasa' -> 'simulaRasa'

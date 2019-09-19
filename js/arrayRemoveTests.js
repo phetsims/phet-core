@@ -6,11 +6,11 @@
  * @author Jonathan Olson (PhET Interactive Simulations)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var arrayRemove = require( 'PHET_CORE/arrayRemove' );
+  const arrayRemove = require( 'PHET_CORE/arrayRemove' );
 
   QUnit.module( 'arrayRemove' );
 

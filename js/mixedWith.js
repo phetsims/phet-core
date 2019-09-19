@@ -6,11 +6,11 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
-  var inherit = require( 'PHET_CORE/inherit' );
-  var phetCore = require( 'PHET_CORE/phetCore' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const phetCore = require( 'PHET_CORE/phetCore' );
 
   /**
    * Returns a new subtype of the passed in type that has mixins applied.

@@ -6,12 +6,12 @@
  * @author Jonathan Olson (PhET Interactive Simulations)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var mixedWith = require( 'PHET_CORE/mixedWith' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const mixedWith = require( 'PHET_CORE/mixedWith' );
 
   QUnit.module( 'mixedWith' );
 

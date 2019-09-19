@@ -5,11 +5,11 @@
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var interleave = require( 'PHET_CORE/interleave' );
+  const interleave = require( 'PHET_CORE/interleave' );
 
   QUnit.module( 'interleave' );
 

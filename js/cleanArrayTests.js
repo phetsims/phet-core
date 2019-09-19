@@ -6,11 +6,11 @@
  * @author Jonathan Olson (PhET Interactive Simulations)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var cleanArray = require( 'PHET_CORE/cleanArray' );
+  const cleanArray = require( 'PHET_CORE/cleanArray' );
 
   QUnit.module( 'cleanArray' );
 

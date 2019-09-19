@@ -26,11 +26,11 @@
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
-  var extend = require( 'PHET_CORE/extend' );
-  var phetCore = require( 'PHET_CORE/phetCore' );
+  const extend = require( 'PHET_CORE/extend' );
+  const phetCore = require( 'PHET_CORE/phetCore' );
 
   /**
    * @param supertype           Constructor for the supertype.

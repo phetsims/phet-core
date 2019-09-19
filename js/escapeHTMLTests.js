@@ -6,11 +6,11 @@
  * @author Jonathan Olson (PhET Interactive Simulations)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var escapeHTML = require( 'PHET_CORE/escapeHTML' );
+  const escapeHTML = require( 'PHET_CORE/escapeHTML' );
 
   QUnit.module( 'escapeHTML' );
 
