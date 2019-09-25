@@ -40,18 +40,26 @@ define( function( require ) {
     return rv;
   }
 
+  // Whether the browser is most likely Safari running on iOS
+  // See http://stackoverflow.com/questions/3007480/determine-if-user-navigated-from-mobile-safari
+  function isMobileSafari() {
+    return !!( ua.match( /(iPod|iPhone|iPad)/ ) && ua.match( /AppleWebKit/ ) );
+  }
+
   phetCore.platform = {
     // Whether the browser is most likely Firefox
     get firefox() { return ua.toLowerCase().indexOf( 'firefox' ) > -1; },
 
     // Whether the browser is most likely Safari running on iOS
     // See http://stackoverflow.com/questions/3007480/determine-if-user-navigated-from-mobile-safari
-    get mobileSafari() { return !!( ua.match( /(iPod|iPhone|iPad)/ ) && ua.match( /AppleWebKit/ ) ); },
+    get mobileSafari() { return isMobileSafari(); },
 
     // Whether the browser is a matching version of Safari running on OS X
     get safari5() { return !!( ua.match( /Version\/5\./ ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ); },
     get safari6() { return !!( ua.match( /Version\/6\./ ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ); },
     get safari7() { return !!( ua.match( /Version\/7\./ ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ); },
+
+    get safari() { return isMobileSafari() || !!( ua.match( /Version\// ) && ua.match( /Safari\// ) && ua.match( /AppleWebKit/ ) ); },
 
     // Whether the browser is some type of IE (Internet Explorer)
     get ie() { return getInternetExplorerVersion() !== -1; },
