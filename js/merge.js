@@ -26,6 +26,7 @@ define( require => {
    */
   function merge( target, ...sources ) {
     validateMergableObject( target );
+    assert && assert( sources.length > 0, 'at least one source expected' );
 
     // Support optional args by filtering out any source that is undefined. Don't support this in the target though.
     const ignoreUndefined = _.filter( sources, source => source !== undefined );

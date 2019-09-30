@@ -216,13 +216,14 @@ define( require => {
     };
 
     if ( window.assert ) {
-      assert.throws( () => { merge( original, merges.a ); }, 'merge should not allow arrays to be merged' );
-      assert.throws( () => { merge( original, merges.b ); }, 'merge should not allow inherited objects to be merged' );
-      assert.throws( () => { merge( original, merges.f ); }, 'merge should not allow instances to be merged' );
-      assert.throws( () => { merge( original, merges.c ); }, 'merge should not allow strings to be merged' );
-      assert.throws( () => { merge( original, merges.d ); }, 'merge should not allow numbers to be merged' );
-      assert.throws( () => { merge( original, merges.e ); }, 'merge should not allow functions to be merged' );
-      assert.throws( () => { merge( original, getterMerge ); }, 'merge should not work with getters' );
+      assert.throws( () => merge( original, merges.a ), 'merge should not allow arrays to be merged' );
+      assert.throws( () => merge( original, merges.b ), 'merge should not allow inherited objects to be merged' );
+      assert.throws( () => merge( original, merges.f ), 'merge should not allow instances to be merged' );
+      assert.throws( () => merge( original, merges.c ), 'merge should not allow strings to be merged' );
+      assert.throws( () => merge( original, merges.d ), 'merge should not allow numbers to be merged' );
+      assert.throws( () => merge( original, merges.e ), 'merge should not allow functions to be merged' );
+      assert.throws( () => merge( original, getterMerge ), 'merge should not work with getters' );
+      assert.throws( () => merge( original ), 'merge should not work without a source' );
     }
     assert.equal( 1, 1, 'for no ?ea query param' );
   } );
