@@ -23,7 +23,7 @@ define( function( require ) {
   // Whether the browser is most likely Safari running on iOS
   // See http://stackoverflow.com/questions/3007480/determine-if-user-navigated-from-mobile-safari
   function isMobileSafari() {
-    return !!( ua.match( /(iPod|iPhone|iPad)/ ) && ua.match( /AppleWebKit/ ) );
+    return !!( ( ua.match( /(iPod|iPhone|iPad)/ ) || ( navigator.platform === 'MacIntel' && navigator.maxTouchPoints >= 2 ) ) && ua.match( /AppleWebKit/ ) );
   }
 
   //IE11 no longer reports MSIE in the user agent string, see https://github.com/phetsims/phet-core/issues/12
