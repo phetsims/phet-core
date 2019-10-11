@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Like LoDash's _.merge, this will recursively merge nested options objects provided that the keys end in 'Options'
+ * Like Lodash's _.merge, this will recursively merge nested options objects provided that the keys end in 'Options'
  * (case sensitive) and they are pure object literals.
  * That is, they must be defined by `... = { ... }` or `somePropOptions: { ... }`.
  * Non object literals (arrays, functions, and inherited types) will all throw assertion errors if passed in as an arg
