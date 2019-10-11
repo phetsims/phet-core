@@ -369,11 +369,6 @@ define( require => {
     assert.ok( !a.sliderOptions.hasOwnProperty( 'time' ), 'time shouldnt leak over to a' );
   } );
 
-  QUnit.test( 'test *Options merge with null', assert => {
-    window.assert && assert.throws( () => {merge( { xOptions: { test: 1 } }, { xOptions: null } );}, 'options object cannot be null' );
-    assert.ok( true, 'when assertions not enabled' );
-  } );
-
   QUnit.test( 'test wrong args', assert => {
     if ( window.assert ) {
 
@@ -388,7 +383,6 @@ define( require => {
       assert.throws( () => merge( { set hi( stuff ) {} }, {} ), 'unsupported arg with getter' );
 
       // in second arg
-      assert.throws( () => merge( {}, null, {} ), 'unsupported second arg "null"' );
       assert.throws( () => merge( {}, true, {} ), 'unsupported second arg "boolean"' );
       assert.throws( () => merge( {}, 'hello', {} ), 'unsupported second arg "string"' );
       assert.throws( () => merge( {}, 4, {} ), 'unsupported second arg "number"' );
@@ -397,7 +391,6 @@ define( require => {
       assert.throws( () => merge( {}, { set hi( stuff ) {} }, {} ), 'unsupported second arg with getter' );
 
       // in second arg with no third object
-      assert.throws( () => merge( {}, null ), 'unsupported second arg with no third "null"' );
       assert.throws( () => merge( {}, true ), 'unsupported second arg with no third "boolean"' );
       assert.throws( () => merge( {}, 'hello' ), 'unsupported second arg with no third "string"' );
       assert.throws( () => merge( {}, 4 ), 'unsupported second arg with no third "number"' );
@@ -406,7 +399,6 @@ define( require => {
       assert.throws( () => merge( {}, { set hi( stuff ) {} } ), 'unsupported second arg with no third with getter' );
 
       // in some options
-      assert.throws( () => merge( {}, { someOptions: null }, {} ), 'unsupported arg in options "null"' );
       assert.throws( () => merge( {}, { someOptions: undefined }, {} ), 'unsupported arg in options "undefined"' );
       assert.throws( () => merge( {}, { someOptions: true }, {} ), 'unsupported arg in options "boolean"' );
       assert.throws( () => merge( {}, { someOptions: 'hello' }, {} ), 'unsupported arg in options "string"' );
@@ -418,6 +410,13 @@ define( require => {
     else {
       assert.ok( true, 'no assertions enabled' );
     }
+
+    // allowed cases that should not error
+    merge( {}, null, {} );
+    merge( {}, null );
+    merge( {}, {}, null );
+    merge( { xOptions: { test: 1 } }, { xOptions: null } );
+    merge( {}, { someOptions: null }, {} );
   } );
 
   QUnit.test( 'do not recurse for non *Options', assert => {

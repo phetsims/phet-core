@@ -21,15 +21,16 @@ define( require => {
 
   /**
    * @param  {Object} target - the object literal that will have keys set to it
-   * @param  {Object[]} sources
+   * @param  {Array.<Object|null>} sources
    * @returns {Object}
    */
   function merge( target, ...sources ) {
     validateMergeableObject( target );
+    assert && assert( target !== null, 'target should not be null' ); // validateMergeableObject supports null
     assert && assert( sources.length > 0, 'at least one source expected' );
 
     _.each( sources, source => {
-      if ( source !== undefined ) {
+      if ( source ) {
         validateMergeableObject( source );
         for ( const property in source ) {
           if ( source.hasOwnProperty( property ) ) {
@@ -55,20 +56,24 @@ define( require => {
 
   /**
    * Validate that the object is a valid arg, with assertions.
-   * @param {Object} object
+   * @param {Object|null} object
    */
   function validateMergeableObject( object ) {
-    assert && assert( object && typeof object === 'object' && Object.getPrototypeOf( object ) === Object.prototype,
-      'Object should be truthy, an object, and cannot have an extra prototype' );
+    assert && assert( object === null ||
+                      ( object && typeof object === 'object' &&
+                        Object.getPrototypeOf( object ) === Object.prototype ),
+      'Object should be null or a truthy  object that cannot have an extra prototype' );
 
-    // ensure that options keys are not ES5 setters or getters
-    assert && Object.keys( object ).forEach( prop => {
-      const ownPropertyDescriptor = Object.getOwnPropertyDescriptor( object, prop );
-      assert( !ownPropertyDescriptor.hasOwnProperty( 'set' ),
-        'cannot use merge with a setter' );
-      assert( !ownPropertyDescriptor.hasOwnProperty( 'get' ),
-        'cannot use merge with a getter' );
-    } );
+    if ( object !== null ) {
+      // ensure that options keys are not ES5 setters or getters
+      assert && Object.keys( object ).forEach( prop => {
+        const ownPropertyDescriptor = Object.getOwnPropertyDescriptor( object, prop );
+        assert( !ownPropertyDescriptor.hasOwnProperty( 'set' ),
+          'cannot use merge with a setter' );
+        assert( !ownPropertyDescriptor.hasOwnProperty( 'get' ),
+          'cannot use merge with a getter' );
+      } );
+    }
   }
 
   return phetCore.register( 'merge', merge );
