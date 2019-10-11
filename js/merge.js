@@ -28,25 +28,24 @@ define( require => {
     validateMergableObject( target );
     assert && assert( sources.length > 0, 'at least one source expected' );
 
-    // Support optional args by filtering out any source that is undefined. Don't support this in the target though.
-    const ignoreUndefined = _.filter( sources, source => source !== undefined );
+    _.each( sources, source => {
+      if ( source !== undefined ) {
+        validateMergableObject( source );
+        for ( const property in source ) {
+          if ( source.hasOwnProperty( property ) ) {
+            const sourceProperty = source[ property ];
 
-    _.each( ignoreUndefined, source => {
-      validateMergableObject( source );
-      for ( const property in source ) {
-        if ( source.hasOwnProperty( property ) ) {
-          const sourceProperty = source[ property ];
+            // don't support recursing on the key "Options" with no prefix
+            if ( _.endsWith( property, OPTIONS_SUFFIX ) && property !== OPTIONS_SUFFIX ) {
 
-          // don't support recursing on the key "Options" with no prefix
-          if ( _.endsWith( property, OPTIONS_SUFFIX ) && property !== OPTIONS_SUFFIX ) {
+              // ensure that the *Options property is a POJSO
+              validateMergableObject( sourceProperty );
 
-            // ensure that the *Options property is a POJSO
-            validateMergableObject( sourceProperty );
-
-            target[ property ] = merge( target[ property ] || {}, sourceProperty );
-          }
-          else {
-            target[ property ] = sourceProperty;
+              target[ property ] = merge( target[ property ] || {}, sourceProperty );
+            }
+            else {
+              target[ property ] = sourceProperty;
+            }
           }
         }
       }
