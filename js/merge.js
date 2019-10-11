@@ -25,12 +25,12 @@ define( require => {
    * @returns {Object}
    */
   function merge( target, ...sources ) {
-    validateMergableObject( target );
+    validateMergeableObject( target );
     assert && assert( sources.length > 0, 'at least one source expected' );
 
     _.each( sources, source => {
       if ( source !== undefined ) {
-        validateMergableObject( source );
+        validateMergeableObject( source );
         for ( const property in source ) {
           if ( source.hasOwnProperty( property ) ) {
             const sourceProperty = source[ property ];
@@ -39,7 +39,7 @@ define( require => {
             if ( _.endsWith( property, OPTIONS_SUFFIX ) && property !== OPTIONS_SUFFIX ) {
 
               // ensure that the *Options property is a POJSO
-              validateMergableObject( sourceProperty );
+              validateMergeableObject( sourceProperty );
 
               target[ property ] = merge( target[ property ] || {}, sourceProperty );
             }
@@ -57,7 +57,7 @@ define( require => {
    * Validate that the object is a valid arg, with assertions.
    * @param {Object} object
    */
-  function validateMergableObject( object ) {
+  function validateMergeableObject( object ) {
     assert && assert( object && typeof object === 'object' && Object.getPrototypeOf( object ) === Object.prototype,
       'Object should be truthy, an object, and cannot have an extra prototype' );
 

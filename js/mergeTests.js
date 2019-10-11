@@ -437,7 +437,7 @@ define( require => {
     assert.ok( original.prop === newObject.prop, 'same Property' );
     assert.ok( original.enum === newObject.enum, 'same Enumeration' );
 
-    // test defaults with other non mergable objects
+    // test defaults with other non mergeable objects
     newObject = merge( {
       prop: testProperty2,
       enum: testEnumeration2,
