@@ -14,6 +14,7 @@ define( require => {
   'use strict';
 
   const extend = require( 'PHET_CORE/extend' );
+  const merge = require( 'PHET_CORE/merge' );
   const phetCore = require( 'PHET_CORE/phetCore' );
 
   const Poolable = {
@@ -25,7 +26,7 @@ define( require => {
      * @param {Object} [options]
      */
     mixInto: function( type, options ) {
-      options = _.extend( {
+      options = merge( {
         // {Array.<*>} - If an object needs to be created without a direct call (say, to fill the pool initially), these
         // are the arguments that will be passed into the constructor
         defaultArguments: [],

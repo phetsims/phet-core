@@ -58,6 +58,7 @@ define( require => {
   'use strict';
 
   // modules
+  const merge = require( 'PHET_CORE/merge' );
   const phetCore = require( 'PHET_CORE/phetCore' );
 
   class Enumeration {
@@ -71,7 +72,7 @@ define( require => {
 
       assert && assert( typeof options !== 'function', 'options should not be a function' );
 
-      options = _.extend( {
+      options = merge( {
 
         // {string|null} Will be appended to the EnumerationIO documentation, if provided
         phetioDocumentation: null,

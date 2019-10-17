@@ -18,7 +18,7 @@ define( require => {
   const phetCore = require( 'PHET_CORE/phetCore' );
 
   /**
-   * @param {Object|null|undefined} options - an options object.  Could be before or after _.extend, and may therefore
+   * @param {Object|null|undefined} options - an options object.  Could be before or after merge, and may therefore
    *                                        - be null or undefined
    * @param {string[][]} sets - families of mutually exclusive option keys, see examples above.
    */
