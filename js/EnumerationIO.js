@@ -13,14 +13,34 @@ define( require => {
   const phetCore = require( 'PHET_CORE/phetCore' );
   const ObjectIO = require( 'TANDEM/types/ObjectIO' );
 
+  // {Object.<enumerationKeys:string, function(new:ObjectIO)>} - Cache each parameterized EnumerationIO so that it is
+  // only created once.
+  const cache = {};
+
   /**
    * @param {Enumeration} enumeration
-   * @module EnumerationIO
-   * @constructor
+   * @returns {function(new:ObjectIO)}
    */
   function EnumerationIO( enumeration ) {
+
     assert && assert( enumeration, 'enumeration must be supplied' );
     assert && assert( enumeration instanceof Enumeration, 'enumeration must be an Enumeration' );
+
+    const cacheKey = enumeration.KEYS.join( '' );
+
+    if ( !cache.hasOwnProperty( cacheKey ) ) {
+      cache[ cacheKey ] = create( enumeration );
+    }
+
+    return cache[ cacheKey ];
+  }
+
+  /**
+   * Creates a Enumeration IOType
+   * @param {Enumeration} enumeration
+   * @returns {function(new:ObjectIO)}
+   */
+  const create = enumeration => {
 
     class EnumerationIOImpl extends ObjectIO {
       constructor( a, b ) {
@@ -62,9 +82,7 @@ define( require => {
     ObjectIO.validateSubtype( EnumerationIOImpl );
 
     return EnumerationIOImpl;
-  }
+  };
 
-  phetCore.register( 'EnumerationIO', EnumerationIO );
-
-  return EnumerationIO;
+  return phetCore.register( 'EnumerationIO', EnumerationIO );
 } );
