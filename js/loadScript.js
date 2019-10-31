@@ -1,5 +1,4 @@
 // Copyright 2013-2019, University of Colorado Boulder
-/* eslint-disable bad-sim-text */
 
 /**
  * Loads a script
@@ -54,7 +53,7 @@ define( require => {
     };
 
     // make sure things aren't cached, just in case
-    script.src = src + ( cacheBust ? '?random=' + Math.random().toFixed( 10 ) : '' );
+    script.src = src + ( cacheBust ? '?random=' + Math.random().toFixed( 10 ) : '' ); // eslint-disable-line bad-sim-text
 
     const other = document.getElementsByTagName( 'script' )[ 0 ];
     other.parentNode.insertBefore( script, other );

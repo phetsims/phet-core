@@ -1,5 +1,4 @@
 // Copyright 2018-2019, University of Colorado Boulder
-/* eslint-disable bad-sim-text */
 
 /**
  * Returns a copy of an array, with generated elements interleaved (inserted in-between) every element. For example, if
