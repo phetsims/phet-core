@@ -27,7 +27,7 @@ define( require => {
   require( 'PHET_CORE/interleaveTests' );
   require( 'PHET_CORE/EnumerationTests' );
   require( 'PHET_CORE/mergeTests' );
-  require( 'PHET_CORE/swapIfDefinedTests' );
+  require( 'PHET_CORE/swapObjectKeysTests' );
 
   // Since our tests are loaded asynchronously, we must direct QUnit to begin the tests
   QUnit.start();

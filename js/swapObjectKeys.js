@@ -4,10 +4,10 @@
  * Swap the values of two keys on an object, but only if the value is defined
  *
  * @example
- * swapIfDefined( { x: 4,y: 3 }, 'x', 'y' ) -> { x: 4, y:3 }
- * swapIfDefined( { x: 4 }, 'x', 'y' ) -> { y:4 }
- * swapIfDefined( { x: 4, y: undefined }, 'x', 'y' ) -> { x: undefined, y:4 }
- * swapIfDefined( { otherStuff: 'hi' }, 'x', 'y' ) -> { otherStuff: 'hi' }
+ * swapObjectKeys( { x: 4,y: 3 }, 'x', 'y' ) -> { x: 4, y:3 }
+ * swapObjectKeys( { x: 4 }, 'x', 'y' ) -> { y:4 }
+ * swapObjectKeys( { x: 4, y: undefined }, 'x', 'y' ) -> { x: undefined, y:4 }
+ * swapObjectKeys( { otherStuff: 'hi' }, 'x', 'y' ) -> { otherStuff: 'hi' }
  *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
@@ -28,7 +28,7 @@ define( require => {
    * @param {string} keyName2
    * @returns {Object} the passed in object
    */
-  const swapIfDefined = ( object, keyName1, keyName2 ) => {
+  const swapObjectKeys = ( object, keyName1, keyName2 ) => {
 
     // store both values into temp vars before trying to overwrite onto the object
     let value1 = placeholderObject;
@@ -62,7 +62,7 @@ define( require => {
     return object; // for chaining
   };
 
-  phetCore.register( 'swapIfDefined', swapIfDefined );
+  phetCore.register( 'swapObjectKeys', swapObjectKeys );
 
-  return swapIfDefined;
+  return swapObjectKeys;
 } );
