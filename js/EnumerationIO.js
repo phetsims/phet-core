@@ -18,6 +18,7 @@ define( require => {
   const cache = {};
 
   /**
+   * This caching implementation should be kept in sync with the other parametric IO type caching implementations.
    * @param {Enumeration} enumeration
    * @returns {function(new:ObjectIO)}
    */
