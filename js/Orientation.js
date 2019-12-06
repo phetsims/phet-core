@@ -14,7 +14,7 @@ define( require => {
   const phetCore = require( 'PHET_CORE/phetCore' );
   const Vector2 = require( 'DOT/Vector2' );
 
-  const Orientation = new Enumeration( [ 'HORIZONTAL', 'VERTICAL' ], {
+  const Orientation = Enumeration.byKeys( [ 'HORIZONTAL', 'VERTICAL' ], {
     beforeFreeze: Orientation => {
 
       // Set the named attribute value for both HORIZONTAL and VERTICAL.

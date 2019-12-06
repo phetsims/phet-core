@@ -14,7 +14,7 @@ define( require => {
   QUnit.module( 'Enumeration' );
 
   QUnit.test( 'Basic enumeration', function( assert ) {
-    const CardinalDirection = new Enumeration( [ 'NORTH', 'SOUTH', 'EAST', 'WEST' ] );
+    const CardinalDirection = Enumeration.byKeys( [ 'NORTH', 'SOUTH', 'EAST', 'WEST' ] );
 
     assert.equal( CardinalDirection.NORTH, 'NORTH', 'Equality for NORTH' );
     assert.equal( CardinalDirection.SOUTH, 'SOUTH', 'Equality for SOUTH' );
@@ -37,13 +37,13 @@ define( require => {
     }, 'Should not be able to set things after initialization' );
 
     window.assert && assert.throws( function() {
-      const x = new Enumeration( [ 'lowercase', 'should', 'fail' ] );
+      const x = Enumeration.byKeys( [ 'lowercase', 'should', 'fail' ] );
       assert.ok( !!x, 'fake assertion so x is used' );
     }, 'Enumeration should fail for lowercase values' );
   } );
 
   QUnit.test( 'Before freeze test', function( assert ) {
-    const E = new Enumeration( [ 'A', 'B' ], {
+    const E = Enumeration.byKeys( [ 'A', 'B' ], {
       beforeFreeze: E => {
         E.opposite = e => {
           window.assert && window.assert( E.includes( e ) );
@@ -63,10 +63,37 @@ define( require => {
   } );
 
   QUnit.test( 'VALUES', function( assert ) {
-    const People = new Enumeration( [ 'ALICE', 'BOB' ] );
+    const People = Enumeration.byKeys( [ 'ALICE', 'BOB' ] );
     assert.ok( true, 'at least one assertion must run per test' );
     window.assert && assert.throws( () => {
       People.VALUES = 'something else';
     }, 'Setting values after initialization should throw an error.' );
+  } );
+
+  QUnit.test( 'Rich', function( assert ) {
+    class Planet {
+      constructor( order ) {
+        this.order = order;
+      }
+
+      getText( name ) {
+        return name + ' is a person from the ' + this.order + ' planet.';
+      }
+    }
+
+    const Planets = Enumeration.byMap( {
+      MARS: new Planet( 2 ),
+      EARTH: new Planet( 3 )
+    } );
+
+    assert.ok( Planets.MARS.order === 2, 'mars order should match' );
+    assert.ok( typeof Planets.EARTH.getText( 'bob' ) === 'string', 'should return a string' );
+    window.assert && assert.throws( () => {
+      Planets.MARS = 'hello'; // fails because enumeration values should not be reassignable
+    } );
+
+    window.assert && assert.throws( () => {
+      Planets.MARS.name = 'not mars!'; // Should not be able to reassign enumeration value properties
+    } );
   } );
 } );

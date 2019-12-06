@@ -423,8 +423,8 @@ define( require => {
 
     const testProperty1 = new Property( 'hi' );
     const testProperty2 = new Property( 'hi2' );
-    const testEnumeration = new Enumeration( [ 'ONE', 'TWO' ] );
-    const testEnumeration2 = new Enumeration( [ 'ONE1', 'TWO2' ] );
+    const testEnumeration = Enumeration.byKeys( [ 'ONE', 'TWO' ] );
+    const testEnumeration2 = Enumeration.byKeys( [ 'ONE1', 'TWO2' ] );
     const original = {
       prop: testProperty1,
       enum: testEnumeration,

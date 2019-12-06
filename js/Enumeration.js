@@ -5,7 +5,11 @@
  *
  * An Enumeration can be created like this:
  *
- *   const CardinalDirection = new Enumeration( [ 'NORTH', 'SOUTH', 'EAST', 'WEST' ] );
+ *   const CardinalDirection = Enumeration.byKeys( [ 'NORTH', 'SOUTH', 'EAST', 'WEST' ] );
+ *
+ * OR using rich values like so:
+ *
+ *   const CardinalDirection = Enumeration.byMap( {NORTH: northObject, SOUTH: southObject, EAST: eastObject, WEST: westObject} );
  *
  * and values are referenced like this:
  *
@@ -62,17 +66,24 @@ define( require => {
   const phetCore = require( 'PHET_CORE/phetCore' );
 
   class Enumeration {
+
     /**
-     * @param {Array.<string>} keys - The string keys for the enumeration. Customarily, these are uppercase, using
-     *                                underscores where there would be other punctuation. For example,
-     *                                `THIS_IS_AN_EXAMPLE` or `DOES_NOT_WANT_TO_BE_AN_EXAMPLE_TOO_BAD`.
-     * @param {Object} [options]
+     * @param {Object} [config] - must provide keys such as {keys:['RED','BLUE]}
+     *                          - or map such as {map:{RED: myRedValue, BLUE: myBlueValue}}
+     *
+     * @private - clients should use Enumeration.byKeys or Enumeration.byMap
      */
-    constructor( keys, options ) {
+    constructor( config ) {
+      assert && assert( config, 'config must be provided' );
 
-      assert && assert( typeof options !== 'function', 'options should not be a function' );
+      const keysProvided = !!config.keys;
+      const mapProvided = !!config.map;
+      assert && assert( keysProvided !== mapProvided, 'must provide one or the other but not both of keys/map' );
 
-      options = merge( {
+      const keys = config.keys || Object.keys( config.map );
+      const map = config.map || {};
+
+      config = merge( {
 
         // {string|null} Will be appended to the EnumerationIO documentation, if provided
         phetioDocumentation: null,
@@ -83,7 +94,7 @@ define( require => {
         // the enumeration object beforehand, this allows defining custom values/methods
         // on the enumeration object itself.
         beforeFreeze: null
-      }, options );
+      }, config );
 
       assert && assert( Array.isArray( keys ), 'Values should be an array' );
       assert && assert( _.uniq( keys ).length === keys.length, 'There should be no duplicated values provided' );
@@ -92,32 +103,40 @@ define( require => {
         'Enumeration values should be uppercase alphanumeric with underscores and begin with a letter' ) );
       assert && assert( !_.includes( keys, 'VALUES' ),
         'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
+      assert && assert( !_.includes( keys, 'KEYS' ),
+        'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
       assert && assert( !_.includes( keys, 'includes' ),
         'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
 
       // @public (phet-io) - provides additional documentation for PhET-iO which can be viewed in studio
       // Note this uses the same term as used by PhetioObject, but via a different channel.
-      this.phetioDocumentation = options.phetioDocumentation;
+      this.phetioDocumentation = config.phetioDocumentation;
+
+      // @public {string[]} (read-only) - the string keys of the enumeration
+      this.KEYS = keys;
 
       // @public {Object[]} (read-only) - the object values of the enumeration
       this.VALUES = [];
 
-      // @public {string[]} (read-only) - the string keys of the enumeration
-      this.KEYS = [];
-
       keys.forEach( key => {
-        this[ key ] = {
-          name: key, // PhET-iO public API relies on this mapping, do not change it lightly
-          toString() {return key;}
-        };
-        this.VALUES.push( this[ key ] );
-        this.KEYS.push( key );
+        const value = map[ key ] || {};
+
+        // Set attributes of the enumeration value
+        assert && assert( value.name === undefined, 'rich enumeration values cannot provide their own name attribute' );
+        assert && assert( value.toString === Object.prototype.toString, 'rich enumeration values cannot provide their own toString' );
+        value.name = key; // PhET-iO public API relies on this mapping, do not change it lightly
+        value.toString = () => key;
+
+        // Assign to the enumeration
+        this[ key ] = value;
+        this.VALUES.push( value );
       } );
 
-      options.beforeFreeze && options.beforeFreeze( this );
+      config.beforeFreeze && config.beforeFreeze( this );
       assert && Object.freeze( this );
       assert && Object.freeze( this.VALUES );
       assert && Object.freeze( this.KEYS );
+      assert && keys.forEach( key => assert && Object.freeze( map[ key ] ) );
     }
 
     /**
@@ -129,6 +148,30 @@ define( require => {
      */
     includes( value ) {
       return _.includes( this.VALUES, value );
+    }
+
+    /**
+     * Creates an enumeration based on the provided string array
+     * @param {string[]} keys - such as ['RED','BLUE']
+     * @param {Object} [options]
+     * @returns {Enumeration}
+     * @public
+     */
+    static byKeys( keys, options ) {
+      assert && assert( !options || options.keys === undefined );
+      return new Enumeration( merge( { keys: keys }, options ) );
+    }
+
+    /**
+     * Creates a "rich" enumeration based on the provided map
+     * @param {Object} map - such as {RED: myRedValue, BLUE: myBlueValue}
+     * @param {Object} [options]
+     * @returns {Enumeration}
+     * @public
+     */
+    static byMap( map, options ) {
+      assert && assert( !options || options.map === undefined );
+      return new Enumeration( merge( { map: map }, options ) );
     }
   }
 
