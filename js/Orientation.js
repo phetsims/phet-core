@@ -14,34 +14,31 @@ define( require => {
   const phetCore = require( 'PHET_CORE/phetCore' );
   const Vector2 = require( 'DOT/Vector2' );
 
-  const Orientation = Enumeration.byKeys( [ 'HORIZONTAL', 'VERTICAL' ], {
-    beforeFreeze: Orientation => {
+  /**
+   * @private
+   */
+  class OrientationValue {
 
-      // Set the named attribute value for both HORIZONTAL and VERTICAL.
-      const assign = ( attribute, horizontalValue, verticalValue ) => {
-        Orientation.HORIZONTAL[ attribute ] = horizontalValue;
-        Orientation.VERTICAL[ attribute ] = verticalValue;
-      };
+    // see docs at field declarations
+    constructor( coordinate, centerCoordinate, minSide, maxSide, rectCoordinate,
+                 rectSize, layoutBoxOrientation, modelToView, toVector ) {
 
       // {string} - So you can position things like node[ orientation.coordinate ] = value
-      assign( 'coordinate', 'x', 'y' );
+      this.coordinate = coordinate;
 
       // {string} - So you can center things like node[ orientation.centerCoordinate ] = value
-      assign( 'centerCoordinate', 'centerX', 'centerY' );
+      this.centerCoordinate = centerCoordinate;
 
       // {string} - For getting the minimal/maximal values from bounds/nodes
-      assign( 'minSide', 'left', 'top' );
-      assign( 'maxSide', 'right', 'bottom' );
+      this.minSide = minSide;
+      this.maxSide = maxSide;
 
       // {string} - For being able to handle Rectangles (x/y) and (width/height)
-      assign( 'rectCoordinate', 'rectX', 'rectY' );
-      assign( 'rectSize', 'rectWidth', 'rectHeight' );
+      this.rectCoordinate = rectCoordinate;
+      this.rectSize = rectSize;
 
       // {string} - The name of the orientation when used for LayoutBox
-      assign( 'layoutBoxOrientation', 'horizontal', 'vertical' );
-
-      // Set up opposites as object references (circular)
-      assign( 'opposite', Orientation.VERTICAL, Orientation.HORIZONTAL );
+      this.layoutBoxOrientation = layoutBoxOrientation;
 
       /**
        * Returns the single coordinate transformed by the appropriate dimension.
@@ -51,13 +48,10 @@ define( require => {
        * @param {number} value
        * @returns {number}
        */
-      assign( 'modelToView',
-        ( modelViewTransform, value ) => modelViewTransform.modelToViewX( value ),
-        ( modelViewTransform, value ) => modelViewTransform.modelToViewY( value )
-      );
+      this.modelToView = modelToView;
 
       /**
-       * Creates a vector (primary,secondary) for horizontal orientations, and (secondary,primary) for vertical
+       * {function} Creates a vector (primary,secondary) for horizontal orientations, and (secondary,primary) for vertical
        * orientations.
        * @public
        *
@@ -65,14 +59,29 @@ define( require => {
        * @param {number} secondary
        * @returns {Vector2}
        */
-      assign( 'toVector',
-        ( primary, secondary ) => new Vector2( primary, secondary ),
-        ( primary, secondary ) => new Vector2( secondary, primary )
-      );
+      this.toVector = toVector;
+
+      // @public {OrientationValue} Assigned after instantiation, see below.
+      this.opposite = null;
     }
-  } );
+  }
 
-  phetCore.register( 'Orientation', Orientation );
+  const HORIZONTAL = new OrientationValue( 'x', 'centerX', 'left', 'right', 'rectX', 'rectWidth', 'horizontal',
+    ( modelViewTransform, value ) => modelViewTransform.modelToViewX( value ),
+    ( a, b ) => new Vector2( a, b )
+  );
 
-  return Orientation;
+  const VERTICAL = new OrientationValue( 'y', 'centerY', 'top', 'bottom', 'rectY', 'rectHeight', 'vertical',
+    ( modelViewTransform, value ) => modelViewTransform.modelToViewY( value ),
+    ( a, b ) => new Vector2( b, a )
+  );
+
+  // Set up opposites as object references (circular)
+  HORIZONTAL.opposite = VERTICAL;
+  VERTICAL.opposite = HORIZONTAL;
+
+  return phetCore.register( 'Orientation', Enumeration.byMap( {
+    HORIZONTAL: HORIZONTAL,
+    VERTICAL: VERTICAL
+  } ) );
 } );
