@@ -52,7 +52,7 @@ define( require => {
         catch( e ) {
 
           // Ignore nodes that don't draw anything
-          // TODO: is this masking a problem?
+          // TODO https://github.com/phetsims/phet-core/issues/80 is this masking a problem?
         }
       }
     }
