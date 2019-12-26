@@ -77,7 +77,7 @@ define( require => {
     // Enumeration supports additional documentation, so the values can be described.
     const additionalDocs = enumeration.phetioDocumentation ? ` ${enumeration.phetioDocumentation}` : '';
 
-    EnumerationIOImpl.validator = ObjectIO.validator; // TODO: is this redundant?
+    EnumerationIOImpl.validator = ObjectIO.validator; // TODO https://github.com/phetsims/phet-core/issues/79 is this redundant?
     EnumerationIOImpl.documentation = `Possible values: ${valueNames}.${additionalDocs}`;
     EnumerationIOImpl.typeName = `EnumerationIO(${valueNames.join( '|' )})`;
     ObjectIO.validateSubtype( EnumerationIOImpl );
