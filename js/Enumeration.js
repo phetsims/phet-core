@@ -171,6 +171,11 @@ define( require => {
      */
     static byMap( map, options ) {
       assert && assert( !options || options.map === undefined );
+      if ( assert ) {
+        const values = _.values( map );
+        assert && assert( values.length >= 1, 'must have at least 2 entries in an enumeration' );
+        assert && assert( _.every( values, value => value.constructor === values[ 0 ].constructor ), 'Values must have same constructor' );
+      }
       return new Enumeration( merge( { map: map }, options ) );
     }
   }

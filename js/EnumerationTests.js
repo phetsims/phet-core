@@ -81,6 +81,8 @@ define( require => {
       }
     }
 
+    class Venus extends Planet {}
+
     const Planets = Enumeration.byMap( {
       MARS: new Planet( 2 ),
       EARTH: new Planet( 3 )
@@ -94,6 +96,14 @@ define( require => {
 
     window.assert && assert.throws( () => {
       Planets.MARS.name = 'not mars!'; // Should not be able to reassign enumeration value properties
+    } );
+
+    window.assert && assert.throws( () => {
+      Enumeration.byMap( {
+        MARS: new Planet( 2 ),
+        EARTH: new Planet( 3 ),
+        VENUS: new Venus( 7 ) // Forbidden at the moment, see https://github.com/phetsims/phet-core/issues/50#issuecomment-575324970
+      } );
     } );
   } );
 } );
