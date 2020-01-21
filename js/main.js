@@ -1,35 +1,37 @@
 // Copyright 2013-2019, University of Colorado Boulder
 
-define( [
-  'PHET_CORE/phetCore',
-  'PHET_CORE/arrayDifference',
-  'PHET_CORE/arrayRemove',
-  'PHET_CORE/cleanArray',
-  'PHET_CORE/collect',
-  'PHET_CORE/detectPrefix',
-  'PHET_CORE/detectPrefixEvent',
-  'PHET_CORE/dimensionForEach',
-  'PHET_CORE/dimensionMap',
-  'PHET_CORE/Enumeration',
-  'PHET_CORE/EnumerationMap',
-  'PHET_CORE/escapeHTML',
-  'PHET_CORE/EventTimer',
-  'PHET_CORE/extend',
-  'PHET_CORE/extendDefined',
-  'PHET_CORE/inherit',
-  'PHET_CORE/inheritance',
-  'PHET_CORE/interleave',
-  'PHET_CORE/isArray',
-  'PHET_CORE/loadScript',
-  'PHET_CORE/merge',
-  'PHET_CORE/mixedWith',
-  'PHET_CORE/Namespace',
-  'PHET_CORE/openPopup',
-  'PHET_CORE/pairs',
-  'PHET_CORE/partition',
-  'PHET_CORE/platform',
-  'PHET_CORE/Poolable'
-], function( phetCore ) {
+define( require => {
+
   'use strict';
+
+  const phetCore = require( 'PHET_CORE/phetCore' );
+  require( 'PHET_CORE/arrayDifference' );
+  require( 'PHET_CORE/arrayRemove' );
+  require( 'PHET_CORE/cleanArray' );
+  require( 'PHET_CORE/collect' );
+  require( 'PHET_CORE/detectPrefix' );
+  require( 'PHET_CORE/detectPrefixEvent' );
+  require( 'PHET_CORE/dimensionForEach' );
+  require( 'PHET_CORE/dimensionMap' );
+  require( 'PHET_CORE/Enumeration' );
+  require( 'PHET_CORE/EnumerationMap' );
+  require( 'PHET_CORE/escapeHTML' );
+  require( 'PHET_CORE/EventTimer' );
+  require( 'PHET_CORE/extend' );
+  require( 'PHET_CORE/extendDefined' );
+  require( 'PHET_CORE/inherit' );
+  require( 'PHET_CORE/inheritance' );
+  require( 'PHET_CORE/interleave' );
+  require( 'PHET_CORE/isArray' );
+  require( 'PHET_CORE/loadScript' );
+  require( 'PHET_CORE/merge' );
+  require( 'PHET_CORE/mixedWith' );
+  require( 'PHET_CORE/Namespace' );
+  require( 'PHET_CORE/openPopup' );
+  require( 'PHET_CORE/pairs' );
+  require( 'PHET_CORE/partition' );
+  require( 'PHET_CORE/platform' );
+  require( 'PHET_CORE/Poolable' );
+
   return phetCore;
 } );
