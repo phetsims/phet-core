@@ -88,7 +88,7 @@ define( require => {
         // {string|null} Will be appended to the EnumerationIO documentation, if provided
         phetioDocumentation: null,
 
-        // {function|null} If provided, it will be called as beforeFreeze( enumeration ) just before the
+        // {function(Enumeration):|null} If provided, it will be called as beforeFreeze( enumeration ) just before the
         // enumeration is frozen. Since it's not possible to modify the enumeration after
         // it is frozen (e.g. adding convenience functions), and there is no reference to
         // the enumeration object beforehand, this allows defining custom values/methods
