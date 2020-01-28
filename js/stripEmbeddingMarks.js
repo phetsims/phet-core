@@ -1,4 +1,4 @@
-// Copyright 2016-2019, University of Colorado Boulder
+// Copyright 2020, University of Colorado Boulder
 
 /**
  * Strips embedding marks out of a string. Embedding marks are added to support directional languages and PhET i18n in
