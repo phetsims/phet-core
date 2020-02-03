@@ -68,7 +68,7 @@ define( require => {
   class Enumeration {
 
     /**
-     * @param {Object} [config] - must provide keys such as {keys:['RED','BLUE]}
+     * @param {Object} config - must provide keys such as {keys:['RED','BLUE]}
      *                          - or map such as {map:{RED: myRedValue, BLUE: myBlueValue}}
      *
      * @private - clients should use Enumeration.byKeys or Enumeration.byMap
