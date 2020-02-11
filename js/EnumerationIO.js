@@ -13,9 +13,9 @@ define( require => {
   const phetCore = require( 'PHET_CORE/phetCore' );
   const ObjectIO = require( 'TANDEM/types/ObjectIO' );
 
-  // {Object.<enumerationKeys:string, function(new:ObjectIO)>} - Cache each parameterized EnumerationIO so that it is
+  // {Map.<enumeration:Enumeration, function(new:ObjectIO)>} - Cache each parameterized EnumerationIO so that it is
   // only created once.
-  const cache = {};
+  const cacheMap = new Map();
 
   /**
    * This caching implementation should be kept in sync with the other parametric IO type caching implementations.
@@ -27,13 +27,13 @@ define( require => {
     assert && assert( enumeration, 'enumeration must be supplied' );
     assert && assert( enumeration instanceof Enumeration, 'enumeration must be an Enumeration' );
 
-    const cacheKey = enumeration.KEYS.join( '' );
+    const cacheKey = enumeration;
 
-    if ( !cache.hasOwnProperty( cacheKey ) ) {
-      cache[ cacheKey ] = create( enumeration );
+    if ( !cacheMap.has( cacheKey ) ) {
+      cacheMap.set( cacheKey, create( enumeration ) );
     }
 
-    return cache[ cacheKey ];
+    return cacheMap.get( cacheKey );
   }
 
   /**
@@ -80,6 +80,7 @@ define( require => {
     EnumerationIOImpl.validator = { valueType: enumeration };
     EnumerationIOImpl.documentation = `Possible values: ${valueNames}.${additionalDocs}`;
     EnumerationIOImpl.typeName = `EnumerationIO(${valueNames.join( '|' )})`;
+    EnumerationIOImpl.cacheKey = enumeration;
     ObjectIO.validateSubtype( EnumerationIOImpl );
 
     return EnumerationIOImpl;
