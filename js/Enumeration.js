@@ -58,127 +58,124 @@
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const merge = require( 'PHET_CORE/merge' );
-  const phetCore = require( 'PHET_CORE/phetCore' );
+import merge from './merge.js';
+import phetCore from './phetCore.js';
 
-  class Enumeration {
+class Enumeration {
 
-    /**
-     * @param {Object} config - must provide keys such as {keys:['RED','BLUE]}
-     *                          - or map such as {map:{RED: myRedValue, BLUE: myBlueValue}}
-     *
-     * @private - clients should use Enumeration.byKeys or Enumeration.byMap
-     */
-    constructor( config ) {
-      assert && assert( config, 'config must be provided' );
+  /**
+   * @param {Object} config - must provide keys such as {keys:['RED','BLUE]}
+   *                          - or map such as {map:{RED: myRedValue, BLUE: myBlueValue}}
+   *
+   * @private - clients should use Enumeration.byKeys or Enumeration.byMap
+   */
+  constructor( config ) {
+    assert && assert( config, 'config must be provided' );
 
-      const keysProvided = !!config.keys;
-      const mapProvided = !!config.map;
-      assert && assert( keysProvided !== mapProvided, 'must provide one or the other but not both of keys/map' );
+    const keysProvided = !!config.keys;
+    const mapProvided = !!config.map;
+    assert && assert( keysProvided !== mapProvided, 'must provide one or the other but not both of keys/map' );
 
-      const keys = config.keys || Object.keys( config.map );
-      const map = config.map || {};
+    const keys = config.keys || Object.keys( config.map );
+    const map = config.map || {};
 
-      config = merge( {
+    config = merge( {
 
-        // {string|null} Will be appended to the EnumerationIO documentation, if provided
-        phetioDocumentation: null,
+      // {string|null} Will be appended to the EnumerationIO documentation, if provided
+      phetioDocumentation: null,
 
-        // {function(Enumeration):|null} If provided, it will be called as beforeFreeze( enumeration ) just before the
-        // enumeration is frozen. Since it's not possible to modify the enumeration after
-        // it is frozen (e.g. adding convenience functions), and there is no reference to
-        // the enumeration object beforehand, this allows defining custom values/methods
-        // on the enumeration object itself.
-        beforeFreeze: null
-      }, config );
+      // {function(Enumeration):|null} If provided, it will be called as beforeFreeze( enumeration ) just before the
+      // enumeration is frozen. Since it's not possible to modify the enumeration after
+      // it is frozen (e.g. adding convenience functions), and there is no reference to
+      // the enumeration object beforehand, this allows defining custom values/methods
+      // on the enumeration object itself.
+      beforeFreeze: null
+    }, config );
 
-      assert && assert( Array.isArray( keys ), 'Values should be an array' );
-      assert && assert( _.uniq( keys ).length === keys.length, 'There should be no duplicated values provided' );
-      assert && keys.forEach( value => assert( typeof value === 'string', 'Each value should be a string' ) );
-      assert && keys.forEach( value => assert( /^[A-Z][A-Z0-9_]*$/g.test( value ),
-        'Enumeration values should be uppercase alphanumeric with underscores and begin with a letter' ) );
-      assert && assert( !_.includes( keys, 'VALUES' ),
-        'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
-      assert && assert( !_.includes( keys, 'KEYS' ),
-        'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
-      assert && assert( !_.includes( keys, 'includes' ),
-        'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
+    assert && assert( Array.isArray( keys ), 'Values should be an array' );
+    assert && assert( _.uniq( keys ).length === keys.length, 'There should be no duplicated values provided' );
+    assert && keys.forEach( value => assert( typeof value === 'string', 'Each value should be a string' ) );
+    assert && keys.forEach( value => assert( /^[A-Z][A-Z0-9_]*$/g.test( value ),
+      'Enumeration values should be uppercase alphanumeric with underscores and begin with a letter' ) );
+    assert && assert( !_.includes( keys, 'VALUES' ),
+      'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
+    assert && assert( !_.includes( keys, 'KEYS' ),
+      'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
+    assert && assert( !_.includes( keys, 'includes' ),
+      'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
 
-      // @public (phet-io) - provides additional documentation for PhET-iO which can be viewed in studio
-      // Note this uses the same term as used by PhetioObject, but via a different channel.
-      this.phetioDocumentation = config.phetioDocumentation;
+    // @public (phet-io) - provides additional documentation for PhET-iO which can be viewed in studio
+    // Note this uses the same term as used by PhetioObject, but via a different channel.
+    this.phetioDocumentation = config.phetioDocumentation;
 
-      // @public {string[]} (read-only) - the string keys of the enumeration
-      this.KEYS = keys;
+    // @public {string[]} (read-only) - the string keys of the enumeration
+    this.KEYS = keys;
 
-      // @public {Object[]} (read-only) - the object values of the enumeration
-      this.VALUES = [];
+    // @public {Object[]} (read-only) - the object values of the enumeration
+    this.VALUES = [];
 
-      keys.forEach( key => {
-        const value = map[ key ] || {};
+    keys.forEach( key => {
+      const value = map[ key ] || {};
 
-        // Set attributes of the enumeration value
-        assert && assert( value.name === undefined, 'rich enumeration values cannot provide their own name attribute' );
-        assert && assert( value.toString === Object.prototype.toString, 'rich enumeration values cannot provide their own toString' );
-        value.name = key; // PhET-iO public API relies on this mapping, do not change it lightly
-        value.toString = () => key;
+      // Set attributes of the enumeration value
+      assert && assert( value.name === undefined, 'rich enumeration values cannot provide their own name attribute' );
+      assert && assert( value.toString === Object.prototype.toString, 'rich enumeration values cannot provide their own toString' );
+      value.name = key; // PhET-iO public API relies on this mapping, do not change it lightly
+      value.toString = () => key;
 
-        // Assign to the enumeration
-        this[ key ] = value;
-        this.VALUES.push( value );
-      } );
+      // Assign to the enumeration
+      this[ key ] = value;
+      this.VALUES.push( value );
+    } );
 
-      config.beforeFreeze && config.beforeFreeze( this );
-      assert && Object.freeze( this );
-      assert && Object.freeze( this.VALUES );
-      assert && Object.freeze( this.KEYS );
-      assert && keys.forEach( key => assert && Object.freeze( map[ key ] ) );
-    }
-
-    /**
-     * Checks whether the given value is a value of this enumeration. Should generally be used for assertions
-     * @public
-     *
-     * @param {Object} value
-     * @returns {boolean}
-     */
-    includes( value ) {
-      return _.includes( this.VALUES, value );
-    }
-
-    /**
-     * Creates an enumeration based on the provided string array
-     * @param {string[]} keys - such as ['RED','BLUE']
-     * @param {Object} [options]
-     * @returns {Enumeration}
-     * @public
-     */
-    static byKeys( keys, options ) {
-      assert && assert( !options || options.keys === undefined );
-      return new Enumeration( merge( { keys: keys }, options ) );
-    }
-
-    /**
-     * Creates a "rich" enumeration based on the provided map
-     * @param {Object} map - such as {RED: myRedValue, BLUE: myBlueValue}
-     * @param {Object} [options]
-     * @returns {Enumeration}
-     * @public
-     */
-    static byMap( map, options ) {
-      assert && assert( !options || options.map === undefined );
-      if ( assert ) {
-        const values = _.values( map );
-        assert && assert( values.length >= 1, 'must have at least 2 entries in an enumeration' );
-        assert && assert( _.every( values, value => value.constructor === values[ 0 ].constructor ), 'Values must have same constructor' );
-      }
-      return new Enumeration( merge( { map: map }, options ) );
-    }
+    config.beforeFreeze && config.beforeFreeze( this );
+    assert && Object.freeze( this );
+    assert && Object.freeze( this.VALUES );
+    assert && Object.freeze( this.KEYS );
+    assert && keys.forEach( key => assert && Object.freeze( map[ key ] ) );
   }
 
-  return phetCore.register( 'Enumeration', Enumeration );
-} );
+  /**
+   * Checks whether the given value is a value of this enumeration. Should generally be used for assertions
+   * @public
+   *
+   * @param {Object} value
+   * @returns {boolean}
+   */
+  includes( value ) {
+    return _.includes( this.VALUES, value );
+  }
+
+  /**
+   * Creates an enumeration based on the provided string array
+   * @param {string[]} keys - such as ['RED','BLUE']
+   * @param {Object} [options]
+   * @returns {Enumeration}
+   * @public
+   */
+  static byKeys( keys, options ) {
+    assert && assert( !options || options.keys === undefined );
+    return new Enumeration( merge( { keys: keys }, options ) );
+  }
+
+  /**
+   * Creates a "rich" enumeration based on the provided map
+   * @param {Object} map - such as {RED: myRedValue, BLUE: myBlueValue}
+   * @param {Object} [options]
+   * @returns {Enumeration}
+   * @public
+   */
+  static byMap( map, options ) {
+    assert && assert( !options || options.map === undefined );
+    if ( assert ) {
+      const values = _.values( map );
+      assert && assert( values.length >= 1, 'must have at least 2 entries in an enumeration' );
+      assert && assert( _.every( values, value => value.constructor === values[ 0 ].constructor ), 'Values must have same constructor' );
+    }
+    return new Enumeration( merge( { map: map }, options ) );
+  }
+}
+
+phetCore.register( 'Enumeration', Enumeration );
+export default Enumeration;

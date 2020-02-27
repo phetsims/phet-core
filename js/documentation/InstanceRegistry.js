@@ -5,56 +5,52 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const inherit = require( 'PHET_CORE/inherit' );
-  const phetCore = require( 'PHET_CORE/phetCore' );
+import inherit from '../inherit.js';
+import phetCore from '../phetCore.js';
 
-  // constants
-  const map = {};
+// constants
+const map = {};
+
+/**
+ * @constructor
+ */
+function InstanceRegistry() {
+}
+
+phetCore.register( 'InstanceRegistry', InstanceRegistry );
+
+export default inherit( Object, InstanceRegistry, {}, {
 
   /**
-   * @constructor
+   * @public (read-only) - used by puppeteer in binder
    */
-  function InstanceRegistry() {
-  }
+  map: map,
 
-  phetCore.register( 'InstanceRegistry', InstanceRegistry );
+  /**
+   * Adds a screenshot of the given scenery Node
+   * @param {string} repoName
+   * @param {string} typeName
+   * @param {Node} instance
+   * @public
+   */
+  registerDataURL: function( repoName, typeName, instance ) {
+    if ( phet.chipper.queryParameters.binder ) {
 
-  return inherit( Object, InstanceRegistry, {}, {
+      // Create the map if we haven't seen that component type before
+      const key = repoName + '/' + typeName;
+      map[ key ] = map[ key ] || [];
 
-    /**
-     * @public (read-only) - used by puppeteer in binder
-     */
-    map: map,
+      try {
+        instance.toDataURL( function( dataURL ) {
+          map[ key ].push( dataURL );
+        } );
+      }
+      catch( e ) {
 
-    /**
-     * Adds a screenshot of the given scenery Node
-     * @param {string} repoName
-     * @param {string} typeName
-     * @param {Node} instance
-     * @public
-     */
-    registerDataURL: function( repoName, typeName, instance ) {
-      if ( phet.chipper.queryParameters.binder ) {
-
-        // Create the map if we haven't seen that component type before
-        const key = repoName + '/' + typeName;
-        map[ key ] = map[ key ] || [];
-
-        try {
-          instance.toDataURL( function( dataURL ) {
-            map[ key ].push( dataURL );
-          } );
-        }
-        catch( e ) {
-
-          // Ignore nodes that don't draw anything
-          // TODO https://github.com/phetsims/phet-core/issues/80 is this masking a problem?
-        }
+        // Ignore nodes that don't draw anything
+        // TODO https://github.com/phetsims/phet-core/issues/80 is this masking a problem?
       }
     }
-  } );
+  }
 } );

@@ -11,7 +11,7 @@
  * function A() { scenery.Node.call( this ); };
  *
  * // Add prototype functions and/or 'static' functions
- * return inherit( scenery.Node, A, {
+ * export default inherit( scenery.Node, A, {
  *   customBehavior: function() { ... },
  *   isAnA: true
  * }, {
@@ -26,38 +26,35 @@
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
-define( require => {
-  'use strict';
 
-  const extend = require( 'PHET_CORE/extend' );
-  const phetCore = require( 'PHET_CORE/phetCore' );
+import extend from './extend.js';
+import phetCore from './phetCore.js';
 
-  /**
-   * @param supertype           Constructor for the supertype.
-   * @param subtype             Constructor for the subtype. Generally should contain supertype.call( this, ... )
-   * @param prototypeProperties [optional] object containing properties that will be set on the prototype.
-   * @param staticProperties [optional] object containing properties that will be set on the constructor function itself
-   */
-  function inherit( supertype, subtype, prototypeProperties, staticProperties ) {
-    assert && assert( typeof supertype === 'function' );
+/**
+ * @param supertype           Constructor for the supertype.
+ * @param subtype             Constructor for the subtype. Generally should contain supertype.call( this, ... )
+ * @param prototypeProperties [optional] object containing properties that will be set on the prototype.
+ * @param staticProperties [optional] object containing properties that will be set on the constructor function itself
+ */
+function inherit( supertype, subtype, prototypeProperties, staticProperties ) {
+  assert && assert( typeof supertype === 'function' );
 
-    function F() {}
+  function F() {}
 
-    F.prototype = supertype.prototype; // so new F().__proto__ === supertype.prototype
+  F.prototype = supertype.prototype; // so new F().__proto__ === supertype.prototype
 
-    subtype.prototype = extend( // extend will combine the properties and constructor into the new F copy
-      new F(),                  // so new F().__proto__ === supertype.prototype, and the prototype chain is set up nicely
-      { constructor: subtype }, // overrides the constructor properly
-      prototypeProperties       // [optional] additional properties for the prototype, as an object.
-    );
+  subtype.prototype = extend( // extend will combine the properties and constructor into the new F copy
+    new F(),                  // so new F().__proto__ === supertype.prototype, and the prototype chain is set up nicely
+    { constructor: subtype }, // overrides the constructor properly
+    prototypeProperties       // [optional] additional properties for the prototype, as an object.
+  );
 
-    //Copy the static properties onto the subtype constructor so they can be accessed 'statically'
-    extend( subtype, staticProperties );
+  //Copy the static properties onto the subtype constructor so they can be accessed 'statically'
+  extend( subtype, staticProperties );
 
-    return subtype; // pass back the subtype so it can be returned immediately as a module export
-  }
+  return subtype; // pass back the subtype so it can be returned immediately as a module export
+}
 
-  phetCore.register( 'inherit', inherit );
+phetCore.register( 'inherit', inherit );
 
-  return inherit;
-} );
+export default inherit;

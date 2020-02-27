@@ -12,7 +12,6 @@
   <script src="../../sherpa/lib/lodash-4.17.4.js"></script>
   <script src="../../assert/js/assert.js"></script>
 
-  <script data-main="../js/config.js" src="../../sherpa/lib/require-2.3.6.js"></script>
 
 </head>
 <body>
@@ -21,7 +20,7 @@
   Middle: using UniformEventModel (uniformly random period between events)<br>
   Bottom: using PoissonEventModel (poisson process, exponential distribution between events)
 </p>
-<script>
+<script type="module">
   /*---------------------------------------------------------------------------*
    * window.requestAnimationFrame polyfill, by Erik Moller (http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating)
    * referenced by initial Paul Irish article at http://paulirish.com/2011/requestanimationframe-for-smart-animating/
@@ -50,118 +49,116 @@
     };
   }
 
-  require( [ 'config' ], function() {
-    require( [ 'main' ], function( phetCore ) {
-      window.phetCore = phetCore;
+  import phetCore from '../js/main.js';
 
-      var width = 512;
-      var height = 256;
+  window.phetCore = phetCore;
 
-      var barHeight = 64;
+  var width = 512;
+  var height = 256;
 
-      var canvas = document.createElement( 'canvas' );
-      canvas.width = width;
-      canvas.height = height;
-      document.body.appendChild( canvas );
+  var barHeight = 64;
 
-      var context = canvas.getContext( '2d' );
+  var canvas = document.createElement( 'canvas' );
+  canvas.width = width;
+  canvas.height = height;
+  document.body.appendChild( canvas );
 
-      context.fillStyle = '#eee';
-      context.fillRect( 0, 0, width, height );
+  var context = canvas.getContext( '2d' );
 
-      var constantPositions = [];
-      var poissonPositions = [];
-      var uniformPositions = [];
+  context.fillStyle = '#eee';
+  context.fillRect( 0, 0, width, height );
 
-      var lastTime = 0;
-      var frameTimeElapsed = 0;
+  var constantPositions = [];
+  var poissonPositions = [];
+  var uniformPositions = [];
 
-      var totalConstantEvents = 0;
-      var totalPoissonEvents = 0;
-      var totalUniformEvents = 0;
+  var lastTime = 0;
+  var frameTimeElapsed = 0;
 
-      var constantTimer = new phetCore.EventTimer( new phetCore.EventTimer.ConstantEventModel( 5 ), function( timeElapsed ) {
-        totalConstantEvents++;
-        constantPositions.unshift( timeElapsed );
-      } );
+  var totalConstantEvents = 0;
+  var totalPoissonEvents = 0;
+  var totalUniformEvents = 0;
 
-      var poissonTimer = new phetCore.EventTimer( new phetCore.EventTimer.PoissonEventModel( 5, Math.random ), function( timeElapsed ) {
-        totalPoissonEvents++;
-        poissonPositions.unshift( timeElapsed );
-      } );
-
-      var uniformTimer = new phetCore.EventTimer( new phetCore.EventTimer.UniformEventModel( 5, Math.random ), function( timeElapsed ) {
-        totalUniformEvents++;
-        uniformPositions.unshift( timeElapsed );
-      } );
-
-      var xMultiplier = 100;
-      var maxPosition = xMultiplier * width;
-
-      function advanceArray( arr, frameTimeElapsed ) {
-        for ( var i = arr.length - 1; i >= 0; i-- ) {
-          arr[ i ] += frameTimeElapsed;
-
-          // limit how long we display things
-          if ( arr[ i ] > maxPosition ) {
-            arr.pop();
-          }
-        }
-      }
-
-      (function step() {
-        window.requestAnimationFrame( step, canvas );
-
-        // calculate how much time has elapsed since we rendered the last frame
-        var timeNow = new Date().getTime();
-        if ( lastTime !== 0 ) {
-          frameTimeElapsed = ( timeNow - lastTime ) / 1000.0;
-        }
-        lastTime = timeNow;
-
-        // constant-time update
-        advanceArray( constantPositions, frameTimeElapsed );
-        constantTimer.step( frameTimeElapsed );
-
-        // poisson update
-        advanceArray( poissonPositions, frameTimeElapsed );
-        poissonTimer.step( frameTimeElapsed );
-
-        // random offset update
-        advanceArray( uniformPositions, frameTimeElapsed );
-        uniformTimer.step( frameTimeElapsed );
-
-        context.strokeStyle = 'rgba(0,0,0,0.8)';
-        context.fillStyle = '#eee';
-        context.fillRect( 0, 0, width, height );
-
-        context.beginPath();
-        for ( var j = constantPositions.length; j >= 0; j-- ) {
-          var x = xMultiplier * constantPositions[ j ];
-          context.moveTo( x, 0 );
-          context.lineTo( x, barHeight );
-        }
-        for ( var l = uniformPositions.length; l >= 0; l-- ) {
-          var x = xMultiplier * uniformPositions[ l ];
-          context.moveTo( x, barHeight );
-          context.lineTo( x, 2 * barHeight );
-        }
-        for ( var k = poissonPositions.length; k >= 0; k-- ) {
-          var x = xMultiplier * poissonPositions[ k ];
-          context.moveTo( x, 2 * barHeight );
-          context.lineTo( x, 3 * barHeight );
-        }
-        context.stroke();
-
-        context.fillStyle = '#000';
-        context.font = '18px Arial';
-        context.fillText( 'Total event count: ' +
-                          totalConstantEvents + ' constant, ' +
-                          totalUniformEvents + ' uniform, ' +
-                          totalPoissonEvents + ' poisson', 10, 4 * barHeight - 10 );
-      })();
-    } );
+  var constantTimer = new phetCore.EventTimer( new phetCore.EventTimer.ConstantEventModel( 5 ), function( timeElapsed ) {
+    totalConstantEvents++;
+    constantPositions.unshift( timeElapsed );
   } );
+
+  var poissonTimer = new phetCore.EventTimer( new phetCore.EventTimer.PoissonEventModel( 5, Math.random ), function( timeElapsed ) {
+    totalPoissonEvents++;
+    poissonPositions.unshift( timeElapsed );
+  } );
+
+  var uniformTimer = new phetCore.EventTimer( new phetCore.EventTimer.UniformEventModel( 5, Math.random ), function( timeElapsed ) {
+    totalUniformEvents++;
+    uniformPositions.unshift( timeElapsed );
+  } );
+
+  var xMultiplier = 100;
+  var maxPosition = xMultiplier * width;
+
+  function advanceArray( arr, frameTimeElapsed ) {
+    for ( var i = arr.length - 1; i >= 0; i-- ) {
+      arr[ i ] += frameTimeElapsed;
+
+      // limit how long we display things
+      if ( arr[ i ] > maxPosition ) {
+        arr.pop();
+      }
+    }
+  }
+
+  ( function step() {
+    window.requestAnimationFrame( step, canvas );
+
+    // calculate how much time has elapsed since we rendered the last frame
+    var timeNow = new Date().getTime();
+    if ( lastTime !== 0 ) {
+      frameTimeElapsed = ( timeNow - lastTime ) / 1000.0;
+    }
+    lastTime = timeNow;
+
+    // constant-time update
+    advanceArray( constantPositions, frameTimeElapsed );
+    constantTimer.step( frameTimeElapsed );
+
+    // poisson update
+    advanceArray( poissonPositions, frameTimeElapsed );
+    poissonTimer.step( frameTimeElapsed );
+
+    // random offset update
+    advanceArray( uniformPositions, frameTimeElapsed );
+    uniformTimer.step( frameTimeElapsed );
+
+    context.strokeStyle = 'rgba(0,0,0,0.8)';
+    context.fillStyle = '#eee';
+    context.fillRect( 0, 0, width, height );
+
+    context.beginPath();
+    for ( var j = constantPositions.length; j >= 0; j-- ) {
+      var x = xMultiplier * constantPositions[ j ];
+      context.moveTo( x, 0 );
+      context.lineTo( x, barHeight );
+    }
+    for ( var l = uniformPositions.length; l >= 0; l-- ) {
+      var x = xMultiplier * uniformPositions[ l ];
+      context.moveTo( x, barHeight );
+      context.lineTo( x, 2 * barHeight );
+    }
+    for ( var k = poissonPositions.length; k >= 0; k-- ) {
+      var x = xMultiplier * poissonPositions[ k ];
+      context.moveTo( x, 2 * barHeight );
+      context.lineTo( x, 3 * barHeight );
+    }
+    context.stroke();
+
+    context.fillStyle = '#000';
+    context.font = '18px Arial';
+    context.fillText( 'Total event count: ' +
+                      totalConstantEvents + ' constant, ' +
+                      totalUniformEvents + ' uniform, ' +
+                      totalPoissonEvents + ' poisson', 10, 4 * barHeight - 10 );
+  } )();
 </script>
 </body>
 </html>

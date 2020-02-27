@@ -12,30 +12,26 @@
  *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const phetCore = require( 'PHET_CORE/phetCore' );
+import phetCore from './phetCore.js';
 
-  const PhysicalConstants = {
+const PhysicalConstants = {
 
-    /**
-     * The coefficient in Newton's universal law of gravitation: F = G * m1 * m2 * r^-2
-     * The value is described in:
-     * https://en.wikipedia.org/wiki/Gravitational_constant
-     * https://physics.nist.gov/cgi-bin/cuu/Value?bg
-     * https://www.quora.com/What-is-the-value-of-gravitational-constant-G
-     */
-    GRAVITATIONAL_CONSTANT: 6.67408E-11, // m^3 kg^-1 s^-2
+  /**
+   * The coefficient in Newton's universal law of gravitation: F = G * m1 * m2 * r^-2
+   * The value is described in:
+   * https://en.wikipedia.org/wiki/Gravitational_constant
+   * https://physics.nist.gov/cgi-bin/cuu/Value?bg
+   * https://www.quora.com/What-is-the-value-of-gravitational-constant-G
+   */
+  GRAVITATIONAL_CONSTANT: 6.67408E-11, // m^3 kg^-1 s^-2
 
-    /**
-     * The amount of gravity on Earth.
-     * m/s^2
-     */
-    GRAVITY_ON_EARTH: 9.81
-  };
+  /**
+   * The amount of gravity on Earth.
+   * m/s^2
+   */
+  GRAVITY_ON_EARTH: 9.81
+};
 
-  return phetCore.register( 'PhysicalConstants', PhysicalConstants );
-} );
- 
+phetCore.register( 'PhysicalConstants', PhysicalConstants );
+export default PhysicalConstants;

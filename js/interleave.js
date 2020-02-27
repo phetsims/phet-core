@@ -8,38 +8,34 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-define( require => {
-  'use strict';
+import phetCore from './phetCore.js';
 
-  const phetCore = require( 'PHET_CORE/phetCore' );
+/*
+ * @public
+ * @param {Array.<*>} arr - The array in which to interleave elements
+ * @param {function} generator - function( index: {number} ):{*} - 0-based index for which "separator" it is for. e.g.
+ *                               [ _, f(0), _, f(1), _, f(2), ..., _ ]
+ * @returns {Array.<*>}
+ */
+function interleave( arr, generator ) {
+  assert && assert( Array.isArray( arr ) );
+  assert && assert( typeof generator === 'function' );
 
-  /*
-   * @public
-   * @param {Array.<*>} arr - The array in which to interleave elements
-   * @param {function} generator - function( index: {number} ):{*} - 0-based index for which "separator" it is for. e.g.
-   *                               [ _, f(0), _, f(1), _, f(2), ..., _ ]
-   * @returns {Array.<*>}
-   */
-  function interleave( arr, generator ) {
-    assert && assert( Array.isArray( arr ) );
-    assert && assert( typeof generator === 'function' );
+  const result = [];
+  const finalLength = arr.length * 2 - 1;
 
-    const result = [];
-    const finalLength = arr.length * 2 - 1;
-
-    for ( let i = 0; i < finalLength; i++ ) {
-      if ( i % 2 === 0 ) {
-        result.push( arr[ i / 2 ] );
-      }
-      else {
-        result.push( generator( ( i - 1 ) / 2 ) );
-      }
+  for ( let i = 0; i < finalLength; i++ ) {
+    if ( i % 2 === 0 ) {
+      result.push( arr[ i / 2 ] );
     }
-
-    return result;
+    else {
+      result.push( generator( ( i - 1 ) / 2 ) );
+    }
   }
 
-  phetCore.register( 'interleave', interleave );
+  return result;
+}
 
-  return interleave;
-} );
+phetCore.register( 'interleave', interleave );
+
+export default interleave;

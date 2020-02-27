@@ -10,21 +10,17 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-define( require => {
-  'use strict';
+import phetCore from './phetCore.js';
 
-  const phetCore = require( 'PHET_CORE/phetCore' );
+function collect( iterate ) {
+  assert && assert( typeof iterate === 'function' );
+  const result = [];
+  iterate( function( ob ) {
+    result.push( ob );
+  } );
+  return result;
+}
 
-  function collect( iterate ) {
-    assert && assert( typeof iterate === 'function' );
-    const result = [];
-    iterate( function( ob ) {
-      result.push( ob );
-    } );
-    return result;
-  }
+phetCore.register( 'collect', collect );
 
-  phetCore.register( 'collect', collect );
-
-  return collect;
-} );
+export default collect;

@@ -8,20 +8,16 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-define( require => {
-  'use strict';
+import phetCore from './phetCore.js';
 
-  const phetCore = require( 'PHET_CORE/phetCore' );
+/**
+ * @param {string} string
+ * @returns {string}
+ */
+function stripEmbeddingMarks( string ) {
+  return string.replace( /\u202a|\u202b|\u202c/g, '' );
+}
 
-  /**
-   * @param {string} string
-   * @returns {string}
-   */
-  function stripEmbeddingMarks( string ) {
-    return string.replace( /\u202a|\u202b|\u202c/g, '' );
-  }
+phetCore.register( 'stripEmbeddingMarks', stripEmbeddingMarks );
 
-  phetCore.register( 'stripEmbeddingMarks', stripEmbeddingMarks );
-
-  return stripEmbeddingMarks;
-} );
+export default stripEmbeddingMarks;

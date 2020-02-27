@@ -9,26 +9,22 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-define( require => {
-  'use strict';
+import phetCore from './phetCore.js';
 
-  const phetCore = require( 'PHET_CORE/phetCore' );
-
-  function pairs( array ) {
-    const result = [];
-    const length = array.length;
-    if ( length > 1 ) {
-      for ( let i = 0; i < length - 1; i++ ) {
-        const first = array[ i ];
-        for ( let j = i + 1; j < length; j++ ) {
-          result.push( [ first, array[ j ] ] );
-        }
+function pairs( array ) {
+  const result = [];
+  const length = array.length;
+  if ( length > 1 ) {
+    for ( let i = 0; i < length - 1; i++ ) {
+      const first = array[ i ];
+      for ( let j = i + 1; j < length; j++ ) {
+        result.push( [ first, array[ j ] ] );
       }
     }
-    return result;
   }
+  return result;
+}
 
-  phetCore.register( 'pairs', pairs );
+phetCore.register( 'pairs', pairs );
 
-  return pairs;
-} );
+export default pairs;

@@ -10,23 +10,19 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-define( require => {
-  'use strict';
+import phetCore from './phetCore.js';
 
-  const phetCore = require( 'PHET_CORE/phetCore' );
-
-  function extend( obj ) {
-    _.each( Array.prototype.slice.call( arguments, 1 ), function( source ) {
-      if ( source ) {
-        for ( const prop in source ) {
-          Object.defineProperty( obj, prop, Object.getOwnPropertyDescriptor( source, prop ) );
-        }
+function extend( obj ) {
+  _.each( Array.prototype.slice.call( arguments, 1 ), function( source ) {
+    if ( source ) {
+      for ( const prop in source ) {
+        Object.defineProperty( obj, prop, Object.getOwnPropertyDescriptor( source, prop ) );
       }
-    } );
-    return obj;
-  }
+    }
+  } );
+  return obj;
+}
 
-  phetCore.register( 'extend', extend );
+phetCore.register( 'extend', extend );
 
-  return extend;
-} );
+export default extend;

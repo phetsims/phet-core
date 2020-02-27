@@ -6,29 +6,25 @@
  * @author Jonathan Olson (PhET Interactive Simulations)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  require( 'PHET_CORE/assertMutuallyExclusiveOptionsTests' );
-  require( 'PHET_CORE/isArrayTests' );
-  require( 'PHET_CORE/escapeHTMLTests' );
-  require( 'PHET_CORE/inheritTests' );
-  require( 'PHET_CORE/cleanArrayTests' );
-  require( 'PHET_CORE/detectPrefixTests' );
-  require( 'PHET_CORE/detectPrefixEventTests' );
-  require( 'PHET_CORE/pairsTests' );
-  require( 'PHET_CORE/partitionTests' );
-  require( 'PHET_CORE/arrayRemoveTests' );
-  require( 'PHET_CORE/mixedWithTests' );
-  require( 'PHET_CORE/dimensionForEachTests' );
-  require( 'PHET_CORE/dimensionMapTests' );
-  require( 'PHET_CORE/arrayDifferenceTests' );
-  require( 'PHET_CORE/interleaveTests' );
-  require( 'PHET_CORE/EnumerationTests' );
-  require( 'PHET_CORE/mergeTests' );
-  require( 'PHET_CORE/swapObjectKeysTests' );
+import './arrayDifferenceTests.js';
+import './arrayRemoveTests.js';
+import './assertMutuallyExclusiveOptionsTests.js';
+import './cleanArrayTests.js';
+import './detectPrefixEventTests.js';
+import './detectPrefixTests.js';
+import './dimensionForEachTests.js';
+import './dimensionMapTests.js';
+import './EnumerationTests.js';
+import './escapeHTMLTests.js';
+import './inheritTests.js';
+import './interleaveTests.js';
+import './isArrayTests.js';
+import './mergeTests.js';
+import './mixedWithTests.js';
+import './pairsTests.js';
+import './partitionTests.js';
+import './swapObjectKeysTests.js';
 
-  // Since our tests are loaded asynchronously, we must direct QUnit to begin the tests
-  QUnit.start();
-} );
+// Since our tests are loaded asynchronously, we must direct QUnit to begin the tests
+QUnit.start();

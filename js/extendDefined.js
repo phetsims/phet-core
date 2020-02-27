@@ -10,27 +10,23 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-define( require => {
-  'use strict';
+import phetCore from './phetCore.js';
 
-  const phetCore = require( 'PHET_CORE/phetCore' );
+function extendDefined( obj ) {
+  _.each( Array.prototype.slice.call( arguments, 1 ), function( source ) {
+    if ( source ) {
+      for ( const prop in source ) {
+        const descriptor = Object.getOwnPropertyDescriptor( source, prop );
 
-  function extendDefined( obj ) {
-    _.each( Array.prototype.slice.call( arguments, 1 ), function( source ) {
-      if ( source ) {
-        for ( const prop in source ) {
-          const descriptor = Object.getOwnPropertyDescriptor( source, prop );
-
-          if ( descriptor && ( typeof descriptor.get === 'function' || source[ prop ] !== undefined ) ) {
-            Object.defineProperty( obj, prop, descriptor );
-          }
+        if ( descriptor && ( typeof descriptor.get === 'function' || source[ prop ] !== undefined ) ) {
+          Object.defineProperty( obj, prop, descriptor );
         }
       }
-    } );
-    return obj;
-  }
+    }
+  } );
+  return obj;
+}
 
-  phetCore.register( 'extendDefined', extendDefined );
+phetCore.register( 'extendDefined', extendDefined );
 
-  return extendDefined;
-} );
+export default extendDefined;

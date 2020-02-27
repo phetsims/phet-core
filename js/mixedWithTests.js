@@ -6,60 +6,56 @@
  * @author Jonathan Olson (PhET Interactive Simulations)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const inherit = require( 'PHET_CORE/inherit' );
-  const mixedWith = require( 'PHET_CORE/mixedWith' );
+import inherit from './inherit.js';
+import mixedWith from './mixedWith.js';
 
-  QUnit.module( 'mixedWith' );
+QUnit.module( 'mixedWith' );
 
-  QUnit.test( 'mixedWith', function( assert ) {
-    const NAME = 'phet-core-sim';
+QUnit.test( 'mixedWith', function( assert ) {
+  const NAME = 'phet-core-sim';
 
-    // Our basic type that we'll want to extend with a mixin
-    function Simulation() {
-      this.name = NAME;
-    }
+  // Our basic type that we'll want to extend with a mixin
+  function Simulation() {
+    this.name = NAME;
+  }
 
-    inherit( Object, Simulation );
+  inherit( Object, Simulation );
 
-    // Mixin that doesn't require initialization during construction
-    function Playable( type ) {
-      type.prototype.play = function() {
-        window.thisIsProbablyNotDefinedDoNotLogInTests && console.log( 'many fun, such entertain' );
-      };
-    }
+  // Mixin that doesn't require initialization during construction
+  function Playable( type ) {
+    type.prototype.play = function() {
+      window.thisIsProbablyNotDefinedDoNotLogInTests && console.log( 'many fun, such entertain' );
+    };
+  }
 
-    // Mixin that does require initialization during construction (returned)
-    function Runnable( type ) {
-      type.prototype.run = function() {
-        this.running = true;
-      };
-      return function() {
-        // @private
-        this.running = false;
-      };
-    }
+  // Mixin that does require initialization during construction (returned)
+  function Runnable( type ) {
+    type.prototype.run = function() {
+      this.running = true;
+    };
+    return function() {
+      // @private
+      this.running = false;
+    };
+  }
 
-    // Easily create a "subtype" of Simulation that is both playable and runnable.
-    // For debugging purposes, its name is overridden as Simulation_Playable_Runnable (indicating the type and mixins
-    // that were applied). Further mixing would concatenate.
-    const PhETSimulation = mixedWith( Simulation, Playable, Runnable );
+  // Easily create a "subtype" of Simulation that is both playable and runnable.
+  // For debugging purposes, its name is overridden as Simulation_Playable_Runnable (indicating the type and mixins
+  // that were applied). Further mixing would concatenate.
+  const PhETSimulation = mixedWith( Simulation, Playable, Runnable );
 
-    // Instantiation shows both mixins are applied to the prototype, and the initializer ran
-    const mixedSim = new PhETSimulation();
-    assert.equal( mixedSim.name, NAME ); // 'phet-core-sim'
-    mixedSim.play(); // >> many fun, such entertain
-    assert.equal( mixedSim.running, false ); // false
-    mixedSim.run();
-    assert.equal( mixedSim.running, true ); // true
+  // Instantiation shows both mixins are applied to the prototype, and the initializer ran
+  const mixedSim = new PhETSimulation();
+  assert.equal( mixedSim.name, NAME ); // 'phet-core-sim'
+  mixedSim.play(); // >> many fun, such entertain
+  assert.equal( mixedSim.running, false ); // false
+  mixedSim.run();
+  assert.equal( mixedSim.running, true ); // true
 
-    // The original type is unaffected
-    const basicSim = new Simulation();
-    assert.equal( basicSim.play, undefined ); // does not exist
-    assert.equal( basicSim.running, undefined ); // does not exist
-    assert.equal( basicSim.run, undefined ); // does not exist
-  } );
+  // The original type is unaffected
+  const basicSim = new Simulation();
+  assert.equal( basicSim.play, undefined ); // does not exist
+  assert.equal( basicSim.running, undefined ); // does not exist
+  assert.equal( basicSim.run, undefined ); // does not exist
 } );

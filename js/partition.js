@@ -9,31 +9,27 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-define( require => {
-  'use strict';
+import phetCore from './phetCore.js';
 
-  const phetCore = require( 'PHET_CORE/phetCore' );
+function partition( array, predicate ) {
+  assert && assert( Array.isArray( array ) );
+  assert && assert( typeof predicate === 'function' );
 
-  function partition( array, predicate ) {
-    assert && assert( Array.isArray( array ) );
-    assert && assert( typeof predicate === 'function' );
-
-    const satisfied = [];
-    const unsatisfied = [];
-    const length = array.length;
-    for ( let i = 0; i < length; i++ ) {
-      if ( predicate( array[ i ] ) ) {
-        satisfied.push( array[ i ] );
-      }
-      else {
-        unsatisfied.push( array[ i ] );
-      }
+  const satisfied = [];
+  const unsatisfied = [];
+  const length = array.length;
+  for ( let i = 0; i < length; i++ ) {
+    if ( predicate( array[ i ] ) ) {
+      satisfied.push( array[ i ] );
     }
-
-    return [ satisfied, unsatisfied ];
+    else {
+      unsatisfied.push( array[ i ] );
+    }
   }
 
-  phetCore.register( 'partition', partition );
+  return [ satisfied, unsatisfied ];
+}
 
-  return partition;
-} );
+phetCore.register( 'partition', partition );
+
+export default partition;

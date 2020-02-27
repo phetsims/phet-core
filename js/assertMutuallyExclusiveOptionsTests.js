@@ -5,24 +5,20 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const assertMutuallyExclusiveOptions = require( 'PHET_CORE/assertMutuallyExclusiveOptions' );
+import assertMutuallyExclusiveOptions from './assertMutuallyExclusiveOptions.js';
 
-  QUnit.module( 'assertMutuallyExclusiveOptions' );
+QUnit.module( 'assertMutuallyExclusiveOptions' );
 
-  QUnit.test( 'assertMutuallyExclusiveOptions', assert => {
-    assert.ok( true, 'one test whether or not assertions are enabled' );
+QUnit.test( 'assertMutuallyExclusiveOptions', assert => {
+  assert.ok( true, 'one test whether or not assertions are enabled' );
 
-    if ( window.assert ) {
+  if ( window.assert ) {
 
-      // Should not throw error because options are all from one set.
-      assertMutuallyExclusiveOptions( { a: true, b: false }, [ 'a', 'b' ], [ 'c' ] );
+    // Should not throw error because options are all from one set.
+    assertMutuallyExclusiveOptions( { a: true, b: false }, [ 'a', 'b' ], [ 'c' ] );
 
-      // Should error because options are used from multiple sets
-      assert.throws( () => assertMutuallyExclusiveOptions( { a: true, b: false }, [ 'a' ], [ 'b' ] ) );
-    }
-  } );
+    // Should error because options are used from multiple sets
+    assert.throws( () => assertMutuallyExclusiveOptions( { a: true, b: false }, [ 'a' ], [ 'b' ] ) );
+  }
 } );

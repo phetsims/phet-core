@@ -10,130 +10,126 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-define( require => {
-  'use strict';
+import extend from './extend.js';
+import merge from './merge.js';
+import phetCore from './phetCore.js';
 
-  const extend = require( 'PHET_CORE/extend' );
-  const merge = require( 'PHET_CORE/merge' );
-  const phetCore = require( 'PHET_CORE/phetCore' );
+const Poolable = {
+  /**
+   * Changes the given type (and its prototype) to support object pooling.
+   * @public
+   *
+   * @param {function} type - The constructor for the type
+   * @param {Object} [options]
+   */
+  mixInto: function( type, options ) {
+    options = merge( {
+      // {Array.<*>} - If an object needs to be created without a direct call (say, to fill the pool initially), these
+      // are the arguments that will be passed into the constructor
+      defaultArguments: [],
 
-  const Poolable = {
-    /**
-     * Changes the given type (and its prototype) to support object pooling.
-     * @public
-     *
-     * @param {function} type - The constructor for the type
-     * @param {Object} [options]
-     */
-    mixInto: function( type, options ) {
-      options = merge( {
-        // {Array.<*>} - If an object needs to be created without a direct call (say, to fill the pool initially), these
-        // are the arguments that will be passed into the constructor
-        defaultArguments: [],
+      // {function} - The function to call on the objects to reinitialize them (that is either the constructor, or
+      // acts like the constructor).
+      initialize: type,
 
-        // {function} - The function to call on the objects to reinitialize them (that is either the constructor, or
-        // acts like the constructor).
-        initialize: type,
+      // {number} - A limit for the pool size (so we don't leak memory by growing the pool faster than we take things
+      // from it).
+      maxSize: 100,
 
-        // {number} - A limit for the pool size (so we don't leak memory by growing the pool faster than we take things
-        // from it).
-        maxSize: 100,
+      // {number} - The initial size of the pool. To fill it, objects will be created with the default arguments.
+      initialSize: 0,
 
-        // {number} - The initial size of the pool. To fill it, objects will be created with the default arguments.
-        initialSize: 0,
+      // {boolean} - If true, when constructing the default arguments will always be used (and then initialized with
+      // the initializer) instead of just providing the arguments straight to the constructor.
+      useDefaultConstruction: false
+    }, options );
 
-        // {boolean} - If true, when constructing the default arguments will always be used (and then initialized with
-        // the initializer) instead of just providing the arguments straight to the constructor.
-        useDefaultConstruction: false
-      }, options );
+    assert && assert( Array.isArray( options.defaultArguments ) );
+    assert && assert( typeof options.maxSize === 'number' && options.maxSize >= 0 );
+    assert && assert( typeof options.initialSize === 'number' && options.initialSize >= 0 );
+    assert && assert( typeof options.initialize === 'function' );
+    assert && assert( typeof options.useDefaultConstruction === 'boolean' );
 
-      assert && assert( Array.isArray( options.defaultArguments ) );
-      assert && assert( typeof options.maxSize === 'number' && options.maxSize >= 0 );
-      assert && assert( typeof options.initialSize === 'number' && options.initialSize >= 0 );
-      assert && assert( typeof options.initialize === 'function' );
-      assert && assert( typeof options.useDefaultConstruction === 'boolean' );
+    // {Array.<type>} - The actual array we store things in. Always push/pop.
+    const pool = [];
 
-      // {Array.<type>} - The actual array we store things in. Always push/pop.
-      const pool = [];
+    // {function} - There is a madness to this craziness. We'd want to use the method noted at
+    // https://stackoverflow.com/questions/1606797/use-of-apply-with-new-operator-is-this-possible, but the type is
+    // not provided in the arguments array below. By calling bind on itself, we're able to get a version of bind that
+    // inserts the constructor as the first argument of the .apply called later so we don't create garbage by having
+    // to pack `arguments` into an array AND THEN concatenate it with a new first element (the type itself).
+    const partialConstructor = Function.prototype.bind.bind( type, type );
 
-      // {function} - There is a madness to this craziness. We'd want to use the method noted at
-      // https://stackoverflow.com/questions/1606797/use-of-apply-with-new-operator-is-this-possible, but the type is
-      // not provided in the arguments array below. By calling bind on itself, we're able to get a version of bind that
-      // inserts the constructor as the first argument of the .apply called later so we don't create garbage by having
-      // to pack `arguments` into an array AND THEN concatenate it with a new first element (the type itself).
-      const partialConstructor = Function.prototype.bind.bind( type, type );
+    // {function} - Basically our type constructor, but with the default arguments included already.
+    const DefaultConstructor = partialConstructor.apply( null, options.defaultArguments );
 
-      // {function} - Basically our type constructor, but with the default arguments included already.
-      const DefaultConstructor = partialConstructor.apply( null, options.defaultArguments );
+    const initialize = options.initialize;
+    const useDefaultConstruction = options.useDefaultConstruction;
 
-      const initialize = options.initialize;
-      const useDefaultConstruction = options.useDefaultConstruction;
+    extend( type, {
+      /**
+       * @private {Array.<type>} - This should not be modified externally. In the future if desired, functions could
+       * be added to help adding/removing poolable instances manually.
+       */
+      pool: pool,
 
-      extend( type, {
-        /**
-         * @private {Array.<type>} - This should not be modified externally. In the future if desired, functions could
-         * be added to help adding/removing poolable instances manually.
-         */
-        pool: pool,
+      /**
+       * Returns an object with arbitrary state (possibly constructed with the default arguments).
+       * @public
+       *
+       * @returns {type}
+       */
+      dirtyFromPool: function() {
+        return pool.length ? pool.pop() : new DefaultConstructor();
+      },
 
-        /**
-         * Returns an object with arbitrary state (possibly constructed with the default arguments).
-         * @public
-         *
-         * @returns {type}
-         */
-        dirtyFromPool: function() {
-          return pool.length ? pool.pop() : new DefaultConstructor();
-        },
+      /**
+       * Returns an object that behaves as if it was constructed with the given arguments. May result in a new object
+       * being created (if the pool is empty), or it may use the constructor to mutate an object from the pool.
+       * @public
+       *
+       * @param {...*} var_args - The arguments will be passed to the constructor.
+       * @returns {type}
+       */
+      createFromPool: function() {
+        let result;
 
-        /**
-         * Returns an object that behaves as if it was constructed with the given arguments. May result in a new object
-         * being created (if the pool is empty), or it may use the constructor to mutate an object from the pool.
-         * @public
-         *
-         * @param {...*} var_args - The arguments will be passed to the constructor.
-         * @returns {type}
-         */
-        createFromPool: function() {
-          let result;
-
-          if ( pool.length ) {
-            result = pool.pop();
-            initialize.apply( result, arguments );
-          }
-          else if ( useDefaultConstruction ) {
-            result = new DefaultConstructor();
-            initialize.apply( result, arguments );
-          }
-          else {
-            result = new ( partialConstructor.apply( null, arguments ) );
-          }
-
-          return result;
+        if ( pool.length ) {
+          result = pool.pop();
+          initialize.apply( result, arguments );
         }
-      } );
-
-      extend( type.prototype, {
-        /**
-         * Adds this object into the pool, so that it can be reused elsewhere. Generally when this is done, no other
-         * references to the object should be held (since they should not be used at all).
-         * @public
-         */
-        freeToPool: function() {
-          if ( pool.length < options.maxSize ) {
-            pool.push( this );
-          }
+        else if ( useDefaultConstruction ) {
+          result = new DefaultConstructor();
+          initialize.apply( result, arguments );
         }
-      } );
+        else {
+          result = new ( partialConstructor.apply( null, arguments ) );
+        }
 
-      // Initialize the pool (if it should have objects)
-      while ( pool.length < options.initialSize ) {
-        pool.push( new DefaultConstructor );
+        return result;
       }
+    } );
+
+    extend( type.prototype, {
+      /**
+       * Adds this object into the pool, so that it can be reused elsewhere. Generally when this is done, no other
+       * references to the object should be held (since they should not be used at all).
+       * @public
+       */
+      freeToPool: function() {
+        if ( pool.length < options.maxSize ) {
+          pool.push( this );
+        }
+      }
+    } );
+
+    // Initialize the pool (if it should have objects)
+    while ( pool.length < options.initialSize ) {
+      pool.push( new DefaultConstructor );
     }
-  };
+  }
+};
 
-  phetCore.register( 'Poolable', Poolable );
+phetCore.register( 'Poolable', Poolable );
 
-  return Poolable;
-} );
+export default Poolable;
