@@ -1,4 +1,4 @@
-// Copyright 2019, University of Colorado Boulder
+// Copyright 2019-2020, University of Colorado Boulder
 
 /**
  * Like Lodash's _.merge, this will recursively merge nested options objects provided that the keys end in 'Options'

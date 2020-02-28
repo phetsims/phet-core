@@ -1,4 +1,4 @@
-// Copyright 2014-2019, University of Colorado Boulder
+// Copyright 2014-2020, University of Colorado Boulder
 
 /**
  * If given an Array, removes all of its elements and returns it. Otherwise, if given a falsy value
