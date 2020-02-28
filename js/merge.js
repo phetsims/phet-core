@@ -18,7 +18,7 @@ const OPTIONS_SUFFIX = 'Options';
 
 /**
  * @param  {Object} target - the object literal that will have keys set to it
- * @param  {Array.<Object|null>} sources
+ * @param  {...<Object|null>} sources
  * @returns {Object}
  */
 function merge( target, ...sources ) {
