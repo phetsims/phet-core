@@ -5,6 +5,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import isHMR from './isHMR.js';
 
 /**
  * @param {string} name
@@ -18,17 +19,6 @@ function Namespace( name ) {
     assert && assert( !window.phet[ name ], 'namespace ' + name + ' already exists' );
     window.phet[ name ] = this;
   }
-}
-
-// When using hot module replacement, a module will be loaded and initialized twice, and hence its namespace.register
-// function will be called twice.  This should not be an assertion error.
-let isHotModuleReplacement = false;
-
-try {
-  isHotModuleReplacement = module && module.hot; // note: window.module is not defined, even when running with webpack-dev-server
-}
-catch( e ) {
-  isHotModuleReplacement = false;
 }
 
 Namespace.prototype = {
@@ -54,9 +44,12 @@ Namespace.prototype = {
    */
   register: function( key, value ) {
 
+    // When using hot module replacement, a module will be loaded and initialized twice, and hence its namespace.register
+    // function will be called twice.  This should not be an assertion error.
+
     // If the key isn't compound (doesn't contain '.'), we can just look it up on this namespace
     if ( key.indexOf( '.' ) < 0 ) {
-      if ( !isHotModuleReplacement ) {
+      if ( !isHMR ) {
         assert && assert( !this[ key ], key + ' is already registered for namespace ' + this.name );
       }
       this[ key ] = value;
@@ -69,7 +62,7 @@ Namespace.prototype = {
       let parent = this; // eslint-disable-line consistent-this
       for ( let i = 0; i < keys.length - 1; i++ ) { // for all but the last key
 
-        if ( !isHotModuleReplacement ) {
+        if ( !isHMR ) {
           assert && assert( !!parent[ keys[ i ] ],
             [ this.name ].concat( keys.slice( 0, i + 1 ) ).join( '.' ) + ' needs to be defined to register ' + key );
         }
@@ -80,7 +73,7 @@ Namespace.prototype = {
       // Write into the inner namespace, e.g. x.A.B[ 'C' ] = C
       const lastKey = keys[ keys.length - 1 ];
 
-      if ( !isHotModuleReplacement ) {
+      if ( !isHMR ) {
         assert && assert( !parent[ lastKey ], key + ' is already registered for namespace ' + this.name );
       }
 
