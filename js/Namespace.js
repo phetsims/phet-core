@@ -46,7 +46,7 @@ Namespace.prototype = {
 
     // When using hot module replacement, a module will be loaded and initialized twice, and hence its namespace.register
     // function will be called twice.  This should not be an assertion error.
-    const isHotModuleReplacement = module && module.hot;
+    const isHotModuleReplacement = window.module && window.module.hot;
 
     // If the key isn't compound (doesn't contain '.'), we can just look it up on this namespace
     if ( key.indexOf( '.' ) < 0 ) {
