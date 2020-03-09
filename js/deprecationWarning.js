@@ -8,9 +8,15 @@
 
 import phetCore from './phetCore.js';
 
+// contains all messages printed for deprecation warnings so that we do not print the same message multiple times
+const deprecatedMessages = {};
+
 const deprecationWarning = message => {
   if ( phet.chipper.queryParameters.deprecationWarnings ) {
-    console.warn( `Deprecation warning: ${message}` );
+    if ( !deprecatedMessages.hasOwnProperty( message ) ) {
+      deprecatedMessages[ message ] = true;
+      console.warn( `Deprecation warning: ${message}` );
+    }
   }
 };
 
