@@ -12,7 +12,7 @@ import phetCore from './phetCore.js';
 const deprecatedMessages = {};
 
 const deprecationWarning = message => {
-  if ( phet.chipper.queryParameters.deprecationWarnings ) {
+  if ( window.phet && window.phet.chipper && window.phet.chipper.queryParameters && phet.chipper.queryParameters.deprecationWarnings ) {
     if ( !deprecatedMessages.hasOwnProperty( message ) ) {
       deprecatedMessages[ message ] = true;
       console.warn( `Deprecation warning: ${message}` );
