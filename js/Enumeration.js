@@ -122,10 +122,10 @@ class Enumeration {
       assert && assert( value.name === undefined, 'rich enumeration values cannot provide their own name attribute' );
       assert && assert( value.toString === Object.prototype.toString, 'rich enumeration values cannot provide their own toString' );
 
-      // @public {string} - PhET-iO public API relies on this mapping, do not change it lightly
+      // @public {string} (read-only) - PhET-iO public API relies on this mapping, do not change it lightly
       value.name = key;
 
-      // @public {function():string}
+      // @public {function():string} (read-only)
       value.toString = () => key;
 
       // Assign to the enumeration
