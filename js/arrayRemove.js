@@ -13,7 +13,7 @@ import phetCore from './phetCore.js';
  * @param {*} item - The item to remove from the array
  */
 function arrayRemove( arr, item ) {
-  assert && assert( Array.isArray( arr ), 'arrayRemove either takes an Array' );
+  assert && assert( Array.isArray( arr ), 'arrayRemove takes an Array' );
 
   const index = _.indexOf( arr, item );
   assert && assert( index >= 0, 'item not found in Array' );
