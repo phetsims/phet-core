@@ -159,6 +159,7 @@ class Enumeration {
    * @public
    */
   static byKeys( keys, options ) {
+    assert && assert( Array.isArray( keys ), 'keys must be an array' );
     assert && assert( !options || options.keys === undefined );
     return new Enumeration( merge( { keys: keys }, options ) );
   }
