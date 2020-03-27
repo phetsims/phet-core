@@ -34,7 +34,7 @@ QUnit.test( 'assertHasOwnProperties', assert => {
     assertHasOwnProperties( { a: true, b: false }, [ 'a', 'b' ] );
     assertHasOwnProperties( { b: undefined }, [ 'b' ] );
     assertHasOwnProperties( { b: null }, [ 'b' ] );
-    assertHasOwnProperties( { get b() { return 5} }, [ 'b' ] );
+    assertHasOwnProperties( { get b() { return 5; } }, [ 'b' ] );
     assertHasOwnProperties( { b() { } }, [ 'b' ] );
     assertHasOwnProperties( { set b( b ) { } }, [ 'b' ] );
     assertHasOwnProperties( new MyObject(), [ 'aFunction', 'getter' ] );
