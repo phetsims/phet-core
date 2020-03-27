@@ -59,7 +59,7 @@ function validateMergeableObject( object ) {
   assert && assert( object === null ||
                     ( object && typeof object === 'object' &&
                       Object.getPrototypeOf( object ) === Object.prototype ),
-    'Object should be null or a truthy  object that cannot have an extra prototype' );
+    'Object should be null or a truthy object that cannot have an extra prototype' );
 
   if ( object !== null ) {
     // ensure that options keys are not ES5 setters or getters
