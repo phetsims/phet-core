@@ -1,4 +1,4 @@
-// Copyright 2019-2020, University of Colorado Boulder
+// Copyright 2020, University of Colorado Boulder
 
 /**
  * Throws an assertion error if specified object doesn't have all provided properties. This will also work for anything
