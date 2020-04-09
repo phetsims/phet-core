@@ -41,10 +41,10 @@ QUnit.test( 'assertHasOwnProperties', assert => {
     assertHasOwnProperties( new MyChild(), [ 'aFunction', 'getter', 'childMethod', 'childGetter' ] );
 
     // on direct prototype
-    assertHasOwnProperties( new Node(), [ 'getOpacity', 'opacity', '_opacity' ] );
+    assertHasOwnProperties( new Node(), [ 'getOpacity', 'opacity', 'opacityProperty' ] );
 
     // on ancestor parent prototype
-    assertHasOwnProperties( new Circle( 10 ), [ 'getOpacity', 'opacity', '_opacity' ] );
+    assertHasOwnProperties( new Circle( 10 ), [ 'getOpacity', 'opacity', 'opacityProperty' ] );
 
     // Should error because properties are not provided
     assert.throws( () => assertHasOwnProperties( { b: false }, [ 'a' ] ) );
