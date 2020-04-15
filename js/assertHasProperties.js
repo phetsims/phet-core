@@ -5,11 +5,11 @@
  * defined on class prototypes (like Node.prototype.setOpacity)
  *
  * @example
- * assertHasOwnProperties( { tree:1, flower:2 }, [ 'tree' ] ) => no error
- * assertHasOwnProperties( { flower:2 }, [ 'tree' ] ) => error
- * assertHasOwnProperties( { tree:1, flower:2 }, [ 'tree', 'flower' ] ) => no error
- * assertHasOwnProperties( { tree:1 }, [ 'tree', 'flower' ] ) => error
- * assertHasOwnProperties( new scenery.Node(), [ 'getOpacity','opacity', '_opacity' ] ) => no error
+ * assertHasProperties( { tree:1, flower:2 }, [ 'tree' ] ) => no error
+ * assertHasProperties( { flower:2 }, [ 'tree' ] ) => error
+ * assertHasProperties( { tree:1, flower:2 }, [ 'tree', 'flower' ] ) => no error
+ * assertHasProperties( { tree:1 }, [ 'tree', 'flower' ] ) => error
+ * assertHasProperties( new scenery.Node(), [ 'getOpacity','opacity', '_opacity' ] ) => no error
  *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
@@ -21,7 +21,7 @@ import phetCore from './phetCore.js';
  * @param {Object|null|undefined} object - an object to test property existence
  * @param {string[]} properties - a list of properties to assert exist
  */
-const assertHasOwnProperties = function( object, properties ) {
+const assertHasProperties = function( object, properties ) {
   if ( assert && object ) {
 
 
@@ -36,6 +36,5 @@ const assertHasOwnProperties = function( object, properties ) {
   }
 };
 
-
-phetCore.register( 'assertHasOwnProperties', assertHasOwnProperties );
-export default assertHasOwnProperties;
+phetCore.register( 'assertHasProperties', assertHasProperties );
+export default assertHasProperties;

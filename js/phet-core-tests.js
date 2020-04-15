@@ -9,7 +9,7 @@
 
 import './arrayDifferenceTests.js';
 import './arrayRemoveTests.js';
-import './assertHasOwnPropertiesTests.js';
+import './assertHasPropertiesTests.js';
 import './assertMutuallyExclusiveOptionsTests.js';
 import './cleanArrayTests.js';
 import './detectPrefixEventTests.js';
