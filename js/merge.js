@@ -26,8 +26,6 @@ function merge( target, ...sources ) {
   assert && assert( target !== null, 'target should not be null' ); // validateMergeableObject supports null
   assert && assert( sources.length > 0, 'at least one source expected' );
 
-  throw new Error()
-
   _.each( sources, source => {
     if ( source ) {
       validateMergeableObject( source );
