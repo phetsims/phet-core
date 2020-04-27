@@ -22,13 +22,13 @@ const OPTIONS_SUFFIX = 'Options';
  * @returns {Object}
  */
 function merge( target, ...sources ) {
-  validateMergeableObject( target );
-  assert && assert( target !== null, 'target should not be null' ); // validateMergeableObject supports null
+  assert && assertIsMergeable( target );
+  assert && assert( target !== null, 'target should not be null' ); // assertIsMergeable supports null
   assert && assert( sources.length > 0, 'at least one source expected' );
 
   _.each( sources, source => {
     if ( source ) {
-      validateMergeableObject( source );
+      assert && assertIsMergeable( source );
       for ( const property in source ) {
         if ( source.hasOwnProperty( property ) ) {
           const sourceProperty = source[ property ];
@@ -37,7 +37,7 @@ function merge( target, ...sources ) {
           if ( _.endsWith( property, OPTIONS_SUFFIX ) && property !== OPTIONS_SUFFIX ) {
 
             // ensure that the *Options property is a POJSO
-            validateMergeableObject( sourceProperty );
+            assert && assertIsMergeable( sourceProperty );
 
             target[ property ] = merge( target[ property ] || {}, sourceProperty );
           }
@@ -52,23 +52,23 @@ function merge( target, ...sources ) {
 }
 
 /**
- * Validate that the object is a valid arg, with assertions.
+ * Asserts that the object is compatible with merge. That is, it's a POJSO.
+ * This function must be called like: assert && assertIsMergeable( arg );
  * @param {Object|null} object
  */
-function validateMergeableObject( object ) {
-  assert && assert( object === null ||
-                    ( object && typeof object === 'object' &&
-                      Object.getPrototypeOf( object ) === Object.prototype ),
-    'Object should be null or a truthy object that cannot have an extra prototype' );
+function assertIsMergeable( object ) {
+  assert( object === null ||
+          ( object && typeof object === 'object' && Object.getPrototypeOf( object ) === Object.prototype ),
+    'object is not compatible with merge' );
 
   if ( object !== null ) {
     // ensure that options keys are not ES5 setters or getters
-    assert && Object.keys( object ).forEach( prop => {
+    Object.keys( object ).forEach( prop => {
       const ownPropertyDescriptor = Object.getOwnPropertyDescriptor( object, prop );
       assert( !ownPropertyDescriptor.hasOwnProperty( 'set' ),
-        'cannot use merge with a setter' );
+        'cannot use merge with an object that has a setter' );
       assert( !ownPropertyDescriptor.hasOwnProperty( 'get' ),
-        'cannot use merge with a getter' );
+        'cannot use merge with an object that has a getter' );
     } );
   }
 }
