@@ -33,12 +33,8 @@ function merge( target, ...sources ) {
         if ( source.hasOwnProperty( property ) ) {
           const sourceProperty = source[ property ];
 
-          // don't support recursing on the key "Options" with no prefix
+          // Recurse on keys that end with 'Options', but not on keys named 'Options'.
           if ( _.endsWith( property, OPTIONS_SUFFIX ) && property !== OPTIONS_SUFFIX ) {
-
-            // ensure that the *Options property is a POJSO
-            assert && assertIsMergeable( sourceProperty );
-
             target[ property ] = merge( target[ property ] || {}, sourceProperty );
           }
           else {
