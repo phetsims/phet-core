@@ -35,6 +35,9 @@ function merge( target, ...sources ) {
 
           // Recurse on keys that end with 'Options', but not on keys named 'Options'.
           if ( _.endsWith( property, OPTIONS_SUFFIX ) && property !== OPTIONS_SUFFIX ) {
+
+            // *Options property value must be a POJSO
+            assert && assertIsMergeable( sourceProperty );
             target[ property ] = merge( target[ property ] || {}, sourceProperty );
           }
           else {
