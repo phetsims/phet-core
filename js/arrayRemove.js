@@ -9,16 +9,16 @@
 import phetCore from './phetCore.js';
 
 /*
- * @param {Array} arr
- * @param {*} item - The item to remove from the array
+ * @param {Array} array
+ * @param {*} item - the item to remove from the array
  */
-function arrayRemove( arr, item ) {
-  assert && assert( Array.isArray( arr ), 'arrayRemove takes an Array' );
+function arrayRemove( array, item ) {
+  assert && assert( Array.isArray( array ), 'arrayRemove takes an Array' );
 
-  const index = _.indexOf( arr, item );
+  const index = _.indexOf( array, item );
   assert && assert( index >= 0, 'item not found in Array' );
 
-  arr.splice( index, 1 );
+  array.splice( index, 1 );
 }
 
 phetCore.register( 'arrayRemove', arrayRemove );
