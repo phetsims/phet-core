@@ -36,8 +36,8 @@ function merge( target, ...sources ) {
           // Recurse on keys that end with 'Options', but not on keys named 'Options'.
           if ( _.endsWith( property, OPTIONS_SUFFIX ) && property !== OPTIONS_SUFFIX ) {
 
-            // *Options property value must be a POJSO
-            assert && assertIsMergeable( sourceProperty );
+            // *Options property value cannot be undefined, if truthy, it we be validated with assertIsMergeable via recursion.
+            assert && assert( sourceProperty !== undefined, 'nested *Options should not be undefined' );
             target[ property ] = merge( target[ property ] || {}, sourceProperty );
           }
           else {
