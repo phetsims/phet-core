@@ -20,7 +20,7 @@ function InstanceRegistry() {
 
 phetCore.register( 'InstanceRegistry', InstanceRegistry );
 
-export default inherit( Object, InstanceRegistry, {}, {
+inherit( Object, InstanceRegistry, {}, {
 
   /**
    * @public (read-only) - used by puppeteer in binder
@@ -54,3 +54,5 @@ export default inherit( Object, InstanceRegistry, {}, {
     }
   }
 } );
+
+export default InstanceRegistry;
