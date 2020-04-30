@@ -77,7 +77,9 @@ const VERTICAL = new OrientationValue( 'y', 'centerY', 'top', 'bottom', 'rectY',
 HORIZONTAL.opposite = VERTICAL;
 VERTICAL.opposite = HORIZONTAL;
 
-export default phetCore.register( 'Orientation', Enumeration.byMap( {
+const Orientation = Enumeration.byMap( {
   HORIZONTAL: HORIZONTAL,
   VERTICAL: VERTICAL
-} ) );
+} );
+phetCore.register( 'Orientation', Orientation );
+export default Orientation;
