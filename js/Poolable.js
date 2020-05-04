@@ -66,6 +66,8 @@ const Poolable = {
     const initialize = options.initialize;
     const useDefaultConstruction = options.useDefaultConstruction;
 
+    const proto = type.prototype;
+
     extend( type, {
       /**
        * @private {Array.<type>} - This should not be modified externally. In the future if desired, functions could
@@ -110,7 +112,7 @@ const Poolable = {
       }
     } );
 
-    extend( type.prototype, {
+    extend( proto, {
       /**
        * Adds this object into the pool, so that it can be reused elsewhere. Generally when this is done, no other
        * references to the object should be held (since they should not be used at all).
