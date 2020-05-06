@@ -1,5 +1,6 @@
 // Copyright 2013-2020, University of Colorado Boulder
 
+/* eslint-disable bad-text */
 /**
  * Utility function for setting up prototypal inheritance.
  * Maintains supertype.prototype.constructor while properly copying ES5 getters and setters.
@@ -26,6 +27,7 @@
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
+/* eslint-enable bad-text */
 
 import extend from './extend.js';
 import phetCore from './phetCore.js';
@@ -35,6 +37,7 @@ import phetCore from './phetCore.js';
  * @param subtype             Constructor for the subtype. Generally should contain supertype.call( this, ... )
  * @param prototypeProperties [optional] object containing properties that will be set on the prototype.
  * @param staticProperties [optional] object containing properties that will be set on the constructor function itself
+ * @deprecated - please use ES6 class
  */
 function inherit( supertype, subtype, prototypeProperties, staticProperties ) {
   assert && assert( typeof supertype === 'function' );
