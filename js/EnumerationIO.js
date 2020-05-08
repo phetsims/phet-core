@@ -50,6 +50,8 @@ const create = enumeration => {
      * Encodes an Enumeration value to a string.
      * @param {Object} value from an Enumeration instance
      * @returns {Object} - a state object
+     * @override
+     * @public
      */
     static toStateObject( value ) {
       return toStateObjectImpl( value );
@@ -59,6 +61,8 @@ const create = enumeration => {
      * Decodes a string into an Enumeration value.
      * @param {string} stateObject
      * @returns {Object}
+     * @override
+     * @public
      */
     static fromStateObject( stateObject ) {
       assert && assert( typeof stateObject === 'string', 'unsupported EnumerationIO value type, expected string' );

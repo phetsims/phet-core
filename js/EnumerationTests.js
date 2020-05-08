@@ -73,6 +73,7 @@ QUnit.test( 'Rich', function( assert ) {
       this.order = order;
     }
 
+    // @public
     getText( name ) {
       return name + ' is a person from the ' + this.order + ' planet.';
     }

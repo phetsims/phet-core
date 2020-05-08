@@ -6,9 +6,9 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import assertHasProperties from './assertHasProperties.js';
 import Circle from '../../scenery/js/nodes/Circle.js';
 import Node from '../../scenery/js/nodes/Node.js';
+import assertHasProperties from './assertHasProperties.js';
 
 QUnit.module( 'assertHasProperties' );
 
@@ -18,12 +18,16 @@ QUnit.test( 'assertHasProperties', assert => {
   if ( window.assert ) {
 
     class MyObject {
+
+      // @public
       aFunction() {}
 
       get getter() {return 'hi'; }
     }
 
     class MyChild extends MyObject {
+
+      // @public
       childMethod() {}
 
       get childGetter() { return 'I am a middle child'; }
