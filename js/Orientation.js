@@ -16,28 +16,40 @@ import phetCore from './phetCore.js';
  */
 class OrientationValue {
 
-  // see docs at field declarations
+  /**
+   * See property definitions for more documentation.
+   *
+   * @param {string} coordinate
+   * @param {string} centerCoordinate
+   * @param {string} minSide
+   * @param {string} maxSide
+   * @param {string} rectCoordinate,
+   * @param {string} rectSize
+   * @param {string} layoutBoxOrientation
+   * @param {function(ModelViewTransform2,number):number} modelToView
+   * @param {function(number,number):Vector2} toVector
+   */
   constructor( coordinate, centerCoordinate, minSide, maxSide, rectCoordinate,
                rectSize, layoutBoxOrientation, modelToView, toVector ) {
 
-    // {string} - So you can position things like node[ orientation.coordinate ] = value
+    // @public {string} - So you can position things like node[ orientation.coordinate ] = value
     this.coordinate = coordinate;
 
-    // {string} - So you can center things like node[ orientation.centerCoordinate ] = value
+    // @public {string} - So you can center things like node[ orientation.centerCoordinate ] = value
     this.centerCoordinate = centerCoordinate;
 
-    // {string} - For getting the minimal/maximal values from bounds/nodes
+    // @public {string} - For getting the minimal/maximal values from bounds/nodes
     this.minSide = minSide;
     this.maxSide = maxSide;
 
-    // {string} - For being able to handle Rectangles (x/y) and (width/height)
+    // @public {string} - For being able to handle Rectangles (x/y) and (width/height)
     this.rectCoordinate = rectCoordinate;
     this.rectSize = rectSize;
 
-    // {string} - The name of the orientation when used for LayoutBox
+    // @public {string} - The name of the orientation when used for LayoutBox
     this.layoutBoxOrientation = layoutBoxOrientation;
 
-    // {string} - The value of the aria-orientation attribute for this OrientationValue.
+    // @public {string} - The value of the aria-orientation attribute for this OrientationValue.
     this.ariaOrientation = layoutBoxOrientation;
 
     /**
