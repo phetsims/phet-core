@@ -37,6 +37,9 @@ class OrientationValue {
     // {string} - The name of the orientation when used for LayoutBox
     this.layoutBoxOrientation = layoutBoxOrientation;
 
+    // {string} - The value of the aria-orientation attribute for this OrientationValue.
+    this.ariaOrientation = layoutBoxOrientation;
+
     /**
      * Returns the single coordinate transformed by the appropriate dimension.
      * @public
