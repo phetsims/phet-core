@@ -29,6 +29,8 @@
  * Since this code relies on a try/catch block, you probably should blackbox it in chrome dev tools, see
  * https://developer.chrome.com/devtools/docs/blackboxing#how-to-blackbox
  *
+ * TODO: Make sure this gets stripped out on builds, see https://github.com/phetsims/chipper/issues/953
+ *
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
