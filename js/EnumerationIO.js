@@ -24,13 +24,11 @@ function EnumerationIO( enumeration ) {
   assert && assert( enumeration, 'enumeration must be supplied' );
   assert && assert( enumeration instanceof Enumeration, 'enumeration must be an Enumeration' );
 
-  const cacheKey = enumeration;
-
-  if ( !cacheMap.has( cacheKey ) ) {
-    cacheMap.set( cacheKey, create( enumeration ) );
+  if ( !cacheMap.has( enumeration ) ) {
+    cacheMap.set( enumeration, create( enumeration ) );
   }
 
-  return cacheMap.get( cacheKey );
+  return cacheMap.get( enumeration );
 }
 
 /**
