@@ -12,31 +12,28 @@
  * @author Sam Reid (PhET Interactive Simulations)
  * @author Chris Klusendorf (PhET Interactive Simulations)
  */
-( () => {
-  'use strict';
+import phetCore from './phetCore.js';
 
-  // Support usage in the wrappers, where 'phet' hasn't been defined yet.
-  window.phet = window.phet || {};
-  window.phet.preloads = window.phet.preloads || {};
-  window.phet.preloads.phetCore = window.phet.preloads.phetCore || {};
+/**
+ * Creates a new object, recursively, by sorting the keys at each level.
+ * @param {Object} unordered - jsonifiable object to be sorted by key name.  Sorting is recursive and hence.
+ */
+const copyWithSortedKeys = unordered => {
+  if ( Array.isArray( unordered ) ) {
+    return unordered.map( copyWithSortedKeys );
+  }
+  else if ( typeof unordered !== 'object' || unordered === null ) {
+    return unordered;
+  }
 
-  /**
-   * Creates a new object, recursively, by sorting the keys at each level.
-   * @param {Object} unordered - jsonifiable object to be sorted by key name.  Sorting is recursive and hence.
-   */
-  window.phet.preloads.phetCore.copyWithSortedKeys = unordered => {
-    if ( Array.isArray( unordered ) ) {
-      return unordered.map( window.phet.preloads.phetCore.copyWithSortedKeys );
-    }
-    else if ( typeof unordered !== 'object' || unordered === null ) {
-      return unordered;
-    }
+  const ordered = {};
+  Object.keys( unordered ).sort().forEach( function( key ) {
+    const value = unordered[ key ];
+    ordered[ key ] = copyWithSortedKeys( value );
+  } );
+  return ordered;
+};
 
-    const ordered = {};
-    Object.keys( unordered ).sort().forEach( function( key ) {
-      const value = unordered[ key ];
-      ordered[ key ] = window.phet.preloads.phetCore.copyWithSortedKeys( value );
-    } );
-    return ordered;
-  };
-} )();
+phetCore.register( 'copyWithSortedKeys', copyWithSortedKeys );
+
+export default copyWithSortedKeys;
