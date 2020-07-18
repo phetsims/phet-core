@@ -17,6 +17,8 @@
  * // Enable hot module replacement for fast iteration
  * isHMR && module.hot.accept( './WavesNode.js', initializeWavesNode );
  *
+ * This can be used in concert with `grunt webpack-dev-server` from a simulation directory to launch a server that
+ * supports hot module replacement.
  *
  * Note that when using HMR with a model module, you must pass re-instantiated model elements to corresponding view
  * elements, which can be prohibitively difficult. On the other hand, using HMR on a view can be simpler because often a
