@@ -67,7 +67,6 @@ const create = enumeration => {
       assert && assert( enumeration.KEYS.indexOf( stateObject ) >= 0, `Unrecognized value: ${stateObject}` );
       return enumeration[ stateObject ];
     }
-
   }
 
   const toStateObjectImpl = v => v.name;
