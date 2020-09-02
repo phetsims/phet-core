@@ -1,7 +1,7 @@
 // Copyright 2018-2020, University of Colorado Boulder
 
 /**
- * IO type for phet-core Enumeration that supports serializing and deserializing values.
+ * IO Type for phet-core Enumeration that supports serializing and deserializing values.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -15,7 +15,7 @@ import phetCore from './phetCore.js';
 const cacheMap = new Map();
 
 /**
- * This caching implementation should be kept in sync with the other parametric IO type caching implementations.
+ * This caching implementation should be kept in sync with the other parametric IO Type caching implementations.
  * @param {Enumeration} enumeration
  * @returns {function(new:ObjectIO)}
  */
