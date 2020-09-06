@@ -78,7 +78,7 @@ const create = enumeration => {
   EnumerationIOImpl.validator = { valueType: enumeration };
   EnumerationIOImpl.documentation = `Possible values: ${valueNames}.${additionalDocs}`;
   EnumerationIOImpl.typeName = `EnumerationIO(${valueNames.join( '|' )})`;
-  ObjectIO.validateSubtype( EnumerationIOImpl );
+  ObjectIO.validateIOType( EnumerationIOImpl );
 
   return EnumerationIOImpl;
 };
