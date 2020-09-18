@@ -6,7 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import ObjectIO from '../../tandem/js/types/ObjectIO.js';
+import IOType from '../../tandem/js/types/IOType.js';
 import Enumeration from './Enumeration.js';
 import phetCore from './phetCore.js';
 
@@ -19,68 +19,32 @@ const cacheMap = new Map();
  * @param {Enumeration} enumeration
  * @returns {function(new:ObjectIO)}
  */
-function EnumerationIO( enumeration ) {
-
+const EnumerationIO = enumeration => {
   assert && assert( enumeration, 'enumeration must be supplied' );
   assert && assert( enumeration instanceof Enumeration, 'enumeration must be an Enumeration' );
 
   if ( !cacheMap.has( enumeration ) ) {
-    cacheMap.set( enumeration, create( enumeration ) );
+    const toStateObjectImpl = v => v.name;
+    const valueNames = enumeration.VALUES.map( toStateObjectImpl );
+
+    // Enumeration supports additional documentation, so the values can be described.
+    const additionalDocs = enumeration.phetioDocumentation ? ` ${enumeration.phetioDocumentation}` : '';
+
+    cacheMap.set( enumeration, new IOType( `EnumerationIO(${valueNames.join( '|' )})`, {
+      valueType: enumeration,
+      documentation: `Possible values: ${valueNames}.${additionalDocs}`,
+      toStateObject( value ) {
+        return toStateObjectImpl( value );
+      },
+      fromStateObject( stateObject ) {
+        assert && assert( typeof stateObject === 'string', 'unsupported EnumerationIO value type, expected string' );
+        assert && assert( enumeration.KEYS.indexOf( stateObject ) >= 0, `Unrecognized value: ${stateObject}` );
+        return enumeration[ stateObject ];
+      }
+    } ) );
   }
 
   return cacheMap.get( enumeration );
-}
-
-/**
- * Creates a Enumeration IOType
- * @param {Enumeration} enumeration
- * @returns {function(new:ObjectIO)}
- */
-const create = enumeration => {
-
-  class EnumerationIOImpl extends ObjectIO {
-    constructor( a, b ) {
-      assert && assert( false, 'This constructor is not called, because enumeration values, like primitives, are never wrapped.' );
-      super( a, b );
-    }
-
-    /**
-     * Encodes an Enumeration value to a string.
-     * @param {Object} value from an Enumeration instance
-     * @returns {Object} - a state object
-     * @override
-     * @public
-     */
-    static toStateObject( value ) {
-      return toStateObjectImpl( value );
-    }
-
-    /**
-     * Decodes a string into an Enumeration value.
-     * @param {string} stateObject
-     * @returns {Object}
-     * @override
-     * @public
-     */
-    static fromStateObject( stateObject ) {
-      assert && assert( typeof stateObject === 'string', 'unsupported EnumerationIO value type, expected string' );
-      assert && assert( enumeration.KEYS.indexOf( stateObject ) >= 0, `Unrecognized value: ${stateObject}` );
-      return enumeration[ stateObject ];
-    }
-  }
-
-  const toStateObjectImpl = v => v.name;
-  const valueNames = enumeration.VALUES.map( toStateObjectImpl );
-
-  // Enumeration supports additional documentation, so the values can be described.
-  const additionalDocs = enumeration.phetioDocumentation ? ` ${enumeration.phetioDocumentation}` : '';
-
-  EnumerationIOImpl.validator = { valueType: enumeration };
-  EnumerationIOImpl.documentation = `Possible values: ${valueNames}.${additionalDocs}`;
-  EnumerationIOImpl.typeName = `EnumerationIO(${valueNames.join( '|' )})`;
-  ObjectIO.validateIOType( EnumerationIOImpl );
-
-  return EnumerationIOImpl;
 };
 
 phetCore.register( 'EnumerationIO', EnumerationIO );
