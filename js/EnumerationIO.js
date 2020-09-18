@@ -33,10 +33,8 @@ const EnumerationIO = enumeration => {
     cacheMap.set( enumeration, new IOType( `EnumerationIO(${valueNames.join( '|' )})`, {
       valueType: enumeration,
       documentation: `Possible values: ${valueNames}.${additionalDocs}`,
-      toStateObject( value ) {
-        return toStateObjectImpl( value );
-      },
-      fromStateObject( stateObject ) {
+      toStateObject: value => toStateObjectImpl( value ),
+      fromStateObject: stateObject => {
         assert && assert( typeof stateObject === 'string', 'unsupported EnumerationIO value type, expected string' );
         assert && assert( enumeration.KEYS.indexOf( stateObject ) >= 0, `Unrecognized value: ${stateObject}` );
         return enumeration[ stateObject ];
