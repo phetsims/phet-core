@@ -17,7 +17,7 @@ const cacheMap = new Map();
 /**
  * This caching implementation should be kept in sync with the other parametric IO Type caching implementations.
  * @param {Enumeration} enumeration
- * @returns {function(new:ObjectIO)}
+ * @returns {IOType}
  */
 const EnumerationIO = enumeration => {
   assert && assert( enumeration, 'enumeration must be supplied' );
