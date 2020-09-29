@@ -10,8 +10,7 @@ import IOType from '../../tandem/js/types/IOType.js';
 import Enumeration from './Enumeration.js';
 import phetCore from './phetCore.js';
 
-// {Map.<enumeration:Enumeration, function(new:ObjectIO)>} - Cache each parameterized EnumerationIO so that it is
-// only created once.
+// {Map.<enumeration:Enumeration, IOType>} - Cache each parameterized EnumerationIO so that it is only created once.
 const cacheMap = new Map();
 
 /**
