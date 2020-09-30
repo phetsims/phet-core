@@ -13,6 +13,7 @@ import phetCore from './phetCore.js';
 // {Map.<enumeration:Enumeration, IOType>} - Cache each parameterized EnumerationIO so that it is only created once.
 const cacheMap = new Map();
 
+// TODO https://github.com/phetsims/tandem/issues/212 move to core file?
 /**
  * This caching implementation should be kept in sync with the other parametric IO Type caching implementations.
  * @param {Enumeration} enumeration
@@ -30,7 +31,7 @@ const EnumerationIO = enumeration => {
     const additionalDocs = enumeration.phetioDocumentation ? ` ${enumeration.phetioDocumentation}` : '';
 
     cacheMap.set( enumeration, new IOType( `EnumerationIO(${valueNames.join( '|' )})`, {
-      valueType: enumeration,
+      valueType: enumeration, // TODO: https://github.com/phetsims/tandem/issues/212 is this correct?
       documentation: `Possible values: ${valueNames}.${additionalDocs}`,
       toStateObject: value => toStateObjectImpl( value ),
       fromStateObject: stateObject => {
