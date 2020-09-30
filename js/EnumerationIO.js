@@ -14,7 +14,6 @@ import phetCore from './phetCore.js';
 // {Map.<enumeration:Enumeration, IOType>} - Cache each parameterized EnumerationIO so that it is only created once.
 const cacheMap = new Map();
 
-// TODO https://github.com/phetsims/tandem/issues/212 move to core file?
 /**
  * This caching implementation should be kept in sync with the other parametric IO Type caching implementations.
  * @param {Enumeration} enumeration
