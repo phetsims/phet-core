@@ -31,7 +31,7 @@ const EnumerationIO = enumeration => {
     const additionalDocs = enumeration.phetioDocumentation ? ` ${enumeration.phetioDocumentation}` : '';
 
     cacheMap.set( enumeration, new IOType( `EnumerationIO(${valueNames.join( '|' )})`, {
-      valueType: enumeration, // TODO: https://github.com/phetsims/tandem/issues/212 is this correct?
+      valueType: enumeration,
       documentation: `Possible values: ${valueNames}.${additionalDocs}`,
       toStateObject: value => toStateObjectImpl( value ),
       fromStateObject: stateObject => {
