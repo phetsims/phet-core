@@ -1,7 +1,8 @@
 // Copyright 2018-2020, University of Colorado Boulder
 
 /**
- * IO Type for phet-core Enumeration that supports serializing and deserializing values.
+ * IO Type for phet-core Enumeration that supports serializing and deserializing values. Cannot be moved to the core
+ * type since Enumeration must be defined before ValidatorDef can be defined.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
