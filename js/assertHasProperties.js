@@ -29,7 +29,7 @@ const assertHasProperties = function( object, properties ) {
 
       assert && assert( Object.getOwnPropertyDescriptor( object, property ) || // support fields directly on the object
 
-                        // test up the class hierarchy for if the property is defined on a prototye.
+                        // test up the class hierarchy for if the property is defined on a prototype.
                         _.some( inheritance( object.constructor ).map( type => Object.getOwnPropertyDescriptor( type.prototype, property ) ) ),
         `property not defined: ${property}` );
     } );
