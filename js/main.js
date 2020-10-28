@@ -20,6 +20,7 @@ import './inheritance.js';
 import './interleave.js';
 import './isArray.js';
 import './loadScript.js';
+import './memoize.js';
 import './merge.js';
 import './mixedWith.js';
 import './Namespace.js';
