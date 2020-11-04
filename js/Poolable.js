@@ -30,7 +30,7 @@ const Poolable = {
 
       // {function} - The function to call on the objects to reinitialize them (that is either the constructor, or
       // acts like the constructor).
-      initialize: type,
+      initialize: type.prototype.initialize,
 
       // {number} - A limit for the pool size (so we don't leak memory by growing the pool faster than we take things
       // from it).
