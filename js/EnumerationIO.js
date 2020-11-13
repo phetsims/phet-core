@@ -12,7 +12,7 @@ import Enumeration from './Enumeration.js';
 import phetCore from './phetCore.js';
 
 // {Map.<enumeration:Enumeration, IOType>} - Cache each parameterized EnumerationIO so that it is only created once.
-const cacheMap = new Map();
+const cache = new Map();
 
 /**
  * This caching implementation should be kept in sync with the other parametric IO Type caching implementations.
@@ -23,14 +23,14 @@ const EnumerationIO = enumeration => {
   assert && assert( enumeration, 'enumeration must be supplied' );
   assert && assert( enumeration instanceof Enumeration, 'enumeration must be an Enumeration' );
 
-  if ( !cacheMap.has( enumeration ) ) {
+  if ( !cache.has( enumeration ) ) {
     const toStateObjectImpl = v => v.name;
     const valueNames = enumeration.VALUES.map( toStateObjectImpl );
 
     // Enumeration supports additional documentation, so the values can be described.
     const additionalDocs = enumeration.phetioDocumentation ? ` ${enumeration.phetioDocumentation}` : '';
 
-    cacheMap.set( enumeration, new IOType( `EnumerationIO(${valueNames.join( '|' )})`, {
+    cache.set( enumeration, new IOType( `EnumerationIO(${valueNames.join( '|' )})`, {
       valueType: enumeration,
       documentation: `Possible values: ${valueNames}.${additionalDocs}`,
       toStateObject: value => toStateObjectImpl( value ),
@@ -42,7 +42,7 @@ const EnumerationIO = enumeration => {
     } ) );
   }
 
-  return cacheMap.get( enumeration );
+  return cache.get( enumeration );
 };
 
 phetCore.register( 'EnumerationIO', EnumerationIO );
