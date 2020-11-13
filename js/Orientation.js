@@ -30,7 +30,7 @@ class OrientationValue {
    * @param {function(number,number):Vector2} toVector
    */
   constructor( coordinate, centerCoordinate, minSide, maxSide, rectCoordinate,
-               rectSize, layoutBoxOrientation, modelToView, toVector ) {
+               rectSize, layoutBoxOrientation, modelToView, viewToModel,toVector ) {
 
     // @public {string} - So you can position things like node[ orientation.coordinate ] = value
     this.coordinate = coordinate;
@@ -63,6 +63,16 @@ class OrientationValue {
     this.modelToView = modelToView;
 
     /**
+     * Returns the single coordinate transformed by the appropriate dimension.
+     * @public
+     *
+     * @param {ModelViewTransform2} modelViewTransform
+     * @param {number} value
+     * @returns {number}
+     */
+    this.viewToModel = viewToModel;
+
+    /**
      * {function} Creates a vector (primary,secondary) for horizontal orientations, and (secondary,primary) for vertical
      * orientations.
      * @public
@@ -80,11 +90,13 @@ class OrientationValue {
 
 const HORIZONTAL = new OrientationValue( 'x', 'centerX', 'left', 'right', 'rectX', 'rectWidth', 'horizontal',
   ( modelViewTransform, value ) => modelViewTransform.modelToViewX( value ),
+  ( modelViewTransform, value ) => modelViewTransform.viewToModelX( value ),
   ( a, b ) => new Vector2( a, b )
 );
 
 const VERTICAL = new OrientationValue( 'y', 'centerY', 'top', 'bottom', 'rectY', 'rectHeight', 'vertical',
   ( modelViewTransform, value ) => modelViewTransform.modelToViewY( value ),
+  ( modelViewTransform, value ) => modelViewTransform.viewToModelY( value ),
   ( a, b ) => new Vector2( b, a )
 );
 
