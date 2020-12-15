@@ -11,7 +11,7 @@ import detectPrefixEvent from './detectPrefixEvent.js';
 
 QUnit.module( 'detectPrefixEvent' );
 
-QUnit.test( 'detectPrefixEvent', function( assert ) {
+QUnit.test( 'detectPrefixEvent', assert => {
   const obj = {
     'onmain': false,
     'onmozprop': ''

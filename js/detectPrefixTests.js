@@ -11,7 +11,7 @@ import detectPrefix from './detectPrefix.js';
 
 QUnit.module( 'detectPrefix' );
 
-QUnit.test( 'detectPrefix', function( assert ) {
+QUnit.test( 'detectPrefix', assert => {
   const obj = {
     'main': false,
     'mozProp': ''

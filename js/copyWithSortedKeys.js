@@ -27,7 +27,7 @@ const copyWithSortedKeys = unordered => {
   }
 
   const ordered = {};
-  Object.keys( unordered ).sort().forEach( function( key ) {
+  Object.keys( unordered ).sort().forEach( key => {
     const value = unordered[ key ];
     ordered[ key ] = copyWithSortedKeys( value );
   } );

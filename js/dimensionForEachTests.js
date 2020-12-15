@@ -10,20 +10,20 @@ import dimensionForEach from './dimensionForEach.js';
 
 QUnit.module( 'dimensionForEach' );
 
-QUnit.test( '1 dimensional', function( assert ) {
+QUnit.test( '1 dimensional', assert => {
   const normalValues = [];
   const ourValues = [];
 
   const arr = [ 1, 2, 4, 9 ];
 
-  arr.forEach( function( element, index ) {
+  arr.forEach( ( element, index ) => {
     normalValues.push( {
       element: element,
       index: index
     } );
   } );
 
-  dimensionForEach( 1, arr, function( element, index ) {
+  dimensionForEach( 1, arr, ( element, index ) => {
     ourValues.push( {
       element: element,
       index: index
@@ -33,7 +33,7 @@ QUnit.test( '1 dimensional', function( assert ) {
   assert.ok( _.isEqual( normalValues, ourValues ), '1-dimensional comparison' );
 } );
 
-QUnit.test( '2 dimensional', function( assert ) {
+QUnit.test( '2 dimensional', assert => {
   const arr = [
     [ 1, 2, 4 ],
     [ 9, 5 ]
@@ -47,7 +47,7 @@ QUnit.test( '2 dimensional', function( assert ) {
     { element: 5, idx1: 1, idx2: 1 }
   ];
 
-  dimensionForEach( 2, arr, function( element, idx1, idx2 ) {
+  dimensionForEach( 2, arr, ( element, idx1, idx2 ) => {
     values.push( {
       element: element,
       idx1: idx1,
@@ -58,7 +58,7 @@ QUnit.test( '2 dimensional', function( assert ) {
   assert.ok( _.isEqual( values, expectedValues ), '2-dimensional comparison' );
 } );
 
-QUnit.test( '3 dimensional', function( assert ) {
+QUnit.test( '3 dimensional', assert => {
   const arr = [
     [
       [ 1, 5 ],
@@ -79,7 +79,7 @@ QUnit.test( '3 dimensional', function( assert ) {
     { element: 4, idx1: 1, idx2: 0, idx3: 2 }
   ];
 
-  dimensionForEach( 3, arr, function( element, idx1, idx2, idx3 ) {
+  dimensionForEach( 3, arr, ( element, idx1, idx2, idx3 ) => {
     values.push( {
       element: element,
       idx1: idx1,

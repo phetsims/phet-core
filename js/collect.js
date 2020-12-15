@@ -15,7 +15,7 @@ import phetCore from './phetCore.js';
 function collect( iterate ) {
   assert && assert( typeof iterate === 'function' );
   const result = [];
-  iterate( function( ob ) {
+  iterate( ob => {
     result.push( ob );
   } );
   return result;

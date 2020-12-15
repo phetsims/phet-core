@@ -22,7 +22,7 @@ const Poolable = {
    * @param {function} type - The constructor for the type
    * @param {Object} [options]
    */
-  mixInto: function( type, options ) {
+  mixInto( type, options ) {
     options = merge( {
       // {Array.<*>} - If an object needs to be created without a direct call (say, to fill the pool initially), these
       // are the arguments that will be passed into the constructor
@@ -81,9 +81,7 @@ const Poolable = {
        *
        * @returns {type}
        */
-      dirtyFromPool: function() {
-        return pool.length ? pool.pop() : new DefaultConstructor();
-      },
+      dirtyFromPool: () => pool.length ? pool.pop() : new DefaultConstructor(),
 
       /**
        * Returns an object that behaves as if it was constructed with the given arguments. May result in a new object

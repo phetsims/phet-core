@@ -11,7 +11,7 @@ import escapeHTML from './escapeHTML.js';
 
 QUnit.module( 'escapeHTML' );
 
-QUnit.test( 'escapeHTML', function( assert ) {
+QUnit.test( 'escapeHTML', assert => {
   assert.equal( escapeHTML( 'A&B' ), 'A&amp;B', 'simple &' );
   assert.equal( escapeHTML( 'A<B' ), 'A&lt;B', 'simple <' );
   assert.equal( escapeHTML( 'A>B' ), 'A&gt;B', 'simple >' );

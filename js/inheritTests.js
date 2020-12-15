@@ -11,7 +11,7 @@ import inherit from './inherit.js';
 
 QUnit.module( 'inherit' );
 
-QUnit.test( 'inherit', function( assert ) {
+QUnit.test( 'inherit', assert => {
   const Person = function( name ) {
     this.name = name;
   };
@@ -24,7 +24,7 @@ QUnit.test( 'inherit', function( assert ) {
 
     //Instance Methods
     {
-      attack: function() {
+      attack: () => {
         attacked = true;
       }
     },
@@ -32,7 +32,7 @@ QUnit.test( 'inherit', function( assert ) {
     //Static Methods and fields
     {
       warriorType: 'swordsman',
-      getWarriorCastle: function() {return 'camelot';},
+      getWarriorCastle: () => 'camelot',
       get totalWarriorCount() {return 1234;}
     }
   );

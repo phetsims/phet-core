@@ -10,7 +10,7 @@ import Enumeration from './Enumeration.js';
 
 QUnit.module( 'Enumeration' );
 
-QUnit.test( 'Basic enumeration', function( assert ) {
+QUnit.test( 'Basic enumeration', assert => {
   const CardinalDirection = Enumeration.byKeys( [ 'NORTH', 'SOUTH', 'EAST', 'WEST' ] );
 
   assert.equal( CardinalDirection.NORTH, 'NORTH', 'Equality for NORTH' );
@@ -29,17 +29,17 @@ QUnit.test( 'Basic enumeration', function( assert ) {
   object[ CardinalDirection.NORTH ] = 'exit';
   assert.equal( object.NORTH, 'exit', 'toString should work seamlessly' );
 
-  window.assert && assert.throws( function() {
+  window.assert && assert.throws( () => {
     CardinalDirection.SOMETHING_AFTER_THE_FREEZE = 5;
   }, 'Should not be able to set things after initialization' );
 
-  window.assert && assert.throws( function() {
+  window.assert && assert.throws( () => {
     const x = Enumeration.byKeys( [ 'lowercase', 'should', 'fail' ] );
     assert.ok( !!x, 'fake assertion so x is used' );
   }, 'Enumeration should fail for lowercase values' );
 } );
 
-QUnit.test( 'Before freeze test', function( assert ) {
+QUnit.test( 'Before freeze test', assert => {
   const E = Enumeration.byKeys( [ 'A', 'B' ], {
     beforeFreeze: E => {
       E.opposite = e => {
@@ -54,12 +54,12 @@ QUnit.test( 'Before freeze test', function( assert ) {
   assert.equal( E.opposite( E.A ), E.B, 'Custom function check 1' );
   assert.equal( E.opposite( E.B ), E.A, 'Custom function check 2' );
 
-  window.assert && assert.throws( function() {
+  window.assert && assert.throws( () => {
     E.SOMETHING_AFTER_THE_FREEZE = 5;
   }, 'Should not be able to set things after initialization' );
 } );
 
-QUnit.test( 'VALUES', function( assert ) {
+QUnit.test( 'VALUES', assert => {
   const People = Enumeration.byKeys( [ 'ALICE', 'BOB' ] );
   assert.ok( true, 'at least one assertion must run per test' );
   window.assert && assert.throws( () => {

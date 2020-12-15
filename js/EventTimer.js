@@ -75,45 +75,42 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-import inherit from './inherit.js';
 import phetCore from './phetCore.js';
 
-/*
- * Create an event timer with a specific model (determines the time between events), and a callback to be called
- * for events.
- * @public
- *
- * @param {Object with getPeriodBeforeNextEvent(): Number} eventModel: getPeriodBeforeNextEvent() will be called at
- *    the start and after every event to determine the time required to pass by before the next event occurs.
- * @param {function} eventCallback( timeElapsed ): Will be called for every event. The timeElapsed passed in as the
- *    only argument denotes the time elapsed since the event would have occurred. E.g. if we step for 5 seconds and
- *    our event would have occurred 1 second into that step, the timeElapsed will be 4 seconds, since after the end
- *    of the 5 seconds the event would have happened 4 seconds ago.
- */
-function EventTimer( eventModel, eventCallback ) {
-  assert && assert( typeof eventCallback === 'function', 'EventTimer requires a callback' );
+class EventTimer {
+  /*
+   * Create an event timer with a specific model (determines the time between events), and a callback to be called
+   * for events.
+   * @public
+   *
+   * @param {Object with getPeriodBeforeNextEvent(): Number} eventModel: getPeriodBeforeNextEvent() will be called at
+   *    the start and after every event to determine the time required to pass by before the next event occurs.
+   * @param {function} eventCallback( timeElapsed ): Will be called for every event. The timeElapsed passed in as the
+   *    only argument denotes the time elapsed since the event would have occurred. E.g. if we step for 5 seconds and
+   *    our event would have occurred 1 second into that step, the timeElapsed will be 4 seconds, since after the end
+   *    of the 5 seconds the event would have happened 4 seconds ago.
+   */
+  constructor( eventModel, eventCallback ) {
+    assert && assert( typeof eventCallback === 'function', 'EventTimer requires a callback' );
 
-  // @private
-  this.eventModel = eventModel;
-  this.eventCallback = eventCallback;
+    // @private
+    this.eventModel = eventModel;
+    this.eventCallback = eventCallback;
 
-  // @private {number}
-  this.period = this.eventModel.getPeriodBeforeNextEvent();
+    // @private {number}
+    this.period = this.eventModel.getPeriodBeforeNextEvent();
 
-  // @private {number}
-  this.timeBeforeNextEvent = this.period;
-}
+    // @private {number}
+    this.timeBeforeNextEvent = this.period;
+  }
 
-phetCore.register( 'EventTimer', EventTimer );
-
-inherit( Object, EventTimer, {
   /**
    * Steps the timer forward by a certain amount of time. This may cause 0 or more events to actually occur.
    * @public
    *
    * @param {number} dt
    */
-  step: function( dt ) {
+  step( dt ) {
     while ( dt >= this.timeBeforeNextEvent ) {
       dt -= this.timeBeforeNextEvent;
       this.period = this.eventModel.getPeriodBeforeNextEvent();
@@ -125,7 +122,7 @@ inherit( Object, EventTimer, {
 
     // use up the remaining DT
     this.timeBeforeNextEvent -= dt;
-  },
+  }
 
   /**
    * Returns how far we are to the next event firing (where 0 is an event "just" fired, and 1 is the next event
@@ -134,54 +131,69 @@ inherit( Object, EventTimer, {
    *
    * @returns {number} - In the range [0,1). Is inclusive for 0, but exclusive for 1.
    */
-  getRatio: function() {
+  getRatio() {
     return ( this.period - this.timeBeforeNextEvent ) / this.period;
   }
-} );
+}
 
-/*
- * Event model that will fire events at a constant rate. An event will occur every 1/rate time units.
- * @public
- *
- * @param {number} rate
- */
-EventTimer.ConstantEventModel = inherit( Object, function ConstantEventRate( rate ) {
-  assert && assert( typeof rate === 'number',
-    'The rate should be a number' );
-  assert && assert( rate > 0,
-    'We need to have a strictly positive rate in order to prevent infinite loops.' );
+phetCore.register( 'EventTimer', EventTimer );
 
-  this.rate = rate;
-}, {
-  // @public
-  getPeriodBeforeNextEvent: function() {
+class ConstantEventModel {
+  /*
+   * Event model that will fire events at a constant rate. An event will occur every 1/rate time units.
+   * @public
+   *
+   * @param {number} rate
+   */
+  constructor( rate ) {
+    assert && assert( typeof rate === 'number',
+      'The rate should be a number' );
+    assert && assert( rate > 0,
+      'We need to have a strictly positive rate in order to prevent infinite loops.' );
+
+    this.rate = rate;
+  }
+
+  /**
+   * @public
+   *
+   * @returns {number}
+   */
+  getPeriodBeforeNextEvent() {
     return 1 / this.rate;
   }
-} );
+}
+EventTimer.ConstantEventModel = ConstantEventModel;
 
-/*
- * Event model that will fire events averaging a certain rate, but with the time between events being uniformly
- * random.
- * @public
- *
- * The pseudoRandomNumberSource, when called, should generate uniformly distributed random numbers in the range [0,1).
- *
- * @param {number} rate
- * @param {function} pseudoRandomNumberSource() : Number
- */
-EventTimer.UniformEventModel = inherit( Object, function UniformEventModel( rate, pseudoRandomNumberSource ) {
-  assert && assert( typeof rate === 'number',
-    'The rate should be a number' );
-  assert && assert( typeof pseudoRandomNumberSource === 'function',
-    'The pseudo-random number source should be a function' );
-  assert && assert( rate > 0,
-    'We need to have a strictly positive rate in order to prevent infinite loops.' );
+class UniformEventModel {
+  /*
+   * Event model that will fire events averaging a certain rate, but with the time between events being uniformly
+   * random.
+   * @public
+   *
+   * The pseudoRandomNumberSource, when called, should generate uniformly distributed random numbers in the range [0,1).
+   *
+   * @param {number} rate
+   * @param {function} pseudoRandomNumberSource() : Number
+   */
+  constructor( rate, pseudoRandomNumberSource ) {
+    assert && assert( typeof rate === 'number',
+      'The rate should be a number' );
+    assert && assert( typeof pseudoRandomNumberSource === 'function',
+      'The pseudo-random number source should be a function' );
+    assert && assert( rate > 0,
+      'We need to have a strictly positive rate in order to prevent infinite loops.' );
 
-  this.rate = rate;
-  this.pseudoRandomNumberSource = pseudoRandomNumberSource;
-}, {
-  // @public
-  getPeriodBeforeNextEvent: function() {
+    this.rate = rate;
+    this.pseudoRandomNumberSource = pseudoRandomNumberSource;
+  }
+
+  /**
+   * @public
+   *
+   * @returns {number}
+   */
+  getPeriodBeforeNextEvent() {
     const uniformRandomNumber = this.pseudoRandomNumberSource();
     assert && assert( typeof uniformRandomNumber === 'number' &&
     uniformRandomNumber >= 0 && uniformRandomNumber < 1,
@@ -190,29 +202,36 @@ EventTimer.UniformEventModel = inherit( Object, function UniformEventModel( rate
     // sample the exponential distribution
     return uniformRandomNumber * 2 / this.rate;
   }
-} );
+}
+EventTimer.UniformEventModel = UniformEventModel;
 
-/*
- * Event model that will fire events corresponding to a Poisson process with the specified rate.
- * The pseudoRandomNumberSource, when called, should generate uniformly distributed random numbers in the range [0,1).
- * @public
- *
- * @param {number} rate
- * @param {function} pseudoRandomNumberSource() : number
- */
-EventTimer.PoissonEventModel = inherit( Object, function PoissonEventModel( rate, pseudoRandomNumberSource ) {
-  assert && assert( typeof rate === 'number',
-    'The time between events should be a number' );
-  assert && assert( typeof pseudoRandomNumberSource === 'function',
-    'The pseudo-random number source should be a function' );
-  assert && assert( rate > 0,
-    'We need to have a strictly positive poisson rate in order to prevent infinite loops.' );
+class PoissonEventModel {
+  /*
+   * Event model that will fire events corresponding to a Poisson process with the specified rate.
+   * The pseudoRandomNumberSource, when called, should generate uniformly distributed random numbers in the range [0,1).
+   * @public
+   *
+   * @param {number} rate
+   * @param {function} pseudoRandomNumberSource() : number
+   */
+  constructor( rate, pseudoRandomNumberSource ) {
+    assert && assert( typeof rate === 'number',
+      'The time between events should be a number' );
+    assert && assert( typeof pseudoRandomNumberSource === 'function',
+      'The pseudo-random number source should be a function' );
+    assert && assert( rate > 0,
+      'We need to have a strictly positive poisson rate in order to prevent infinite loops.' );
 
-  this.rate = rate;
-  this.pseudoRandomNumberSource = pseudoRandomNumberSource;
-}, {
-  // @public
-  getPeriodBeforeNextEvent: function() {
+    this.rate = rate;
+    this.pseudoRandomNumberSource = pseudoRandomNumberSource;
+  }
+
+  /**
+   * @public
+   *
+   * @returns {number}
+   */
+  getPeriodBeforeNextEvent() {
     // A poisson process can be described as having an independent exponential distribution for the time between
     // consecutive events.
     // see http://en.wikipedia.org/wiki/Exponential_distribution#Generating_exponential_variates and
@@ -226,6 +245,7 @@ EventTimer.PoissonEventModel = inherit( Object, function PoissonEventModel( rate
     // sample the exponential distribution
     return -Math.log( uniformRandomNumber ) / this.rate;
   }
-} );
+}
+EventTimer.PoissonEventModel = PoissonEventModel;
 
 export default EventTimer;

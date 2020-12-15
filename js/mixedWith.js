@@ -75,7 +75,7 @@ function mixedWith( supertype, mixins ) {
 
   // Figure out the preferred type name for our subtype constructor
   let name = supertype.name;
-  mixins.forEach( function( mixin ) {
+  mixins.forEach( mixin => {
     // A common pattern for mixins with type-scope parameters should be:
     //   mixedWith( super, someMixin.bind( null, someParameter ) )
     // with someMixin( someParameter, type ). This allows mixing in custom function parameters, etc. defined at the
@@ -105,7 +105,7 @@ function mixedWith( supertype, mixins ) {
   inherit( supertype, subtype );
 
   // Apply the mixins in order, and process initializers
-  mixins.forEach( function( mixin ) {
+  mixins.forEach( mixin => {
     const optionalInitializer = mixin( subtype );
     if ( typeof optionalInitializer === 'function' ) {
       initializers.push( optionalInitializer );

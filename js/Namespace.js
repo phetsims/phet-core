@@ -7,23 +7,19 @@
 
 import isHMR from './isHMR.js';
 
-/**
- * @param {string} name
- * @constructor
- */
-function Namespace( name ) {
+class Namespace {
+  /**
+   * @param {string} name
+   */
+  constructor( name ) {
 
-  this.name = name; // @public (read-only)
+    this.name = name; // @public (read-only)
 
-  if ( window.phet ) {
-    assert && assert( !window.phet[ name ], 'namespace ' + name + ' already exists' );
-    window.phet[ name ] = this;
+    if ( window.phet ) {
+      assert && assert( !window.phet[ name ], 'namespace ' + name + ' already exists' );
+      window.phet[ name ] = this;
+    }
   }
-}
-
-Namespace.prototype = {
-
-  constructor: Namespace,
 
   /**
    * Registers a key-value pair with the namespace.
@@ -42,7 +38,7 @@ Namespace.prototype = {
    * @returns {*} value, for chaining
    * @public
    */
-  register: function( key, value ) {
+  register( key, value ) {
 
     // When using hot module replacement, a module will be loaded and initialized twice, and hence its namespace.register
     // function will be called twice.  This should not be an assertion error.
@@ -82,6 +78,6 @@ Namespace.prototype = {
 
     return value;
   }
-};
+}
 
 export default Namespace;

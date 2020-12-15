@@ -11,7 +11,7 @@ import pairs from './pairs.js';
 
 QUnit.module( 'pairs' );
 
-QUnit.test( 'pairs', function( assert ) {
+QUnit.test( 'pairs', assert => {
   assert.equal( pairs( [] ).length, 0 );
   assert.equal( pairs( [ 'a' ] ).length, 0 );
   assert.equal( pairs( [ 'a', 'b' ] ).length, 1 );

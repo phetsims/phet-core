@@ -21,7 +21,7 @@ import phetCore from './phetCore.js';
  * @param {Object|null|undefined} object - an object to test property existence
  * @param {string[]} properties - a list of properties to assert exist
  */
-const assertHasProperties = function( object, properties ) {
+const assertHasProperties = ( object, properties ) => {
   if ( assert && object ) {
 
 

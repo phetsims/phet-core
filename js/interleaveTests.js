@@ -10,10 +10,8 @@ import interleave from './interleave.js';
 
 QUnit.module( 'interleave' );
 
-QUnit.test( 'interleave', function( assert ) {
-  const result = interleave( [ 3, 5, 7, 8, 9 ], function( index ) {
-    return index;
-  } );
+QUnit.test( 'interleave', assert => {
+  const result = interleave( [ 3, 5, 7, 8, 9 ], index => index );
 
   assert.ok( result.length === 9 );
 

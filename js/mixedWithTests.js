@@ -12,7 +12,7 @@ import mixedWith from './mixedWith.js';
 
 QUnit.module( 'mixedWith' );
 
-QUnit.test( 'mixedWith', function( assert ) {
+QUnit.test( 'mixedWith', assert => {
   const NAME = 'phet-core-sim';
 
   // Our basic type that we'll want to extend with a mixin
@@ -24,7 +24,7 @@ QUnit.test( 'mixedWith', function( assert ) {
 
   // Mixin that doesn't require initialization during construction
   function Playable( type ) {
-    type.prototype.play = function() {
+    type.prototype.play = () => {
       window.thisIsProbablyNotDefinedDoNotLogInTests && console.log( 'many fun, such entertain' );
     };
   }

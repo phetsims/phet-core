@@ -45,7 +45,7 @@ function dimensionMap( dimension, array, map ) {
    * @returns {MultidimensionalArray.<*>}
    */
   function recur( dim, arr ) {
-    return arr.map( function( element, index ) {
+    return arr.map( ( element, index ) => {
 
       // To process this element, we need to record our index (in case it is an array that we iterate through).
       indices.push( index );

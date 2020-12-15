@@ -6,27 +6,12 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import inherit from '../inherit.js';
 import phetCore from '../phetCore.js';
 
 // constants
 const map = {};
 
-/**
- * @constructor
- */
-function InstanceRegistry() {
-}
-
-phetCore.register( 'InstanceRegistry', InstanceRegistry );
-
-inherit( Object, InstanceRegistry, {}, {
-
-  /**
-   * @public (read-only) - used by puppeteer in binder
-   */
-  map: map,
-
+class InstanceRegistry {
   /**
    * Adds a screenshot of the given scenery Node
    * @param {string} repoName
@@ -34,7 +19,7 @@ inherit( Object, InstanceRegistry, {}, {
    * @param {Node} instance
    * @public
    */
-  registerDataURL: function( repoName, typeName, instance ) {
+  static registerDataURL( repoName, typeName, instance ) {
     if ( phet.chipper.queryParameters.binder ) {
 
       // Create the map if we haven't seen that component type before
@@ -42,7 +27,7 @@ inherit( Object, InstanceRegistry, {}, {
       map[ key ] = map[ key ] || [];
 
       try {
-        instance.toDataURL( function( dataURL ) {
+        instance.toDataURL( dataURL => {
           map[ key ].push( dataURL );
         } );
       }
@@ -53,6 +38,13 @@ inherit( Object, InstanceRegistry, {}, {
       }
     }
   }
-} );
+}
+
+/**
+ * @public (read-only) - used by puppeteer in binder
+ */
+InstanceRegistry.map = map;
+
+phetCore.register( 'InstanceRegistry', InstanceRegistry );
 
 export default InstanceRegistry;

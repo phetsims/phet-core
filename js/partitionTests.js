@@ -11,8 +11,8 @@ import partition from './partition.js';
 
 QUnit.module( 'partition' );
 
-QUnit.test( 'partition', function( assert ) {
-  const parityTest = partition( [ 1, 2, 3, 4 ], function( n ) { return n % 2 === 0; } );
+QUnit.test( 'partition', assert => {
+  const parityTest = partition( [ 1, 2, 3, 4 ], n => n % 2 === 0 );
   assert.equal( parityTest[ 0 ][ 0 ], 2 );
   assert.equal( parityTest[ 0 ][ 1 ], 4 );
   assert.equal( parityTest[ 1 ][ 0 ], 1 );

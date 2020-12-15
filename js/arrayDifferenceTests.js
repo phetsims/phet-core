@@ -63,30 +63,24 @@ function generatedTest( assert, maxNumber, aSize, bSize ) {
     }
   }
 
-  aOnly.sort( function( x, y ) {
-    return a.indexOf( x ) - a.indexOf( y );
-  } );
-  bOnly.sort( function( x, y ) {
-    return b.indexOf( x ) - b.indexOf( y );
-  } );
-  inBoth.sort( function( x, y ) {
-    return a.indexOf( x ) - a.indexOf( y );
-  } );
+  aOnly.sort( ( x, y ) => a.indexOf( x ) - a.indexOf( y ) );
+  bOnly.sort( ( x, y ) => b.indexOf( x ) - b.indexOf( y ) );
+  inBoth.sort( ( x, y ) => a.indexOf( x ) - a.indexOf( y ) );
 
   assertDifferences( assert, a, b, aOnly, bOnly, inBoth );
 }
 
-QUnit.test( 'Simple Usage 1', function( assert ) {
+QUnit.test( 'Simple Usage 1', assert => {
   const a = [ 1, 2 ];
   const b = [ 2, 3 ];
   assert.ok( _.isEqual( arrayDifference( a, b ), [ 1 ] ) );
 } );
 
-QUnit.test( 'General Usage 1', function( assert ) {
+QUnit.test( 'General Usage 1', assert => {
   assertDifferences( assert, [ 1, 2 ], [ 2, 3 ], [ 1 ], [ 3 ], [ 2 ] );
 } );
 
-QUnit.test( 'General Usage 2', function( assert ) {
+QUnit.test( 'General Usage 2', assert => {
   const a = [ 2, 19, 7, 12, 8, 6, 14, 5, 4, 9 ];
   const b = [ 17, 18, 9, 14, 20, 4, 3, 15 ];
   const aOnly = [ 2, 19, 7, 12, 8, 6, 5 ];
@@ -95,23 +89,23 @@ QUnit.test( 'General Usage 2', function( assert ) {
   assertDifferences( assert, a, b, aOnly, bOnly, inBoth );
 } );
 
-QUnit.test( 'General Usage 3', function( assert ) {
+QUnit.test( 'General Usage 3', assert => {
   assertDifferences( assert, [ 1, 2, 3, 4, 5 ], [ 3 ], [ 1, 2, 4, 5 ], [], [ 3 ] );
 } );
 
-QUnit.test( 'General Usage 4', function( assert ) {
+QUnit.test( 'General Usage 4', assert => {
   assertDifferences( assert, [ 1, 2, 3, 4, 5 ], [], [ 1, 2, 3, 4, 5 ], [], [] );
 } );
 
-QUnit.test( 'General Usage 5', function( assert ) {
+QUnit.test( 'General Usage 5', assert => {
   assertDifferences( assert, [], [ 1, 2, 3, 4, 5 ], [], [ 1, 2, 3, 4, 5 ], [] );
 } );
 
-QUnit.test( 'Generated tests', function( assert ) {
-  _.times( 20, function() {
+QUnit.test( 'Generated tests', assert => {
+  _.times( 20, () => {
     generatedTest( assert, 20, 10, 10 );
   } );
-  _.times( 4, function() {
+  _.times( 4, () => {
     const size = 30;
     for ( let i = 0; i <= size; i++ ) {
       generatedTest( assert, size + 5, i, size - i );

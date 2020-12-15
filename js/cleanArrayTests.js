@@ -11,7 +11,7 @@ import cleanArray from './cleanArray.js';
 
 QUnit.module( 'cleanArray' );
 
-QUnit.test( 'cleanArray', function( assert ) {
+QUnit.test( 'cleanArray', assert => {
   assert.ok( cleanArray().length === 0, 'Given no argument, should return a fresh empty array' );
   assert.ok( cleanArray( undefined ).length === 0, 'Given undefined, should return a fresh empty array' );
   assert.ok( cleanArray( null ).length === 0, 'Given null, should return a fresh empty array' );

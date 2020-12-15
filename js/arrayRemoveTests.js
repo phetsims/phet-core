@@ -11,7 +11,7 @@ import arrayRemove from './arrayRemove.js';
 
 QUnit.module( 'arrayRemove' );
 
-QUnit.test( 'arrayRemove', function( assert ) {
+QUnit.test( 'arrayRemove', assert => {
   let arr = [ 4, 3, 2, 1, 3 ];
   arrayRemove( arr, 3 );
 
