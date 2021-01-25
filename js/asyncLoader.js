@@ -20,31 +20,17 @@ class AsyncLoader {
     // new locks being created after they should be.
     this.loadComplete = false;
 
-    // @private - mark that readyToProceed() has been called, and callback has been set. This step in the lifecycle should
-    // only happen once.
-    this.readyToProceedCalled = false;
-
-    // @private {function|null} - The callback which should be invoked after everything has been loaded.
-    this.callback = null;
+    // @private {function[]} - Listeners which will be invoked after everything has been loaded.
+    this.listeners = [];
   }
 
   /**
-   * Once all the locks needed have been created, call this to signify that once all pending items have been loaded,
-   * this callback should be called.
+   * @param {function} listener - called when load is complete
    * @public
-   * @param {function} callback - the callback function which should create and start the sim, given that the images
-   *                              are loaded
    */
-  readyToProceed( callback ) {
-    assert && assert( !this.readyToProceedCalled, 'Already called readyToProceed' );
-    assert && assert( typeof callback === 'function' );
-
-    this.callback = callback;
-
-    this.readyToProceedCalled = true;
-
-    // See if we are already loaded by the time that we originally signify ready to proceed.
-    this.proceedIfReady();
+  addListener( listener ) {
+    assert && assert( typeof listener === 'function' );
+    this.listeners.push( listener );
   }
 
   /**
@@ -52,17 +38,17 @@ class AsyncLoader {
    * @private
    */
   proceedIfReady() {
-    if ( this.pendingLocks.length === 0 && this.readyToProceedCalled ) {
+    if ( this.pendingLocks.length === 0 ) {
       assert && assert( !this.loadComplete, 'cannot complete load twice' );
-      assert && assert( this.callback, 'callback should be set if we are readyToProceed');
+      assert && assert( this.listeners.length > 0, 'async requires at least one listener' );
       this.loadComplete = true;
 
-      this.callback();
+      this.listeners.forEach( listener => listener() );
     }
   }
 
   /**
-   * Creates a lock, which returns a callback that needs to be run before we can proceed.
+   * Creates a lock, which is a callback that needs to be run before we can proceed.
    * @public
    *
    * @param {*} object
