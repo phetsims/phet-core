@@ -40,7 +40,6 @@ class AsyncLoader {
   proceedIfReady() {
     if ( this.pendingLocks.length === 0 ) {
       assert && assert( !this.loadComplete, 'cannot complete load twice' );
-      assert && assert( this.listeners.length > 0, 'async requires at least one listener' );
       this.loadComplete = true;
 
       this.listeners.forEach( listener => listener() );
