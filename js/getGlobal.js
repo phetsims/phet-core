@@ -10,7 +10,7 @@ import phetCore from './phetCore.js';
 
 /**
  * If the path exists on the window global, return it, otherwise returns null
- * @param {string} path a path to global, sucha s 'phet.joist.sim'
+ * @param {string} path a path to global, such as 'phet.joist.sim'
  * @returns {function|null}
  */
 const getGlobal = path => {
