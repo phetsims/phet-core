@@ -34,8 +34,8 @@ QUnit.test( 'Basic enumeration', assert => {
   }, 'Should not be able to set things after initialization' );
 
   window.assert && assert.throws( () => {
-    const x = Enumeration.byKeys( [ 'lowercase', 'should', 'fail' ] );
-    assert.ok( !!x, 'fake assertion so x is used' );
+    const X = Enumeration.byKeys( [ 'lowercase', 'should', 'fail' ] );
+    assert.ok( !!X, 'fake assertion so x is used' );
   }, 'Enumeration should fail for lowercase values' );
 } );
 

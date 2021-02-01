@@ -420,11 +420,11 @@ QUnit.test( 'do not recurse for non *Options', assert => {
 
   const testProperty1 = new Property( 'hi' );
   const testProperty2 = new Property( 'hi2' );
-  const testEnumeration = Enumeration.byKeys( [ 'ONE', 'TWO' ] );
-  const testEnumeration2 = Enumeration.byKeys( [ 'ONE1', 'TWO2' ] );
+  const TestEnumeration = Enumeration.byKeys( [ 'ONE', 'TWO' ] );
+  const TestEnumeration2 = Enumeration.byKeys( [ 'ONE1', 'TWO2' ] );
   const original = {
     prop: testProperty1,
-    enum: testEnumeration,
+    enum: TestEnumeration,
     someOptions: { nestedProp: testProperty1 }
   };
 
@@ -436,7 +436,7 @@ QUnit.test( 'do not recurse for non *Options', assert => {
   // test defaults with other non mergeable objects
   newObject = merge( {
     prop: testProperty2,
-    enum: testEnumeration2,
+    enum: TestEnumeration2,
     someOptions: { nestedProp: testProperty2 }
   }, original );
   assert.ok( _.isEqual( original, newObject ), 'should be equal' );
