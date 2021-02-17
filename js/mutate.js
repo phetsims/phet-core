@@ -40,7 +40,7 @@ function mutate( target, orderedKeys, options ) {
     assert && assert( !options.hasOwnProperty( key ) || options[ key ] !== undefined, 'Undefined not allowed for key: ' + key );
 
     if ( options[ key ] !== undefined ) {
-      this[ key ] = options[ key ];
+      target[ key ] = options[ key ];
     }
   } );
 }
