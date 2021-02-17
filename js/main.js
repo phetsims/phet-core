@@ -21,6 +21,7 @@ import './isArray.js';
 import './loadScript.js';
 import './memoize.js';
 import './merge.js';
+import './mutate.js';
 import './Namespace.js';
 import './openPopup.js';
 import './pairs.js';
