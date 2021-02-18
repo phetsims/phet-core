@@ -11,7 +11,7 @@ import phetCore from './phetCore.js';
 /**
  * If the path exists on the window global, return it, otherwise returns null
  * @param {string} path a path to global, such as 'phet.joist.sim'
- * @returns {function|null}
+ * @returns {*|null}
  */
 const getGlobal = path => {
   assert && assert( typeof path === 'string', 'path must be a string' );
