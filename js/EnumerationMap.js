@@ -1,4 +1,4 @@
-// Copyright 2019-2020, University of Colorado Boulder
+// Copyright 2019-2021, University of Colorado Boulder
 
 /**
  * An object that contains a value for each item in an enumeration.
@@ -37,6 +37,18 @@ class EnumerationMap {
   }
 
   /**
+   * Sets the value associated with the given enumeration entry.
+   * @public
+   *
+   * @param {Object} entry
+   * @param {*} value
+   */
+  set( entry, value ) {
+    assert && assert( this._enumeration.includes( entry ) );
+    this[ entry ] = value;
+  }
+
+  /**
    * Returns a new EnumerationMap with mapped values.
    * @public
    *
@@ -48,10 +60,10 @@ class EnumerationMap {
   }
 
   /**
-   * Calls the callback on each item of the orientation pair.
+   * Calls the callback on each item of the enumeration map.
    * @public
    *
-   * @param {Function} callback - function( {*}, {Orientation} )
+   * @param {Function} callback - function(value:*, enumerationValue:*)
    */
   forEach( callback ) {
     this._enumeration.VALUES.forEach( entry => callback( this.get( entry ), entry ) );
