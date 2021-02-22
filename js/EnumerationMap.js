@@ -68,6 +68,16 @@ class EnumerationMap {
   forEach( callback ) {
     this._enumeration.VALUES.forEach( entry => callback( this.get( entry ), entry ) );
   }
+
+  /**
+   * Returns the values stored in the map, as an array
+   * @public
+   *
+   * @returns {Array.<*>}
+   */
+  values() {
+    return this._enumeration.VALUES.map( entry => this.get( entry ) );
+  }
 }
 
 phetCore.register( 'EnumerationMap', EnumerationMap );
