@@ -24,6 +24,7 @@ import './merge.js';
 import './mutate.js';
 import './Namespace.js';
 import './openPopup.js';
+import './OrientationPair.js';
 import './pairs.js';
 import './partition.js';
 import phetCore from './phetCore.js';
