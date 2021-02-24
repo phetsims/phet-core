@@ -8,32 +8,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import getGlobal from './getGlobal.js';
 import phetCore from './phetCore.js';
-
 
 /**
  * @param {string} globalString - the name of the global
  */
 function logGlobal( globalString ) {
   assert && assert( typeof globalString === 'string', `invalid globalString: ${globalString}` );
-
-  if ( phet.log ) {
-
-    // Split the global string into tokens, separated by dot.
-    const tokens = globalString.split( '.' );
-
-    // Start at window, the root for all globals in the browser.
-    const startIndex = ( tokens[ 0 ] === 'window' ) ? 1 : 0;
-    let result = window;
-
-    // Walk the global hierarchy until the desired global is found, or some node does not exist.
-    for ( let i = startIndex; i < tokens.length && result; i++ ) {
-      result = result[ tokens[ i ] ];
-    }
-
-    // Log the results
-    phet.log && phet.log( `${globalString}: ${JSON.stringify( result, null, 2 )}` );
-  }
+  phet.log && phet.log( `${globalString}: ${JSON.stringify( getGlobal( globalString ), null, 2 )}` );
 }
 
 phetCore.register( 'logGlobal', logGlobal );
