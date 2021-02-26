@@ -163,6 +163,7 @@ class ConstantEventModel {
     return 1 / this.rate;
   }
 }
+
 EventTimer.ConstantEventModel = ConstantEventModel;
 
 class UniformEventModel {
@@ -203,6 +204,7 @@ class UniformEventModel {
     return uniformRandomNumber * 2 / this.rate;
   }
 }
+
 EventTimer.UniformEventModel = UniformEventModel;
 
 class PoissonEventModel {
@@ -246,6 +248,7 @@ class PoissonEventModel {
     return -Math.log( uniformRandomNumber ) / this.rate;
   }
 }
+
 EventTimer.PoissonEventModel = PoissonEventModel;
 
 export default EventTimer;

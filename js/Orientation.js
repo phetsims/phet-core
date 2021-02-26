@@ -30,7 +30,7 @@ class OrientationValue {
    * @param {function(number,number):Vector2} toVector
    */
   constructor( coordinate, centerCoordinate, minSide, maxSide, rectCoordinate,
-               rectSize, layoutBoxOrientation, modelToView, viewToModel,toVector ) {
+               rectSize, layoutBoxOrientation, modelToView, viewToModel, toVector ) {
 
     // @public {string} - So you can position things like node[ orientation.coordinate ] = value
     this.coordinate = coordinate;
