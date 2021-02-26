@@ -13,8 +13,8 @@ QUnit.module( 'detectPrefix' );
 
 QUnit.test( 'detectPrefix', assert => {
   const obj = {
-    'main': false,
-    'mozProp': ''
+    main: false,
+    mozProp: ''
   };
   assert.equal( detectPrefix( obj, 'main' ), 'main' );
   assert.equal( detectPrefix( obj, 'prop' ), 'mozProp' );

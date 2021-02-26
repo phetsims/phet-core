@@ -13,8 +13,8 @@ QUnit.module( 'detectPrefixEvent' );
 
 QUnit.test( 'detectPrefixEvent', assert => {
   const obj = {
-    'onmain': false,
-    'onmozprop': ''
+    onmain: false,
+    onmozprop: ''
   };
 
   assert.equal( detectPrefixEvent( obj, 'main' ), 'main' );
