@@ -103,7 +103,7 @@ const Poolable = {
           initialize.apply( result, arguments );
         }
         else {
-          result = new ( partialConstructor.apply( null, arguments ) );
+          result = new ( partialConstructor.apply( null, arguments ) )();
         }
 
         return result;
@@ -125,7 +125,7 @@ const Poolable = {
 
     // Initialize the pool (if it should have objects)
     while ( pool.length < options.initialSize ) {
-      pool.push( new DefaultConstructor );
+      pool.push( new DefaultConstructor() );
     }
   }
 };
