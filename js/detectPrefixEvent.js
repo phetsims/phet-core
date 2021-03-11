@@ -1,4 +1,5 @@
 // Copyright 2014-2020, University of Colorado Boulder
+/* eslint-disable no-useless-concat */
 
 /**
  * Scans through potential event properties on an object to detect prefixed forms, and returns the first match.
