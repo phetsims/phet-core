@@ -67,7 +67,7 @@ QUnit.test( 'VALUES', assert => {
   }, 'Setting values after initialization should throw an error.' );
 } );
 
-QUnit.test( 'Rich', function( assert ) {
+QUnit.test( 'Rich', assert => {
   class Planet {
     constructor( order ) {
       this.order = order;
