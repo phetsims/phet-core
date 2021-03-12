@@ -16,7 +16,7 @@ class Namespace {
     this.name = name; // @public (read-only)
 
     if ( window.phet ) {
-      assert && assert( !window.phet[ name ], 'namespace ' + name + ' already exists' );
+      assert && assert( !window.phet[ name ], `namespace ${name} already exists` );
       window.phet[ name ] = this;
     }
   }
@@ -46,7 +46,7 @@ class Namespace {
     // If the key isn't compound (doesn't contain '.'), we can just look it up on this namespace
     if ( key.indexOf( '.' ) < 0 ) {
       if ( !isHMR ) {
-        assert && assert( !this[ key ], key + ' is already registered for namespace ' + this.name );
+        assert && assert( !this[ key ], `${key} is already registered for namespace ${this.name}` );
       }
       this[ key ] = value;
     }
@@ -60,7 +60,7 @@ class Namespace {
 
         if ( !isHMR ) {
           assert && assert( !!parent[ keys[ i ] ],
-            [ this.name ].concat( keys.slice( 0, i + 1 ) ).join( '.' ) + ' needs to be defined to register ' + key );
+            `${[ this.name ].concat( keys.slice( 0, i + 1 ) ).join( '.' )} needs to be defined to register ${key}` );
         }
 
         parent = parent[ keys[ i ] ];
@@ -70,7 +70,7 @@ class Namespace {
       const lastKey = keys[ keys.length - 1 ];
 
       if ( !isHMR ) {
-        assert && assert( !parent[ lastKey ], key + ' is already registered for namespace ' + this.name );
+        assert && assert( !parent[ lastKey ], `${key} is already registered for namespace ${this.name}` );
       }
 
       parent[ lastKey ] = value;

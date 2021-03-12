@@ -19,11 +19,11 @@ function detectPrefix( obj, name ) {
   name = name.charAt( 0 ).toUpperCase() + name.slice( 1 );
 
   // Chrome planning to not introduce prefixes in the future, hopefully we will be safe
-  if ( obj[ 'moz' + name ] !== undefined ) { return 'moz' + name; }
-  if ( obj[ 'Moz' + name ] !== undefined ) { return 'Moz' + name; } // some prefixes seem to have all-caps?
-  if ( obj[ 'webkit' + name ] !== undefined ) { return 'webkit' + name; }
-  if ( obj[ 'ms' + name ] !== undefined ) { return 'ms' + name; }
-  if ( obj[ 'o' + name ] !== undefined ) { return 'o' + name; }
+  if ( obj[ `moz${name}` ] !== undefined ) { return `moz${name}`; }
+  if ( obj[ `Moz${name}` ] !== undefined ) { return `Moz${name}`; } // some prefixes seem to have all-caps?
+  if ( obj[ `webkit${name}` ] !== undefined ) { return `webkit${name}`; }
+  if ( obj[ `ms${name}` ] !== undefined ) { return `ms${name}`; }
+  if ( obj[ `o${name}` ] !== undefined ) { return `o${name}`; }
   return undefined;
 }
 

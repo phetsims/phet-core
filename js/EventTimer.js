@@ -198,7 +198,7 @@ class UniformEventModel {
     const uniformRandomNumber = this.pseudoRandomNumberSource();
     assert && assert( typeof uniformRandomNumber === 'number' &&
     uniformRandomNumber >= 0 && uniformRandomNumber < 1,
-      'Our uniform random number is outside of its expected range with a value of ' + uniformRandomNumber );
+      `Our uniform random number is outside of its expected range with a value of ${uniformRandomNumber}` );
 
     // sample the exponential distribution
     return uniformRandomNumber * 2 / this.rate;
@@ -242,7 +242,7 @@ class PoissonEventModel {
     const uniformRandomNumber = this.pseudoRandomNumberSource();
     assert && assert( typeof uniformRandomNumber === 'number' &&
     uniformRandomNumber >= 0 && uniformRandomNumber < 1,
-      'Our uniform random number is outside of its expected range with a value of ' + uniformRandomNumber );
+      `Our uniform random number is outside of its expected range with a value of ${uniformRandomNumber}` );
 
     // sample the exponential distribution
     return -Math.log( uniformRandomNumber ) / this.rate;

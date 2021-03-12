@@ -75,7 +75,7 @@ QUnit.test( 'Rich', assert => {
 
     // @public
     getText( name ) {
-      return name + ' is a person from the ' + this.order + ' planet.';
+      return `${name} is a person from the ${this.order} planet.`;
     }
   }
 

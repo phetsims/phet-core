@@ -17,10 +17,10 @@ function assertDifferences( assert, a, b, expectedAOnly, expectedBOnly, expected
   const inBoth = [];
   const result = arrayDifference( a, b, aOnly, bOnly, inBoth );
 
-  assert.ok( _.isEqual( aOnly, expectedAOnly ), 'aOnly: ' + a.toString() + ' diff ' + b.toString() + ' expected: ' + expectedAOnly.toString() + ' actual: ' + aOnly.toString() );
-  assert.ok( _.isEqual( bOnly, expectedBOnly ), 'bOnly: ' + a.toString() + ' diff ' + b.toString() + ' expected: ' + expectedBOnly.toString() + ' actual: ' + bOnly.toString() );
-  assert.ok( _.isEqual( inBoth, expectedBoth ), 'inBoth: ' + a.toString() + ' diff ' + b.toString() + ' expected: ' + expectedBoth.toString() + ' actual: ' + inBoth.toString() );
-  assert.ok( _.isEqual( aOnly, result ), 'return value: ' + a.toString() + ' diff ' + b.toString() );
+  assert.ok( _.isEqual( aOnly, expectedAOnly ), `aOnly: ${a.toString()} diff ${b.toString()} expected: ${expectedAOnly.toString()} actual: ${aOnly.toString()}` );
+  assert.ok( _.isEqual( bOnly, expectedBOnly ), `bOnly: ${a.toString()} diff ${b.toString()} expected: ${expectedBOnly.toString()} actual: ${bOnly.toString()}` );
+  assert.ok( _.isEqual( inBoth, expectedBoth ), `inBoth: ${a.toString()} diff ${b.toString()} expected: ${expectedBoth.toString()} actual: ${inBoth.toString()}` );
+  assert.ok( _.isEqual( aOnly, result ), `return value: ${a.toString()} diff ${b.toString()}` );
 }
 
 function generatedTest( assert, maxNumber, aSize, bSize ) {

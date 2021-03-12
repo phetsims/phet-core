@@ -37,7 +37,7 @@ function mutate( target, orderedKeys, options ) {
   _.each( orderedKeys, key => {
 
     // See https://github.com/phetsims/scenery/issues/580 for more about passing undefined.
-    assert && assert( !options.hasOwnProperty( key ) || options[ key ] !== undefined, 'Undefined not allowed for key: ' + key );
+    assert && assert( !options.hasOwnProperty( key ) || options[ key ] !== undefined, `Undefined not allowed for key: ${key}` );
 
     if ( options[ key ] !== undefined ) {
       target[ key ] = options[ key ];

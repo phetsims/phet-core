@@ -23,7 +23,7 @@ class InstanceRegistry {
     if ( phet.chipper.queryParameters.binder ) {
 
       // Create the map if we haven't seen that component type before
-      const key = repoName + '/' + typeName;
+      const key = `${repoName}/${typeName}`;
       map[ key ] = map[ key ] || [];
 
       try {
