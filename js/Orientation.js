@@ -26,11 +26,12 @@ class OrientationValue {
    * @param {string} rectCoordinate,
    * @param {string} rectSize
    * @param {string} layoutBoxOrientation
+   * @param {string} size
    * @param {function(ModelViewTransform2,number):number} modelToView
    * @param {function(number,number):Vector2} toVector
    */
   constructor( coordinate, centerCoordinate, minSide, maxSide, rectCoordinate,
-               rectSize, layoutBoxOrientation, modelToView, viewToModel, toVector ) {
+               rectSize, layoutBoxOrientation, size, modelToView, viewToModel, toVector ) {
 
     // @public {string} - So you can position things like node[ orientation.coordinate ] = value
     this.coordinate = coordinate;
@@ -48,6 +49,9 @@ class OrientationValue {
 
     // @public {string} - The name of the orientation when used for LayoutBox
     this.layoutBoxOrientation = layoutBoxOrientation;
+
+    // @public {string}
+    this.size = size;
 
     // @public {string} - The value of the aria-orientation attribute for this OrientationValue.
     this.ariaOrientation = layoutBoxOrientation;
@@ -88,13 +92,13 @@ class OrientationValue {
   }
 }
 
-const HORIZONTAL = new OrientationValue( 'x', 'centerX', 'left', 'right', 'rectX', 'rectWidth', 'horizontal',
+const HORIZONTAL = new OrientationValue( 'x', 'centerX', 'left', 'right', 'rectX', 'rectWidth', 'horizontal', 'width',
   ( modelViewTransform, value ) => modelViewTransform.modelToViewX( value ),
   ( modelViewTransform, value ) => modelViewTransform.viewToModelX( value ),
   ( a, b ) => new Vector2( a, b )
 );
 
-const VERTICAL = new OrientationValue( 'y', 'centerY', 'top', 'bottom', 'rectY', 'rectHeight', 'vertical',
+const VERTICAL = new OrientationValue( 'y', 'centerY', 'top', 'bottom', 'rectY', 'rectHeight', 'vertical', 'height',
   ( modelViewTransform, value ) => modelViewTransform.modelToViewY( value ),
   ( modelViewTransform, value ) => modelViewTransform.viewToModelY( value ),
   ( a, b ) => new Vector2( b, a )
