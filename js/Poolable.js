@@ -33,7 +33,7 @@ const Poolable = {
       initialize: type.prototype.initialize,
 
       // {number} - A limit for the pool size (so we don't leak memory by growing the pool faster than we take things
-      // from it).
+      // from it). Can be customized by setting Type.maxPoolSize
       maxSize: 100,
 
       // {number} - The initial size of the pool. To fill it, objects will be created with the default arguments.
@@ -52,6 +52,8 @@ const Poolable = {
 
     // {Array.<type>} - The actual array we store things in. Always push/pop.
     const pool = [];
+
+    let maxPoolSize = options.maxSize;
 
     // {function} - There is a madness to this craziness. We'd want to use the method noted at
     // https://stackoverflow.com/questions/1606797/use-of-apply-with-new-operator-is-this-possible, but the type is
@@ -107,6 +109,38 @@ const Poolable = {
         }
 
         return result;
+      },
+
+      /**
+       * Returns the current size of the pool.
+       * @public
+       *
+       * @returns {number}
+       */
+      get poolSize() {
+        return pool.length;
+      },
+
+      /**
+       * Sets the maximum pool size.
+       * @public
+       *
+       * @param {number} value
+       */
+      set maxPoolSize( value ) {
+        assert && assert( value === Number.POSITIVE_INFINITY || ( Number.isInteger( value ) && value >= 0 ), 'maxPoolSize should be a non-negative integer or infinity' );
+
+        maxPoolSize = value;
+      },
+
+      /**
+       * Returns the maximum pool size.
+       * @public
+       *
+       * @returns {number}
+       */
+      get maxPoolSize() {
+        return maxPoolSize;
       }
     } );
 
@@ -117,7 +151,7 @@ const Poolable = {
        * @public
        */
       freeToPool: function() {
-        if ( pool.length < options.maxSize ) {
+        if ( pool.length < maxPoolSize ) {
           pool.push( this );
         }
       }
