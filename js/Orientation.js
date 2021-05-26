@@ -28,6 +28,7 @@ class OrientationValue {
    * @param {string} layoutBoxOrientation
    * @param {string} size
    * @param {function(ModelViewTransform2,number):number} modelToView
+   * @param {function(ModelViewTransform2,number):number} viewToModel
    * @param {function(number,number):Vector2} toVector
    */
   constructor( coordinate, centerCoordinate, minSide, maxSide, rectCoordinate,
