@@ -6,8 +6,6 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import Circle from '../../scenery/js/nodes/Circle.js';
-import Node from '../../scenery/js/nodes/Node.js';
 import assertHasProperties from './assertHasProperties.js';
 
 QUnit.module( 'assertHasProperties' );
@@ -44,11 +42,26 @@ QUnit.test( 'assertHasProperties', assert => {
     assertHasProperties( new MyObject(), [ 'aFunction', 'getter' ] );
     assertHasProperties( new MyChild(), [ 'aFunction', 'getter', 'childMethod', 'childGetter' ] );
 
+    // Simulate scenery Node style types
+    class Parent {
+      constructor() {
+        this.opacityProperty = {};
+      }
+
+      // @public
+      getOpacity() {return 0;}
+
+      // @public
+      get opacity() { return 0;}
+    }
+
+    class Circle extends Parent {}
+
     // on direct prototype
-    assertHasProperties( new Node(), [ 'getOpacity', 'opacity', 'opacityProperty' ] );
+    assertHasProperties( new Parent(), [ 'getOpacity', 'opacity', 'opacityProperty' ] );
 
     // on ancestor parent prototype
-    assertHasProperties( new Circle( 10 ), [ 'getOpacity', 'opacity', 'opacityProperty' ] );
+    assertHasProperties( new Circle(), [ 'getOpacity', 'opacity', 'opacityProperty' ] );
 
     // Should error because properties are not provided
     assert.throws( () => assertHasProperties( { b: false }, [ 'a' ] ) );
