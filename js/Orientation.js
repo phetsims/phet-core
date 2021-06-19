@@ -7,7 +7,6 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import Vector2 from '../../dot/js/Vector2.js';
 import Enumeration from './Enumeration.js';
 import phetCore from './phetCore.js';
 
@@ -84,6 +83,7 @@ class OrientationValue {
      *
      * @param {number} primary
      * @param {number} secondary
+     * @param {function} Vector2 constructor -- passed in instead of imported so that phet-core doesn't have dot as a dependency
      * @returns {Vector2}
      */
     this.toVector = toVector;
@@ -96,13 +96,13 @@ class OrientationValue {
 const HORIZONTAL = new OrientationValue( 'x', 'centerX', 'left', 'right', 'rectX', 'rectWidth', 'horizontal', 'width',
   ( modelViewTransform, value ) => modelViewTransform.modelToViewX( value ),
   ( modelViewTransform, value ) => modelViewTransform.viewToModelX( value ),
-  ( a, b ) => new Vector2( a, b )
+  ( a, b, Vector2 ) => new Vector2( a, b )
 );
 
 const VERTICAL = new OrientationValue( 'y', 'centerY', 'top', 'bottom', 'rectY', 'rectHeight', 'vertical', 'height',
   ( modelViewTransform, value ) => modelViewTransform.modelToViewY( value ),
   ( modelViewTransform, value ) => modelViewTransform.viewToModelY( value ),
-  ( a, b ) => new Vector2( b, a )
+  ( a, b, Vector2 ) => new Vector2( b, a )
 );
 
 // Set up opposites as object references (circular)
