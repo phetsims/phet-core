@@ -93,19 +93,19 @@ const Poolable = {
        * @param {...*} var_args - The arguments will be passed to the constructor.
        * @returns {type}
        */
-      createFromPool: function() {
+      createFromPool: function( ...args ) {
         let result;
 
         if ( pool.length ) {
           result = pool.pop();
-          initialize.apply( result, arguments );
+          initialize.apply( result, args );
         }
         else if ( useDefaultConstruction ) {
           result = new DefaultConstructor();
-          initialize.apply( result, arguments );
+          initialize.apply( result, args );
         }
         else {
-          result = new ( partialConstructor.apply( null, arguments ) )();
+          result = new ( partialConstructor.apply( null, args ) )();
         }
 
         return result;

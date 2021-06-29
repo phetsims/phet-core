@@ -13,6 +13,7 @@
 import phetCore from './phetCore.js';
 
 function extend( obj ) {
+  // eslint-disable-next-line prefer-rest-params
   _.each( Array.prototype.slice.call( arguments, 1 ), source => {
     if ( source ) {
       for ( const prop in source ) {
