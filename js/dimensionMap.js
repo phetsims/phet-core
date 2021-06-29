@@ -51,7 +51,7 @@ function dimensionMap( dimension, array, map ) {
       indices.push( index );
 
       // If our dimension is 1, it's our base case (apply the normal map function), otherwise continue recursively.
-      const result = dim === 1 ? map.apply( null, [ element ].concat( indices ) ) : recur( dim - 1, element );
+      const result = dim === 1 ? map( ...[ element ].concat( indices ) ) : recur( dim - 1, element );
 
       // We are done with iteration
       indices.pop();

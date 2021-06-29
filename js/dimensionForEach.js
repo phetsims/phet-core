@@ -49,7 +49,7 @@ function dimensionForEach( dimension, array, forEach ) {
 
       // Our base case, where recur was passed a 1-dimensional array
       if ( dim === 1 ) {
-        forEach.apply( null, [ element ].concat( indices ) );
+        forEach( ...[ element ].concat( indices ) );
       }
       // We have more dimensions
       else {

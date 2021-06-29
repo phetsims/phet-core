@@ -63,7 +63,7 @@ const Poolable = {
     const partialConstructor = Function.prototype.bind.bind( type, type );
 
     // {function} - Basically our type constructor, but with the default arguments included already.
-    const DefaultConstructor = partialConstructor.apply( null, options.defaultArguments );
+    const DefaultConstructor = partialConstructor( ...options.defaultArguments );
 
     const initialize = options.initialize;
     const useDefaultConstruction = options.useDefaultConstruction;
@@ -105,7 +105,7 @@ const Poolable = {
           initialize.apply( result, args );
         }
         else {
-          result = new ( partialConstructor.apply( null, args ) )();
+          result = new ( partialConstructor( ...args ) )();
         }
 
         return result;
