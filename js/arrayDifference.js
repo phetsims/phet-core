@@ -9,7 +9,7 @@
 import phetCore from './phetCore.js';
 
 /**
- * Given two arrays, find the items that are only in one of them (mutates the aOnly/bOnly/inBopth parameters)
+ * Given two arrays, find the items that are only in one of them (mutates the aOnly/bOnly/inBoth parameters)
  * @public
  *
  * NOTE: Assumes there are no duplicate values in each individual array.
@@ -50,7 +50,7 @@ function arrayDifference( a, b, aOnly, bOnly, inBoth ) {
   Array.prototype.push.apply( aOnly, a );
   Array.prototype.push.apply( bOnly, b );
 
-  outerLoop:
+  outerLoop: // eslint-disable-line no-labels
     for ( let i = 0; i < aOnly.length; i++ ) {
       const aItem = aOnly[ i ];
 
@@ -63,7 +63,7 @@ function arrayDifference( a, b, aOnly, bOnly, inBoth ) {
           bOnly.splice( j, 1 );
           j = 0;
           if ( i === aOnly.length ) {
-            break outerLoop;
+            break outerLoop; // eslint-disable-line no-labels
           }
           i -= 1;
         }
