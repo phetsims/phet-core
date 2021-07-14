@@ -40,7 +40,7 @@ const EnumerationIO = enumeration => {
         assert && assert( enumeration.KEYS.indexOf( stateObject ) >= 0, `Unrecognized value: ${stateObject}` );
         return enumeration[ stateObject ];
       },
-      stateSchema: new StateSchema( `${valueNames.join( '|' )}`, {
+      stateSchema: StateSchema.asValue( `${valueNames.join( '|' )}`, {
         isValidValue: v => valueNames.includes( v )
       } )
     } ) );
