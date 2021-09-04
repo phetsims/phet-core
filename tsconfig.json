@@ -1,0 +1,10 @@
+{
+  "extends": "../chipper/tsconfig-core.json",
+  "include": [
+    "js/**/*"
+  ],
+  "exclude": [
+    "js/**/*test*",
+    "js/EnumerationIO.js"
+  ]
+}
