@@ -11,7 +11,8 @@
   },
   "phet": {
     "generatedUnitTests": true,
-    "requirejsNamespace": "PHET_CORE"
+    "requirejsNamespace": "PHET_CORE",
+    "supportsOutputJS": true
   },
   "eslintConfig": {
     "extends": "../chipper/eslint/sim_eslintrc.js"
