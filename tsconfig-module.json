@@ -6,6 +6,8 @@
   "exclude": [
     "js/**/*Test*",
     "js/**/*test*",
+    //
+    // Included in axon
     "js/EnumerationIO.js"
   ]
 }
