@@ -1,0 +1,13 @@
+{
+  "extends": "../chipper/tsconfig-core.json",
+  "references": [
+    {
+      "path": "../joist/tsconfig-module.json"
+    }
+  ],
+  "include": [
+    "js/**/*Test*",
+    "js/**/*test*",
+    "js/EnumerationIO.js"
+  ]
+}
