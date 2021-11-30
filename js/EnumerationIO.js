@@ -9,7 +9,6 @@
 
 import IOType from '../../tandem/js/types/IOType.js';
 import StateSchema from '../../tandem/js/types/StateSchema.js';
-import Enumeration from './Enumeration.js';
 import phetCore from './phetCore.js';
 
 // {Map.<enumeration:Enumeration, IOType>} - Cache each parameterized EnumerationIO so that it is only created once.
@@ -22,7 +21,6 @@ const cache = new Map();
  */
 const EnumerationIO = enumeration => {
   assert && assert( enumeration, 'enumeration must be supplied' );
-  assert && assert( enumeration instanceof Enumeration, 'enumeration must be an Enumeration' );
 
   if ( !cache.has( enumeration ) ) {
     const toStateObjectImpl = v => v.name;
