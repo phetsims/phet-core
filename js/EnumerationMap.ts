@@ -8,32 +8,38 @@
 
 import phetCore from './phetCore.js';
 
-class EnumerationMap {
+type IEnumeration<T> = {
+  VALUES: T[]
+};
+
+// T = enumeration value type
+// U = mapped value type
+class EnumerationMap<T, U> {
+  private _enumeration: IEnumeration<T>;
+  private _map = new Map<T, U>();
+
   /**
    * @param {Enumeration} enumeration
    * @param {function} factory - function( {Enumeration.*} ) => {*}, maps an enumeration value to any value.
    */
-  constructor( enumeration, factory ) {
+  constructor( enumeration: IEnumeration<T>, factory: ( t: T ) => U ) {
 
     // @private {Enumeration}
     this._enumeration = enumeration;
 
     enumeration.VALUES.forEach( entry => {
-      assert && assert( this[ entry ] === undefined, 'Enumeration key override problem' );
-      this[ entry ] = factory( entry );
+      assert && assert( !this._map.has( entry ), 'Enumeration key override problem' );
+      this._map.set( entry, factory( entry ) );
     } );
   }
 
   /**
    * Returns the value associated with the given enumeration entry.
-   * @public
-   *
-   * @param {Object} entry
-   * @returns {*}
    */
-  get( entry ) {
-    assert && assert( this._enumeration.includes( entry ) );
-    return this[ entry ];
+  get( entry: T ): U {
+    assert && assert( this._enumeration.VALUES.includes( entry ) );
+    assert && assert( this._map.has( entry ) );
+    return this._map.get( entry )!;
   }
 
   /**
@@ -43,9 +49,9 @@ class EnumerationMap {
    * @param {Object} entry
    * @param {*} value
    */
-  set( entry, value ) {
-    assert && assert( this._enumeration.includes( entry ) );
-    this[ entry ] = value;
+  set( entry: T, value: U ) {
+    assert && assert( this._enumeration.VALUES.includes( entry ) );
+    this._map.set( entry, value );
   }
 
   /**
@@ -55,7 +61,7 @@ class EnumerationMap {
    * @param {Function} mapFunction - function( {*}, {Enumeration.*} ): {*}
    * @returns {EnumerationMap.<*>} - With the mapped values
    */
-  map( mapFunction ) {
+  map( mapFunction: ( u: U, t: T ) => U ) {
     return new EnumerationMap( this._enumeration, entry => mapFunction( this.get( entry ), entry ) );
   }
 
@@ -65,7 +71,7 @@ class EnumerationMap {
    *
    * @param {Function} callback - function(value:*, enumerationValue:*)
    */
-  forEach( callback ) {
+  forEach( callback: ( u: U, t: T ) => void ) {
     this._enumeration.VALUES.forEach( entry => callback( this.get( entry ), entry ) );
   }
 
