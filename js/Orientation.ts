@@ -8,6 +8,7 @@
  */
 
 import phetCore from './phetCore.js';
+import RichEnumeration from './RichEnumeration.js';
 
 // So we don't introduce a dependency on phetcommon
 type MVT = {
@@ -31,7 +32,8 @@ class Orientation {
     ( a: number, b: number, Vector2: any ) => new Vector2( b, a )
   );
 
-  static VALUES = [ Orientation.HORIZONTAL, Orientation.VERTICAL ];
+  static rich = new RichEnumeration<Orientation>( Orientation );
+  static VALUES = Orientation.rich.values;
 
   name: string;
   coordinate: string; // So you can position things like node[ orientation.coordinate ] = value
