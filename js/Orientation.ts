@@ -33,9 +33,7 @@ class Orientation {
 
   static VALUES = [ Orientation.HORIZONTAL, Orientation.VERTICAL ];
 
-  // @ts-ignore - Assigned after instantiation, see below
-  opposite: Orientation;
-
+  name: string;
   coordinate: string; // So you can position things like node[ orientation.coordinate ] = value
   centerCoordinate: string; // So you can center things like node[ orientation.centerCoordinate ] = value
   minSide: string; // For getting the minimal/maximal values from bounds/nodes
@@ -52,7 +50,9 @@ class Orientation {
 
   // Creates a vector (primary,secondary) for horizontal orientations, and (secondary,primary) for vertical orientations.
   toVector: ( n: number, m: number, Vector2: any ) => any;
-  name: string;
+
+  // @ts-ignore - Assigned after instantiation, see below
+  opposite: Orientation;
 
   private constructor( name: string, coordinate: string, centerCoordinate: string, minSide: string, maxSide: string, rectCoordinate: string,
                        rectSize: string, layoutBoxOrientation: string, size: string,
@@ -73,12 +73,9 @@ class Orientation {
     this.toVector = toVector;
   }
 
+  // Necessary for computed property names
   toString() {
     return this.name;
-  }
-
-  static includes( x: Orientation ): boolean {
-    return x === Orientation.VERTICAL || x === Orientation.HORIZONTAL;
   }
 }
 
