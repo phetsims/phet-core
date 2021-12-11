@@ -32,8 +32,11 @@ class Orientation {
     ( a: number, b: number, Vector2: any ) => new Vector2( b, a )
   );
 
-  static rich = new RichEnumeration<Orientation>( Orientation );
-  static VALUES = Orientation.rich.values;
+  static enum = new RichEnumeration<Orientation>( Orientation, {
+    phetioDocumentation: 'Horizontal or vertical orientation'
+  } );
+
+  static VALUES = Orientation.enum.values;
 
   name: string;
   coordinate: string; // So you can position things like node[ orientation.coordinate ] = value

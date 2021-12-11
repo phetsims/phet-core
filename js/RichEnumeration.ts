@@ -4,6 +4,8 @@
  * This implementation auto-detects the enumeration values by Object.keys and instanceof.  Every property that has a
  * type matching the enumeration type is marked as a value.  See sample usage in Orientation.ts
  *
+ * This creates 2-way maps (key-to-value and value-to-key) that enable phet-io serialization.
+ *
  * class T{
  *     static a=new T();
  *     static b =new T();
@@ -22,15 +24,22 @@
  */
 
 import phetCore from './phetCore.js';
+import IRichEnumeration from './IRichEnumeration.js';
 
-class RichEnumeration<T> {
+type RichEnumerationOptions = {
+  phetioDocumentation?: string
+}
+
+class RichEnumeration<T> implements IRichEnumeration<T> {
   readonly values: T[];
   readonly keys: string[];
   private readonly valueToKeyMap = new Map<T, string>();
   readonly Enumeration: any;
+  phetioDocumentation?: string;
 
-  constructor( Enumeration: any ) {
+  constructor( Enumeration: any, providedOptions?: RichEnumerationOptions ) {
 
+    this.phetioDocumentation = providedOptions ? providedOptions.phetioDocumentation : undefined;
     Object.keys( Enumeration ).forEach( key => {
       const value = Enumeration[ key ];
       if ( value instanceof Enumeration ) {
@@ -47,9 +56,9 @@ class RichEnumeration<T> {
     this.Enumeration = Enumeration;
   }
 
-  getKey( value: T ) {
+  getKey( value: T ): string {
     assert && assert( this.valueToKeyMap.has( value ) );
-    return this.valueToKeyMap.get( value );
+    return this.valueToKeyMap.get( value )!;
   }
 
   getValue( key: string ): T {
