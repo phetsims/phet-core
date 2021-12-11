@@ -7,111 +7,84 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import Enumeration from './Enumeration.js';
 import phetCore from './phetCore.js';
 
-/**
- * @private
- */
-class OrientationValue {
+// So we don't introduce a dependency on phetcommon
+type MVT = {
+  modelToViewX: ( n: number ) => number;
+  modelToViewY: ( n: number ) => number;
+  viewToModelX: ( n: number ) => number;
+  viewToModelY: ( n: number ) => number;
+};
 
-  /**
-   * See property definitions for more documentation.
-   *
-   * @param {string} coordinate
-   * @param {string} centerCoordinate
-   * @param {string} minSide
-   * @param {string} maxSide
-   * @param {string} rectCoordinate,
-   * @param {string} rectSize
-   * @param {string} layoutBoxOrientation
-   * @param {string} size
-   * @param {function(ModelViewTransform2,number):number} modelToView
-   * @param {function(ModelViewTransform2,number):number} viewToModel
-   * @param {function(number,number):Vector2} toVector
-   */
-  constructor( coordinate, centerCoordinate, minSide, maxSide, rectCoordinate,
-               rectSize, layoutBoxOrientation, size, modelToView, viewToModel, toVector ) {
+class Orientation {
 
-    // @public {string} - So you can position things like node[ orientation.coordinate ] = value
+  static HORIZONTAL = new Orientation( 'HORIZONTAL', 'x', 'centerX', 'left', 'right', 'rectX', 'rectWidth', 'horizontal', 'width',
+    ( modelViewTransform, value ) => modelViewTransform.modelToViewX( value ),
+    ( modelViewTransform, value ) => modelViewTransform.viewToModelX( value ),
+    ( a: number, b: number, Vector2: any ) => new Vector2( a, b )
+  );
+
+  static VERTICAL = new Orientation( 'VERTICAL', 'y', 'centerY', 'top', 'bottom', 'rectY', 'rectHeight', 'vertical', 'height',
+    ( modelViewTransform, value ) => modelViewTransform.modelToViewY( value ),
+    ( modelViewTransform, value ) => modelViewTransform.viewToModelY( value ),
+    ( a: number, b: number, Vector2: any ) => new Vector2( b, a )
+  );
+
+  static VALUES = [ Orientation.HORIZONTAL, Orientation.VERTICAL ];
+
+  // @ts-ignore - Assigned after instantiation, see below
+  opposite: Orientation;
+
+  coordinate: string; // So you can position things like node[ orientation.coordinate ] = value
+  centerCoordinate: string; // So you can center things like node[ orientation.centerCoordinate ] = value
+  minSide: string; // For getting the minimal/maximal values from bounds/nodes
+  maxSide: string;
+  rectCoordinate: string; // For being able to handle Rectangles (x/y) and (width/height)
+  rectSize: string;
+  layoutBoxOrientation: string; // The name of the orientation when used for LayoutBox
+  size: string;
+  ariaOrientation: string; // The value of the aria-orientation attribute for this Orientation.
+
+  // Returns the single coordinate transformed by the appropriate dimension.
+  modelToView: ( m: MVT, n: number ) => number;
+  viewToModel: ( m: MVT, n: number ) => number;
+
+  // Creates a vector (primary,secondary) for horizontal orientations, and (secondary,primary) for vertical orientations.
+  toVector: ( n: number, m: number, Vector2: any ) => any;
+  name: string;
+
+  private constructor( name: string, coordinate: string, centerCoordinate: string, minSide: string, maxSide: string, rectCoordinate: string,
+                       rectSize: string, layoutBoxOrientation: string, size: string,
+                       modelToView: ( m: MVT, n: number ) => number,
+                       viewToModel: ( m: MVT, n: number ) => number, toVector: ( n: number, m: number, Vector2: any ) => any ) {
+    this.name = name;
     this.coordinate = coordinate;
-
-    // @public {string} - So you can center things like node[ orientation.centerCoordinate ] = value
     this.centerCoordinate = centerCoordinate;
-
-    // @public {string} - For getting the minimal/maximal values from bounds/nodes
     this.minSide = minSide;
     this.maxSide = maxSide;
-
-    // @public {string} - For being able to handle Rectangles (x/y) and (width/height)
     this.rectCoordinate = rectCoordinate;
     this.rectSize = rectSize;
-
-    // @public {string} - The name of the orientation when used for LayoutBox
     this.layoutBoxOrientation = layoutBoxOrientation;
-
-    // @public {string}
     this.size = size;
-
-    // @public {string} - The value of the aria-orientation attribute for this OrientationValue.
     this.ariaOrientation = layoutBoxOrientation;
-
-    /**
-     * Returns the single coordinate transformed by the appropriate dimension.
-     * @public
-     *
-     * @param {ModelViewTransform2} modelViewTransform
-     * @param {number} value
-     * @returns {number}
-     */
     this.modelToView = modelToView;
-
-    /**
-     * Returns the single coordinate transformed by the appropriate dimension.
-     * @public
-     *
-     * @param {ModelViewTransform2} modelViewTransform
-     * @param {number} value
-     * @returns {number}
-     */
     this.viewToModel = viewToModel;
-
-    /**
-     * {function} Creates a vector (primary,secondary) for horizontal orientations, and (secondary,primary) for vertical
-     * orientations.
-     * @public
-     *
-     * @param {number} primary
-     * @param {number} secondary
-     * @param {function} Vector2 constructor -- passed in instead of imported so that phet-core doesn't have dot as a dependency
-     * @returns {Vector2}
-     */
     this.toVector = toVector;
+  }
 
-    // @public {OrientationValue} Assigned after instantiation, see below.
-    this.opposite = null;
+  toString() {
+    return this.name;
+  }
+
+  static includes( x: Orientation ): boolean {
+    return x === Orientation.VERTICAL || x === Orientation.HORIZONTAL;
   }
 }
 
-const HORIZONTAL = new OrientationValue( 'x', 'centerX', 'left', 'right', 'rectX', 'rectWidth', 'horizontal', 'width',
-  ( modelViewTransform, value ) => modelViewTransform.modelToViewX( value ),
-  ( modelViewTransform, value ) => modelViewTransform.viewToModelX( value ),
-  ( a, b, Vector2 ) => new Vector2( a, b )
-);
-
-const VERTICAL = new OrientationValue( 'y', 'centerY', 'top', 'bottom', 'rectY', 'rectHeight', 'vertical', 'height',
-  ( modelViewTransform, value ) => modelViewTransform.modelToViewY( value ),
-  ( modelViewTransform, value ) => modelViewTransform.viewToModelY( value ),
-  ( a, b, Vector2 ) => new Vector2( b, a )
-);
-
 // Set up opposites as object references (circular)
-HORIZONTAL.opposite = VERTICAL;
-VERTICAL.opposite = HORIZONTAL;
+Orientation.HORIZONTAL.opposite = Orientation.VERTICAL;
+Orientation.VERTICAL.opposite = Orientation.HORIZONTAL;
 
-const Orientation = Enumeration.byMap( {
-  HORIZONTAL: HORIZONTAL,
-  VERTICAL: VERTICAL
-} );
 phetCore.register( 'Orientation', Orientation );
 export default Orientation;

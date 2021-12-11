@@ -10,47 +10,28 @@ import EnumerationMap from './EnumerationMap.js';
 import Orientation from './Orientation.js';
 import phetCore from './phetCore.js';
 
-class OrientationPair extends EnumerationMap {
+class OrientationPair<T> extends EnumerationMap<Orientation, T> {
+
   /**
-   * @param {*} horizontal - Value for the horizontal orientation
-   * @param {*} vertical - Value for the vertical orientation
+   * @param horizontal - Value for the horizontal orientation
+   * @param vertical - Value for the vertical orientation
    */
-  constructor( horizontal, vertical ) {
+  constructor( horizontal: T, vertical: T ) {
     super( Orientation, orientation => orientation === Orientation.HORIZONTAL ? horizontal : vertical );
   }
 
-  /**
-   * @public
-   *
-   * @returns {*}
-   */
-  get horizontal() {
+  get horizontal(): T {
     return this.get( Orientation.HORIZONTAL );
   }
 
-  /**
-   * @public
-   *
-   * @param {*} value
-   */
   set horizontal( value ) {
     this.set( Orientation.HORIZONTAL, value );
   }
 
-  /**
-   * @public
-   *
-   * @returns {*}
-   */
-  get vertical() {
+  get vertical(): T {
     return this.get( Orientation.VERTICAL );
   }
 
-  /**
-   * @public
-   *
-   * @param {*} value
-   */
   set vertical( value ) {
     this.set( Orientation.VERTICAL, value );
   }
@@ -62,7 +43,7 @@ class OrientationPair extends EnumerationMap {
    * @param {function} factory - Called factory( {Orientation} ) : {*}, called once for each orientation to determine
    *                             the value.
    */
-  static create( factory ) {
+  static create<T>( factory: ( o: Orientation ) => T ) {
     return new OrientationPair( factory( Orientation.HORIZONTAL ), factory( Orientation.VERTICAL ) );
   }
 }
