@@ -17,10 +17,10 @@ type IRichEnumeration<T> = {
   readonly phetioDocumentation?: string;
 
   // Lookup a value for a key
-  getValue( k: string ): T;
+  getValue( key: string ): T;
 
   // Reverse-lookup, find the key for the value, for PhET-iO deserialization
-  getKey( t: T ): string;
+  getKey( value: T ): string;
 };
 
 export default IRichEnumeration;
