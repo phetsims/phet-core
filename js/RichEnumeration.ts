@@ -35,7 +35,7 @@ class RichEnumeration<T> implements IRichEnumeration<T> {
   readonly keys: string[];
   private readonly valueToKeyMap = new Map<T, string>();
   readonly Enumeration: any;
-  phetioDocumentation?: string;
+  readonly phetioDocumentation?: string;
 
   constructor( Enumeration: any, providedOptions?: RichEnumerationOptions ) {
 

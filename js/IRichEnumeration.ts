@@ -8,13 +8,13 @@
 type IRichEnumeration<T> = {
 
   // The possible keys for the enumeration
-  keys: string[];
+  readonly keys: string[];
 
   // The values for the enumeration
-  values: T[];
+  readonly values: T[];
 
   // Optional PhET-iO documentation
-  phetioDocumentation?: string;
+  readonly phetioDocumentation?: string;
 
   // Lookup a value for a key
   getValue( k: string ): T;
