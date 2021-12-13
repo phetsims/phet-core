@@ -65,7 +65,7 @@ class RichEnumeration<T> implements IRichEnumeration<T> {
     return this.Enumeration[ key ];
   }
 
-  includes( value: T ) {
+  includes( value: T ): boolean {
     return this.values.includes( value );
   }
 }

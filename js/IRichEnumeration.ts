@@ -21,6 +21,9 @@ type IRichEnumeration<T> = {
 
   // Reverse-lookup, find the key for the value, for PhET-iO deserialization
   getKey( value: T ): string;
+
+  // Determines whether the value is in the enumeration
+  includes( value: T ): boolean;
 };
 
 export default IRichEnumeration;
