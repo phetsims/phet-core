@@ -38,16 +38,16 @@ class Orientation {
 
   static VALUES = Orientation.enum.values;
 
-  name: string;
-  coordinate: string; // So you can position things like node[ orientation.coordinate ] = value
-  centerCoordinate: string; // So you can center things like node[ orientation.centerCoordinate ] = value
-  minSide: string; // For getting the minimal/maximal values from bounds/nodes
-  maxSide: string;
-  rectCoordinate: string; // For being able to handle Rectangles (x/y) and (width/height)
-  rectSize: string;
-  layoutBoxOrientation: string; // The name of the orientation when used for LayoutBox
-  size: string;
-  ariaOrientation: string; // The value of the aria-orientation attribute for this Orientation.
+  readonly name: string;
+  readonly coordinate: string; // So you can position things like node[ orientation.coordinate ] = value
+  readonly centerCoordinate: string; // So you can center things like node[ orientation.centerCoordinate ] = value
+  readonly minSide: string; // For getting the minimal/maximal values from bounds/nodes
+  readonly maxSide: string;
+  readonly rectCoordinate: string; // For being able to handle Rectangles (x/y) and (width/height)
+  readonly rectSize: string;
+  readonly layoutBoxOrientation: string; // The name of the orientation when used for LayoutBox
+  readonly size: string;
+  readonly ariaOrientation: string; // The value of the aria-orientation attribute for this Orientation.
 
   // Returns the single coordinate transformed by the appropriate dimension.
   modelToView: ( m: MVT, n: number ) => number;
