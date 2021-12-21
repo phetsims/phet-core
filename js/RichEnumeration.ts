@@ -25,30 +25,32 @@
 
 import phetCore from './phetCore.js';
 import IRichEnumeration from './IRichEnumeration.js';
+import EnumerationValue from './EnumerationValue.js';
 
 type RichEnumerationOptions = {
   phetioDocumentation?: string
 }
 
-class RichEnumeration<T> implements IRichEnumeration<T> {
+class RichEnumeration<T extends EnumerationValue> implements IRichEnumeration<T> {
   readonly values: T[];
   readonly keys: string[];
-  private readonly valueToKeyMap = new Map<T, string>();
   readonly Enumeration: any;
   readonly phetioDocumentation?: string;
 
   constructor( Enumeration: any, providedOptions?: RichEnumerationOptions ) {
 
     this.phetioDocumentation = providedOptions ? providedOptions.phetioDocumentation : undefined;
+
+    this.keys = [];
+    this.values = [];
     Object.keys( Enumeration ).forEach( key => {
       const value = Enumeration[ key ];
       if ( value instanceof Enumeration ) {
-        this.valueToKeyMap.set( value, key );
+        this.keys.push( key );
+        this.values.push( value );
+        value.name = key;
       }
     } );
-
-    this.keys = Array.from( this.valueToKeyMap.values() );
-    this.values = Array.from( this.valueToKeyMap.keys() );
 
     assert && assert( this.keys.length > 0, 'no keys found' );
     assert && assert( this.values.length > 0, 'no values found' );
@@ -57,8 +59,7 @@ class RichEnumeration<T> implements IRichEnumeration<T> {
   }
 
   getKey( value: T ): string {
-    assert && assert( this.valueToKeyMap.has( value ) );
-    return this.valueToKeyMap.get( value )!;
+    return value.name!;
   }
 
   getValue( key: string ): T {

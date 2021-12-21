@@ -1,11 +1,13 @@
 // Copyright 2021, University of Colorado Boulder
 
+import EnumerationValue from './EnumerationValue.js';
+
 /**
  * Abstraction used by RichEnumerationProperty, and implemented by RichEnumeration.ts
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-type IRichEnumeration<T> = {
+interface IRichEnumeration<T extends EnumerationValue> {
 
   // The possible keys for the enumeration
   readonly keys: string[];
@@ -24,6 +26,11 @@ type IRichEnumeration<T> = {
 
   // Determines whether the value is in the enumeration
   includes( value: T ): boolean;
+}
+
+type RichEnumerationContainer<T extends EnumerationValue> = {
+  enumeration: IRichEnumeration<T>
 };
 
+export type { RichEnumerationContainer };
 export default IRichEnumeration;

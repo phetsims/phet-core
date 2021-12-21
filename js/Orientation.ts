@@ -9,6 +9,7 @@
 
 import phetCore from './phetCore.js';
 import RichEnumeration from './RichEnumeration.js';
+import EnumerationValue from './EnumerationValue.js';
 
 // So we don't introduce a dependency on phetcommon
 type MVT = {
@@ -18,15 +19,15 @@ type MVT = {
   viewToModelY: ( n: number ) => number;
 };
 
-class Orientation {
+class Orientation extends EnumerationValue {
 
-  static HORIZONTAL = new Orientation( 'HORIZONTAL', 'x', 'centerX', 'left', 'right', 'rectX', 'rectWidth', 'horizontal', 'width',
+  static HORIZONTAL = new Orientation( 'x', 'centerX', 'left', 'right', 'rectX', 'rectWidth', 'horizontal', 'width',
     ( modelViewTransform, value ) => modelViewTransform.modelToViewX( value ),
     ( modelViewTransform, value ) => modelViewTransform.viewToModelX( value ),
     ( a: number, b: number, Vector2: any ) => new Vector2( a, b )
   );
 
-  static VERTICAL = new Orientation( 'VERTICAL', 'y', 'centerY', 'top', 'bottom', 'rectY', 'rectHeight', 'vertical', 'height',
+  static VERTICAL = new Orientation( 'y', 'centerY', 'top', 'bottom', 'rectY', 'rectHeight', 'vertical', 'height',
     ( modelViewTransform, value ) => modelViewTransform.modelToViewY( value ),
     ( modelViewTransform, value ) => modelViewTransform.viewToModelY( value ),
     ( a: number, b: number, Vector2: any ) => new Vector2( b, a )
@@ -38,7 +39,6 @@ class Orientation {
 
   static VALUES = Orientation.enum.values;
 
-  readonly name: string;
   readonly coordinate: string; // So you can position things like node[ orientation.coordinate ] = value
   readonly centerCoordinate: string; // So you can center things like node[ orientation.centerCoordinate ] = value
   readonly minSide: string; // For getting the minimal/maximal values from bounds/nodes
@@ -59,11 +59,12 @@ class Orientation {
   // @ts-ignore - Assigned after instantiation, see below
   opposite: Orientation;
 
-  private constructor( name: string, coordinate: string, centerCoordinate: string, minSide: string, maxSide: string, rectCoordinate: string,
+  private constructor( coordinate: string, centerCoordinate: string, minSide: string, maxSide: string, rectCoordinate: string,
                        rectSize: string, layoutBoxOrientation: string, size: string,
                        modelToView: ( m: MVT, n: number ) => number,
                        viewToModel: ( m: MVT, n: number ) => number, toVector: ( n: number, m: number, Vector2: any ) => any ) {
-    this.name = name;
+
+    super();
     this.coordinate = coordinate;
     this.centerCoordinate = centerCoordinate;
     this.minSide = minSide;
@@ -76,11 +77,6 @@ class Orientation {
     this.modelToView = modelToView;
     this.viewToModel = viewToModel;
     this.toVector = toVector;
-  }
-
-  // Necessary for computed property names
-  toString() {
-    return this.name;
   }
 }
 
