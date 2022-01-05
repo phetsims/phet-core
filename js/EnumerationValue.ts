@@ -17,7 +17,7 @@ class EnumerationValue {
 
   // This method is unused, but needs to remain here so other types don't accidentally structurally match
   // enumeration values.  Without this, string satisfies the EnumerationValue interface, but we don't want it to.
-  isEnumerationValue() {return true;}
+  private isEnumerationValue() {return true;}
 }
 
 phetCore.register( 'EnumerationValue', EnumerationValue );
