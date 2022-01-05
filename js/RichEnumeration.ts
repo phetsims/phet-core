@@ -49,6 +49,7 @@ class RichEnumeration<T extends EnumerationValue> implements IRichEnumeration<T>
         this.keys.push( key );
         this.values.push( value );
         value.name = key;
+        value.enumeration = this;
       }
     } );
 

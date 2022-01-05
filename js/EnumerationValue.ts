@@ -7,9 +7,13 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 import phetCore from './phetCore.js';
+import RichEnumeration from './RichEnumeration.js';
 
 class EnumerationValue {
-  name?: string; // undefined until set by RichEnumeration
+
+  // undefined until set by RichEnumeration
+  name?: string;
+  enumeration?: RichEnumeration<this>;
 
   toString() {
     return this.name;
