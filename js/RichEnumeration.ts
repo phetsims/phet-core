@@ -26,9 +26,12 @@
 import phetCore from './phetCore.js';
 import IRichEnumeration from './IRichEnumeration.js';
 import EnumerationValue from './EnumerationValue.js';
+import inheritance from './inheritance.js';
+import merge from './merge.js';
 
 type RichEnumerationOptions = {
-  phetioDocumentation?: string
+  phetioDocumentation?: string,
+  instanceType?: any
 }
 
 class RichEnumeration<T extends EnumerationValue> implements IRichEnumeration<T> {
@@ -39,18 +42,36 @@ class RichEnumeration<T extends EnumerationValue> implements IRichEnumeration<T>
 
   constructor( Enumeration: any, providedOptions?: RichEnumerationOptions ) {
 
-    this.phetioDocumentation = providedOptions ? providedOptions.phetioDocumentation : undefined;
+    const options = merge( {
+      phetioDocumentation: undefined,
+
+      // Values are plucked from the supplied Enumeration, but in order to support subtyping (augmenting) Enumerations,
+      // you can specify the rule for what counts as a member of the enumeration. This should only be used in the
+      // special case of augmenting existing enumerations.
+      instanceType: Enumeration
+    }, providedOptions ) as Required<RichEnumerationOptions>;
+    this.phetioDocumentation = options.phetioDocumentation;
+
+    const instanceType = options.instanceType;
+
+    // Iterate over the type hierarchy to support augmenting enumerations, but reverse so that newly added enumeration
+    // values appear after previously existing enumeration values
+    const types = _.reverse( inheritance( Enumeration ) );
+
+    assert && assert( types.includes( instanceType ), 'the specified type should be in its own hierarchy' );
 
     this.keys = [];
     this.values = [];
-    Object.keys( Enumeration ).forEach( key => {
-      const value = Enumeration[ key ];
-      if ( value instanceof Enumeration ) {
-        this.keys.push( key );
-        this.values.push( value );
-        value.name = key;
-        value.enumeration = this;
-      }
+    types.forEach( type => {
+      Object.keys( type ).forEach( key => {
+        const value = type[ key ];
+        if ( value instanceof instanceType ) {
+          this.keys.push( key );
+          this.values.push( value );
+          value.name = key;
+          value.enumeration = this;
+        }
+      } );
     } );
 
     assert && assert( this.keys.length > 0, 'no keys found' );
