@@ -34,13 +34,15 @@ type RichEnumerationOptions = {
   instanceType?: any
 }
 
+type Constructor<T> = new ( ...args: any[] ) => T;
+
 class RichEnumeration<T extends EnumerationValue> implements IRichEnumeration<T> {
   readonly values: T[];
   readonly keys: string[];
   readonly Enumeration: any;
   readonly phetioDocumentation?: string;
 
-  constructor( Enumeration: any, providedOptions?: RichEnumerationOptions ) {
+  constructor( Enumeration: Constructor<T>, providedOptions?: RichEnumerationOptions ) {
 
     const options = merge( {
       phetioDocumentation: undefined,
@@ -78,6 +80,7 @@ class RichEnumeration<T extends EnumerationValue> implements IRichEnumeration<T>
     assert && assert( this.values.length > 0, 'no values found' );
 
     this.Enumeration = Enumeration;
+    EnumerationValue.sealedCache.add( Enumeration );
   }
 
   getKey( value: T ): string {

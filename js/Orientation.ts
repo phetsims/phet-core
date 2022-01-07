@@ -33,7 +33,7 @@ class Orientation extends EnumerationValue {
     ( a: number, b: number, Vector2: any ) => new Vector2( b, a )
   );
 
-  static enum = new RichEnumeration<Orientation>( Orientation, {
+  static enum = new RichEnumeration( Orientation, {
     phetioDocumentation: 'Horizontal or vertical orientation'
   } );
 
@@ -59,7 +59,7 @@ class Orientation extends EnumerationValue {
   // @ts-ignore - Assigned after instantiation, see below
   opposite: Orientation;
 
-  private constructor( coordinate: string, centerCoordinate: string, minSide: string, maxSide: string, rectCoordinate: string,
+  constructor( coordinate: string, centerCoordinate: string, minSide: string, maxSide: string, rectCoordinate: string,
                        rectSize: string, layoutBoxOrientation: string, size: string,
                        modelToView: ( m: MVT, n: number ) => number,
                        viewToModel: ( m: MVT, n: number ) => number, toVector: ( n: number, m: number, Vector2: any ) => any ) {
