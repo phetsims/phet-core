@@ -9,7 +9,7 @@ import './detectPrefix.js';
 import './detectPrefixEvent.js';
 import './dimensionForEach.js';
 import './dimensionMap.js';
-import './Enumeration.js';
+import './EnumerationDeprecated.js';
 import './EnumerationMap.js';
 import './escapeHTML.js';
 import './EventTimer.js';

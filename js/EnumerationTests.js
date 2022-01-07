@@ -1,17 +1,17 @@
 // Copyright 2018-2021, University of Colorado Boulder
 
 /**
- * Tests for Enumeration
+ * Tests for EnumerationDeprecated
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-import Enumeration from './Enumeration.js';
+import EnumerationDeprecated from './EnumerationDeprecated.js';
 
-QUnit.module( 'Enumeration' );
+QUnit.module( 'EnumerationDeprecated' );
 
 QUnit.test( 'Basic enumeration', assert => {
-  const CardinalDirection = Enumeration.byKeys( [ 'NORTH', 'SOUTH', 'EAST', 'WEST' ] );
+  const CardinalDirection = EnumerationDeprecated.byKeys( [ 'NORTH', 'SOUTH', 'EAST', 'WEST' ] );
 
   assert.equal( CardinalDirection.NORTH, 'NORTH', 'Equality for NORTH' );
   assert.equal( CardinalDirection.SOUTH, 'SOUTH', 'Equality for SOUTH' );
@@ -22,7 +22,7 @@ QUnit.test( 'Basic enumeration', assert => {
   assert.equal( CardinalDirection.includes( 'NORTH' ), false, 'Strings shouln\'t match' );
   assert.equal( CardinalDirection.includes( 'YORKSHIRE_TERRIER_WITH_THE_CANDLE_STICK_IN_THE_BALLROOM' ), false,
     'Not in the enumeration' );
-  assert.equal( CardinalDirection.includes( { name: 'NORTH' } ), false, 'Should not be able to synthesize Enumeration values' );
+  assert.equal( CardinalDirection.includes( { name: 'NORTH' } ), false, 'Should not be able to synthesize EnumerationDeprecated values' );
 
   // Test toString
   const object = {};
@@ -34,13 +34,13 @@ QUnit.test( 'Basic enumeration', assert => {
   }, 'Should not be able to set things after initialization' );
 
   window.assert && assert.throws( () => {
-    const X = Enumeration.byKeys( [ 'lowercase', 'should', 'fail' ] );
+    const X = EnumerationDeprecated.byKeys( [ 'lowercase', 'should', 'fail' ] );
     assert.ok( !!X, 'fake assertion so x is used' );
-  }, 'Enumeration should fail for lowercase values' );
+  }, 'EnumerationDeprecated should fail for lowercase values' );
 } );
 
 QUnit.test( 'Before freeze test', assert => {
-  const E = Enumeration.byKeys( [ 'A', 'B' ], {
+  const E = EnumerationDeprecated.byKeys( [ 'A', 'B' ], {
     beforeFreeze: E => {
       E.opposite = e => {
         window.assert && window.assert( E.includes( e ) );
@@ -60,7 +60,7 @@ QUnit.test( 'Before freeze test', assert => {
 } );
 
 QUnit.test( 'VALUES', assert => {
-  const People = Enumeration.byKeys( [ 'ALICE', 'BOB' ] );
+  const People = EnumerationDeprecated.byKeys( [ 'ALICE', 'BOB' ] );
   assert.ok( true, 'at least one assertion must run per test' );
   window.assert && assert.throws( () => {
     People.VALUES = 'something else';
@@ -81,7 +81,7 @@ QUnit.test( 'Rich', assert => {
 
   class Venus extends Planet {}
 
-  const Planets = Enumeration.byMap( {
+  const Planets = EnumerationDeprecated.byMap( {
     MARS: new Planet( 2 ),
     EARTH: new Planet( 3 )
   } );
@@ -97,7 +97,7 @@ QUnit.test( 'Rich', assert => {
   } );
 
   window.assert && assert.throws( () => {
-    Enumeration.byMap( {
+    EnumerationDeprecated.byMap( {
       MARS: new Planet( 2 ),
       EARTH: new Planet( 3 ),
       VENUS: new Venus( 7 ) // Forbidden at the moment, see https://github.com/phetsims/phet-core/issues/50#issuecomment-575324970

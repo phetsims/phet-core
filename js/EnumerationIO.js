@@ -1,8 +1,8 @@
 // Copyright 2018-2021, University of Colorado Boulder
 
 /**
- * IO Type for phet-core Enumeration that supports serializing and deserializing values. Cannot be moved to the core
- * type since Enumeration must be defined before ValidatorDef can be defined.
+ * IO Type for phet-core EnumerationDeprecated that supports serializing and deserializing values. Cannot be moved to the core
+ * type since EnumerationDeprecated must be defined before ValidatorDef can be defined.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -11,12 +11,12 @@ import IOType from '../../tandem/js/types/IOType.js';
 import StateSchema from '../../tandem/js/types/StateSchema.js';
 import phetCore from './phetCore.js';
 
-// {Map.<enumeration:Enumeration, IOType>} - Cache each parameterized EnumerationIO so that it is only created once.
+// {Map.<enumeration:EnumerationDeprecated, IOType>} - Cache each parameterized EnumerationIO so that it is only created once.
 const cache = new Map();
 
 /**
  * This caching implementation should be kept in sync with the other parametric IO Type caching implementations.
- * @param {Enumeration} enumeration
+ * @param {EnumerationDeprecated} enumeration
  * @returns {IOType}
  */
 const EnumerationIO = enumeration => {
@@ -26,7 +26,7 @@ const EnumerationIO = enumeration => {
     const toStateObjectImpl = v => v.name;
     const valueNames = enumeration.VALUES.map( toStateObjectImpl );
 
-    // Enumeration supports additional documentation, so the values can be described.
+    // EnumerationDeprecated supports additional documentation, so the values can be described.
     const additionalDocs = enumeration.phetioDocumentation ? ` ${enumeration.phetioDocumentation}` : '';
 
     cache.set( enumeration, new IOType( `EnumerationIO(${valueNames.join( '|' )})`, {

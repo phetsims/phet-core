@@ -19,12 +19,12 @@ class EnumerationMap<T, U> {
   private _map = new Map<T, U>();
 
   /**
-   * @param {Enumeration} enumeration
-   * @param {function} factory - function( {Enumeration.*} ) => {*}, maps an enumeration value to any value.
+   * @param enumeration
+   * @param factory - function( {Enumeration.*} ) => {*}, maps an enumeration value to any value.
    */
   constructor( enumeration: IEnumeration<T>, factory: ( t: T ) => U ) {
 
-    // @private {Enumeration}
+    // @private
     this._enumeration = enumeration;
 
     enumeration.VALUES.forEach( entry => {

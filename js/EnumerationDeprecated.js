@@ -3,13 +3,13 @@
 /**
  * Creates a simple enumeration, with most of the boilerplate.
  *
- * An Enumeration can be created like this:
+ * An EnumerationDeprecated can be created like this:
  *
- *   const CardinalDirection = Enumeration.byKeys( [ 'NORTH', 'SOUTH', 'EAST', 'WEST' ] );
+ *   const CardinalDirection = EnumerationDeprecated.byKeys( [ 'NORTH', 'SOUTH', 'EAST', 'WEST' ] );
  *
  * OR using rich values like so:
  *
- *   const CardinalDirection = Enumeration.byMap( {NORTH: northObject, SOUTH: southObject, EAST: eastObject, WEST: westObject} );
+ *   const CardinalDirection = EnumerationDeprecated.byMap( {NORTH: northObject, SOUTH: southObject, EAST: eastObject, WEST: westObject} );
  *
  * and values are referenced like this:
  *
@@ -27,30 +27,30 @@
  *   CardinalDirection.includes( CardinalDirection.SOUTHWEST ); // false
  *   CardinalDirection.includes( 'NORTH' ); // false, values are not strings
  *
- * Conventions for using Enumeration, from https://github.com/phetsims/phet-core/issues/53:
+ * Conventions for using EnumerationDeprecated, from https://github.com/phetsims/phet-core/issues/53:
  *
  * (1) Enumerations are named like classes/types. Nothing in the name needs to identify that they are Enumerations.
  *     See the example above: CardinalDirection, not CardinalDirectionEnum or CardinalDirectionEnumeration.
  *
- * (2) Enumeration values are named like constants, using uppercase. See the example above.
+ * (2) EnumerationDeprecated values are named like constants, using uppercase. See the example above.
  *
- * (3) If an Enumeration is closely related to some class, then make it a static field of that class. If an
- *     Enumeration is specific to a Property, then the Enumeration should likely be owned by the class that
+ * (3) If an EnumerationDeprecated is closely related to some class, then make it a static field of that class. If an
+ *     EnumerationDeprecated is specific to a Property, then the EnumerationDeprecated should likely be owned by the class that
  *     owns that Property.
  *
- * (4) If an Enumeration is not closely related to some class, then put the Enumeration in its own .js file.
+ * (4) If an EnumerationDeprecated is not closely related to some class, then put the EnumerationDeprecated in its own .js file.
  *     Do not combine multiple Enumerations into one file.
  *
- * (5) If a Property takes an Enumeration value, its validation typically looks like this:
+ * (5) If a Property takes an EnumerationDeprecated value, its validation typically looks like this:
  *
  *     const cardinalDirectionProperty = new Property( CardinalDirection.NORTH, {
  *       validValues: CardinalDirection.VALUES
  *     }
  *
- * (6) Values of the Enumeration are considered instances of the Enumeration in documentation. For example, a method
- *     that that takes an Enumeration value as an argument would be documented like this:
+ * (6) Values of the EnumerationDeprecated are considered instances of the EnumerationDeprecated in documentation. For example, a method
+ *     that that takes an EnumerationDeprecated value as an argument would be documented like this:
  *
- *     // @param {Scene} mode - value from Scene Enumeration
+ *     // @param {Scene} mode - value from Scene EnumerationDeprecated
  *     setSceneMode( mode ) {
  *       assert && assert( Scene.includes( mode ) );
  *       //...
@@ -62,13 +62,13 @@
 import merge from './merge.js';
 import phetCore from './phetCore.js';
 
-class Enumeration {
+class EnumerationDeprecated {
 
   /**
    * @param {Object} config - must provide keys such as {keys:['RED','BLUE]}
    *                          - or map such as {map:{RED: myRedValue, BLUE: myBlueValue}}
    *
-   * @private - clients should use Enumeration.byKeys or Enumeration.byMap
+   * @private - clients should use EnumerationDeprecated.byKeys or EnumerationDeprecated.byMap
    */
   constructor( config ) {
     assert && assert( config, 'config must be provided' );
@@ -85,7 +85,7 @@ class Enumeration {
       // {string|null} Will be appended to the EnumerationIO documentation, if provided
       phetioDocumentation: null,
 
-      // {function(Enumeration):|null} If provided, it will be called as beforeFreeze( enumeration ) just before the
+      // {function(EnumerationDeprecated):|null} If provided, it will be called as beforeFreeze( enumeration ) just before the
       // enumeration is frozen. Since it's not possible to modify the enumeration after
       // it is frozen (e.g. adding convenience functions), and there is no reference to
       // the enumeration object beforehand, this allows defining custom values/methods
@@ -97,7 +97,7 @@ class Enumeration {
     assert && assert( _.uniq( keys ).length === keys.length, 'There should be no duplicated values provided' );
     assert && keys.forEach( value => assert( typeof value === 'string', 'Each value should be a string' ) );
     assert && keys.forEach( value => assert( /^[A-Z][A-Z0-9_]*$/g.test( value ),
-      'Enumeration values should be uppercase alphanumeric with underscores and begin with a letter' ) );
+      'EnumerationDeprecated values should be uppercase alphanumeric with underscores and begin with a letter' ) );
     assert && assert( !_.includes( keys, 'VALUES' ),
       'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
     assert && assert( !_.includes( keys, 'KEYS' ),
@@ -155,20 +155,20 @@ class Enumeration {
    * Creates an enumeration based on the provided string array
    * @param {string[]} keys - such as ['RED','BLUE']
    * @param {Object} [options]
-   * @returns {Enumeration}
+   * @returns {EnumerationDeprecated}
    * @public
    */
   static byKeys( keys, options ) {
     assert && assert( Array.isArray( keys ), 'keys must be an array' );
     assert && assert( !options || options.keys === undefined );
-    return new Enumeration( merge( { keys: keys }, options ) );
+    return new EnumerationDeprecated( merge( { keys: keys }, options ) );
   }
 
   /**
    * Creates a "rich" enumeration based on the provided map
    * @param {Object} map - such as {RED: myRedValue, BLUE: myBlueValue}
    * @param {Object} [options]
-   * @returns {Enumeration}
+   * @returns {EnumerationDeprecated}
    * @public
    */
   static byMap( map, options ) {
@@ -178,9 +178,9 @@ class Enumeration {
       assert && assert( values.length >= 1, 'must have at least 2 entries in an enumeration' );
       assert && assert( _.every( values, value => value.constructor === values[ 0 ].constructor ), 'Values must have same constructor' );
     }
-    return new Enumeration( merge( { map: map }, options ) );
+    return new EnumerationDeprecated( merge( { map: map }, options ) );
   }
 }
 
-phetCore.register( 'Enumeration', Enumeration );
-export default Enumeration;
+phetCore.register( 'EnumerationDeprecated', EnumerationDeprecated );
+export default EnumerationDeprecated;

@@ -2,7 +2,7 @@
 
 
 import Property from '../../axon/js/Property.js';
-import Enumeration from './Enumeration.js';
+import EnumerationDeprecated from './EnumerationDeprecated.js';
 import merge from './merge.js';
 
 QUnit.module( 'merge' );
@@ -272,9 +272,9 @@ QUnit.test( 'check for reference level equality (e.g. for object literals, Prope
   assert.equal( testProperty.value, 42, 'original object literal should be overwritten' );
 
   const merged = merge( {}, original, merger );
-  assert.ok( merged.nestedOptions.needsAnEnum === testEnum.B, 'merge should preserve overwritten Enumeration types' );
-  assert.ok( merged.nestedOptions.moreOptions.needsAnEnum === testEnum.C, 'merge should preserve Enumeration types from target' );
-  assert.ok( merged.nestedOptions.moreOptions.needsDifferentEnum === testEnum.A, 'merge should preserve Enumeration types from source' );
+  assert.ok( merged.nestedOptions.needsAnEnum === testEnum.B, 'merge should preserve overwritten EnumerationDeprecated types' );
+  assert.ok( merged.nestedOptions.moreOptions.needsAnEnum === testEnum.C, 'merge should preserve EnumerationDeprecated types from target' );
+  assert.ok( merged.nestedOptions.moreOptions.needsDifferentEnum === testEnum.A, 'merge should preserve EnumerationDeprecated types from source' );
 } );
 
 QUnit.test( 'try a horribly nested case', assert => {
@@ -420,8 +420,8 @@ QUnit.test( 'do not recurse for non *Options', assert => {
 
   const testProperty1 = new Property( 'hi' );
   const testProperty2 = new Property( 'hi2' );
-  const TestEnumeration = Enumeration.byKeys( [ 'ONE', 'TWO' ] );
-  const TestEnumeration2 = Enumeration.byKeys( [ 'ONE1', 'TWO2' ] );
+  const TestEnumeration = EnumerationDeprecated.byKeys( [ 'ONE', 'TWO' ] );
+  const TestEnumeration2 = EnumerationDeprecated.byKeys( [ 'ONE1', 'TWO2' ] );
   const original = {
     prop: testProperty1,
     enum: TestEnumeration,
@@ -431,7 +431,7 @@ QUnit.test( 'do not recurse for non *Options', assert => {
   let newObject = merge( {}, original );
   assert.ok( _.isEqual( original, newObject ), 'should be equal from reference equality' );
   assert.ok( original.prop === newObject.prop, 'same Property' );
-  assert.ok( original.enum === newObject.enum, 'same Enumeration' );
+  assert.ok( original.enum === newObject.enum, 'same EnumerationDeprecated' );
 
   // test defaults with other non mergeable objects
   newObject = merge( {
@@ -441,7 +441,7 @@ QUnit.test( 'do not recurse for non *Options', assert => {
   }, original );
   assert.ok( _.isEqual( original, newObject ), 'should be equal' );
   assert.ok( original.prop === newObject.prop, 'same Property, ignore default' );
-  assert.ok( original.enum === newObject.enum, 'same Enumeration, ignore default' );
+  assert.ok( original.enum === newObject.enum, 'same EnumerationDeprecated, ignore default' );
 } );
 
 QUnit.test( 'support optional options', assert => {
