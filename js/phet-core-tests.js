@@ -16,7 +16,7 @@ import './detectPrefixEventTests.js';
 import './detectPrefixTests.js';
 import './dimensionForEachTests.js';
 import './dimensionMapTests.js';
-import './EnumerationTests.js';
+import './EnumerationDeprecatedTests.js';
 import './escapeHTMLTests.js';
 import './interleaveTests.js';
 import './isArrayTests.js';
