@@ -33,11 +33,9 @@ class Orientation extends EnumerationValue {
     ( a: number, b: number, Vector2: any ) => new Vector2( b, a )
   );
 
-  static enum = new RichEnumeration( Orientation, {
+  static enumeration = new RichEnumeration( Orientation, {
     phetioDocumentation: 'Horizontal or vertical orientation'
   } );
-
-  static VALUES = Orientation.enum.values;
 
   readonly coordinate: string; // So you can position things like node[ orientation.coordinate ] = value
   readonly centerCoordinate: string; // So you can center things like node[ orientation.centerCoordinate ] = value
@@ -60,9 +58,9 @@ class Orientation extends EnumerationValue {
   opposite: Orientation;
 
   constructor( coordinate: string, centerCoordinate: string, minSide: string, maxSide: string, rectCoordinate: string,
-                       rectSize: string, layoutBoxOrientation: string, size: string,
-                       modelToView: ( m: MVT, n: number ) => number,
-                       viewToModel: ( m: MVT, n: number ) => number, toVector: ( n: number, m: number, Vector2: any ) => any ) {
+               rectSize: string, layoutBoxOrientation: string, size: string,
+               modelToView: ( m: MVT, n: number ) => number,
+               viewToModel: ( m: MVT, n: number ) => number, toVector: ( n: number, m: number, Vector2: any ) => any ) {
 
     super();
     this.coordinate = coordinate;
@@ -77,6 +75,11 @@ class Orientation extends EnumerationValue {
     this.modelToView = modelToView;
     this.viewToModel = viewToModel;
     this.toVector = toVector;
+  }
+
+  // TODO: EnumerationMap depends on the API of EnumerationDeprecated. To get this to work, we need to hoist this property here. But this doesn't seem like it's best, https://github.com/phetsims/chipper/issues/1106#issuecomment-999113257
+  static get VALUES() {
+    return Orientation.enumeration.values;
   }
 }
 
