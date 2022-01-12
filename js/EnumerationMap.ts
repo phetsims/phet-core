@@ -12,11 +12,11 @@ type IEnumeration<T> = {
 
   // EnumerationDeprecated API
   VALUES: T[],
-  enumeration: never
+  enumeration?: never
 } | {
 
   // RichEnumeration API
-  VALUES: never,
+  VALUES?: never,
   enumeration: {
     values: T[]
   }
@@ -27,6 +27,7 @@ type IEnumeration<T> = {
 class EnumerationMap<T, U> {
   private _enumeration: IEnumeration<T>;
   private _map = new Map<T, U>();
+  private _values: T[];
 
   /**
    * @param enumeration
@@ -37,8 +38,8 @@ class EnumerationMap<T, U> {
     // @private
     this._enumeration = enumeration;
 
-    const values = enumeration.VALUES || enumeration.enumeration.values;
-    values.forEach( entry => {
+    this._values = enumeration.VALUES || enumeration.enumeration.values;
+    this._values.forEach( entry => {
       assert && assert( !this._map.has( entry ), 'Enumeration key override problem' );
       this._map.set( entry, factory( entry ) );
     } );
@@ -48,7 +49,7 @@ class EnumerationMap<T, U> {
    * Returns the value associated with the given enumeration entry.
    */
   get( entry: T ): U {
-    assert && assert( this._enumeration.VALUES.includes( entry ) );
+    assert && assert( this._values.includes( entry ) );
     assert && assert( this._map.has( entry ) );
     return this._map.get( entry )!;
   }
@@ -61,7 +62,7 @@ class EnumerationMap<T, U> {
    * @param {*} value
    */
   set( entry: T, value: U ) {
-    assert && assert( this._enumeration.VALUES.includes( entry ) );
+    assert && assert( this._values.includes( entry ) );
     this._map.set( entry, value );
   }
 
@@ -83,7 +84,7 @@ class EnumerationMap<T, U> {
    * @param {Function} callback - function(value:*, enumerationValue:*)
    */
   forEach( callback: ( u: U, t: T ) => void ) {
-    this._enumeration.VALUES.forEach( entry => callback( this.get( entry ), entry ) );
+    this._values.forEach( entry => callback( this.get( entry ), entry ) );
   }
 
   /**
@@ -93,7 +94,7 @@ class EnumerationMap<T, U> {
    * @returns {Array.<*>}
    */
   values() {
-    return this._enumeration.VALUES.map( entry => this.get( entry ) );
+    return this._values.map( entry => this.get( entry ) );
   }
 }
 
