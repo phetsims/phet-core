@@ -20,7 +20,7 @@ class EnumerationMap<T, U> {
 
   /**
    * @param enumeration
-   * @param factory - function( {Enumeration.*} ) => {*}, maps an enumeration value to any value.
+   * @param factory - function( {IEnumeration.*} ) => {*}, maps an enumeration value to any value.
    */
   constructor( enumeration: IEnumeration<T>, factory: ( t: T ) => U ) {
 
@@ -58,7 +58,7 @@ class EnumerationMap<T, U> {
    * Returns a new EnumerationMap with mapped values.
    * @public
    *
-   * @param {Function} mapFunction - function( {*}, {Enumeration.*} ): {*}
+   * @param {Function} mapFunction - function( {*}, {IEnumeration.*} ): {*}
    * @returns {EnumerationMap.<*>} - With the mapped values
    */
   map( mapFunction: ( u: U, t: T ) => U ) {
