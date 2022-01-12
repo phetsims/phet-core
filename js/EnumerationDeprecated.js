@@ -152,6 +152,53 @@ class EnumerationDeprecated {
   }
 
   /**
+   * To support consistent API with RichEnumeration.
+   * @public
+   * @param {string} key
+   * @returns {*}
+   */
+  getValue( key ) {
+    return this[ key ];
+  }
+
+  /**
+   * To support consistent API with RichEnumeration.
+   * @public
+   * @param {Object} enumerationValue
+   * @returns {string}
+   */
+  getKey( enumerationValue ) {
+    return enumerationValue.name;
+  }
+
+  /**
+   * To support consistent API with RichEnumeration.
+   * @public
+   * @returns {Object[]}
+   */
+  get values() {
+    return this.VALUES;
+  }
+
+  /**
+   * To support consistent API with RichEnumeration.
+   * @public
+   * @returns {string[]}
+   */
+  get keys() {
+    return this.KEYS;
+  }
+
+  /**
+   * To support consistent API with RichEnumeration.
+   * @public
+   * @returns {EnumerationDeprecated}
+   */
+  get enumeration() {
+    return this;
+  }
+
+  /**
    * Creates an enumeration based on the provided string array
    * @param {string[]} keys - such as ['RED','BLUE']
    * @param {Object} [options]
