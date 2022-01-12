@@ -76,11 +76,6 @@ class Orientation extends EnumerationValue {
     this.viewToModel = viewToModel;
     this.toVector = toVector;
   }
-
-  // TODO: EnumerationMap depends on the API of EnumerationDeprecated. To get this to work, we need to hoist this property here. But this doesn't seem like it's best, https://github.com/phetsims/chipper/issues/1106#issuecomment-999113257
-  static get VALUES() {
-    return Orientation.enumeration.values;
-  }
 }
 
 // Set up opposites as object references (circular)
