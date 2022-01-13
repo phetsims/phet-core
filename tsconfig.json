@@ -7,7 +7,6 @@
   ],
   "include": [
     "js/**/*Test*",
-    "js/**/*test*",
-    "js/EnumerationIO.js"
+    "js/**/*test*"
   ]
 }

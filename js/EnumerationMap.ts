@@ -9,14 +9,6 @@
 import phetCore from './phetCore.js';
 
 type IEnumeration<T> = {
-
-  // EnumerationDeprecated API
-  VALUES: T[],
-  enumeration?: never
-} | {
-
-  // RichEnumeration API
-  VALUES?: never,
   enumeration: {
     values: T[]
   }
@@ -38,7 +30,7 @@ class EnumerationMap<T, U> {
     // @private
     this._enumeration = enumeration;
 
-    this._values = enumeration.VALUES || enumeration.enumeration.values;
+    this._values = enumeration.enumeration.values;
     this._values.forEach( entry => {
       assert && assert( !this._map.has( entry ), 'Enumeration key override problem' );
       this._map.set( entry, factory( entry ) );
