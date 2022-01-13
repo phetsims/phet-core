@@ -68,6 +68,7 @@ class RichEnumeration<T extends EnumerationValue> implements IRichEnumeration<T>
       Object.keys( type ).forEach( key => {
         const value = type[ key ];
         if ( value instanceof instanceType ) {
+          assert && assert( key === key.toUpperCase(), 'keys should be upper case by convention' );
           this.keys.push( key );
           this.values.push( value );
           value.name = key;
