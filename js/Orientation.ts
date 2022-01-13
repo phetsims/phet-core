@@ -8,7 +8,7 @@
  */
 
 import phetCore from './phetCore.js';
-import RichEnumeration from './RichEnumeration.js';
+import Enumeration from './Enumeration.js';
 import EnumerationValue from './EnumerationValue.js';
 
 // So we don't introduce a dependency on phetcommon
@@ -33,7 +33,7 @@ class Orientation extends EnumerationValue {
     ( a: number, b: number, Vector2: any ) => new Vector2( b, a )
   );
 
-  static enumeration = new RichEnumeration( Orientation, {
+  static enumeration = new Enumeration( Orientation, {
     phetioDocumentation: 'Horizontal or vertical orientation'
   } );
 

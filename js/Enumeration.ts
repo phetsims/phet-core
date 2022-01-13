@@ -17,32 +17,32 @@
  * Object.keys(T) => ['a', 'b']
  * Object.values(T) => [T, T]
  *
- * Note how keys only picks up 'a' and 'b'.  Therefore, we can use Object.keys to infer the RichEnumeration values
+ * Note how keys only picks up 'a' and 'b'.  Therefore, we can use Object.keys to infer the Enumeration values
  * rather than having to re-list them in values or equivalent.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import phetCore from './phetCore.js';
-import IRichEnumeration from './IRichEnumeration.js';
+import IEnumeration from './IEnumeration.js';
 import EnumerationValue from './EnumerationValue.js';
 import inheritance from './inheritance.js';
 import merge from './merge.js';
 
-type RichEnumerationOptions = {
+type EnumerationOptions = {
   phetioDocumentation?: string,
   instanceType?: any
 }
 
 type Constructor<T> = new ( ...args: any[] ) => T;
 
-class RichEnumeration<T extends EnumerationValue> implements IRichEnumeration<T> {
+class Enumeration<T extends EnumerationValue> implements IEnumeration<T> {
   readonly values: T[];
   readonly keys: string[];
   readonly Enumeration: any;
   readonly phetioDocumentation?: string;
 
-  constructor( Enumeration: Constructor<T>, providedOptions?: RichEnumerationOptions ) {
+  constructor( Enumeration: Constructor<T>, providedOptions?: EnumerationOptions ) {
 
     const options = merge( {
       phetioDocumentation: undefined,
@@ -51,7 +51,7 @@ class RichEnumeration<T extends EnumerationValue> implements IRichEnumeration<T>
       // you can specify the rule for what counts as a member of the enumeration. This should only be used in the
       // special case of augmenting existing enumerations.
       instanceType: Enumeration
-    }, providedOptions ) as Required<RichEnumerationOptions>;
+    }, providedOptions ) as Required<EnumerationOptions>;
     this.phetioDocumentation = options.phetioDocumentation;
 
     const instanceType = options.instanceType;
@@ -97,6 +97,6 @@ class RichEnumeration<T extends EnumerationValue> implements IRichEnumeration<T>
   }
 }
 
-phetCore.register( 'RichEnumeration', RichEnumeration );
+phetCore.register( 'Enumeration', Enumeration );
 
-export default RichEnumeration;
+export default Enumeration;

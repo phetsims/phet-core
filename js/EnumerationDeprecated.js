@@ -119,8 +119,8 @@ class EnumerationDeprecated {
       const value = map[ key ] || {};
 
       // Set attributes of the enumeration value
-      assert && assert( value.name === undefined, 'rich enumeration values cannot provide their own name attribute' );
-      assert && assert( value.toString === Object.prototype.toString, 'rich enumeration values cannot provide their own toString' );
+      assert && assert( value.name === undefined, '"rich" enumeration values cannot provide their own name attribute' );
+      assert && assert( value.toString === Object.prototype.toString, '"rich" enumeration values cannot provide their own toString' );
 
       // @public {string} (read-only) - PhET-iO public API relies on this mapping, do not change it lightly
       value.name = key;
@@ -152,7 +152,7 @@ class EnumerationDeprecated {
   }
 
   /**
-   * To support consistent API with RichEnumeration.
+   * To support consistent API with Enumeration.
    * @public
    * @param {string} key
    * @returns {*}
@@ -162,7 +162,7 @@ class EnumerationDeprecated {
   }
 
   /**
-   * To support consistent API with RichEnumeration.
+   * To support consistent API with Enumeration.
    * @public
    * @param {Object} enumerationValue
    * @returns {string}
@@ -172,7 +172,7 @@ class EnumerationDeprecated {
   }
 
   /**
-   * To support consistent API with RichEnumeration.
+   * To support consistent API with Enumeration.
    * @public
    * @returns {Object[]}
    */
@@ -181,7 +181,7 @@ class EnumerationDeprecated {
   }
 
   /**
-   * To support consistent API with RichEnumeration.
+   * To support consistent API with Enumeration.
    * @public
    * @returns {string[]}
    */
@@ -190,7 +190,7 @@ class EnumerationDeprecated {
   }
 
   /**
-   * To support consistent API with RichEnumeration.
+   * To support consistent API with Enumeration.
    * @public
    * @returns {EnumerationDeprecated}
    */

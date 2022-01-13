@@ -3,11 +3,11 @@
 import EnumerationValue from './EnumerationValue.js';
 
 /**
- * Abstraction used by RichEnumerationProperty, and implemented by RichEnumeration.ts
+ * Abstraction used by EnumerationProperty, and implemented by Enumeration.ts
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-interface IRichEnumeration<T extends EnumerationValue> {
+interface IEnumeration<T extends EnumerationValue> {
 
   // The possible keys for the enumeration
   readonly keys: string[];
@@ -28,9 +28,9 @@ interface IRichEnumeration<T extends EnumerationValue> {
   includes( value: T ): boolean;
 }
 
-type RichEnumerationContainer<T extends EnumerationValue> = {
-  enumeration: IRichEnumeration<T>
+type EnumerationContainer<T extends EnumerationValue> = {
+  enumeration: IEnumeration<T>
 };
 
-export type { RichEnumerationContainer };
-export default IRichEnumeration;
+export type { EnumerationContainer };
+export default IEnumeration;
