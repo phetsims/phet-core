@@ -45,13 +45,13 @@ class Enumeration<T extends EnumerationValue> implements IEnumeration<T> {
   constructor( Enumeration: Constructor<T>, providedOptions?: EnumerationOptions ) {
 
     const options = merge( {
-      phetioDocumentation: undefined,
+      phetioDocumentation: '',
 
       // Values are plucked from the supplied Enumeration, but in order to support subtyping (augmenting) Enumerations,
       // you can specify the rule for what counts as a member of the enumeration. This should only be used in the
       // special case of augmenting existing enumerations.
       instanceType: Enumeration
-    }, providedOptions ) as Required<EnumerationOptions>;
+    }, providedOptions );
     this.phetioDocumentation = options.phetioDocumentation;
 
     const instanceType = options.instanceType;
