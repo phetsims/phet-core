@@ -37,7 +37,7 @@ type EnumerationOptions = {
 type Constructor<T> = new ( ...args: any[] ) => T;
 
 class Enumeration<T extends EnumerationValue> implements IEnumeration<T> {
-  readonly values: T[];
+  readonly values: T[]; // in the order that static instances are defined
   readonly keys: string[];
   readonly Enumeration: any;
   readonly phetioDocumentation?: string;
