@@ -36,9 +36,16 @@ type Options<T> = Pick<T, OptionalKeys<T>>;
 // P = ParentOptions
 // A = AllSubclassProvidedOptions
 // M = list of keys that are used in the constructor
-const optionize = <S, P, A, M extends keyof P = never>( s: Required<Options<S>> & Partial<P> & Required<Pick<P, M>>, a?: A ) => {
+const optionize = <S, P = {}, M extends keyof P = never, A = S & P>( s: Required<Options<S>> & Partial<P> & Required<Pick<P, M>>, a?: A ) => {
   return merge( s, a );
 };
+
+// This also works, we will keep it here now in case it helps with further improvements with inference.
+// const optionize = <S, P, M extends keyof P = never>() => {
+//   return <B>( s: Required<Options<S>> & Partial<P> & Required<Pick<P, M>>, a?: B ) => {
+//     return merge( s, a );
+//   };
+// };
 
 phetCore.register( 'optionize', optionize );
 export default optionize;
