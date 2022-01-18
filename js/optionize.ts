@@ -35,11 +35,8 @@ type Options<T> = Pick<T, OptionalKeys<T>>;
 // P = ParentOptions
 // A = AllSubclassProvidedOptions
 // M = list of keys that are used in the constructor
-// TODO: This probably doesn't need to be nested any more, see https://github.com/phetsims/chipper/issues/1128
-const optionize = <S, P, A, M extends keyof P = never>() => {
-  return ( s: Required<Options<S>> & Partial<P> & Required<Pick<P, M>>, a?: A ) => {
-    return merge( s, a );
-  };
+const optionize = <S, P, A, M extends keyof P = never>( s: Required<Options<S>> & Partial<P> & Required<Pick<P, M>>, a?: A ) => {
+  return merge( s, a );
 };
 
 phetCore.register( 'optionize', optionize );
