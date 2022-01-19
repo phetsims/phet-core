@@ -28,8 +28,8 @@ type Options<T> = Pick<T, OptionalKeys<T>>;
 // TODO: (I) How can we indicate that a required parameter (for P) will come in through defaults and/or providedOptions? Note: required parameters for S will not come from defaults.  See https://github.com/phetsims/chipper/issues/1128
 // S = SubclassSelfOptions
 // P = ParentOptions
+// M = list of keys from ParentOptions that are used in the constructor
 // A = AllSubclassProvidedOptions
-// M = list of keys that are used in the constructor
 const optionize = <S, P = {}, M extends keyof P = never, A = S & P>( defaults: Required<Options<S>> & Partial<P> & Required<Pick<P, M>>, providedOptions?: A ) => {
   return merge( defaults, providedOptions );
 };
