@@ -59,9 +59,13 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
+import deprecationWarning from './deprecationWarning.js';
 import merge from './merge.js';
 import phetCore from './phetCore.js';
 
+/**
+ * @deprecated
+ */
 class EnumerationDeprecated {
 
   /**
@@ -71,6 +75,8 @@ class EnumerationDeprecated {
    * @private - clients should use EnumerationDeprecated.byKeys or EnumerationDeprecated.byMap
    */
   constructor( config ) {
+    deprecationWarning( 'EnumerationDeprecated should be exchanged for classes that extend EnumerationValue, see WilderEnumerationPatterns for examples.' );
+
     assert && assert( config, 'config must be provided' );
 
     const keysProvided = !!config.keys;
