@@ -11,6 +11,10 @@ type OptionalKeys<T> = {
 // Gets the parts of an object that are optional
 type Options<T> = Pick<T, OptionalKeys<T>>;
 
+type EmptyObject = {
+  [ key: string | number ]: never
+}
+
 // type RequiredKeys<T> = {
 //   [K in keyof T]-?: {} extends Pick<T, K> ? never : K;
 // }[keyof T];
@@ -25,22 +29,35 @@ type Options<T> = Pick<T, OptionalKeys<T>>;
 // what comes out of merge?
 // an object with filled in defaults, and all the required things.  In our level and parent levels.
 
-// TODO: (I) How can we indicate that a required parameter (for ParentOptions) will come in through defaults and/or providedOptions? Note: required parameters for S will not come from defaults.  See https://github.com/phetsims/chipper/issues/1128
+type Defaults<SelfOptions = {}, ParentOptions = {}, KeysUsedInSubclassConstructor extends keyof ParentOptions = never> =
+  Required<Options<SelfOptions>> & Partial<ParentOptions> & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>>;
+
+// TODO: "Limitation (I)" How can we indicate that a required parameter (for ParentOptions) will come in through defaults and/or providedOptions? Note: required parameters for S will not come from defaults.  See https://github.com/phetsims/chipper/issues/1128
 // SelfOptions = SubclassSelfOptions
 // ParentOptions = ParentOptions
 // KeysUsedInSubclassConstructor = list of keys from ParentOptions that are used in the constructor
 // ProvidedOptions = AllSubclassProvidedOptions
-const optionize =
-  <ProvidedOptions,
-    SelfOptions = {},
-    ParentOptions = {},
-    KeysUsedInSubclassConstructor extends keyof ParentOptions = never>
-  (
-    defaults: Required<Options<SelfOptions>> & Partial<ParentOptions> & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>>,
-    providedOptions?: ProvidedOptions
-  ) => {
-    return merge( defaults, providedOptions );
-  };
+function optionize<ProvidedOptions,
+  SelfOptions = {},
+  ParentOptions = {},
+  KeysUsedInSubclassConstructor extends keyof ParentOptions = never>
+(
+  defaults: Defaults<SelfOptions, ParentOptions, KeysUsedInSubclassConstructor>,
+  providedOptions?: ProvidedOptions
+): Defaults<SelfOptions, ParentOptions, KeysUsedInSubclassConstructor> & ProvidedOptions;
+
+function optionize<ProvidedOptions, // eslint-disable-line no-redeclare
+  SelfOptions = {},
+  ParentOptions = {},
+  KeysUsedInSubclassConstructor extends keyof ParentOptions = never>
+(
+  empytObject: EmptyObject,
+  defaults: Defaults<SelfOptions, ParentOptions, KeysUsedInSubclassConstructor>,
+  providedOptions?: ProvidedOptions
+): EmptyObject & Defaults<SelfOptions, ParentOptions, KeysUsedInSubclassConstructor> & ProvidedOptions;
+
+// The implementation gets "any" types because of the above signatures
+function optionize( a: any, b?: any, c?: any ) { return merge( a, b, c ); } // eslint-disable-line no-redeclare,bad-text
 
 // TypeScript is all-or-none on inferring generic parameter types (per function), so we must use the nested strategy in
 // https://stackoverflow.com/questions/63678306/typescript-partial-type-inference to specify the types we want
@@ -79,4 +96,5 @@ const optionize = <S, P = {}, M extends keyof P = never, A = S & P>() => {
 
 
 phetCore.register( 'optionize', optionize );
-export default optionize;
+export { optionize as default };
+export type { Defaults };
