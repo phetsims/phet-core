@@ -31,10 +31,10 @@ type Options<T> = Pick<T, OptionalKeys<T>>;
 // KeysUsedInSubclassConstructor = list of keys from ParentOptions that are used in the constructor
 // ProvidedOptions = AllSubclassProvidedOptions
 const optionize =
-  <SelfOptions,
+  <ProvidedOptions,
+    SelfOptions = {},
     ParentOptions = {},
-    KeysUsedInSubclassConstructor extends keyof ParentOptions = never,
-    ProvidedOptions = SelfOptions & ParentOptions>
+    KeysUsedInSubclassConstructor extends keyof ParentOptions = never>
   (
     defaults: Required<Options<SelfOptions>> & Partial<ParentOptions> & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>>,
     providedOptions?: ProvidedOptions
