@@ -34,10 +34,10 @@ type Defaults<SelfOptions = {}, ParentOptions = {}, KeysUsedInSubclassConstructo
 
 // TODO: "Limitation (I)" How can we indicate that a required parameter (for ParentOptions) will come in through defaults and/or providedOptions? Note: required parameters for S will not come from defaults.  See https://github.com/phetsims/chipper/issues/1128
 
-// ProvidedOptions = The type of this classes public API (type of the providedOptions parameter in the constructor
+// ProvidedOptions = The type of this class's public API (type of the providedOptions parameter in the constructor)
 // SelfOptions = Options that are defined by "this" class. Anything optional in this block must have a default provided in "defaults"
 // ParentOptions = The public API for parent options, this will be exported by the parent class, like "NodeOptions"
-// KeysUsedInSubclassConstructor = list of keys from ParentOptions that are used in this constructor.
+// KeysUsedInSubclassConstructor = list of keys from ParentOptions that are used in this constructor
 function optionize<ProvidedOptions,
   SelfOptions = {},
   ParentOptions = {},
