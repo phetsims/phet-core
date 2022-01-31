@@ -8,8 +8,7 @@
  */
 import phetCore from './phetCore.js';
 import Enumeration from './Enumeration.js';
-
-type Constructor = new ( ...args: any[] ) => EnumerationValue;
+import Constructor from './Constructor.js';
 
 class EnumerationValue {
 
@@ -19,7 +18,7 @@ class EnumerationValue {
 
   // After a Enumeration is constructed, no new instances of that exact type can be made (though it is OK to
   // create subtypes)
-  static sealedCache = new Set<Constructor>();
+  static sealedCache = new Set<Constructor<EnumerationValue>>();
 
   toString() {
     return this.name;
@@ -30,7 +29,7 @@ class EnumerationValue {
   private isEnumerationValue() {return true;}
 
   constructor() {
-    const c = this.constructor as Constructor;
+    const c = this.constructor as Constructor<EnumerationValue>;
     assert && assert( !EnumerationValue.sealedCache.has( c ), 'cannot create instanceof of a sealed constructor' );
   }
 }

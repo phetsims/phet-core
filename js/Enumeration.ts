@@ -28,13 +28,12 @@ import IEnumeration from './IEnumeration.js';
 import EnumerationValue from './EnumerationValue.js';
 import inheritance from './inheritance.js';
 import merge from './merge.js';
+import Constructor from './Constructor.js';
 
 type EnumerationOptions = {
   phetioDocumentation?: string,
   instanceType?: any
 }
-
-type Constructor<T> = new ( ...args: any[] ) => T;
 
 class Enumeration<T extends EnumerationValue> implements IEnumeration<T> {
   readonly values: T[]; // in the order that static instances are defined
