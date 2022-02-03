@@ -29,8 +29,18 @@ type EmptyObject = {
 // what comes out of merge?
 // an object with filled in defaults, and all the required things.  In our level and parent levels.
 
+// This is the type for the `defaults` argument to optionize
 type Defaults<SelfOptions = {}, ParentOptions = {}, KeysUsedInSubclassConstructor extends keyof ParentOptions = never> =
-  Required<Options<SelfOptions>> & Partial<ParentOptions> & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>>;
+
+// Everything optional from SelfOptions must have a default specified
+  Required<Options<SelfOptions>> &
+
+  // Any or non of Parent options can be provided
+  Partial<ParentOptions> &
+
+  // Any keys provided in KeysUsedInSubclassConstructor are required to have a default provided, with the assumption
+  // that they will be used from the return type of optionize.
+  Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>>;
 
 // TODO: "Limitation (I)" How can we indicate that a required parameter (for ParentOptions) will come in through defaults and/or providedOptions? Note: required parameters for S will not come from defaults.  See https://github.com/phetsims/chipper/issues/1128
 
