@@ -71,7 +71,12 @@ class Enumeration<T extends EnumerationValue> implements IEnumeration<T> {
           this.keys.push( key );
           this.values.push( value );
           value.name = key;
-          value.enumeration = this;
+
+          // Only assign this to the lowest Enumeration in the hierarchy. Otherwise this would overwrite the
+          // supertype-assigned Enumeration. See https://github.com/phetsims/phet-core/issues/102
+          if ( value instanceof Enumeration ) {
+            value.enumeration = this;
+          }
         }
       } );
     } );
