@@ -35,7 +35,7 @@ type Defaults<SelfOptions = {}, ParentOptions = {}, KeysUsedInSubclassConstructo
 // Everything optional from SelfOptions must have a default specified
   Required<Options<SelfOptions>> &
 
-  // Any or non of Parent options can be provided
+  // Any or none of Parent options can be provided
   Partial<ParentOptions> &
 
   // Any keys provided in KeysUsedInSubclassConstructor are required to have a default provided, with the assumption
