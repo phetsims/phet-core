@@ -16,7 +16,7 @@ class InstanceRegistry {
    * Adds a screenshot of the given scenery Node
    * @param {string} repoName
    * @param {string} typeName
-   * @param {Node} instance
+   * @param {../../../scenery/js/nodes/Node} instance
    * @public
    */
   static registerDataURL( repoName, typeName, instance ) {
