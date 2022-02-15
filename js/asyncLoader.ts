@@ -8,36 +8,42 @@
 
 import arrayRemove from '../../phet-core/js/arrayRemove.js';
 import phetCore from './phetCore.js';
+import IntentionalAny from './IntentionalAny.js';
+
+type AsyncLoaderListener = () => void;
+type AsyncLoaderLock = () => void;
 
 class AsyncLoader {
+
+  // Locks waiting to be resolved before we can move to the next phase after loading. Lock objects can be arbitrary
+  // objects.
+  private pendingLocks: IntentionalAny[];
+
+  // Marked as true when there are no more locks and we try to proceed.  Helps protect against new locks being created
+  // after they should be.
+  private loadComplete: boolean;
+
+  // Listeners which will be invoked after everything has been loaded.
+  private listeners: AsyncLoaderListener[];
+
   constructor() {
-
-    // @private {Array.<*>} - Locks waiting to be resolved before we can move to the next phase after loading.
-    // Lock objects can be arbitrary objects.
     this.pendingLocks = [];
-
-    // @private {boolean} - Marked as true when there are no more locks and we try to proceed.  Helps protect against
-    // new locks being created after they should be.
     this.loadComplete = false;
-
-    // @private {function[]} - Listeners which will be invoked after everything has been loaded.
     this.listeners = [];
   }
 
   /**
-   * @param {function} listener - called when load is complete
-   * @public
+   * @param listener - called when load is complete
    */
-  addListener( listener ) {
+  addListener( listener: AsyncLoaderListener ) {
     assert && assert( typeof listener === 'function' );
     this.listeners.push( listener );
   }
 
   /**
    * Attempts to proceed to the next phase if possible (otherwise it's a no-op).
-   * @private
    */
-  proceedIfReady() {
+  private proceedIfReady() {
     if ( this.pendingLocks.length === 0 ) {
       assert && assert( !this.loadComplete, 'cannot complete load twice' );
       this.loadComplete = true;
@@ -48,12 +54,8 @@ class AsyncLoader {
 
   /**
    * Creates a lock, which is a callback that needs to be run before we can proceed.
-   * @public
-   *
-   * @param {*} object
-   * @returns {function}
    */
-  createLock( object ) {
+  createLock( object?: IntentionalAny ): AsyncLoaderLock {
     assert && assert( !this.loadComplete, 'Cannot create more locks after load-step has completed' );
     this.pendingLocks.push( object );
     return () => {
@@ -69,3 +71,4 @@ const asyncLoader = new AsyncLoader();
 phetCore.register( 'asyncLoader', asyncLoader );
 
 export default asyncLoader;
+export type { AsyncLoaderLock, AsyncLoaderListener };
