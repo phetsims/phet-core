@@ -70,11 +70,11 @@ class Enumeration<T extends EnumerationValue> implements IEnumeration<T> {
           assert && assert( key === key.toUpperCase(), 'keys should be upper case by convention' );
           this.keys.push( key );
           this.values.push( value );
-          value.name = key;
 
           // Only assign this to the lowest Enumeration in the hierarchy. Otherwise this would overwrite the
           // supertype-assigned Enumeration. See https://github.com/phetsims/phet-core/issues/102
           if ( value instanceof Enumeration ) {
+            value.name = key;
             value.enumeration = this;
           }
         }
