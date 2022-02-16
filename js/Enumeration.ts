@@ -1,26 +1,28 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * This implementation auto-detects the enumeration values by Object.keys and instanceof.  Every property that has a
- * type matching the enumeration type is marked as a value.  See sample usage in Orientation.ts
+ * This implementation auto-detects the enumeration values by Object.keys and instanceof. Every property that has a
+ * type matching the enumeration type is marked as a value.  See sample usage in Orientation.ts.
  *
- * This creates 2-way maps (key-to-value and value-to-key) that enable phet-io serialization.
+ * For general pattern see https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md#enumeration
  *
- * class T{
+ * This creates 2-way maps (key-to-value and value-to-key) for ease of use and to enable phet-io serialization.
+ *
+ * class T extends EnumerationValue {
  *     static a=new T();
  *     static b =new T();
- *     constructor(){}
  *     getName(){return 'he';}
  *     get thing(){return 'text';}
  *     static get age(){return 77;}
+ *     static enumeration = new Enumeration( T );
  * }
- * Object.keys(T) => ['a', 'b']
- * Object.values(T) => [T, T]
+ * T.enumeration.keys => ['a', 'b']
+ * T.enumeration.values => [T, T]
  *
- * Note how keys only picks up 'a' and 'b'.  Therefore, we can use Object.keys to infer the Enumeration values
- * rather than having to re-list them in values or equivalent.
+ * Note how `keys` only picks up 'a' and 'b'.
  *
  * @author Sam Reid (PhET Interactive Simulations)
+ * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
 import phetCore from './phetCore.js';

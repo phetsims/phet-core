@@ -1,11 +1,30 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * Base type for enumeration value instances.
+ * Base type for enumeration value instances. See https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md#enumeration
+ *
+ * The pattern for PhET's Enumeration pattern is as such:
+ *
+ * class MyEnumeration extends EnumerationValue {
+ *   static VALUE_1 = new MyEnumeration();
+ *   static VALUE_2 = new MyEnumeration();
+ *
+ *   // Make sure this is last, once all EnumerationValues have been declared statically.
+ *   static enumeration = new Enumeration( MyEnumeration );
+ * }
+ *
+ * // Usage
+ * console.log( MyEnumeration.VALUE_1 );
+ * const printValue = enumValue=> {
+ *   assert && assert( enumValue.enumeration.values.includes(enumValue));
+ *   console.log( enumValue );
+ * };
+ * printValue( MyEnumeration.VALUE_2 );
  *
  * @author Sam Reid (PhET Interactive Simulations)
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
+
 import phetCore from './phetCore.js';
 import Enumeration from './Enumeration.js';
 import Constructor from './Constructor.js';
