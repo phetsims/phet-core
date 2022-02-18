@@ -1,5 +1,20 @@
 // Copyright 2022, University of Colorado Boulder
 
+/**
+ * Optionize is a typescript layer built on PHET_CORE/merge. Its goal is to satisfy type safety within PhET's "options"
+ * pattern.
+ *
+ * For up-to-date examples on how to use this file, see WILDER/WilderOptionsPatterns.ts
+ *
+ * This pattern is still being solidified. Although the long term location of PhET's options pattern documentation
+ * can be found at https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md#options-and-config,
+ * that document is currently out of date. Please see https://github.com/phetsims/chipper/issues/1128 for current
+ * progress on this pattern.
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Michael Kauzmann (PhET Interactive Simulations)
+ */
+
 import phetCore from './phetCore.js';
 import merge from './merge.js';
 
@@ -14,20 +29,6 @@ type Options<T> = Pick<T, OptionalKeys<T>>;
 type EmptyObject = {
   [ key: string | number ]: never
 }
-
-// type RequiredKeys<T> = {
-//   [K in keyof T]-?: {} extends Pick<T, K> ? never : K;
-// }[keyof T];
-// The part of the object that is required
-// type Requires<T> = Pick<T, RequiredKeys<T>>;
-
-// what goes into options?
-// defaults for all optional things
-// a providedOptions with values for all required things
-// overriding values for the super(options) call
-
-// what comes out of merge?
-// an object with filled in defaults, and all the required things.  In our level and parent levels.
 
 // This is the type for the `defaults` argument to optionize
 type Defaults<SelfOptions = {}, ParentOptions = {}, KeysUsedInSubclassConstructor extends keyof ParentOptions = never> =
