@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * Optionize is a typescript layer built on PHET_CORE/merge. Its goal is to satisfy type safety within PhET's "options"
+ * Optionize is a TypeScript layer built on PHET_CORE/merge. Its goal is to satisfy type safety within PhET's "options"
  * pattern.
  *
  * For up-to-date examples on how to use this file, see WILDER/WilderOptionsPatterns.ts
