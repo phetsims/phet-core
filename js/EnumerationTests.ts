@@ -57,5 +57,7 @@ QUnit.test( 'Enumeration Subtyping', assert => {
   assert.ok( MyEnumeration.enumeration === MySubEnumeration.ITEM_3.enumeration, 'enumeration instances from parent 3' );
   assert.ok( MySubEnumeration.enumeration !== MySubEnumeration.ITEM_1.enumeration, 'enumeration instances not from child' );
   assert.ok( MySubEnumeration.enumeration !== MySubEnumeration.ITEM_2.enumeration, 'enumeration instances not from child 2' );
-  assert.ok( MySubEnumeration.enumeration !== MySubEnumeration.ITEM_3.enumeration, 'enumeration instances not from child 3' );
+
+  // @ts-ignore
+  assert.ok( !MyEnumeration.ITEM_4, 'super should not have sub item' );
 } );
