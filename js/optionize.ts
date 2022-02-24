@@ -48,7 +48,7 @@ type Defaults<SelfOptions = {}, ParentOptions = {}, KeysUsedInSubclassConstructo
 // ProvidedOptions = The type of this class's public API (type of the providedOptions parameter in the constructor)
 // SelfOptions = Options that are defined by "this" class. Anything optional in this block must have a default provided in "defaults"
 // ParentOptions = The public API for parent options, this will be exported by the parent class, like "NodeOptions"
-// KeysUsedInSubclassConstructor = list of keys from ParentOptions that are used in this constructor
+// KeysUsedInSubclassConstructor = list of keys from ParentOptions that are used in this constructor. Please note that listing required parent option keys that are filled in by subtype defaults is a workaround for Limitation (III).
 function optionize<ProvidedOptions,
   SelfOptions = ProvidedOptions,
   ParentOptions = {},
