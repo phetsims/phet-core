@@ -1,4 +1,4 @@
-// Copyright 2015-2022, University of Colorado Boulder
+// Copyright 2022, University of Colorado Boulder
 
 /**
  * PROTOTYPE version for better support
