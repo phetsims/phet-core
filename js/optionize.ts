@@ -50,7 +50,7 @@ type Defaults<SelfOptions = {}, ParentOptions = {}, KeysUsedInSubclassConstructo
 // ParentOptions = The public API for parent options, this will be exported by the parent class, like "NodeOptions"
 // KeysUsedInSubclassConstructor = list of keys from ParentOptions that are used in this constructor
 function optionize<ProvidedOptions,
-  SelfOptions = {},
+  SelfOptions = ProvidedOptions,
   ParentOptions = {},
   KeysUsedInSubclassConstructor extends keyof ParentOptions = never>
 (
@@ -59,7 +59,7 @@ function optionize<ProvidedOptions,
 ): Defaults<SelfOptions, ParentOptions, KeysUsedInSubclassConstructor> & ProvidedOptions;
 
 function optionize<ProvidedOptions, // eslint-disable-line no-redeclare
-  SelfOptions = {},
+  SelfOptions = ProvidedOptions,
   ParentOptions = {},
   KeysUsedInSubclassConstructor extends keyof ParentOptions = never>
 (
