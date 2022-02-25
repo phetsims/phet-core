@@ -27,7 +27,7 @@
 
 import phetCore from './phetCore.js';
 import Enumeration from './Enumeration.js';
-import Constructor from './Constructor.js';
+import Constructor from './types/Constructor.js';
 
 class EnumerationValue {
 

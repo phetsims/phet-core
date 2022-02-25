@@ -30,7 +30,7 @@ import IEnumeration from './IEnumeration.js';
 import EnumerationValue from './EnumerationValue.js';
 import inheritance from './inheritance.js';
 import merge from './merge.js';
-import Constructor from './Constructor.js';
+import Constructor from './types/Constructor.js';
 
 type EnumerationOptions = {
   phetioDocumentation?: string,

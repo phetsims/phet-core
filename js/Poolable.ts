@@ -10,7 +10,7 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-import Constructor from './Constructor.js';
+import Constructor from './types/Constructor.js';
 import extend from './extend.js';
 import phetCore from './phetCore.js';
 import optionize from './optionize.js';

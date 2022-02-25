@@ -1,6 +1,6 @@
 // Copyright 2022, University of Colorado Boulder
 
-import IntentionalAny from './IntentionalAny.js';
+import IntentionalAny from '../IntentionalAny.js';
 
 /**
  * Converts an instance type to a constructor type.
