@@ -31,7 +31,7 @@ type EmptyObject = {
 }
 
 // This is the type for the `defaults` argument to optionize
-type Defaults<SelfOptions = {}, ParentOptions = {}, KeysUsedInSubclassConstructor extends keyof ParentOptions = never> =
+type OptionizeDefaults<SelfOptions = {}, ParentOptions = {}, KeysUsedInSubclassConstructor extends keyof ParentOptions = never> =
 
 // Everything optional from SelfOptions must have a default specified
   Required<Options<SelfOptions>> &
@@ -54,9 +54,9 @@ function optionize<ProvidedOptions,
   ParentOptions = {},
   KeysUsedInSubclassConstructor extends keyof ParentOptions = never>
 (
-  defaults: Defaults<SelfOptions, ParentOptions, KeysUsedInSubclassConstructor>,
+  defaults: OptionizeDefaults<SelfOptions, ParentOptions, KeysUsedInSubclassConstructor>,
   providedOptions?: ProvidedOptions
-): Defaults<SelfOptions, ParentOptions, KeysUsedInSubclassConstructor> & ProvidedOptions;
+): OptionizeDefaults<SelfOptions, ParentOptions, KeysUsedInSubclassConstructor> & ProvidedOptions;
 
 function optionize<ProvidedOptions, // eslint-disable-line no-redeclare
   SelfOptions = ProvidedOptions,
@@ -64,9 +64,9 @@ function optionize<ProvidedOptions, // eslint-disable-line no-redeclare
   KeysUsedInSubclassConstructor extends keyof ParentOptions = never>
 (
   empytObject: EmptyObject,
-  defaults: Defaults<SelfOptions, ParentOptions, KeysUsedInSubclassConstructor>,
+  defaults: OptionizeDefaults<SelfOptions, ParentOptions, KeysUsedInSubclassConstructor>,
   providedOptions?: ProvidedOptions
-): EmptyObject & Defaults<SelfOptions, ParentOptions, KeysUsedInSubclassConstructor> & ProvidedOptions;
+): EmptyObject & OptionizeDefaults<SelfOptions, ParentOptions, KeysUsedInSubclassConstructor> & ProvidedOptions;
 
 // The implementation gets "any" types because of the above signatures
 function optionize( a: any, b?: any, c?: any ) { return merge( a, b, c ); } // eslint-disable-line no-redeclare,bad-text
@@ -109,4 +109,4 @@ const optionize = <S, P = {}, M extends keyof P = never, A = S & P>() => {
 
 phetCore.register( 'optionize', optionize );
 export { optionize as default };
-export type { Defaults };
+export type { OptionizeDefaults };
