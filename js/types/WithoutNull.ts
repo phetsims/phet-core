@@ -18,18 +18,3 @@ import NotNull from './NotNull.js';
 
 type WithoutNull<T extends {}, keys extends keyof T = keyof T> = T & { [ key in keys ]: NotNull<T[ key ]> };
 export default WithoutNull;
-
-type T = {
-  a: number | null,
-  b: string | number[] | null,
-  c: { x: 5 }
-};
-type X = WithoutNull<T, 'a'>;
-
-const x: X = {
-  a: 5,
-  b: null,
-  c: { x: 5 }
-};
-
-console.log( x );
