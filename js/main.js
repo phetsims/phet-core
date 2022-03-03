@@ -29,6 +29,7 @@ import './pairs.js';
 import './partition.js';
 import phetCore from './phetCore.js';
 import './platform.js';
+import './Pool.js';
 import './Poolable.js';
 
 export default phetCore;
