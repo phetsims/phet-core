@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * Allows grabbing a required option out of a type. For example if we have
+ * Allows grabbing *the type* of a required option out of a type. For example if we have
  *
  * type SelfOptions = { something?: number | string | Property<Ray2> };
  *
