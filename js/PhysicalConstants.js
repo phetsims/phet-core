@@ -24,7 +24,7 @@ const PhysicalConstants = {
    * https://physics.nist.gov/cgi-bin/cuu/Value?bg
    * https://www.quora.com/What-is-the-value-of-gravitational-constant-G
    */
-  GRAVITATIONAL_CONSTANT: 6.67408E-11, // m^3 kg^-1 s^-2
+  GRAVITATIONAL_CONSTANT: 6.67430E-11, // m^3 kg^-1 s^-2
 
   /**
    * The amount of gravity on Earth.
