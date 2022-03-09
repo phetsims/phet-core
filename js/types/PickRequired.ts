@@ -13,4 +13,5 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-export type PickRequired<T, list extends keyof T> = Pick<Required<T>, list>;
+type PickRequired<T, list extends keyof T> = Pick<Required<T>, list>;
+export default PickRequired;

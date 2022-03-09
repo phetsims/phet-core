@@ -15,4 +15,5 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-export type PickOptional<T, list extends keyof T> = Pick<Partial<T>, list>;
+type PickOptional<T, list extends keyof T> = Pick<Partial<T>, list>;
+export default PickOptional;
