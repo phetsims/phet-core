@@ -1,6 +1,6 @@
 // Copyright 2022, University of Colorado Boulder
 
-import IntentionalAny from '../IntentionalAny.js';
+import IntentionalAny from './IntentionalAny.js';
 
 /**
  * Simple generic Type for a Constructor.

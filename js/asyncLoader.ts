@@ -8,7 +8,7 @@
 
 import arrayRemove from '../../phet-core/js/arrayRemove.js';
 import phetCore from './phetCore.js';
-import IntentionalAny from './IntentionalAny.js';
+import IntentionalAny from './types/IntentionalAny.js';
 
 type AsyncLoaderListener = () => void;
 type AsyncLoaderLock = () => void;
