@@ -18,25 +18,25 @@ import optionize from './optionize.js';
 type PoolableOptions<Type extends Constructor> = {
   // If an object needs to be created without a direct call (say, to fill the pool initially), these are the arguments
   // that will be passed into the constructor
-  defaultArguments?: ConstructorParameters<Type>,
+  defaultArguments?: ConstructorParameters<Type>;
 
   // The function to call on the objects to reinitialize them (that is either the constructor, or acts like the
   // constructor).
-  initialize?: PoolableInitializer<Type>,
+  initialize?: PoolableInitializer<Type>;
 
   // A limit for the pool size (so we don't leak memory by growing the pool faster than we take things from it). Can be
   // customized by setting Type.maxPoolSize
-  maxSize?: number,
+  maxSize?: number;
 
   // The initial size of the pool. To fill it, objects will be created with the default arguments.
-  initialSize?: number,
+  initialSize?: number;
 
   // If true, when constructing the default arguments will always be used (and then initialized with the initializer)
   // instead of just providing the arguments straight to the constructor.
-  useDefaultConstruction?: boolean
+  useDefaultConstruction?: boolean;
 };
 interface PoolableInstance {
-  freeToPool(): void
+  freeToPool(): void;
 }
 type PoolableVersion<Type extends Constructor> = InstanceType<Type> & PoolableInstance;
 type PoolableInitializer<Type extends Constructor> = ( ...args: ConstructorParameters<Type> ) => any;

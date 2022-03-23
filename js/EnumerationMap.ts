@@ -10,8 +10,8 @@ import phetCore from './phetCore.js';
 
 type IEnumeration<T> = {
   enumeration: {
-    values: T[]
-  }
+    values: T[];
+  };
 };
 
 // T = enumeration value type

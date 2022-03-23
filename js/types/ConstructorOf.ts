@@ -8,5 +8,5 @@ import IntentionalAny from './IntentionalAny.js';
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-type ConstructorOf<T> = { new( ...args: IntentionalAny[] ): T; };
+type ConstructorOf<T> = { new( ...args: IntentionalAny[] ): T };
 export default ConstructorOf;

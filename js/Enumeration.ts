@@ -33,8 +33,8 @@ import merge from './merge.js';
 import Constructor from './types/Constructor.js';
 
 type EnumerationOptions = {
-  phetioDocumentation?: string,
-  instanceType?: any
+  phetioDocumentation?: string;
+  instanceType?: any;
 }
 
 class Enumeration<T extends EnumerationValue> implements IEnumeration<T> {

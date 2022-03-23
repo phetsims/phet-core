@@ -29,7 +29,7 @@ interface IEnumeration<T extends EnumerationValue> {
 }
 
 type EnumerationContainer<T extends EnumerationValue> = {
-  enumeration: IEnumeration<T>
+  enumeration: IEnumeration<T>;
 };
 
 export type { EnumerationContainer };

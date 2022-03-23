@@ -27,7 +27,7 @@ type OptionalKeys<T> = {
 type Options<T> = Pick<T, OptionalKeys<T>>;
 
 type EmptyObject = {
-  [ key: string | number ]: never
+  [ key: string | number ]: never;
 }
 
 // This is the type for the `defaults` argument to optionize
