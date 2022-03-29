@@ -8,7 +8,7 @@
  * and PickOptional makes a little more sense than Pick<Partial> in the context of options.
  *
  * Example:
- * type MyClassOptions = PickRequired<PathOptions, 'stroke', 'lineWidth'>;
+ * type MyClassOptions = PickOptional<PathOptions, 'stroke', 'lineWidth'>;
  * Result:
  * { stroke?: ColorDef, lineWidth?: number }
  *
