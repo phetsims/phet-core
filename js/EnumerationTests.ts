@@ -45,7 +45,7 @@ QUnit.test( 'Enumeration Subtyping', assert => {
   class MySubEnumeration extends MyEnumeration {
     static ITEM_4 = new MySubEnumeration();
 
-    static enumeration = new Enumeration( MySubEnumeration, {
+    static override enumeration = new Enumeration( MySubEnumeration, {
       instanceType: MyEnumeration
     } );
   }
