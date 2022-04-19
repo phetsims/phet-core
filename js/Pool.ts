@@ -67,7 +67,7 @@ export default class Pool<T extends Constructor, Params extends any[] = Construc
   private useDefaultConstruction: boolean;
 
   constructor( type: T, providedOptions?: PoolableOptions<T, Params> ) {
-    const options = optionize<PoolableOptions<T, Params>, PoolableOptions<T, Params>>( {
+    const options = optionize<PoolableOptions<T, Params>, PoolableOptions<T, Params>>()( {
 
       defaultArguments: [] as unknown as Params,
       initialize: ( type.prototype as unknown as { initialize: PoolableInitializer<T, Params> } ).initialize,

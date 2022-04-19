@@ -59,7 +59,7 @@ const Poolable = {
    * Changes the given type (and its prototype) to support object pooling.
    */
   mixInto<Type extends Constructor>( type: Type, providedOptions?: PoolableOptions<Type> ) : PoolableClass<Type> {
-    const options = optionize<PoolableOptions<Type>, PoolableOptions<Type>>( {
+    const options = optionize<PoolableOptions<Type>, PoolableOptions<Type>>()( {
 
       defaultArguments: [] as unknown as ConstructorParameters<Type>,
       initialize: type.prototype.initialize,

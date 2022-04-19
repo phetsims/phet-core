@@ -31,6 +31,15 @@ type EmptyObject = {
 }
 
 // This is the type for the `defaults` argument to optionize
+export type HalfOptions<SelfOptions = {}, ParentOptions = {}> =
+
+// Everything optional from SelfOptions must have a default specified
+  Required<Options<SelfOptions>> &
+
+  // Any or none of Parent options can be provided
+  Partial<ParentOptions>;
+
+// This is the type for the `defaults` argument to optionize
 type OptionizeDefaults<SelfOptions = {}, ParentOptions = {}, KeysUsedInSubclassConstructor extends keyof ParentOptions = never> =
 
 // Everything optional from SelfOptions must have a default specified
@@ -49,27 +58,48 @@ type OptionizeDefaults<SelfOptions = {}, ParentOptions = {}, KeysUsedInSubclassC
 // SelfOptions = Options that are defined by "this" class. Anything optional in this block must have a default provided in "defaults"
 // ParentOptions = The public API for parent options, this will be exported by the parent class, like "NodeOptions"
 // KeysUsedInSubclassConstructor = list of keys from ParentOptions that are used in this constructor. Please note that listing required parent option keys that are filled in by subtype defaults is a workaround for Limitation (I).
-function optionize<ProvidedOptions,
+export default function optionize<ProvidedOptions,
   SelfOptions = ProvidedOptions,
-  ParentOptions = {},
-  KeysUsedInSubclassConstructor extends keyof ParentOptions = never>
-(
-  defaults: OptionizeDefaults<SelfOptions, ParentOptions, KeysUsedInSubclassConstructor>,
-  providedOptions?: ProvidedOptions
-): OptionizeDefaults<SelfOptions, ParentOptions, KeysUsedInSubclassConstructor> & ProvidedOptions;
+  ParentOptions = {}>():
+  <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
+    defaults: HalfOptions<SelfOptions, ParentOptions>,
+    providedOptions?: ProvidedOptions
+  ) => HalfOptions<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>> {
+  return ( a: any, b?: any, c?: any ) => merge( a, b, c );
+}
 
-function optionize<ProvidedOptions, // eslint-disable-line no-redeclare
+export function optionize3<ProvidedOptions,
   SelfOptions = ProvidedOptions,
-  ParentOptions = {},
-  KeysUsedInSubclassConstructor extends keyof ParentOptions = never>
-(
-  empytObject: EmptyObject,
-  defaults: OptionizeDefaults<SelfOptions, ParentOptions, KeysUsedInSubclassConstructor>,
-  providedOptions?: ProvidedOptions
-): EmptyObject & OptionizeDefaults<SelfOptions, ParentOptions, KeysUsedInSubclassConstructor> & ProvidedOptions;
+  ParentOptions = {}>():
+  <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
+    emptyObject: EmptyObject,
+    defaults: HalfOptions<SelfOptions, ParentOptions>,
+    providedOptions?: ProvidedOptions
+  ) => HalfOptions<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>> {
+  return ( a: any, b?: any, c?: any ) => merge( a, b, c );
+}
+
+// function optionize<ProvidedOptions, // eslint-disable-line no-redeclare
+//   SelfOptions = ProvidedOptions,
+//   ParentOptions = {}>():
+//   <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
+//     emptyObject: EmptyObject,
+//     defaults: HalfOptions<SelfOptions, ParentOptions>,
+//     providedOptions?: ProvidedOptions
+//   ) => HalfOptions<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>>;
+//
+// function optionize<ProvidedOptions, // eslint-disable-line no-redeclare
+//   SelfOptions = ProvidedOptions,
+//   ParentOptions = {},
+//   KeysUsedInSubclassConstructor extends keyof ParentOptions = never>():
+//   (
+//     empytObject: EmptyObject,
+//     defaults: OptionizeDefaults<SelfOptions, ParentOptions, KeysUsedInSubclassConstructor>,
+//     providedOptions?: ProvidedOptions
+//   ) => EmptyObject & OptionizeDefaults<SelfOptions, ParentOptions, KeysUsedInSubclassConstructor> & ProvidedOptions;
 
 // The implementation gets "any" types because of the above signatures
-function optionize( a: any, b?: any, c?: any ) { return merge( a, b, c ); } // eslint-disable-line no-redeclare,bad-text
+// function optionize<???>() { return ( a: any, b?: any, c?: any ) => merge( a, b, c ); } // eslint-disable-line no-redeclare,bad-text
 
 // TypeScript is all-or-none on inferring generic parameter types (per function), so we must use the nested strategy in
 // https://stackoverflow.com/questions/63678306/typescript-partial-type-inference to specify the types we want
@@ -106,7 +136,5 @@ const optionize = <S, P = {}, M extends keyof P = never, A = S & P>() => {
 };
  */
 
-
 phetCore.register( 'optionize', optionize );
-export { optionize as default };
 export type { OptionizeDefaults };
