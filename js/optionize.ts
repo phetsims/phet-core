@@ -54,6 +54,9 @@ type OptionizeDefaults<SelfOptions = {}, ParentOptions = {}, KeysUsedInSubclassC
 
 // TODO: "Limitation (I)" How can we indicate that a required parameter (for ParentOptions) will come in through defaults and/or providedOptions? Note: required parameters for S will not come from defaults.  See https://github.com/phetsims/chipper/issues/1128
 
+// Factor out the merge arrow closure to avoid heap/cpu at runtime
+const merge3 = ( a: any, b?: any, c?: any ) => merge( a, b, c );
+
 // ProvidedOptions = The type of this class's public API (type of the providedOptions parameter in the constructor)
 // SelfOptions = Options that are defined by "this" class. Anything optional in this block must have a default provided in "defaults"
 // ParentOptions = The public API for parent options, this will be exported by the parent class, like "NodeOptions"
@@ -65,7 +68,7 @@ export default function optionize<ProvidedOptions,
     defaults: HalfOptions<SelfOptions, ParentOptions>,
     providedOptions?: ProvidedOptions
   ) => HalfOptions<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>> {
-  return ( a: any, b?: any, c?: any ) => merge( a, b, c );
+  return merge3;
 }
 
 export function optionize3<ProvidedOptions,
@@ -76,7 +79,7 @@ export function optionize3<ProvidedOptions,
     defaults: HalfOptions<SelfOptions, ParentOptions>,
     providedOptions?: ProvidedOptions
   ) => HalfOptions<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>> {
-  return ( a: any, b?: any, c?: any ) => merge( a, b, c );
+  return merge3;
 }
 
 // function optionize<ProvidedOptions, // eslint-disable-line no-redeclare
