@@ -46,7 +46,9 @@ function merge( target: any, ...sources: any ) { // eslint-disable-line no-redec
     if ( source ) {
       assert && assertIsMergeable( source );
       for ( const property in source ) {
-        if ( source.hasOwnProperty( property ) ) {
+
+        // Providing a value of undefined in the target doesn't override the default, see https://github.com/phetsims/phet-core/issues/111
+        if ( source.hasOwnProperty( property ) && source[ property ] !== undefined ) {
           const sourceProperty = source[ property ];
 
           // Recurse on keys that end with 'Options', but not on keys named 'Options'.
