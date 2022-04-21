@@ -48,7 +48,6 @@ class EnumerationMap<T, U> {
 
   /**
    * Sets the value associated with the given enumeration entry.
-   * @public
    *
    * @param {Object} entry
    * @param {*} value
@@ -60,7 +59,6 @@ class EnumerationMap<T, U> {
 
   /**
    * Returns a new EnumerationMap with mapped values.
-   * @public
    *
    * @param {Function} mapFunction - function( {*}, {IEnumeration.*} ): {*}
    * @returns {EnumerationMap.<*>} - With the mapped values
@@ -71,7 +69,6 @@ class EnumerationMap<T, U> {
 
   /**
    * Calls the callback on each item of the enumeration map.
-   * @public
    *
    * @param {Function} callback - function(value:*, enumerationValue:*)
    */
@@ -81,7 +78,6 @@ class EnumerationMap<T, U> {
 
   /**
    * Returns the values stored in the map, as an array
-   * @public
    *
    * @returns {Array.<*>}
    */
