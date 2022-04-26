@@ -44,7 +44,7 @@ QUnit.test( 'merge two objects', assert => {
   assert.equal( merged.prop1, 'value1', 'merge should not alter target keys that aren\'t in the source' );
   assert.equal( merged.prop4, 'value4', 'merge should not alter source keys that aren\'t in the target' );
 
-  let shouldBe = {
+  let shouldBe: any = {
     subProp1: 'subvalue1 changed',
     subProp2: 'subValue2',
     subProp3: 'new subvalue'
@@ -178,6 +178,8 @@ QUnit.test( 'check for proper assertion errors', assert => {
   };
 
   const TestClass = class {
+    private test: string;
+
     constructor() {
       this.test = 'class';
     }
@@ -197,6 +199,7 @@ QUnit.test( 'check for proper assertion errors', assert => {
       subOptions: 42
     },
     e: {
+      // @ts-ignore
       subOptions: () => { this.a = 42; }
     },
     f: {
@@ -220,6 +223,8 @@ QUnit.test( 'check for proper assertion errors', assert => {
     assert.throws( () => merge( original, merges.d ), 'merge should not allow numbers to be merged' );
     assert.throws( () => merge( original, merges.e ), 'merge should not allow functions to be merged' );
     assert.throws( () => merge( original, getterMerge ), 'merge should not work with getters' );
+
+    // @ts-ignore
     assert.throws( () => merge( original ), 'merge should not work without a source' );
   }
   assert.equal( 1, 1, 'for no ?ea query param' );
@@ -237,10 +242,10 @@ QUnit.test( 'check for reference level equality (e.g. for object literals, Prope
       testC: 'valueC'
     }
   };
-  const testProperty = {};
-  const testProperty2 = {};
-  testProperty.value = 42;
-  testProperty2.value = 'forty two';
+
+  type Valueable = { value: number | string };
+  const testProperty: Valueable = { value: 42 };
+  const testProperty2: Valueable = { value: 'forty two' };
   const original = {
     prop: testProperty,
     nestedOptions: {
@@ -377,7 +382,7 @@ QUnit.test( 'test wrong args', assert => {
     assert.throws( () => merge( 4, {} ), 'unsupported arg "number"' );
     assert.throws( () => merge( Image, {} ), 'unsupported arg of Object with extra prototype' );
     assert.throws( () => merge( { get hi() { return 3; } }, {} ), 'unsupported arg with getter' );
-    assert.throws( () => merge( { set hi( stuff ) {} }, {} ), 'unsupported arg with getter' );
+    assert.throws( () => merge( { set hi( stuff: number ) {} }, {} ), 'unsupported arg with setter' );
 
     // in second arg
     assert.throws( () => merge( {}, true, {} ), 'unsupported second arg "boolean"' );
@@ -385,7 +390,7 @@ QUnit.test( 'test wrong args', assert => {
     assert.throws( () => merge( {}, 4, {} ), 'unsupported second arg "number"' );
     assert.throws( () => merge( {}, Image, {} ), 'unsupported second arg of Object with extra prototype' );
     assert.throws( () => merge( {}, { get hi() { return 3; } }, {} ), 'unsupported second arg with getter' );
-    assert.throws( () => merge( {}, { set hi( stuff ) {} }, {} ), 'unsupported second arg with getter' );
+    assert.throws( () => merge( {}, { set hi( stuff: number ) {} }, {} ), 'unsupported second arg with setter' );
 
     // in second arg with no third object
     assert.throws( () => merge( {}, true ), 'unsupported second arg with no third "boolean"' );
@@ -393,16 +398,15 @@ QUnit.test( 'test wrong args', assert => {
     assert.throws( () => merge( {}, 4 ), 'unsupported second arg with no third "number"' );
     assert.throws( () => merge( {}, Image ), 'unsupported second arg with no third of Object with extra prototype' );
     assert.throws( () => merge( {}, { get hi() { return 3; } } ), 'unsupported second arg with no third with getter' );
-    assert.throws( () => merge( {}, { set hi( stuff ) {} } ), 'unsupported second arg with no third with getter' );
+    assert.throws( () => merge( {}, { set hi( stuff: number ) {} } ), 'unsupported second arg with no third with getter' );
 
     // in some options
-    assert.throws( () => merge( {}, { someOptions: undefined }, {} ), 'unsupported arg in options "undefined"' );
     assert.throws( () => merge( {}, { someOptions: true }, {} ), 'unsupported arg in options "boolean"' );
     assert.throws( () => merge( {}, { someOptions: 'hello' }, {} ), 'unsupported arg in options "string"' );
     assert.throws( () => merge( {}, { someOptions: 4 }, {} ), 'unsupported arg in options "number"' );
     assert.throws( () => merge( {}, { someOptions: Image }, {} ), 'unsupported arg in options of Object with extra prototype' );
     assert.throws( () => merge( {}, { someOptions: { get hi() { return 3; } } }, {} ), 'unsupported arg in options with getter' );
-    assert.throws( () => merge( {}, { someOptions: { set hi( stuff ) {} } }, {} ), 'unsupported arg in options with getter' );
+    assert.throws( () => merge( {}, { someOptions: { set hi( stuff: number ) {} } }, {} ), 'unsupported arg in options with getter' );
   }
   else {
     assert.ok( true, 'no assertions enabled' );
@@ -414,6 +418,7 @@ QUnit.test( 'test wrong args', assert => {
   merge( {}, {}, null );
   merge( { xOptions: { test: 1 } }, { xOptions: null } );
   merge( {}, { someOptions: null }, {} );
+  merge( {}, { someOptions: undefined }, {} );
 } );
 
 QUnit.test( 'do not recurse for non *Options', assert => {
@@ -446,19 +451,19 @@ QUnit.test( 'do not recurse for non *Options', assert => {
 
 QUnit.test( 'support optional options', assert => {
 
-  const mergeXYZ = options => {
+  const mergeXYZ = ( options?: Object ) => {
     return merge( {
       x: 1,
       y: 2,
       z: 3
     }, options );
   };
-  let noOptions = mergeXYZ();
+  const noOptions = mergeXYZ();
   assert.ok( noOptions.x === 1, 'x property should be merged from default' );
   assert.ok( noOptions.y === 2, 'y property should be merged from default' );
   assert.ok( noOptions.z === 3, 'z property should be merged from default' );
 
-  const testNestedFunctionCallOptions = options => {
+  const testNestedFunctionCallOptions = ( options?: Object ) => {
     return mergeXYZ( merge( {
       x: 2,
       g: 54,
@@ -466,12 +471,16 @@ QUnit.test( 'support optional options', assert => {
     }, options ) );
   };
 
-  noOptions = testNestedFunctionCallOptions();
-  assert.ok( noOptions.x === 2, 'x property should be merged from default' );
-  assert.ok( noOptions.y === 2, 'y property should be merged from default' );
-  assert.ok( noOptions.z === 3, 'z property should be merged from default' );
-  assert.ok( noOptions.g === 54, 'g property should be merged from default' );
-  assert.ok( noOptions.treeSays === 'hello', 'property should be merged from default' );
+  const noOptions2 = testNestedFunctionCallOptions();
+  assert.ok( noOptions2.x === 2, 'x property should be merged from default' );
+  assert.ok( noOptions2.y === 2, 'y property should be merged from default' );
+  assert.ok( noOptions2.z === 3, 'z property should be merged from default' );
+
+  // @ts-ignore
+  assert.ok( noOptions2.g === 54, 'g property should be merged from default' );
+
+  // @ts-ignore
+  assert.ok( noOptions2.treeSays === 'hello', 'property should be merged from default' );
 } );
 
 QUnit.test( 'does not support deep equals on keyname of "Options"', assert => {
