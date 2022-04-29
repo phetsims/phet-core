@@ -1,4 +1,4 @@
-// Copyright 2018-2020, University of Colorado Boulder
+// Copyright 2022, University of Colorado Boulder
 
 /**
  * Function that returns its input. This was added as an alternative to _.identity because WebStorm did
