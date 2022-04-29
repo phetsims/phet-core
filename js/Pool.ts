@@ -11,11 +11,11 @@
  *
  * With this style of pooling, the following should be standard boilerplate within the class:
 
-  freeToPool() {
+ freeToPool() {
     MyType.pool.freeToPool( this );
   }
 
-  static pool = new Pool( MyType );
+ static pool = new Pool( MyType );
 
  * and can additionally implement IPoolable to make it clear that the type is pooled
  *
@@ -102,7 +102,7 @@ export default class Pool<T extends Constructor, Params extends any[] = Construc
     }
   }
 
-  private createDefaultObject() {
+  private createDefaultObject(): any {
     return new ( this.DefaultConstructor )();
   }
 
@@ -158,7 +158,7 @@ export default class Pool<T extends Constructor, Params extends any[] = Construc
     return this._maxPoolSize;
   }
 
-  freeToPool( object: InstanceType<T> ) {
+  freeToPool( object: InstanceType<T> ): void {
     if ( this.objects.length < this.maxPoolSize ) {
       this.objects.push( object );
     }

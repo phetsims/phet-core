@@ -35,7 +35,7 @@ class AsyncLoader {
   /**
    * @param listener - called when load is complete
    */
-  addListener( listener: AsyncLoaderListener ) {
+  addListener( listener: AsyncLoaderListener ): void {
     assert && assert( typeof listener === 'function' );
     this.listeners.push( listener );
   }
@@ -43,7 +43,7 @@ class AsyncLoader {
   /**
    * Attempts to proceed to the next phase if possible (otherwise it's a no-op).
    */
-  private proceedIfReady() {
+  private proceedIfReady(): void {
     if ( this.pendingLocks.length === 0 ) {
       assert && assert( !this.loadComplete, 'cannot complete load twice' );
       this.loadComplete = true;

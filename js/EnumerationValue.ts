@@ -39,13 +39,13 @@ class EnumerationValue {
   // create subtypes)
   static sealedCache = new Set<Constructor<EnumerationValue>>();
 
-  toString() {
+  toString(): string {
     return this.name;
   }
 
   // This method is unused, but needs to remain here so other types don't accidentally structurally match
   // enumeration values.  Without this, string satisfies the EnumerationValue interface, but we don't want it to.
-  private isEnumerationValue() {return true;}
+  private isEnumerationValue(): boolean {return true;}
 
   constructor() {
     const c = this.constructor as Constructor<EnumerationValue>;

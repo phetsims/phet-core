@@ -52,7 +52,7 @@ class EnumerationMap<T, U> {
    * @param {Object} entry
    * @param {*} value
    */
-  set( entry: T, value: U ) {
+  set( entry: T, value: U ): void {
     assert && assert( this._values.includes( entry ) );
     this._map.set( entry, value );
   }
@@ -63,7 +63,7 @@ class EnumerationMap<T, U> {
    * @param {Function} mapFunction - function( {*}, {IEnumeration.*} ): {*}
    * @returns {EnumerationMap.<*>} - With the mapped values
    */
-  map( mapFunction: ( u: U, t: T ) => U ) {
+  map( mapFunction: ( u: U, t: T ) => U ): EnumerationMap<T, U> {
     return new EnumerationMap( this._enumeration, entry => mapFunction( this.get( entry ), entry ) );
   }
 
@@ -72,7 +72,7 @@ class EnumerationMap<T, U> {
    *
    * @param {Function} callback - function(value:*, enumerationValue:*)
    */
-  forEach( callback: ( u: U, t: T ) => void ) {
+  forEach( callback: ( u: U, t: T ) => void ): void {
     this._values.forEach( entry => callback( this.get( entry ), entry ) );
   }
 
@@ -81,7 +81,7 @@ class EnumerationMap<T, U> {
    *
    * @returns {Array.<*>}
    */
-  values() {
+  values(): U[] {
     return this._values.map( entry => this.get( entry ) );
   }
 }

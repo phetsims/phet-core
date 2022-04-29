@@ -42,7 +42,7 @@ class OrientationPair<T> extends EnumerationMap<Orientation, T> {
    * @param {function} factory - Called factory( {Orientation} ) : {*}, called once for each orientation to determine
    *                             the value.
    */
-  static create<T>( factory: ( o: Orientation ) => T ) {
+  static create<T>( factory: ( o: Orientation ) => T ): OrientationPair<T> {
     return new OrientationPair( factory( Orientation.HORIZONTAL ), factory( Orientation.VERTICAL ) );
   }
 }
