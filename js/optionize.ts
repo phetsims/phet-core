@@ -82,6 +82,14 @@ export function optionize3<ProvidedOptions,
   return merge3;
 }
 
+export function assignOptions<Type extends {}>( a: HalfOptions<{}, Type>, b: Type ) {
+  return optionize<Type, {}, Type>()( a as HalfOptions<{}, Type>, b );
+}
+
+export function assignOptions3<Type extends {}>( a: HalfOptions<{}, Type>, b: HalfOptions<{}, Type>, c: Type ) {
+  return optionize3<Type, {}, Type>()( a, b, c );
+}
+
 // function optionize<ProvidedOptions, // eslint-disable-line no-redeclare
 //   SelfOptions = ProvidedOptions,
 //   ParentOptions = {}>():
