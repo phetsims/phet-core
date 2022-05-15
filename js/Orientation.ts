@@ -21,13 +21,13 @@ type MVT = {
 
 class Orientation extends EnumerationValue {
 
-  static HORIZONTAL = new Orientation( 'x', 'centerX', 'minX', 'maxX', 'left', 'right', 'rectX', 'rectWidth', 'horizontal', 'width',
+  static HORIZONTAL = new Orientation( 'x', 'centerX', 'minX', 'maxX', 'left', 'right', 'rectX', 'rectWidth', 'horizontal', 'width', 'preferredWidth', 'localPreferredWidth', 'widthSizable',
     ( modelViewTransform, value ) => modelViewTransform.modelToViewX( value ),
     ( modelViewTransform, value ) => modelViewTransform.viewToModelX( value ),
     ( a: number, b: number, Vector2: any ) => new Vector2( a, b )
   );
 
-  static VERTICAL = new Orientation( 'y', 'centerY', 'minY', 'maxY', 'top', 'bottom', 'rectY', 'rectHeight', 'vertical', 'height',
+  static VERTICAL = new Orientation( 'y', 'centerY', 'minY', 'maxY', 'top', 'bottom', 'rectY', 'rectHeight', 'vertical', 'height', 'preferredHeight', 'localPreferredHeight', 'heightSizable',
     ( modelViewTransform, value ) => modelViewTransform.modelToViewY( value ),
     ( modelViewTransform, value ) => modelViewTransform.viewToModelY( value ),
     ( a: number, b: number, Vector2: any ) => new Vector2( b, a )
@@ -47,6 +47,9 @@ class Orientation extends EnumerationValue {
   readonly rectSize: 'rectWidth' | 'rectHeight';
   readonly layoutBoxOrientation: 'horizontal' | 'vertical'; // The name of the orientation when used for LayoutBox
   readonly size: 'width' | 'height';
+  readonly preferredSize: 'preferredWidth' | 'preferredHeight';
+  readonly localPreferredSize: 'localPreferredWidth' | 'localPreferredHeight';
+  readonly sizable: 'widthSizable' | 'heightSizable';
   readonly ariaOrientation: 'horizontal' | 'vertical'; // The value of the aria-orientation attribute for this Orientation.
 
   // Returns the single coordinate transformed by the appropriate dimension.
@@ -69,6 +72,9 @@ class Orientation extends EnumerationValue {
                rectSize: 'rectWidth' | 'rectHeight',
                layoutBoxOrientation: 'horizontal' | 'vertical',
                size: 'width' | 'height',
+               preferredSize: 'preferredWidth' | 'preferredHeight',
+               localPreferredSize: 'localPreferredWidth' | 'localPreferredHeight',
+               sizable: 'widthSizable' | 'heightSizable',
                modelToView: ( m: MVT, n: number ) => number,
                viewToModel: ( m: MVT, n: number ) => number, toVector: ( n: number, m: number, Vector2: any ) => any ) {
 
@@ -83,6 +89,9 @@ class Orientation extends EnumerationValue {
     this.rectSize = rectSize;
     this.layoutBoxOrientation = layoutBoxOrientation;
     this.size = size;
+    this.preferredSize = preferredSize;
+    this.localPreferredSize = localPreferredSize;
+    this.sizable = sizable;
     this.ariaOrientation = layoutBoxOrientation;
     this.modelToView = modelToView;
     this.viewToModel = viewToModel;
