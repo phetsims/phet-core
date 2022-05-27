@@ -451,7 +451,7 @@ QUnit.test( 'do not recurse for non *Options', assert => {
 
 QUnit.test( 'support optional options', assert => {
 
-  const mergeXYZ = ( options?: Object ) => {
+  const mergeXYZ = ( options?: Record<string, unknown> ) => {
     return merge( {
       x: 1,
       y: 2,
@@ -463,7 +463,7 @@ QUnit.test( 'support optional options', assert => {
   assert.ok( noOptions.y === 2, 'y property should be merged from default' );
   assert.ok( noOptions.z === 3, 'z property should be merged from default' );
 
-  const testNestedFunctionCallOptions = ( options?: Object ) => {
+  const testNestedFunctionCallOptions = ( options?: Record<string, unknown> ) => {
     return mergeXYZ( merge( {
       x: 2,
       g: 54,
