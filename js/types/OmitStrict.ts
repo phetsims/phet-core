@@ -1,6 +1,6 @@
 // Copyright 2022, University of Colorado Boulder
 /**
- * Just like Omit, except it enforces the presence of the omitted type in the original object.
+ * Just like Omit, except it enforces the presence of omitted keys in the original type.
  * i.e.:
  * type X = { hello: number, hola: boolean };
  * type Y1 = Omit<X, 'goodbye'>; // Wouldn't throw an error
