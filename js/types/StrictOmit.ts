@@ -5,11 +5,11 @@
  * i.e.:
  * type X = { hello: number; hola: boolean; };
  * type Y1 = Omit<X, 'goodbye'>; // Wouldn't throw an error
- * type Y2 = OmitStrict<X, 'goodbye'>; // Will throw an error
+ * type Y2 = StrictOmit<X, 'goodbye'>; // Will throw an error
  *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
 
-type OmitStrict<ObjectType, KeysType extends keyof ObjectType> = Pick<ObjectType, Exclude<keyof ObjectType, KeysType>>;
-export default OmitStrict;
+type StrictOmit<ObjectType, KeysType extends keyof ObjectType> = Pick<ObjectType, Exclude<keyof ObjectType, KeysType>>;
+export default StrictOmit;
