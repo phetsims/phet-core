@@ -1,4 +1,5 @@
 // Copyright 2022, University of Colorado Boulder
+
 /**
  * Just like Omit, except it enforces the presence of omitted keys in the original type.
  * i.e.:
