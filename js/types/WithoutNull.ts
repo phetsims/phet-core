@@ -4,9 +4,9 @@
  * Converts either an entire object (or a subset of keys of it) into non-null forms.
  *
  * type T = {
- *   a: number | null,
- *   b: string | number[] | null,
- *   c: { x: 5 }
+ *   a: number | null;
+ *   b: string | number[] | null;
+ *   c: { x: number; };
  * };
  * type X = WithoutNull<T>; // { a: number, b: string | number[], c: { x: 5 } }
  * type Y = WithoutNull<T, 'a'>; // { a: number, b: string | number[] | null, c: { x: 5 } }

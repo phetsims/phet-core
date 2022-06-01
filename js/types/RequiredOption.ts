@@ -3,7 +3,7 @@
 /**
  * Allows grabbing *the type* of a required option out of a type. For example if we have
  *
- * type SelfOptions = { something?: number | string | Property<Ray2> };
+ * type SelfOptions = { something?: number | string | Property<Ray2>; };
  *
  * This can be used in a field of the type as:
  *
