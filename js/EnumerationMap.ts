@@ -59,8 +59,8 @@ class EnumerationMap<T, U> {
   /**
    * Returns a new EnumerationMap with mapped values.
    *
-   * @param {Function} mapFunction - function( {*}, {IEnumeration.*} ): {*}
-   * @returns {EnumerationMap.<*>} - With the mapped values
+   * @param mapFunction - function( {*}, {IEnumeration.*} ): {*}
+   * @returns With the mapped values
    */
   map( mapFunction: ( u: U, t: T ) => U ): EnumerationMap<T, U> {
     return new EnumerationMap( this._enumeration, entry => mapFunction( this.get( entry ), entry ) );
@@ -78,7 +78,6 @@ class EnumerationMap<T, U> {
   /**
    * Returns the values stored in the map, as an array
    *
-   * @returns {Array.<*>}
    */
   values(): U[] {
     return this._values.map( entry => this.get( entry ) );

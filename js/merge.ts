@@ -35,7 +35,6 @@ function merge<A, B, C, D, E>( a: A, b: B, c: C, d: D, e: E ): A & B & C & D & E
 /**
  * @param  {Object} target - the object literal that will have keys set to it
  * @param  {...<Object|null>} sources
- * @returns {Object}
  */
 function merge( target: any, ...sources: any ) { // eslint-disable-line no-redeclare
   assert && assertIsMergeable( target );
