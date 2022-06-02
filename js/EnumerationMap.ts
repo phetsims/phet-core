@@ -17,7 +17,7 @@ type IEnumeration<T> = {
 // T = enumeration value type
 // U = mapped value type
 class EnumerationMap<T, U> {
-  private _enumeration: IEnumeration<T>;
+  private readonly _enumeration: IEnumeration<T>;
   private _map = new Map<T, U>();
   private _values: T[];
 
@@ -27,7 +27,6 @@ class EnumerationMap<T, U> {
    */
   constructor( enumeration: IEnumeration<T>, factory: ( t: T ) => U ) {
 
-    // @private
     this._enumeration = enumeration;
 
     this._values = enumeration.enumeration.values;
