@@ -71,7 +71,6 @@ function merge( target: any, ...sources: any ) { // eslint-disable-line no-redec
  * TODO: can we remove assertIsMergeable? https://github.com/phetsims/chipper/issues/1128
  * Asserts that the object is compatible with merge. That is, it's a POJSO.
  * This function must be called like: assert && assertIsMergeable( arg );
- * @param {Object|null} object
  */
 function assertIsMergeable( object: any ) {
   assert && assert( object === null ||

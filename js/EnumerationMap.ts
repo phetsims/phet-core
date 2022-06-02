@@ -47,9 +47,6 @@ class EnumerationMap<T, U> {
 
   /**
    * Sets the value associated with the given enumeration entry.
-   *
-   * @param {Object} entry
-   * @param {*} value
    */
   set( entry: T, value: U ): void {
     assert && assert( this._values.includes( entry ) );
@@ -69,7 +66,7 @@ class EnumerationMap<T, U> {
   /**
    * Calls the callback on each item of the enumeration map.
    *
-   * @param {Function} callback - function(value:*, enumerationValue:*)
+   * @param callback - function(value:*, enumerationValue:*)
    */
   forEach( callback: ( u: U, t: T ) => void ): void {
     this._values.forEach( entry => callback( this.get( entry ), entry ) );

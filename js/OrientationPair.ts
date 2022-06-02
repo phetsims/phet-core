@@ -39,7 +39,7 @@ class OrientationPair<T> extends EnumerationMap<Orientation, T> {
   /**
    * Creates an orientation pair based on a factory method.
    *
-   * @param {function} factory - Called factory( {Orientation} ) : {*}, called once for each orientation to determine
+   * @param ) : {*}, called once for each orientation to determine
    *                             the value.
    */
   static create<T>( factory: ( o: Orientation ) => T ): OrientationPair<T> {
