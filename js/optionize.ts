@@ -55,7 +55,7 @@ type OptionizeDefaults<SelfOptions = {}, ParentOptions = {}, KeysUsedInSubclassC
 // TODO: "Limitation (I)" How can we indicate that a required parameter (for ParentOptions) will come in through defaults and/or providedOptions? Note: required parameters for S will not come from defaults.  See https://github.com/phetsims/chipper/issues/1128
 
 // Factor out the merge arrow closure to avoid heap/cpu at runtime
-const merge3 = ( a: any, b?: any, c?: any ) => merge( a, b, c );
+const merge4 = ( a: any, b?: any, c?: any, d?: any ) => merge( a, b, c, d );
 
 // ProvidedOptions = The type of this class's public API (type of the providedOptions parameter in the constructor)
 // SelfOptions = Options that are defined by "this" class. Anything optional in this block must have a default provided in "defaults"
@@ -68,7 +68,7 @@ export default function optionize<ProvidedOptions,
     defaults: HalfOptions<SelfOptions, ParentOptions>,
     providedOptions?: ProvidedOptions
   ) => HalfOptions<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>> {
-  return merge3;
+  return merge4;
 }
 
 export function optionize3<ProvidedOptions,
@@ -79,16 +79,13 @@ export function optionize3<ProvidedOptions,
     defaults: HalfOptions<SelfOptions, ParentOptions>,
     providedOptions?: ProvidedOptions
   ) => HalfOptions<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>> {
-  return merge3;
+  return merge4;
 }
 
-export function combineOptions<Type extends {}>( a: HalfOptions<{}, Type>, b?: Type ) {
-  return optionize<Type, {}, Type>()( a as HalfOptions<{}, Type>, b );
+export function combineOptions<Type extends {}>( target: Partial<Type>, ...sources: Array<Partial<Type> | undefined> ): Type {
+  return merge4( target, ...sources );
 }
 
-export function combineOptions3<Type extends {}>( a: HalfOptions<{}, Type>, b: HalfOptions<{}, Type>, c?: Type ) {
-  return optionize3<Type, {}, Type>()( a, b, c );
-}
 
 // function optionize<ProvidedOptions, // eslint-disable-line no-redeclare
 //   SelfOptions = ProvidedOptions,
