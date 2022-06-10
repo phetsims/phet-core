@@ -21,13 +21,13 @@ type MVT = {
 
 class Orientation extends EnumerationValue {
 
-  static HORIZONTAL = new Orientation( 'x', 'centerX', 'minX', 'maxX', 'left', 'right', 'rectX', 'rectWidth', 'horizontal', 'width', 'preferredWidth', 'localPreferredWidth', 'widthSizable',
+  static HORIZONTAL = new Orientation( 'x', 'centerX', 'minX', 'maxX', 'left', 'right', 'rectX', 'rectWidth', 'horizontal', 'width', 'column', 'preferredWidth', 'localPreferredWidth', 'widthSizable',
     ( modelViewTransform, value ) => modelViewTransform.modelToViewX( value ),
     ( modelViewTransform, value ) => modelViewTransform.viewToModelX( value ),
     ( a: number, b: number, Vector2: any ) => new Vector2( a, b )
   );
 
-  static VERTICAL = new Orientation( 'y', 'centerY', 'minY', 'maxY', 'top', 'bottom', 'rectY', 'rectHeight', 'vertical', 'height', 'preferredHeight', 'localPreferredHeight', 'heightSizable',
+  static VERTICAL = new Orientation( 'y', 'centerY', 'minY', 'maxY', 'top', 'bottom', 'rectY', 'rectHeight', 'vertical', 'height', 'row', 'preferredHeight', 'localPreferredHeight', 'heightSizable',
     ( modelViewTransform, value ) => modelViewTransform.modelToViewY( value ),
     ( modelViewTransform, value ) => modelViewTransform.viewToModelY( value ),
     ( a: number, b: number, Vector2: any ) => new Vector2( b, a )
@@ -47,6 +47,7 @@ class Orientation extends EnumerationValue {
   readonly rectSize: 'rectWidth' | 'rectHeight';
   readonly layoutBoxOrientation: 'horizontal' | 'vertical'; // The name of the orientation when used for LayoutBox
   readonly size: 'width' | 'height';
+  readonly line: 'column' | 'row';
   readonly preferredSize: 'preferredWidth' | 'preferredHeight';
   readonly localPreferredSize: 'localPreferredWidth' | 'localPreferredHeight';
   readonly sizable: 'widthSizable' | 'heightSizable';
@@ -72,6 +73,7 @@ class Orientation extends EnumerationValue {
                rectSize: 'rectWidth' | 'rectHeight',
                layoutBoxOrientation: 'horizontal' | 'vertical',
                size: 'width' | 'height',
+               line: 'column' | 'row',
                preferredSize: 'preferredWidth' | 'preferredHeight',
                localPreferredSize: 'localPreferredWidth' | 'localPreferredHeight',
                sizable: 'widthSizable' | 'heightSizable',
@@ -89,6 +91,7 @@ class Orientation extends EnumerationValue {
     this.rectSize = rectSize;
     this.layoutBoxOrientation = layoutBoxOrientation;
     this.size = size;
+    this.line = line;
     this.preferredSize = preferredSize;
     this.localPreferredSize = localPreferredSize;
     this.sizable = sizable;
