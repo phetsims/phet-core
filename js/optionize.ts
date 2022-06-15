@@ -17,6 +17,7 @@
 
 import phetCore from './phetCore.js';
 import merge from './merge.js';
+import EmptyObjectType from './types/EmptyObjectType.js';
 
 // https://github.com/piotrwitek/utility-types/blob/master/src/mapped-types.ts
 type OptionalKeys<T> = {
@@ -31,7 +32,7 @@ type EmptyObject = {
 }
 
 // This is the type for the `defaults` argument to optionize
-export type HalfOptions<SelfOptions = {}, ParentOptions = {}> =
+export type HalfOptions<SelfOptions = EmptyObjectType, ParentOptions = {}> =
 
 // Everything optional from SelfOptions must have a default specified
   Required<Options<SelfOptions>> &
@@ -40,7 +41,7 @@ export type HalfOptions<SelfOptions = {}, ParentOptions = {}> =
   Partial<ParentOptions>;
 
 // This is the type for the `defaults` argument to optionize
-type OptionizeDefaults<SelfOptions = {}, ParentOptions = {}, KeysUsedInSubclassConstructor extends keyof ParentOptions = never> =
+type OptionizeDefaults<SelfOptions = EmptyObjectType, ParentOptions = {}, KeysUsedInSubclassConstructor extends keyof ParentOptions = never> =
 
 // Everything optional from SelfOptions must have a default specified
   Required<Options<SelfOptions>> &
