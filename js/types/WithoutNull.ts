@@ -15,6 +15,7 @@
  */
 
 import NotNull from './NotNull.js';
+import EmptyObjectType from './EmptyObjectType.js';
 
-type WithoutNull<T extends {}, keys extends keyof T = keyof T> = T & { [ key in keys ]: NotNull<T[ key ]> };
+type WithoutNull<T extends EmptyObjectType, keys extends keyof T = keyof T> = T & { [key in keys]: NotNull<T[ key ]> };
 export default WithoutNull;

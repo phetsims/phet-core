@@ -7,6 +7,7 @@
  */
 
 import IntentionalAny from './IntentionalAny.js';
+import EmptyObjectType from './EmptyObjectType.js';
 
-type Constructor<T = {}, K extends IntentionalAny[] = IntentionalAny[]> = new ( ...args: K ) => T;
+type Constructor<T = EmptyObjectType, K extends IntentionalAny[] = IntentionalAny[]> = new ( ...args: K ) => T;
 export default Constructor;

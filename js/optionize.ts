@@ -21,7 +21,7 @@ import EmptyObjectType from './types/EmptyObjectType.js';
 
 // https://github.com/piotrwitek/utility-types/blob/master/src/mapped-types.ts
 type OptionalKeys<T> = {
-  [K in keyof T]-?: {} extends Pick<T, K> ? K : never;
+  [K in keyof T]-?: EmptyObjectType extends Pick<T, K> ? K : never;
 }[keyof T];
 
 // Gets the parts of an object that are optional
@@ -32,7 +32,7 @@ type EmptyObject = {
 }
 
 // This is the type for the `defaults` argument to optionize
-export type HalfOptions<SelfOptions = EmptyObjectType, ParentOptions = {}> =
+export type HalfOptions<SelfOptions = EmptyObjectType, ParentOptions = EmptyObjectType> =
 
 // Everything optional from SelfOptions must have a default specified
   Required<Options<SelfOptions>> &
@@ -41,7 +41,7 @@ export type HalfOptions<SelfOptions = EmptyObjectType, ParentOptions = {}> =
   Partial<ParentOptions>;
 
 // This is the type for the `defaults` argument to optionize
-type OptionizeDefaults<SelfOptions = EmptyObjectType, ParentOptions = {}, KeysUsedInSubclassConstructor extends keyof ParentOptions = never> =
+type OptionizeDefaults<SelfOptions = EmptyObjectType, ParentOptions = EmptyObjectType, KeysUsedInSubclassConstructor extends keyof ParentOptions = never> =
 
 // Everything optional from SelfOptions must have a default specified
   Required<Options<SelfOptions>> &
@@ -64,7 +64,7 @@ const merge4 = ( a: any, b?: any, c?: any, d?: any ) => merge( a, b, c, d );
 // KeysUsedInSubclassConstructor = list of keys from ParentOptions that are used in this constructor. Please note that listing required parent option keys that are filled in by subtype defaults is a workaround for Limitation (I).
 export default function optionize<ProvidedOptions,
   SelfOptions = ProvidedOptions,
-  ParentOptions = {}>():
+  ParentOptions = EmptyObjectType>():
   <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
     defaults: HalfOptions<SelfOptions, ParentOptions>,
     providedOptions?: ProvidedOptions
@@ -74,7 +74,7 @@ export default function optionize<ProvidedOptions,
 
 export function optionize3<ProvidedOptions,
   SelfOptions = ProvidedOptions,
-  ParentOptions = {}>():
+  ParentOptions = EmptyObjectType>():
   <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
     emptyObject: EmptyObject,
     defaults: HalfOptions<SelfOptions, ParentOptions>,
@@ -83,14 +83,14 @@ export function optionize3<ProvidedOptions,
   return merge4;
 }
 
-export function combineOptions<Type extends {}>( target: Partial<Type>, ...sources: Array<Partial<Type> | undefined> ): Type {
+export function combineOptions<Type extends EmptyObjectType>( target: Partial<Type>, ...sources: Array<Partial<Type> | undefined> ): Type {
   return merge4( target, ...sources );
 }
 
 
 // function optionize<ProvidedOptions, // eslint-disable-line no-redeclare
 //   SelfOptions = ProvidedOptions,
-//   ParentOptions = {}>():
+//   ParentOptions = EmptyObjectType>():
 //   <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
 //     emptyObject: EmptyObject,
 //     defaults: HalfOptions<SelfOptions, ParentOptions>,
@@ -99,7 +99,7 @@ export function combineOptions<Type extends {}>( target: Partial<Type>, ...sourc
 //
 // function optionize<ProvidedOptions, // eslint-disable-line no-redeclare
 //   SelfOptions = ProvidedOptions,
-//   ParentOptions = {},
+//   ParentOptions = EmptyObjectType,
 //   KeysUsedInSubclassConstructor extends keyof ParentOptions = never>():
 //   (
 //     empytObject: EmptyObject,
@@ -125,7 +125,7 @@ Limitation (I):
 
 This gets us half way there, when you have required args to the parent, this makes sure that you don't make
 providedOptions optional (with a question mark). We still need a way to note when the required param is specified via the self options.
-const optionize = <S, P = {}, M extends keyof P = never, A = S & P>(
+const optionize = <S, P = EmptyObjectType, M extends keyof P = never, A = S & P>(
   defaults: Required<Options<S>> & Partial<P> & Required<Pick<P, M>>,
   providedOptions: RequiredKeys<A> extends never ? ( A | undefined ) : A
 ) => {
@@ -133,7 +133,7 @@ const optionize = <S, P = {}, M extends keyof P = never, A = S & P>(
 };
 
 TEST TO SEE IF WE CAN GET TYPESCRIPT TO KNOW ABOUT REQUIRED ARGUMENTS TO POTENTIALLY COME FROM EITHER ARG.
-const optionize = <S, P = {}, M extends keyof P = never, A = S & P>() => {
+const optionize = <S, P = EmptyObjectType, M extends keyof P = never, A = S & P>() => {
   type FirstArg = Required<Options<S>> & Partial<P> & Required<Pick<P, M>>;
   return (
     defaults: FirstArg,

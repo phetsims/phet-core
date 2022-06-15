@@ -8,5 +8,5 @@
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
 
-type EmptyObjectType = {}; // eslint-disable-line
+type EmptyObjectType = {}; // eslint-disable-line @typescript-eslint/ban-types
 export default EmptyObjectType;
