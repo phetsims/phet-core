@@ -13,8 +13,8 @@ import StrictOmit from './StrictOmit.js';
 
 /**
  * @param T - the type that has the nested properties
- * @param P - the name of the property containing the nested options
- * @param K - the keys of the nested options to be omitted
+ * @param P - the name of the property containing the nested properties
+ * @param K - the keys of the nested properties to be omitted
  */
 type NestedStrictOmit<T, P extends keyof T, K extends keyof Required<T>[P]> =
   StrictOmit<T, P> &
