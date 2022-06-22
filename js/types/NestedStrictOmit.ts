@@ -12,7 +12,7 @@
 import StrictOmit from './StrictOmit.js';
 
 /**
- * @param T - the type that has the nested property
+ * @param T - the type that has the nested properties
  * @param P - the name of the property containing the nested options
  * @param K - the keys of the nested options to be omitted
  */
