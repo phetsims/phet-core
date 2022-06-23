@@ -29,8 +29,8 @@ import phetCore from './phetCore.js';
 import IEnumeration from './IEnumeration.js';
 import EnumerationValue from './EnumerationValue.js';
 import inheritance from './inheritance.js';
-import merge from './merge.js';
 import Constructor from './types/Constructor.js';
+import optionize from './optionize.js';
 
 type EnumerationOptions = {
   phetioDocumentation?: string;
@@ -45,7 +45,7 @@ class Enumeration<T extends EnumerationValue> implements IEnumeration<T> {
 
   constructor( Enumeration: Constructor<T>, providedOptions?: EnumerationOptions ) {
 
-    const options = merge( {
+    const options = optionize<EnumerationOptions>()( {
       phetioDocumentation: '',
 
       // Values are plucked from the supplied Enumeration, but in order to support subtyping (augmenting) Enumerations,
