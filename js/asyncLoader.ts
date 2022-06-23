@@ -36,7 +36,6 @@ class AsyncLoader {
    * @param listener - called when load is complete
    */
   addListener( listener: AsyncLoaderListener ): void {
-    assert && assert( typeof listener === 'function' );
     this.listeners.push( listener );
   }
 

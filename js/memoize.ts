@@ -13,8 +13,6 @@ import phetCore from './phetCore.js';
  * @returns - Returns a function that is equivalent, but caches values from previous keys
  */
 function memoize<Key, Value>( func: ( k: Key ) => Value ) {
-  assert && assert( typeof func === 'function' );
-
   const map = new Map<Key, Value>();
 
   return ( key: Key ): Value => {
