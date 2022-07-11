@@ -35,7 +35,7 @@ import optionize from './optionize.js';
 type EnumerationOptions = {
   phetioDocumentation?: string;
   instanceType?: any;
-}
+};
 
 class Enumeration<T extends EnumerationValue> implements IEnumeration<T> {
   readonly values: T[]; // in the order that static instances are defined
