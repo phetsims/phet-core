@@ -9,5 +9,5 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-type KeysMatching<T, V> = {[K in keyof T]-?: T[K] extends V ? K : never}[keyof T];
+type KeysMatching<T, V> = { [K in keyof T]-?: T[K] extends V ? K : never }[keyof T];
 export default KeysMatching;
