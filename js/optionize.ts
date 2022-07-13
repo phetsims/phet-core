@@ -27,9 +27,7 @@ type OptionalKeys<T> = {
 // Gets the parts of an object that are optional
 type Options<T> = Pick<T, OptionalKeys<T>>;
 
-type EmptyObject = {
-  [ key: string | number ]: never;
-};
+type EmptyObject = Record<string | number, never>;
 
 // This is the type for the `defaults` argument to optionize
 export type HalfOptions<SelfOptions = EmptyObjectType, ParentOptions = EmptyObjectType> =
