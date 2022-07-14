@@ -81,6 +81,7 @@ export function optionize3<ProvidedOptions,
   return merge4;
 }
 
+// Use combineOptions to combine object literals (typically options) that all have the same type.
 export function combineOptions<Type extends EmptyObjectType>( target: Partial<Type>, ...sources: Array<Partial<Type> | undefined> ): Type {
   return merge4( target, ...sources );
 }
