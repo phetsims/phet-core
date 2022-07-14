@@ -89,7 +89,7 @@ export default class Pool<T extends Constructor, Params extends any[] = Construc
     this.partialConstructor = Function.prototype.bind.bind( type, type );
 
     // Basically our type constructor, but with the default arguments included already.
-    this.DefaultConstructor = this.partialConstructor( ...options.defaultArguments! );
+    this.DefaultConstructor = this.partialConstructor( ...options.defaultArguments! ); // eslint-disable-line @typescript-eslint/no-unnecessary-type-assertion
 
     this.initialize = options.initialize;
     this.useDefaultConstruction = options.useDefaultConstruction;

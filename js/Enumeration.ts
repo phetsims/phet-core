@@ -91,7 +91,7 @@ class Enumeration<T extends EnumerationValue> implements IEnumeration<T> {
   }
 
   getKey( value: T ): string {
-    return value.name!;
+    return value.name;
   }
 
   getValue( key: string ): T {
