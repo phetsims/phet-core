@@ -58,7 +58,7 @@ class AsyncLoader {
     assert && assert( !this.loadComplete, 'Cannot create more locks after load-step has completed' );
     this.pendingLocks.push( object );
     return () => {
-      assert && assert( this.pendingLocks.indexOf( object ) >= 0, 'invalid lock' );
+      assert && assert( this.pendingLocks.includes( object ), 'invalid lock' );
       arrayRemove( this.pendingLocks, object );
       this.proceedIfReady();
     };
