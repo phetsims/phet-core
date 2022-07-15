@@ -21,49 +21,49 @@ type MVT = {
 
 class Orientation extends EnumerationValue {
 
-  static HORIZONTAL = new Orientation( 'x', 'centerX', 'minX', 'maxX', 'left', 'right', 'rectX', 'rectWidth', 'horizontal', 'width', 'column', 'preferredWidth', 'localPreferredWidth', 'widthSizable',
+  public static HORIZONTAL = new Orientation( 'x', 'centerX', 'minX', 'maxX', 'left', 'right', 'rectX', 'rectWidth', 'horizontal', 'width', 'column', 'preferredWidth', 'localPreferredWidth', 'widthSizable',
     ( modelViewTransform, value ) => modelViewTransform.modelToViewX( value ),
     ( modelViewTransform, value ) => modelViewTransform.viewToModelX( value ),
     ( a: number, b: number, Vector2: any ) => new Vector2( a, b )
   );
 
-  static VERTICAL = new Orientation( 'y', 'centerY', 'minY', 'maxY', 'top', 'bottom', 'rectY', 'rectHeight', 'vertical', 'height', 'row', 'preferredHeight', 'localPreferredHeight', 'heightSizable',
+  public static VERTICAL = new Orientation( 'y', 'centerY', 'minY', 'maxY', 'top', 'bottom', 'rectY', 'rectHeight', 'vertical', 'height', 'row', 'preferredHeight', 'localPreferredHeight', 'heightSizable',
     ( modelViewTransform, value ) => modelViewTransform.modelToViewY( value ),
     ( modelViewTransform, value ) => modelViewTransform.viewToModelY( value ),
     ( a: number, b: number, Vector2: any ) => new Vector2( b, a )
   );
 
-  static enumeration = new Enumeration( Orientation, {
+  public static enumeration = new Enumeration( Orientation, {
     phetioDocumentation: 'Horizontal or vertical orientation'
   } );
 
-  readonly coordinate: 'x' | 'y'; // So you can position things like node[ orientation.coordinate ] = value
-  readonly centerCoordinate: 'centerX' | 'centerY'; // So you can center things like node[ orientation.centerCoordinate ] = value
-  readonly minCoordinate: 'minX' | 'minY'; // So you can center things like bounds[ orientation.minCoordinate ] = value
-  readonly maxCoordinate: 'maxX' | 'maxY'; // So you can center things like bounds[ orientation.maxCoordinate ] = value
-  readonly minSide: 'left' | 'top'; // For getting the minimal/maximal values from bounds/nodes
-  readonly maxSide: 'right' | 'bottom';
-  readonly rectCoordinate: 'rectX' | 'rectY'; // For being able to handle Rectangles (x/y) and (width/height)
-  readonly rectSize: 'rectWidth' | 'rectHeight';
-  readonly layoutBoxOrientation: 'horizontal' | 'vertical'; // The name of the orientation when used for LayoutBox
-  readonly size: 'width' | 'height';
-  readonly line: 'column' | 'row';
-  readonly preferredSize: 'preferredWidth' | 'preferredHeight';
-  readonly localPreferredSize: 'localPreferredWidth' | 'localPreferredHeight';
-  readonly sizable: 'widthSizable' | 'heightSizable';
-  readonly ariaOrientation: 'horizontal' | 'vertical'; // The value of the aria-orientation attribute for this Orientation.
+  public readonly coordinate: 'x' | 'y'; // So you can position things like node[ orientation.coordinate ] = value
+  public readonly centerCoordinate: 'centerX' | 'centerY'; // So you can center things like node[ orientation.centerCoordinate ] = value
+  public readonly minCoordinate: 'minX' | 'minY'; // So you can center things like bounds[ orientation.minCoordinate ] = value
+  public readonly maxCoordinate: 'maxX' | 'maxY'; // So you can center things like bounds[ orientation.maxCoordinate ] = value
+  public readonly minSide: 'left' | 'top'; // For getting the minimal/maximal values from bounds/nodes
+  public readonly maxSide: 'right' | 'bottom';
+  public readonly rectCoordinate: 'rectX' | 'rectY'; // For being able to handle Rectangles (x/y) and (width/height)
+  public readonly rectSize: 'rectWidth' | 'rectHeight';
+  public readonly layoutBoxOrientation: 'horizontal' | 'vertical'; // The name of the orientation when used for LayoutBox
+  public readonly size: 'width' | 'height';
+  public readonly line: 'column' | 'row';
+  public readonly preferredSize: 'preferredWidth' | 'preferredHeight';
+  public readonly localPreferredSize: 'localPreferredWidth' | 'localPreferredHeight';
+  public readonly sizable: 'widthSizable' | 'heightSizable';
+  public readonly ariaOrientation: 'horizontal' | 'vertical'; // The value of the aria-orientation attribute for this Orientation.
 
   // Returns the single coordinate transformed by the appropriate dimension.
-  modelToView: ( m: MVT, n: number ) => number;
-  viewToModel: ( m: MVT, n: number ) => number;
+  public modelToView: ( m: MVT, n: number ) => number;
+  public viewToModel: ( m: MVT, n: number ) => number;
 
   // Creates a vector (primary,secondary) for horizontal orientations, and (secondary,primary) for vertical orientations.
-  toVector: ( n: number, m: number, Vector2: any ) => any;
+  public toVector: ( n: number, m: number, Vector2: any ) => any;
 
   // @ts-ignore - Assigned after instantiation, see below
-  opposite: Orientation;
+  public opposite: Orientation;
 
-  constructor( coordinate: 'x' | 'y',
+  public constructor( coordinate: 'x' | 'y',
                centerCoordinate: 'centerX' | 'centerY',
                minCoordinate: 'minX' | 'minY',
                maxCoordinate: 'maxX' | 'maxY',

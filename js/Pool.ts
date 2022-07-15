@@ -58,7 +58,7 @@ export type IPoolable = {
 export default class Pool<T extends Constructor, Params extends any[] = ConstructorParameters<T>> {
   // This should not be modified externally. In the future if desired, functions could be added to help adding/removing
   // poolable instances manually.
-  objects: InstanceType<T>[];
+  public objects: InstanceType<T>[];
 
   private _maxPoolSize: number;
   private partialConstructor: ( ...args: IntentionalAny[] ) => IntentionalAny;
@@ -66,7 +66,7 @@ export default class Pool<T extends Constructor, Params extends any[] = Construc
   private initialize: PoolableInitializer<T, Params>;
   private useDefaultConstruction: boolean;
 
-  constructor( type: T, providedOptions?: PoolableOptions<T, Params> ) {
+  public constructor( type: T, providedOptions?: PoolableOptions<T, Params> ) {
     const options = optionize<PoolableOptions<T, Params>, PoolableOptions<T, Params>>()( {
 
       defaultArguments: [] as unknown as Params,
@@ -109,7 +109,7 @@ export default class Pool<T extends Constructor, Params extends any[] = Construc
   /**
    * Returns an object with arbitrary state (possibly constructed with the default arguments).
    */
-  fetch(): InstanceType<T> {
+  public fetch(): InstanceType<T> {
     return this.objects.length ? this.objects.pop() : this.createDefaultObject();
   }
 
@@ -117,7 +117,7 @@ export default class Pool<T extends Constructor, Params extends any[] = Construc
    * Returns an object that behaves as if it was constructed with the given arguments. May result in a new object
    * being created (if the pool is empty), or it may use the constructor to mutate an object from the pool.
    */
-  create( ...args: Params ): InstanceType<T> {
+  public create( ...args: Params ): InstanceType<T> {
     let result;
 
     if ( this.objects.length ) {
@@ -138,14 +138,14 @@ export default class Pool<T extends Constructor, Params extends any[] = Construc
   /**
    * Returns the current size of the pool.
    */
-  get poolSize(): number {
+  public get poolSize(): number {
     return this.objects.length;
   }
 
   /**
    * Sets the maximum pool size.
    */
-  set maxPoolSize( value: number ) {
+  public set maxPoolSize( value: number ) {
     assert && assert( value === Number.POSITIVE_INFINITY || ( Number.isInteger( value ) && value >= 0 ), 'maxPoolSize should be a non-negative integer or infinity' );
 
     this._maxPoolSize = value;
@@ -154,11 +154,11 @@ export default class Pool<T extends Constructor, Params extends any[] = Construc
   /**
    * Returns the maximum pool size.
    */
-  get maxPoolSize(): number {
+  public get maxPoolSize(): number {
     return this._maxPoolSize;
   }
 
-  freeToPool( object: InstanceType<T> ): void {
+  public freeToPool( object: InstanceType<T> ): void {
     if ( this.objects.length < this.maxPoolSize ) {
       this.objects.push( object );
     }

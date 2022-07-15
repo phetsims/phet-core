@@ -16,33 +16,33 @@ class OrientationPair<T> extends EnumerationMap<Orientation, T> {
    * @param horizontal - Value for the horizontal orientation
    * @param vertical - Value for the vertical orientation
    */
-  constructor( horizontal: T, vertical: T ) {
+  public constructor( horizontal: T, vertical: T ) {
     super( Orientation, orientation => orientation === Orientation.HORIZONTAL ? horizontal : vertical );
   }
 
-  get horizontal(): T {
+  public get horizontal(): T {
     return this.get( Orientation.HORIZONTAL );
   }
 
-  set horizontal( value ) {
+  public set horizontal( value ) {
     this.set( Orientation.HORIZONTAL, value );
   }
 
-  get vertical(): T {
+  public get vertical(): T {
     return this.get( Orientation.VERTICAL );
   }
 
-  set vertical( value ) {
+  public set vertical( value ) {
     this.set( Orientation.VERTICAL, value );
   }
 
   /**
    * Creates an orientation pair based on a factory method.
    *
-   * @param ) : {*}, called once for each orientation to determine
+   * @param factory - called once for each orientation to determine
    *                             the value.
    */
-  static create<T>( factory: ( o: Orientation ) => T ): OrientationPair<T> {
+  public static create<T>( factory: ( o: Orientation ) => T ): OrientationPair<T> {
     return new OrientationPair( factory( Orientation.HORIZONTAL ), factory( Orientation.VERTICAL ) );
   }
 }

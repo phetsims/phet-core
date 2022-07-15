@@ -180,7 +180,7 @@ QUnit.test( 'check for proper assertion errors', assert => {
   const TestClass = class {
     private test: string;
 
-    constructor() {
+    public constructor() {
       this.test = 'class';
     }
   };

@@ -25,7 +25,7 @@ class EnumerationMap<T, U> {
    * @param enumeration
    * @param factory - function( {IEnumeration.*} ) => {*}, maps an enumeration value to any value.
    */
-  constructor( enumeration: IEnumeration<T>, factory: ( t: T ) => U ) {
+  public constructor( enumeration: IEnumeration<T>, factory: ( t: T ) => U ) {
 
     this._enumeration = enumeration;
 
@@ -39,7 +39,7 @@ class EnumerationMap<T, U> {
   /**
    * Returns the value associated with the given enumeration entry.
    */
-  get( entry: T ): U {
+  public get( entry: T ): U {
     assert && assert( this._values.includes( entry ) );
     assert && assert( this._map.has( entry ) );
     return this._map.get( entry )!;
@@ -48,7 +48,7 @@ class EnumerationMap<T, U> {
   /**
    * Sets the value associated with the given enumeration entry.
    */
-  set( entry: T, value: U ): void {
+  public set( entry: T, value: U ): void {
     assert && assert( this._values.includes( entry ) );
     this._map.set( entry, value );
   }
@@ -59,7 +59,7 @@ class EnumerationMap<T, U> {
    * @param mapFunction - function( {*}, {IEnumeration.*} ): {*}
    * @returns With the mapped values
    */
-  map( mapFunction: ( u: U, t: T ) => U ): EnumerationMap<T, U> {
+  public map( mapFunction: ( u: U, t: T ) => U ): EnumerationMap<T, U> {
     return new EnumerationMap( this._enumeration, entry => mapFunction( this.get( entry ), entry ) );
   }
 
@@ -68,7 +68,7 @@ class EnumerationMap<T, U> {
    *
    * @param callback - function(value:*, enumerationValue:*)
    */
-  forEach( callback: ( u: U, t: T ) => void ): void {
+  public forEach( callback: ( u: U, t: T ) => void ): void {
     this._values.forEach( entry => callback( this.get( entry ), entry ) );
   }
 
@@ -76,7 +76,7 @@ class EnumerationMap<T, U> {
    * Returns the values stored in the map, as an array
    *
    */
-  values(): U[] {
+  public values(): U[] {
     return this._values.map( entry => this.get( entry ) );
   }
 }

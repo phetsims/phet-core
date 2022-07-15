@@ -14,11 +14,11 @@ QUnit.module( 'Enumeration' );
 QUnit.test( 'Enumeration', assert => {
 
   class MyEnumeration extends EnumerationValue {
-    static ITEM_1 = new MyEnumeration();
-    static ITEM_2 = new MyEnumeration();
-    static ITEM_3 = new MyEnumeration();
+    public static ITEM_1 = new MyEnumeration();
+    public static ITEM_2 = new MyEnumeration();
+    public static ITEM_3 = new MyEnumeration();
 
-    static enumeration = new Enumeration( MyEnumeration );
+    public static enumeration = new Enumeration( MyEnumeration );
   }
 
   assert.ok( MyEnumeration.enumeration.keys.length === 3, 'keys all there' );
@@ -35,17 +35,17 @@ QUnit.test( 'Enumeration', assert => {
 QUnit.test( 'Enumeration Subtyping', assert => {
 
   class MyEnumeration extends EnumerationValue {
-    static ITEM_1 = new MyEnumeration();
-    static ITEM_2 = new MyEnumeration();
-    static ITEM_3 = new MyEnumeration();
+    public static ITEM_1 = new MyEnumeration();
+    public static ITEM_2 = new MyEnumeration();
+    public static ITEM_3 = new MyEnumeration();
 
-    static enumeration = new Enumeration( MyEnumeration );
+    public static enumeration = new Enumeration( MyEnumeration );
   }
 
   class MySubEnumeration extends MyEnumeration {
-    static ITEM_4 = new MySubEnumeration();
+    public static ITEM_4 = new MySubEnumeration();
 
-    static override enumeration = new Enumeration( MySubEnumeration, {
+    public static override enumeration = new Enumeration( MySubEnumeration, {
       instanceType: MyEnumeration
     } );
   }

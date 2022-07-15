@@ -37,9 +37,9 @@ class EnumerationValue {
 
   // After a Enumeration is constructed, no new instances of that exact type can be made (though it is OK to
   // create subtypes)
-  static sealedCache = new Set<Constructor<EnumerationValue>>();
+  public static sealedCache = new Set<Constructor<EnumerationValue>>();
 
-  toString(): string {
+  public toString(): string {
     return this.name;
   }
 
@@ -47,7 +47,7 @@ class EnumerationValue {
   // enumeration values.  Without this, string satisfies the EnumerationValue interface, but we don't want it to.
   private isEnumerationValue(): boolean {return true;}
 
-  constructor() {
+  public constructor() {
     const c = this.constructor as Constructor<EnumerationValue>;
     assert && assert( !EnumerationValue.sealedCache.has( c ), 'cannot create instanceof of a sealed constructor' );
 
@@ -55,22 +55,22 @@ class EnumerationValue {
     this._enumeration = null;
   }
 
-  set name( name: string ) {
+  public set name( name: string ) {
     assert && assert( !this._name, 'name cannot be changed once defined.' );
     this._name = name;
   }
 
-  get name(): string {
+  public get name(): string {
     assert && assert( this._name, 'name cannot be retreived until it has been filled in by Enumeration.' );
     return this._name!;
   }
 
-  set enumeration( enumeration: Enumeration<this> ) {
+  public set enumeration( enumeration: Enumeration<this> ) {
     assert && assert( !this._enumeration, 'enumeration cannot be changed once defined.' );
     this._enumeration = enumeration;
   }
 
-  get enumeration(): Enumeration<this> {
+  public get enumeration(): Enumeration<this> {
     assert && assert( this._enumeration, 'enumeration cannot be retreived until it has been filled in by Enumeration.' );
     return this._enumeration!;
   }

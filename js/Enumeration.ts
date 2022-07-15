@@ -38,12 +38,12 @@ type EnumerationOptions = {
 };
 
 class Enumeration<T extends EnumerationValue> implements IEnumeration<T> {
-  readonly values: T[]; // in the order that static instances are defined
-  readonly keys: string[];
-  readonly Enumeration: any;
-  readonly phetioDocumentation?: string;
+  public readonly values: T[]; // in the order that static instances are defined
+  public readonly keys: string[];
+  public readonly Enumeration: any;
+  public readonly phetioDocumentation?: string;
 
-  constructor( Enumeration: Constructor<T>, providedOptions?: EnumerationOptions ) {
+  public constructor( Enumeration: Constructor<T>, providedOptions?: EnumerationOptions ) {
 
     const options = optionize<EnumerationOptions>()( {
       phetioDocumentation: '',
@@ -90,15 +90,15 @@ class Enumeration<T extends EnumerationValue> implements IEnumeration<T> {
     EnumerationValue.sealedCache.add( Enumeration );
   }
 
-  getKey( value: T ): string {
+  public getKey( value: T ): string {
     return value.name;
   }
 
-  getValue( key: string ): T {
+  public getValue( key: string ): T {
     return this.Enumeration[ key ];
   }
 
-  includes( value: T ): boolean {
+  public includes( value: T ): boolean {
     return this.values.includes( value );
   }
 }

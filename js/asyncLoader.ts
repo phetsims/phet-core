@@ -26,7 +26,7 @@ class AsyncLoader {
   // Listeners which will be invoked after everything has been loaded.
   private listeners: AsyncLoaderListener[];
 
-  constructor() {
+  public constructor() {
     this.pendingLocks = [];
     this.loadComplete = false;
     this.listeners = [];
@@ -35,7 +35,7 @@ class AsyncLoader {
   /**
    * @param listener - called when load is complete
    */
-  addListener( listener: AsyncLoaderListener ): void {
+  public addListener( listener: AsyncLoaderListener ): void {
     this.listeners.push( listener );
   }
 
@@ -54,7 +54,7 @@ class AsyncLoader {
   /**
    * Creates a lock, which is a callback that needs to be run before we can proceed.
    */
-  createLock( object?: IntentionalAny ): AsyncLoaderLock {
+  public createLock( object?: IntentionalAny ): AsyncLoaderLock {
     assert && assert( !this.loadComplete, 'Cannot create more locks after load-step has completed' );
     this.pendingLocks.push( object );
     return () => {
