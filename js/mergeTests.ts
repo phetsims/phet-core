@@ -200,7 +200,7 @@ QUnit.test( 'check for proper assertion errors', assert => {
     },
     e: {
       // @ts-ignore
-      subOptions: () => { this.a = 42; }
+      subOptions: function() { this.a = 42; }
     },
     f: {
       subOptions: new TestClass()
