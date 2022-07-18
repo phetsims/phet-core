@@ -27,7 +27,7 @@ type OptionalKeys<T> = {
 // Gets the parts of an object that are optional
 type Options<T> = Pick<T, OptionalKeys<T>>;
 
-type EmptyObject = Record<string | number, never>;
+type ObjectWithNoKeys = Record<string | number, never>;
 
 // This is the type for the `defaults` argument to optionize
 export type HalfOptions<SelfOptions = EmptyObjectType, ParentOptions = EmptyObjectType> =
@@ -75,7 +75,7 @@ export function optionize3<ProvidedOptions,
   SelfOptions = ProvidedOptions,
   ParentOptions = EmptyObjectType>():
   <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
-    emptyObject: EmptyObject,
+    emptyObject: ObjectWithNoKeys,
     defaults: HalfOptions<SelfOptions, ParentOptions>,
     providedOptions?: ProvidedOptions
   ) => HalfOptions<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>> {
