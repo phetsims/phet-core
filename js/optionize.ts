@@ -70,6 +70,7 @@ export default function optionize<ProvidedOptions,
   return merge4;
 }
 
+// Use this function to gain the typing that optionize provides but in a case where the first argument is an empty object.
 export function optionize3<ProvidedOptions,
   SelfOptions = ProvidedOptions,
   ParentOptions = EmptyObjectType>():
