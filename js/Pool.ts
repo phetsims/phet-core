@@ -27,7 +27,7 @@ import phetCore from './phetCore.js';
 import optionize from './optionize.js';
 import IntentionalAny from './types/IntentionalAny.js';
 
-export type PoolableOptions<T extends Constructor, Params extends any[] = ConstructorParameters<T>> = {
+export type PoolableOptions<T extends Constructor, Params extends IntentionalAny[] = ConstructorParameters<T>> = {
   // If an object needs to be created without a direct call (say, to fill the pool initially), these are the arguments
   // that will be passed into the constructor
   defaultArguments?: Params;
@@ -47,7 +47,7 @@ export type PoolableOptions<T extends Constructor, Params extends any[] = Constr
   // instead of just providing the arguments straight to the constructor.
   useDefaultConstruction?: boolean;
 };
-type PoolableInitializer<T extends Constructor, Params extends any[] = ConstructorParameters<T>> = ( ...args: Params ) => InstanceType<T>;
+type PoolableInitializer<T extends Constructor, Params extends IntentionalAny[] = ConstructorParameters<T>> = ( ...args: Params ) => InstanceType<T>;
 
 export type IPoolable = {
   // Adds this object into the pool, so that it can be reused elsewhere. Generally when this is done, no other
@@ -55,7 +55,7 @@ export type IPoolable = {
   freeToPool: () => void;
 };
 
-export default class Pool<T extends Constructor, Params extends any[] = ConstructorParameters<T>> {
+export default class Pool<T extends Constructor, Params extends IntentionalAny[] = ConstructorParameters<T>> {
   // This should not be modified externally. In the future if desired, functions could be added to help adding/removing
   // poolable instances manually.
   public objects: InstanceType<T>[];
@@ -102,7 +102,7 @@ export default class Pool<T extends Constructor, Params extends any[] = Construc
     }
   }
 
-  private createDefaultObject(): any {
+  private createDefaultObject(): IntentionalAny {
     return new ( this.DefaultConstructor )();
   }
 

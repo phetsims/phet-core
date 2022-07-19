@@ -18,6 +18,7 @@
 import phetCore from './phetCore.js';
 import merge from './merge.js';
 import EmptyObjectType from './types/EmptyObjectType.js';
+import IntentionalAny from './types/IntentionalAny.js';
 
 // https://github.com/piotrwitek/utility-types/blob/master/src/mapped-types.ts
 type OptionalKeys<T> = {
@@ -54,7 +55,7 @@ type OptionizeDefaults<SelfOptions = EmptyObjectType, ParentOptions = EmptyObjec
 // TODO: "Limitation (I)" How can we indicate that a required parameter (for ParentOptions) will come in through defaults and/or providedOptions? Note: required parameters for S will not come from defaults.  See https://github.com/phetsims/chipper/issues/1128
 
 // Factor out the merge arrow closure to avoid heap/cpu at runtime
-const merge4 = ( a: any, b?: any, c?: any, d?: any ) => merge( a, b, c, d );
+const merge4 = ( a: IntentionalAny, b?: IntentionalAny, c?: IntentionalAny, d?: IntentionalAny ) => merge( a, b, c, d );
 
 // ProvidedOptions = The type of this class's public API (type of the providedOptions parameter in the constructor)
 // SelfOptions = Options that are defined by "this" class. Anything optional in this block must have a default provided in "defaults"

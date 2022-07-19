@@ -32,20 +32,20 @@ import inheritance from './inheritance.js';
 import Constructor from './types/Constructor.js';
 import optionize from './optionize.js';
 
-type EnumerationOptions = {
+export type EnumerationOptions<T extends EnumerationValue> = {
   phetioDocumentation?: string;
-  instanceType?: any;
+  instanceType?: Constructor<T>;
 };
 
 class Enumeration<T extends EnumerationValue> implements IEnumeration<T> {
   public readonly values: T[]; // in the order that static instances are defined
   public readonly keys: string[];
-  public readonly Enumeration: any;
+  public readonly Enumeration: Constructor<T> & Record<string, T>;
   public readonly phetioDocumentation?: string;
 
-  public constructor( Enumeration: Constructor<T>, providedOptions?: EnumerationOptions ) {
+  public constructor( Enumeration: Constructor<T>, providedOptions?: EnumerationOptions<T> ) {
 
-    const options = optionize<EnumerationOptions>()( {
+    const options = optionize<EnumerationOptions<T>>()( {
       phetioDocumentation: '',
 
       // Values are plucked from the supplied Enumeration, but in order to support subtyping (augmenting) Enumerations,
@@ -86,7 +86,7 @@ class Enumeration<T extends EnumerationValue> implements IEnumeration<T> {
     assert && assert( this.keys.length > 0, 'no keys found' );
     assert && assert( this.values.length > 0, 'no values found' );
 
-    this.Enumeration = Enumeration;
+    this.Enumeration = Enumeration as Constructor<T> & Record<string, T>;
     EnumerationValue.sealedCache.add( Enumeration );
   }
 

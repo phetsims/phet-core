@@ -7,5 +7,5 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-type IntentionalAny = any;
+type IntentionalAny = any; // eslint-disable-line @typescript-eslint/no-explicit-any
 export default IntentionalAny;

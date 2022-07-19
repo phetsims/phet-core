@@ -12,6 +12,7 @@
  */
 
 import phetCore from './phetCore.js';
+import IntentionalAny from './types/IntentionalAny.js';
 
 // constants
 const OPTIONS_SUFFIX = 'Options';
@@ -36,7 +37,7 @@ function merge<A, B, C, D, E>( a: A, b: B, c: C, d: D, e: E ): A & B & C & D & E
  * @param  {Object} target - the object literal that will have keys set to it
  * @param  {...<Object|null>} sources
  */
-function merge( target: any, ...sources: any ) { // eslint-disable-line no-redeclare
+function merge( target: IntentionalAny, ...sources: IntentionalAny[] ) { // eslint-disable-line no-redeclare
   assert && assertIsMergeable( target );
   assert && assert( target !== null, 'target should not be null' ); // assertIsMergeable supports null
   assert && assert( sources.length > 0, 'at least one source expected' );
@@ -72,7 +73,7 @@ function merge( target: any, ...sources: any ) { // eslint-disable-line no-redec
  * Asserts that the object is compatible with merge. That is, it's a POJSO.
  * This function must be called like: assert && assertIsMergeable( arg );
  */
-function assertIsMergeable( object: any ) {
+function assertIsMergeable( object: IntentionalAny ) {
   assert && assert( object === null ||
                     ( object && typeof object === 'object' && Object.getPrototypeOf( object ) === Object.prototype ),
     'object is not compatible with merge' );

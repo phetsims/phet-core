@@ -10,6 +10,8 @@
 import phetCore from './phetCore.js';
 import Enumeration from './Enumeration.js';
 import EnumerationValue from './EnumerationValue.js';
+import Constructor from './types/Constructor.js';
+import IntentionalAny from './types/IntentionalAny.js';
 
 // So we don't introduce a dependency on phetcommon
 type MVT = {
@@ -24,13 +26,15 @@ class Orientation extends EnumerationValue {
   public static HORIZONTAL = new Orientation( 'x', 'centerX', 'minX', 'maxX', 'left', 'right', 'rectX', 'rectWidth', 'horizontal', 'width', 'column', 'preferredWidth', 'localPreferredWidth', 'widthSizable',
     ( modelViewTransform, value ) => modelViewTransform.modelToViewX( value ),
     ( modelViewTransform, value ) => modelViewTransform.viewToModelX( value ),
-    ( a: number, b: number, Vector2: any ) => new Vector2( a, b )
+    // Pad with zeros to support up to Vector4
+    <T>( a: number, b: number, VectorType: Constructor<T> ): T => new VectorType( a, b, 0, 0 )
   );
 
   public static VERTICAL = new Orientation( 'y', 'centerY', 'minY', 'maxY', 'top', 'bottom', 'rectY', 'rectHeight', 'vertical', 'height', 'row', 'preferredHeight', 'localPreferredHeight', 'heightSizable',
     ( modelViewTransform, value ) => modelViewTransform.modelToViewY( value ),
     ( modelViewTransform, value ) => modelViewTransform.viewToModelY( value ),
-    ( a: number, b: number, Vector2: any ) => new Vector2( b, a )
+    // Pad with zeros to support up to Vector4
+    <T>( a: number, b: number, VectorType: Constructor<T> ) => new VectorType( b, a, 0, 0 )
   );
 
   public static enumeration = new Enumeration( Orientation, {
@@ -58,7 +62,7 @@ class Orientation extends EnumerationValue {
   public viewToModel: ( m: MVT, n: number ) => number;
 
   // Creates a vector (primary,secondary) for horizontal orientations, and (secondary,primary) for vertical orientations.
-  public toVector: ( n: number, m: number, Vector2: any ) => any;
+  public toVector: <T>( n: number, m: number, VectorType: Constructor<T> ) => T;
 
   // @ts-ignore - Assigned after instantiation, see below
   public opposite: Orientation;
@@ -78,7 +82,7 @@ class Orientation extends EnumerationValue {
                localPreferredSize: 'localPreferredWidth' | 'localPreferredHeight',
                sizable: 'widthSizable' | 'heightSizable',
                modelToView: ( m: MVT, n: number ) => number,
-               viewToModel: ( m: MVT, n: number ) => number, toVector: ( n: number, m: number, Vector2: any ) => any ) {
+               viewToModel: ( m: MVT, n: number ) => number, toVector: <T>( n: number, m: number, VectorType: new ( x: number, y: number, ...args: IntentionalAny[] ) => T ) => T ) {
 
     super();
     this.coordinate = coordinate;

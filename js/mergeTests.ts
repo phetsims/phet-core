@@ -4,6 +4,7 @@
 import Property from '../../axon/js/Property.js';
 import EnumerationDeprecated from './EnumerationDeprecated.js';
 import merge from './merge.js';
+import IntentionalAny from './types/IntentionalAny.js';
 
 QUnit.module( 'merge' );
 
@@ -44,7 +45,7 @@ QUnit.test( 'merge two objects', assert => {
   assert.equal( merged.prop1, 'value1', 'merge should not alter target keys that aren\'t in the source' );
   assert.equal( merged.prop4, 'value4', 'merge should not alter source keys that aren\'t in the target' );
 
-  let shouldBe: any = {
+  let shouldBe: IntentionalAny = {
     subProp1: 'subvalue1 changed',
     subProp2: 'subValue2',
     subProp3: 'new subvalue'

@@ -14,6 +14,7 @@ import Constructor from './types/Constructor.js';
 import extend from './extend.js';
 import phetCore from './phetCore.js';
 import optionize from './optionize.js';
+import IntentionalAny from './types/IntentionalAny.js';
 
 type PoolableOptions<Type extends Constructor> = {
   // If an object needs to be created without a direct call (say, to fill the pool initially), these are the arguments
@@ -39,7 +40,7 @@ interface PoolableInstance {
   freeToPool(): void;
 }
 type PoolableVersion<Type extends Constructor> = InstanceType<Type> & PoolableInstance;
-type PoolableInitializer<Type extends Constructor> = ( ...args: ConstructorParameters<Type> ) => any;
+type PoolableInitializer<Type extends Constructor> = ( ...args: ConstructorParameters<Type> ) => IntentionalAny;
 type PoolableClass<Type extends Constructor> = ( new ( ...args: ConstructorParameters<Type> ) => ( PoolableVersion<Type> ) ) & PoolableType<Type>;
 type PoolableExistingStatics<Type extends Constructor> = {
   // We grab the static values of a type
