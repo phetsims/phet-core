@@ -7,7 +7,7 @@ import EnumerationValue from './EnumerationValue.js';
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-interface IEnumeration<T extends EnumerationValue> {
+type IEnumeration<T extends EnumerationValue> = {
 
   // The possible keys for the enumeration
   readonly keys: string[];
@@ -26,7 +26,7 @@ interface IEnumeration<T extends EnumerationValue> {
 
   // Determines whether the value is in the enumeration
   includes( value: T ): boolean;
-}
+};
 
 type EnumerationContainer<T extends EnumerationValue> = {
   enumeration: IEnumeration<T>;
