@@ -19,9 +19,11 @@ import phetCore from './phetCore.js';
 import merge from './merge.js';
 import IntentionalAny from './types/IntentionalAny.js';
 
+type EmptyObjectType = {}; // eslint-disable-line @typescript-eslint/ban-types
+
 // https://github.com/piotrwitek/utility-types/blob/master/src/mapped-types.ts
 type OptionalKeys<T> = {
-  [K in keyof T]-?: {} extends Pick<T, K> ? K : never; // eslint-disable-line @typescript-eslint/ban-types
+  [K in keyof T]-?: EmptyObjectType extends Pick<T, K> ? K : never;
 }[keyof T];
 
 // Gets the parts of an object that are optional
@@ -33,11 +35,13 @@ export type EmptySelfOptions = {
   _emptySelfOptionsKey?: never;
 };
 
+type EmptySelfOptionsKeys = keyof EmptySelfOptions;
+
 // This is the type for the `defaults` argument to optionize
 export type HalfOptions<SelfOptions = EmptySelfOptions, ParentOptions = EmptySelfOptions> =
 
 // Everything optional from SelfOptions must have a default specified
-  Omit<Required<Options<SelfOptions>>, '_emptySelfOptionsKey'> & // eslint-disable-line @typescript-eslint/ban-types
+  Omit<Required<Options<SelfOptions>>, EmptySelfOptionsKeys> & // eslint-disable-line @typescript-eslint/ban-types
 
   // Any or none of Parent options can be provided
   Partial<ParentOptions>;
@@ -46,7 +50,7 @@ export type HalfOptions<SelfOptions = EmptySelfOptions, ParentOptions = EmptySel
 type OptionizeDefaults<SelfOptions = EmptySelfOptions, ParentOptions = EmptySelfOptions, KeysUsedInSubclassConstructor extends keyof ParentOptions = never> =
 
 // Everything optional from SelfOptions must have a default specified
-  Omit<Required<Options<SelfOptions>>, '_emptySelfOptionsKey'> & // eslint-disable-line @typescript-eslint/ban-types
+  Omit<Required<Options<SelfOptions>>, EmptySelfOptionsKeys> & // eslint-disable-line @typescript-eslint/ban-types
 
   // Any or none of Parent options can be provided
   Partial<ParentOptions> &
@@ -66,7 +70,7 @@ const merge4 = ( a: IntentionalAny, b?: IntentionalAny, c?: IntentionalAny, d?: 
 // KeysUsedInSubclassConstructor = list of keys from ParentOptions that are used in this constructor. Please note that listing required parent option keys that are filled in by subtype defaults is a workaround for Limitation (I).
 export default function optionize<ProvidedOptions,
   SelfOptions = ProvidedOptions,
-  ParentOptions = {}>(): // eslint-disable-line
+  ParentOptions = EmptyObjectType>():
   <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
     defaults: HalfOptions<SelfOptions, ParentOptions>,
     providedOptions?: ProvidedOptions
@@ -77,7 +81,7 @@ export default function optionize<ProvidedOptions,
 // Use this function to gain the typing that optionize provides but in a case where the first argument is an empty object.
 export function optionize3<ProvidedOptions,
   SelfOptions = ProvidedOptions,
-  ParentOptions = {}>(): // eslint-disable-line
+  ParentOptions = EmptyObjectType>():
   <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
     emptyObject: ObjectWithNoKeys,
     defaults: HalfOptions<SelfOptions, ParentOptions>,
@@ -87,7 +91,7 @@ export function optionize3<ProvidedOptions,
 }
 
 // Use combineOptions to combine object literals (typically options) that all have the same type.
-export function combineOptions<Type extends {}>( target: Partial<Type>, ...sources: Array<Partial<Type> | undefined> ): Type { // eslint-disable-line
+export function combineOptions<Type extends EmptyObjectType>( target: Partial<Type>, ...sources: Array<Partial<Type> | undefined> ): Type {
   return merge4( target, ...sources );
 }
 
