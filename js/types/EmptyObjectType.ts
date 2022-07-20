@@ -2,11 +2,15 @@
 
 /**
  * Empty Object Type that will replace all the {} in the PhET software.
- * TODO: For now, it is itself a {} with a eslint-disable-line, but in the future https://github.com/phetsims/chipper/issues/1252
  * it should become a more nuanced type that works with optionize.
  *
  * @author Agustín Vallejo (PhET Interactive Simulations)
  */
 
-type EmptyObjectType = {}; // eslint-disable-line @typescript-eslint/ban-types
+// TODO: Reuse this key in optionize, see https://github.com/phetsims/chipper/issues/1252
+// TODO: Rename to EmptySelfOptions, see https://github.com/phetsims/chipper/issues/1252
+// TODO: Rename key to _emptySelfOptionsKey, see https://github.com/phetsims/chipper/issues/1252
+type EmptyObjectType = {
+  _emptySelfOptionsKey?: never;
+};
 export default EmptyObjectType;

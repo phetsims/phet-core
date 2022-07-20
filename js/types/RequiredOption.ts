@@ -13,7 +13,6 @@
  */
 
 import NotUndefined from './NotUndefined.js';
-import EmptyObjectType from './EmptyObjectType.js';
 
-type RequiredOption<Options extends EmptyObjectType, Name extends keyof Options> = NotUndefined<Options[ Name ]>;
+type RequiredOption<Options extends object, Name extends keyof Options> = NotUndefined<Options[ Name ]>;
 export default RequiredOption;
