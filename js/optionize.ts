@@ -17,7 +17,6 @@
 
 import phetCore from './phetCore.js';
 import merge from './merge.js';
-import EmptyObjectType from './types/EmptyObjectType.js';
 import IntentionalAny from './types/IntentionalAny.js';
 
 // https://github.com/piotrwitek/utility-types/blob/master/src/mapped-types.ts
@@ -30,8 +29,12 @@ type Options<T> = Pick<T, OptionalKeys<T>>;
 
 type ObjectWithNoKeys = Record<string | number, never>;
 
+export type EmptySelfOptions = {
+  _emptySelfOptionsKey?: never;
+};
+
 // This is the type for the `defaults` argument to optionize
-export type HalfOptions<SelfOptions = EmptyObjectType, ParentOptions = EmptyObjectType> =
+export type HalfOptions<SelfOptions = EmptySelfOptions, ParentOptions = EmptySelfOptions> =
 
 // Everything optional from SelfOptions must have a default specified
   Omit<Required<Options<SelfOptions>>, '_emptySelfOptionsKey'> & // eslint-disable-line @typescript-eslint/ban-types
@@ -40,7 +43,7 @@ export type HalfOptions<SelfOptions = EmptyObjectType, ParentOptions = EmptyObje
   Partial<ParentOptions>;
 
 // This is the type for the `defaults` argument to optionize
-type OptionizeDefaults<SelfOptions = EmptyObjectType, ParentOptions = EmptyObjectType, KeysUsedInSubclassConstructor extends keyof ParentOptions = never> =
+type OptionizeDefaults<SelfOptions = EmptySelfOptions, ParentOptions = EmptySelfOptions, KeysUsedInSubclassConstructor extends keyof ParentOptions = never> =
 
 // Everything optional from SelfOptions must have a default specified
   Omit<Required<Options<SelfOptions>>, '_emptySelfOptionsKey'> & // eslint-disable-line @typescript-eslint/ban-types
@@ -91,7 +94,7 @@ export function combineOptions<Type extends {}>( target: Partial<Type>, ...sourc
 
 // function optionize<ProvidedOptions, // eslint-disable-line no-redeclare
 //   SelfOptions = ProvidedOptions,
-//   ParentOptions = EmptyObjectType>():
+//   ParentOptions = EmptySelfOptions>():
 //   <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
 //     emptyObject: EmptyObject,
 //     defaults: HalfOptions<SelfOptions, ParentOptions>,
@@ -100,7 +103,7 @@ export function combineOptions<Type extends {}>( target: Partial<Type>, ...sourc
 //
 // function optionize<ProvidedOptions, // eslint-disable-line no-redeclare
 //   SelfOptions = ProvidedOptions,
-//   ParentOptions = EmptyObjectType,
+//   ParentOptions = EmptySelfOptions,
 //   KeysUsedInSubclassConstructor extends keyof ParentOptions = never>():
 //   (
 //     empytObject: EmptyObject,
@@ -126,7 +129,7 @@ Limitation (I):
 
 This gets us half way there, when you have required args to the parent, this makes sure that you don't make
 providedOptions optional (with a question mark). We still need a way to note when the required param is specified via the self options.
-const optionize = <S, P = EmptyObjectType, M extends keyof P = never, A = S & P>(
+const optionize = <S, P = EmptySelfOptions, M extends keyof P = never, A = S & P>(
   defaults: Required<Options<S>> & Partial<P> & Required<Pick<P, M>>,
   providedOptions: RequiredKeys<A> extends never ? ( A | undefined ) : A
 ) => {
@@ -134,7 +137,7 @@ const optionize = <S, P = EmptyObjectType, M extends keyof P = never, A = S & P>
 };
 
 TEST TO SEE IF WE CAN GET TYPESCRIPT TO KNOW ABOUT REQUIRED ARGUMENTS TO POTENTIALLY COME FROM EITHER ARG.
-const optionize = <S, P = EmptyObjectType, M extends keyof P = never, A = S & P>() => {
+const optionize = <S, P = EmptySelfOptions, M extends keyof P = never, A = S & P>() => {
   type FirstArg = Required<Options<S>> & Partial<P> & Required<Pick<P, M>>;
   return (
     defaults: FirstArg,
