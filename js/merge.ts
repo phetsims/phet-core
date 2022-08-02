@@ -23,16 +23,6 @@ function merge<A, B, C>( a: A, b: B, c: C ): A & B & C; // eslint-disable-line n
 function merge<A, B, C, D>( a: A, b: B, c: C, d: D ): A & B & C & D; // eslint-disable-line no-redeclare
 function merge<A, B, C, D, E>( a: A, b: B, c: C, d: D, e: E ): A & B & C & D & E; // eslint-disable-line no-redeclare
 
-// TODO: SR and MK tried two other potential ways of typing out Merge, below we explain the issues associated with both, https://github.com/phetsims/chipper/issues/1128
-// https://dev.to/vborodulin/ts-how-to-override-properties-with-type-intersection-554l
-// type Override<T1, T2> = StrictOmit<T1, keyof T2> & T2;
-
-// TODO: This is incorrect because it doesn't adequately recognize when A fills in a default for an optional option that B thinks could be undefined, https://github.com/phetsims/chipper/issues/1128
-// function merge<A, B>( a: A, b: B ): Override<A, B>;
-
-// TODO: This is incorrect because it results in false positives as it assumes that everything optional in B has had defaults filled in by A, even if the values actually weren't filled in by A, https://github.com/phetsims/chipper/issues/1128
-// function merge<A, B>( a: A, b: B ): Required<Override<A, B>>;
-
 /**
  * @param  {Object} target - the object literal that will have keys set to it
  * @param  {...<Object|null>} sources
