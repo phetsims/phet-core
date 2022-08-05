@@ -36,9 +36,9 @@ type PoolableOptions<Type extends Constructor> = {
   // instead of just providing the arguments straight to the constructor.
   useDefaultConstruction?: boolean;
 };
-interface PoolableInstance {
+type PoolableInstance = {
   freeToPool(): void;
-}
+};
 type PoolableVersion<Type extends Constructor> = InstanceType<Type> & PoolableInstance;
 type PoolableInitializer<Type extends Constructor> = ( ...args: ConstructorParameters<Type> ) => IntentionalAny;
 type PoolableClass<Type extends Constructor> = ( new ( ...args: ConstructorParameters<Type> ) => ( PoolableVersion<Type> ) ) & PoolableType<Type>;
