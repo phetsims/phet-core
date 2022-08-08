@@ -24,7 +24,7 @@ class OrientationPair<T> extends EnumerationMap<Orientation, T> {
     return this.get( Orientation.HORIZONTAL );
   }
 
-  public set horizontal( value ) {
+  public set horizontal( value: T ) {
     this.set( Orientation.HORIZONTAL, value );
   }
 
@@ -32,7 +32,7 @@ class OrientationPair<T> extends EnumerationMap<Orientation, T> {
     return this.get( Orientation.VERTICAL );
   }
 
-  public set vertical( value ) {
+  public set vertical( value: T ) {
     this.set( Orientation.VERTICAL, value );
   }
 
