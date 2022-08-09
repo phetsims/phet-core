@@ -17,7 +17,7 @@
 
  static pool = new Pool( MyType );
 
- * and can additionally implement IPoolable to make it clear that the type is pooled
+ * and can additionally implement TPoolable to make it clear that the type is pooled
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
@@ -49,7 +49,7 @@ export type PoolableOptions<T extends Constructor, Params extends IntentionalAny
 };
 type PoolableInitializer<T extends Constructor, Params extends IntentionalAny[] = ConstructorParameters<T>> = ( ...args: Params ) => InstanceType<T>;
 
-export type IPoolable = {
+export type TPoolable = {
   // Adds this object into the pool, so that it can be reused elsewhere. Generally when this is done, no other
   // references to the object should be held (since they should not be used at all).
   freeToPool: () => void;
