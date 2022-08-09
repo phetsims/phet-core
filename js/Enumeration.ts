@@ -26,7 +26,7 @@
  */
 
 import phetCore from './phetCore.js';
-import IEnumeration from './IEnumeration.js';
+import TEnumeration from './TEnumeration.js';
 import EnumerationValue from './EnumerationValue.js';
 import inheritance from './inheritance.js';
 import Constructor from './types/Constructor.js';
@@ -37,7 +37,7 @@ export type EnumerationOptions<T extends EnumerationValue> = {
   instanceType?: Constructor<T>;
 };
 
-class Enumeration<T extends EnumerationValue> implements IEnumeration<T> {
+class Enumeration<T extends EnumerationValue> implements TEnumeration<T> {
   public readonly values: T[]; // in the order that static instances are defined
   public readonly keys: string[];
   public readonly Enumeration: Constructor<T> & Record<string, T>;

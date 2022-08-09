@@ -8,7 +8,7 @@
 
 import phetCore from './phetCore.js';
 
-type IEnumeration<T> = {
+type TEnumeration<T> = {
   enumeration: {
     values: T[];
   };
@@ -17,15 +17,15 @@ type IEnumeration<T> = {
 // T = enumeration value type
 // U = mapped value type
 class EnumerationMap<T, U> {
-  private readonly _enumeration: IEnumeration<T>;
+  private readonly _enumeration: TEnumeration<T>;
   private _map = new Map<T, U>();
   private _values: T[];
 
   /**
    * @param enumeration
-   * @param factory - function( {IEnumeration.*} ) => {*}, maps an enumeration value to any value.
+   * @param factory - function( {TEnumeration.*} ) => {*}, maps an enumeration value to any value.
    */
-  public constructor( enumeration: IEnumeration<T>, factory: ( t: T ) => U ) {
+  public constructor( enumeration: TEnumeration<T>, factory: ( t: T ) => U ) {
 
     this._enumeration = enumeration;
 
@@ -56,7 +56,7 @@ class EnumerationMap<T, U> {
   /**
    * Returns a new EnumerationMap with mapped values.
    *
-   * @param mapFunction - function( {*}, {IEnumeration.*} ): {*}
+   * @param mapFunction - function( {*}, {TEnumeration.*} ): {*}
    * @returns With the mapped values
    */
   public map( mapFunction: ( u: U, t: T ) => U ): EnumerationMap<T, U> {

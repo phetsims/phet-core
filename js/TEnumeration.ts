@@ -7,7 +7,7 @@ import EnumerationValue from './EnumerationValue.js';
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-type IEnumeration<T extends EnumerationValue> = {
+type TEnumeration<T extends EnumerationValue> = {
 
   // The possible keys for the enumeration
   readonly keys: string[];
@@ -29,8 +29,8 @@ type IEnumeration<T extends EnumerationValue> = {
 };
 
 type EnumerationContainer<T extends EnumerationValue> = {
-  enumeration: IEnumeration<T>;
+  enumeration: TEnumeration<T>;
 };
 
 export type { EnumerationContainer };
-export default IEnumeration;
+export default TEnumeration;
