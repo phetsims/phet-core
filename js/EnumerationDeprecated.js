@@ -147,6 +147,17 @@ class EnumerationDeprecated {
   }
 
   /**
+   * Based solely on the keys in EnumerationDeprecated.
+   * @public
+   *
+   * @returns {String}
+   */
+
+  toString() {
+    return this.KEYS.join( ', ' );
+  }
+
+  /**
    * Checks whether the given value is a value of this enumeration. Should generally be used for assertions
    * @public
    *
