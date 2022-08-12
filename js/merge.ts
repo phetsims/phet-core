@@ -63,7 +63,7 @@ function merge( target: IntentionalAny, ...sources: IntentionalAny[] ): Intentio
  * Asserts that the object is compatible with merge. That is, it's a POJSO.
  * This function must be called like: assert && assertIsMergeable( arg );
  */
-function assertIsMergeable( object: IntentionalAny ) {
+function assertIsMergeable( object: IntentionalAny ): void {
   assert && assert( object === null ||
                     ( object && typeof object === 'object' && Object.getPrototypeOf( object ) === Object.prototype ),
     'object is not compatible with merge' );
