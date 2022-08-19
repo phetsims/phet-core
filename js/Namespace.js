@@ -16,8 +16,16 @@ class Namespace {
     this.name = name; // @public (read-only)
 
     if ( window.phet ) {
-      assert && assert( !window.phet[ name ], `namespace ${name} already exists` );
-      window.phet[ name ] = this;
+      // We already create the chipper namespace, so we just attach to it with the register function.
+      if ( name === 'chipper' ) {
+        window.phet.chipper.name = 'chipper';
+        window.phet.chipper.register = this.register.bind( window.phet.chipper );
+        return window.phet.chipper; // eslint-disable-line -- we want to provide the namespace API on something already existing
+      }
+      else {
+        assert && assert( !window.phet[ name ], `namespace ${name} already exists` );
+        window.phet[ name ] = this;
+      }
     }
   }
 
