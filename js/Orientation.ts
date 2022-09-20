@@ -49,7 +49,7 @@ class Orientation extends EnumerationValue {
   public readonly maxSide: 'right' | 'bottom';
   public readonly rectCoordinate: 'rectX' | 'rectY'; // For being able to handle Rectangles (x/y) and (width/height)
   public readonly rectSize: 'rectWidth' | 'rectHeight';
-  public readonly layoutBoxOrientation: 'horizontal' | 'vertical'; // The name of the orientation when used for LayoutBox
+  public readonly flowBoxOrientation: 'horizontal' | 'vertical'; // The name of the orientation when used for LayoutBox
   public readonly size: 'width' | 'height';
   public readonly line: 'column' | 'row';
   public readonly preferredSize: 'preferredWidth' | 'preferredHeight';
@@ -75,7 +75,7 @@ class Orientation extends EnumerationValue {
                maxSide: 'right' | 'bottom',
                rectCoordinate: 'rectX' | 'rectY',
                rectSize: 'rectWidth' | 'rectHeight',
-               layoutBoxOrientation: 'horizontal' | 'vertical',
+               flowBoxOrientation: 'horizontal' | 'vertical',
                size: 'width' | 'height',
                line: 'column' | 'row',
                preferredSize: 'preferredWidth' | 'preferredHeight',
@@ -93,13 +93,13 @@ class Orientation extends EnumerationValue {
     this.maxSide = maxSide;
     this.rectCoordinate = rectCoordinate;
     this.rectSize = rectSize;
-    this.layoutBoxOrientation = layoutBoxOrientation;
+    this.flowBoxOrientation = flowBoxOrientation;
     this.size = size;
     this.line = line;
     this.preferredSize = preferredSize;
     this.localPreferredSize = localPreferredSize;
     this.sizable = sizable;
-    this.ariaOrientation = layoutBoxOrientation;
+    this.ariaOrientation = flowBoxOrientation;
     this.modelToView = modelToView;
     this.viewToModel = viewToModel;
     this.toVector = toVector;
