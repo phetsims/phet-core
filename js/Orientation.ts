@@ -49,7 +49,7 @@ class Orientation extends EnumerationValue {
   public readonly maxSide: 'right' | 'bottom';
   public readonly rectCoordinate: 'rectX' | 'rectY'; // For being able to handle Rectangles (x/y) and (width/height)
   public readonly rectSize: 'rectWidth' | 'rectHeight';
-  public readonly flowBoxOrientation: 'horizontal' | 'vertical'; // The name of the orientation when used for LayoutBox
+  public readonly flowBoxOrientation: 'horizontal' | 'vertical'; // The name of the orientation when used for FlowBox
   public readonly size: 'width' | 'height';
   public readonly line: 'column' | 'row';
   public readonly preferredSize: 'preferredWidth' | 'preferredHeight';
