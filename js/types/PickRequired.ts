@@ -6,7 +6,7 @@
  * It makes life a little easier because you have to fiddle with fewer '<' and '>' characters.
  *
  * Example:
- * type MyClassOptions = PickRequired<PhetioObject, 'tandem', 'phetioDocumentation'>;
+ * type MyClassOptions = PickRequired<PhetioObject, 'tandem' | 'phetioDocumentation'>;
  * Result:
  * { tandem: Tandem, phetioDocumentation: string }
  *
