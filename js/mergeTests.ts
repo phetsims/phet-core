@@ -424,14 +424,14 @@ QUnit.test( 'test wrong args', assert => {
 
 QUnit.test( 'do not recurse for non *Options', assert => {
 
-  const testProperty1 = new Property( 'hi' );
-  const testProperty2 = new Property( 'hi2' );
+  const testFirstProperty = new Property( 'hi' );
+  const testSecondProperty = new Property( 'hi2' );
   const TestEnumeration = EnumerationDeprecated.byKeys( [ 'ONE', 'TWO' ] );
   const TestEnumeration2 = EnumerationDeprecated.byKeys( [ 'ONE1', 'TWO2' ] );
   const original = {
-    prop: testProperty1,
+    prop: testFirstProperty,
     enum: TestEnumeration,
-    someOptions: { nestedProp: testProperty1 }
+    someOptions: { nestedProp: testFirstProperty }
   };
 
   let newObject = merge( {}, original );
@@ -441,9 +441,9 @@ QUnit.test( 'do not recurse for non *Options', assert => {
 
   // test defaults with other non mergeable objects
   newObject = merge( {
-    prop: testProperty2,
+    prop: testSecondProperty,
     enum: TestEnumeration2,
-    someOptions: { nestedProp: testProperty2 }
+    someOptions: { nestedProp: testSecondProperty }
   }, original );
   assert.ok( _.isEqual( original, newObject ), 'should be equal' );
   assert.ok( original.prop === newObject.prop, 'same Property, ignore default' );
