@@ -19,15 +19,15 @@ const OPTIONS_SUFFIX = 'Options';
 
 // Function overloading is described in https://www.tutorialsteacher.com/typescript/function-overloading
 function merge<A, B>( a: A, b: B ): A & B;
-function merge<A, B, C>( a: A, b: B, c: C ): A & B & C; // eslint-disable-line no-redeclare
-function merge<A, B, C, D>( a: A, b: B, c: C, d: D ): A & B & C & D; // eslint-disable-line no-redeclare
-function merge<A, B, C, D, E>( a: A, b: B, c: C, d: D, e: E ): A & B & C & D & E; // eslint-disable-line no-redeclare
+function merge<A, B, C>( a: A, b: B, c: C ): A & B & C;
+function merge<A, B, C, D>( a: A, b: B, c: C, d: D ): A & B & C & D;
+function merge<A, B, C, D, E>( a: A, b: B, c: C, d: D, e: E ): A & B & C & D & E;
 
 /**
  * @param  {Object} target - the object literal that will have keys set to it
  * @param  {...<Object|null>} sources
  */
-function merge( target: IntentionalAny, ...sources: IntentionalAny[] ): IntentionalAny { // eslint-disable-line no-redeclare
+function merge( target: IntentionalAny, ...sources: IntentionalAny[] ): IntentionalAny {
   assert && assertIsMergeable( target );
   assert && assert( target !== null, 'target should not be null' ); // assertIsMergeable supports null
   assert && assert( sources.length > 0, 'at least one source expected' );
