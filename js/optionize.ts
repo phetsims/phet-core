@@ -88,6 +88,33 @@ export function optionize3<ProvidedOptions,
   return merge4;
 }
 
+/**
+ * Use this function to replace merge in cases like:
+ *
+ * const options = m-e-r-g-e(
+ *   {},
+ *
+ *   // ParentOptions defaults that are common throughout the sim
+ *   MyConstants.SOME_COMMON_OPTIONS,
+ *
+ *   // SelfOptions and ParentOptions defaults that are provided by this class
+ *   { ... },
+ *
+ *   // option values that are provided by the caller
+ *   providedOptions );
+ */
+export function optionize4<ProvidedOptions,
+  SelfOptions = ProvidedOptions,
+  ParentOptions = object>():
+  <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
+    emptyObject: ObjectWithNoKeys,
+    defaults1: ParentOptions,
+    defaults2: HalfOptions<SelfOptions, ParentOptions>,
+    providedOptions?: ProvidedOptions
+  ) => HalfOptions<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>> {
+  return merge4;
+}
+
 // Use combineOptions to combine object literals (typically options) that all have the same type.
 export function combineOptions<Type extends object>( target: Partial<Type>, ...sources: Array<Partial<Type> | undefined> ): Type {
   return merge4( target, ...sources );
