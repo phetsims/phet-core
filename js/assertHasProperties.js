@@ -18,7 +18,7 @@ import inheritance from './inheritance.js';
 import phetCore from './phetCore.js';
 
 /**
- * @param {Object|null|undefined} object - an object to test property existence
+ * @param {Object|null|undefined|any} object - an object to test property existence
  * @param {string[]} properties - a list of properties to assert exist
  */
 const assertHasProperties = ( object, properties ) => {
