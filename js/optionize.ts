@@ -57,15 +57,13 @@ type OptionizeDefaults<SelfOptions = EmptySelfOptions, ParentOptions = EmptySelf
   // that they will be used from the return type of optionize.
   Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>>;
 
-// TODO: "Limitation (I)" How can we indicate that a required parameter (for ParentOptions) will come in through defaults and/or providedOptions? Note: required parameters for S will not come from defaults.  See https://github.com/phetsims/chipper/issues/1128
-
 // Factor out the merge arrow closure to avoid heap/cpu at runtime
 const merge4 = ( a: IntentionalAny, b?: IntentionalAny, c?: IntentionalAny, d?: IntentionalAny ) => merge( a, b, c, d );
 
 // ProvidedOptions = The type of this class's public API (type of the providedOptions parameter in the constructor)
 // SelfOptions = Options that are defined by "this" class. Anything optional in this block must have a default provided in "defaults"
 // ParentOptions = The public API for parent options, this will be exported by the parent class, like "NodeOptions"
-// KeysUsedInSubclassConstructor = list of keys from ParentOptions that are used in this constructor. Please note that listing required parent option keys that are filled in by subtype defaults is a workaround for Limitation (I).
+// KeysUsedInSubclassConstructor = list of keys from ParentOptions that are used in this constructor.
 export default function optionize<ProvidedOptions,
   SelfOptions = ProvidedOptions,
   ParentOptions = object>():
