@@ -200,7 +200,7 @@ QUnit.test( 'check for proper assertion errors', assert => {
       subOptions: 42
     },
     e: {
-      // @ts-ignore
+      // @ts-expect-error
       subOptions: function() { this.a = 42; }
     },
     f: {
@@ -225,7 +225,7 @@ QUnit.test( 'check for proper assertion errors', assert => {
     assert.throws( () => merge( original, merges.e ), 'merge should not allow functions to be merged' );
     assert.throws( () => merge( original, getterMerge ), 'merge should not work with getters' );
 
-    // @ts-ignore
+    // @ts-expect-error
     assert.throws( () => merge( original ), 'merge should not work without a source' );
   }
   assert.equal( 1, 1, 'for no ?ea query param' );
@@ -477,10 +477,7 @@ QUnit.test( 'support optional options', assert => {
   assert.ok( noOptions2.y === 2, 'y property should be merged from default' );
   assert.ok( noOptions2.z === 3, 'z property should be merged from default' );
 
-  // @ts-ignore
   assert.ok( noOptions2.g === 54, 'g property should be merged from default' );
-
-  // @ts-ignore
   assert.ok( noOptions2.treeSays === 'hello', 'property should be merged from default' );
 } );
 

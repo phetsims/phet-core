@@ -64,7 +64,7 @@ class Orientation extends EnumerationValue {
   // Creates a vector (primary,secondary) for horizontal orientations, and (secondary,primary) for vertical orientations.
   public toVector: <T>( n: number, m: number, VectorType: Constructor<T> ) => T;
 
-  // @ts-ignore - Assigned after instantiation, see below
+  // @ts-expect-error - Assigned after instantiation, see below
   public opposite: Orientation;
 
   public constructor( coordinate: 'x' | 'y',
