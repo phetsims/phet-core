@@ -23,14 +23,14 @@ type MVT = {
 
 class Orientation extends EnumerationValue {
 
-  public static HORIZONTAL = new Orientation( 'x', 'centerX', 'minX', 'maxX', 'left', 'right', 'rectX', 'rectWidth', 'horizontal', 'width', 'column', 'preferredWidth', 'localPreferredWidth', 'widthSizable',
+  public static readonly HORIZONTAL = new Orientation( 'x', 'centerX', 'minX', 'maxX', 'left', 'right', 'rectX', 'rectWidth', 'horizontal', 'width', 'column', 'preferredWidth', 'localPreferredWidth', 'widthSizable',
     ( modelViewTransform, value ) => modelViewTransform.modelToViewX( value ),
     ( modelViewTransform, value ) => modelViewTransform.viewToModelX( value ),
     // Pad with zeros to support up to Vector4
     <T>( a: number, b: number, VectorType: Constructor<T> ): T => new VectorType( a, b, 0, 0 )
   );
 
-  public static VERTICAL = new Orientation( 'y', 'centerY', 'minY', 'maxY', 'top', 'bottom', 'rectY', 'rectHeight', 'vertical', 'height', 'row', 'preferredHeight', 'localPreferredHeight', 'heightSizable',
+  public static readonly VERTICAL = new Orientation( 'y', 'centerY', 'minY', 'maxY', 'top', 'bottom', 'rectY', 'rectHeight', 'vertical', 'height', 'row', 'preferredHeight', 'localPreferredHeight', 'heightSizable',
     ( modelViewTransform, value ) => modelViewTransform.modelToViewY( value ),
     ( modelViewTransform, value ) => modelViewTransform.viewToModelY( value ),
     // Pad with zeros to support up to Vector4
