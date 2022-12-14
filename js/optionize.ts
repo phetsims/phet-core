@@ -36,26 +36,13 @@ export type EmptySelfOptions = {
 type EmptySelfOptionsKeys = keyof EmptySelfOptions;
 
 // This is the type for the `defaults` argument to optionize
-export type HalfOptions<SelfOptions = EmptySelfOptions, ParentOptions = EmptySelfOptions> =
+type OptionizeDefaults<SelfOptions = EmptySelfOptions, ParentOptions = EmptySelfOptions> =
 
 // Everything optional from SelfOptions must have a default specified
   Omit<Required<Options<SelfOptions>>, EmptySelfOptionsKeys> & // eslint-disable-line @typescript-eslint/ban-types
 
   // Any or none of Parent options can be provided
   Partial<ParentOptions>;
-
-// This is the type for the `defaults` argument to optionize
-type OptionizeDefaults<SelfOptions = EmptySelfOptions, ParentOptions = EmptySelfOptions, KeysUsedInSubclassConstructor extends keyof ParentOptions = never> =
-
-// Everything optional from SelfOptions must have a default specified
-  Omit<Required<Options<SelfOptions>>, EmptySelfOptionsKeys> & // eslint-disable-line @typescript-eslint/ban-types
-
-  // Any or none of Parent options can be provided
-  Partial<ParentOptions> &
-
-  // Any keys provided in KeysUsedInSubclassConstructor are required to have a default provided, with the assumption
-  // that they will be used from the return type of optionize.
-  Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>>;
 
 // Factor out the merge arrow closure to avoid heap/cpu at runtime
 const merge4 = ( a: IntentionalAny, b?: IntentionalAny, c?: IntentionalAny, d?: IntentionalAny ) => merge( a, b, c, d );
@@ -68,9 +55,9 @@ export default function optionize<ProvidedOptions,
   SelfOptions = ProvidedOptions,
   ParentOptions = Record<never, never>>():
   <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
-    defaults: HalfOptions<SelfOptions, ParentOptions>,
+    defaults: OptionizeDefaults<SelfOptions, ParentOptions>,
     providedOptions?: ProvidedOptions
-  ) => HalfOptions<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>> {
+  ) => OptionizeDefaults<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>> {
   return merge4;
 }
 
@@ -80,9 +67,9 @@ export function optionize3<ProvidedOptions,
   ParentOptions = Record<never, never>>():
   <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
     emptyObject: ObjectWithNoKeys,
-    defaults: HalfOptions<SelfOptions, ParentOptions>,
+    defaults: OptionizeDefaults<SelfOptions, ParentOptions>,
     providedOptions?: ProvidedOptions
-  ) => HalfOptions<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>> {
+  ) => OptionizeDefaults<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>> {
   return merge4;
 }
 
@@ -107,9 +94,9 @@ export function optionize4<ProvidedOptions,
   <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
     emptyObject: ObjectWithNoKeys,
     defaults1: Partial<ParentOptions>,
-    defaults2: HalfOptions<SelfOptions, ParentOptions>,
+    defaults2: OptionizeDefaults<SelfOptions, ParentOptions>,
     providedOptions?: ProvidedOptions
-  ) => HalfOptions<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>> {
+  ) => OptionizeDefaults<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>> {
   return merge4;
 }
 
@@ -124,9 +111,9 @@ export function combineOptions<Type extends object>( target: Partial<Type>, ...s
 //   ParentOptions = EmptySelfOptions>():
 //   <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
 //     emptyObject: ObjectWithNoKeys,
-//     defaults: HalfOptions<SelfOptions, ParentOptions>,
+//     defaults: OptionizeDefaults<SelfOptions, ParentOptions>,
 //     providedOptions?: ProvidedOptions
-//   ) => HalfOptions<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>>;
+//   ) => OptionizeDefaults<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>>;
 //
 // function optionize<ProvidedOptions, // eslint-disable-line no-redeclare
 //   SelfOptions = ProvidedOptions,
