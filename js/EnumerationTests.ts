@@ -58,6 +58,6 @@ QUnit.test( 'Enumeration Subtyping', assert => {
   assert.ok( MySubEnumeration.enumeration !== MySubEnumeration.ITEM_1.enumeration, 'enumeration instances not from child' );
   assert.ok( MySubEnumeration.enumeration !== MySubEnumeration.ITEM_2.enumeration, 'enumeration instances not from child 2' );
 
-  // @ts-expect-error
+  // @ts-expect-error INTENTIONAL - we know this doesn't exist, but still want the runtime check
   assert.ok( !MyEnumeration.ITEM_4, 'super should not have sub item' );
 } );

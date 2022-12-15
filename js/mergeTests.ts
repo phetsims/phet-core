@@ -225,7 +225,7 @@ QUnit.test( 'check for proper assertion errors', assert => {
     assert.throws( () => merge( original, merges.e ), 'merge should not allow functions to be merged' );
     assert.throws( () => merge( original, getterMerge ), 'merge should not work with getters' );
 
-    // @ts-expect-error
+    // @ts-expect-error INTENTIONAL
     assert.throws( () => merge( original ), 'merge should not work without a source' );
   }
   assert.equal( 1, 1, 'for no ?ea query param' );
