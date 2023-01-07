@@ -83,7 +83,9 @@ const platform = {
   edge: !!ua.match( /Edge\// ),
 
   // Whether the browser is Chromium-based (usually Chrome)
-  chromium: ( /chrom(e|ium)/ ).test( ua.toLowerCase() ) && !ua.match( /Edge\// )
+  chromium: ( /chrom(e|ium)/ ).test( ua.toLowerCase() ) && !ua.match( /Edge\// ),
+
+  mac: navigator.platform.includes( 'Mac' )
 };
 phetCore.register( 'platform', platform );
 
