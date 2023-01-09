@@ -27,6 +27,10 @@ type OptionalKeys<T> = {
 // Gets the parts of an object that are optional
 type Options<T> = Pick<T, OptionalKeys<T>>;
 
+export type RequiredKeys<T> = {
+  [K in keyof T]-?: object extends Pick<T, K> ? never : K;
+}[keyof T];
+
 type ObjectWithNoKeys = Record<string | number, never>;
 
 export type EmptySelfOptions = {
@@ -36,10 +40,13 @@ export type EmptySelfOptions = {
 type EmptySelfOptionsKeys = keyof EmptySelfOptions;
 
 // This is the type for the `defaults` argument to optionize
-type OptionizeDefaults<SelfOptions = EmptySelfOptions, ParentOptions = EmptySelfOptions> =
+type OptionizeDefaults<SelfOptions = EmptySelfOptions, ParentOptions = EmptySelfOptions, ProvidedOptions = EmptySelfOptions> =
 
 // Everything optional from SelfOptions must have a default specified
   Omit<Required<Options<SelfOptions>>, EmptySelfOptionsKeys> & // eslint-disable-line @typescript-eslint/ban-types
+
+  // Anything required in the ProvidedOptions should not show up in
+  { [k in RequiredKeys<ProvidedOptions>]?: never; } &
 
   // Any or none of Parent options can be provided
   Partial<ParentOptions>;
@@ -55,7 +62,7 @@ export default function optionize<ProvidedOptions,
   SelfOptions = ProvidedOptions,
   ParentOptions = Record<never, never>>():
   <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
-    defaults: OptionizeDefaults<SelfOptions, ParentOptions>,
+    defaults: OptionizeDefaults<SelfOptions, ParentOptions, ProvidedOptions>,
     providedOptions?: ProvidedOptions
   ) => OptionizeDefaults<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>> {
   return merge4;
