@@ -1,9 +1,10 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * Base type for enumeration value instances. See https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md#enumeration
+ * EnumerationValue is the base class for enumeration value instances.
+ * See https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md#enumeration
  *
- * The pattern for PhET's Enumeration pattern is as such:
+ * PhET's Enumeration pattern is:
  *
  * class MyEnumeration extends EnumerationValue {
  *   public static VALUE_1 = new MyEnumeration();
@@ -15,7 +16,7 @@
  *
  * // Usage
  * console.log( MyEnumeration.VALUE_1 );
- * const printValue = enumValue=> {
+ * const printValue = enumValue => {
  *   assert && assert( enumValue.enumeration.values.includes(enumValue));
  *   console.log( enumValue );
  * };
@@ -35,7 +36,7 @@ class EnumerationValue {
   private _name: string | null;
   private _enumeration: Enumeration<this> | null;
 
-  // After a Enumeration is constructed, no new instances of that exact type can be made (though it is OK to
+  // After an Enumeration is constructed, no new instances of that exact type can be made (though it is OK to
   // create subtypes)
   public static sealedCache = new Set<Constructor<EnumerationValue>>();
 
@@ -61,7 +62,7 @@ class EnumerationValue {
   }
 
   public get name(): string {
-    assert && assert( this._name, 'name cannot be retreived until it has been filled in by Enumeration.' );
+    assert && assert( this._name, 'name cannot be retrieved until it has been filled in by Enumeration.' );
     return this._name!;
   }
 
@@ -71,7 +72,7 @@ class EnumerationValue {
   }
 
   public get enumeration(): Enumeration<this> {
-    assert && assert( this._enumeration, 'enumeration cannot be retreived until it has been filled in by Enumeration.' );
+    assert && assert( this._enumeration, 'enumeration cannot be retrieved until it has been filled in by Enumeration.' );
     return this._enumeration!;
   }
 }
