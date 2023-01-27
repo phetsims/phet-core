@@ -18,18 +18,11 @@
 import phetCore from './phetCore.js';
 import merge from './merge.js';
 import IntentionalAny from './types/IntentionalAny.js';
-
-// https://github.com/piotrwitek/utility-types/blob/master/src/mapped-types.ts
-type OptionalKeys<T> = {
-  [K in keyof T]-?: object extends Pick<T, K> ? K : never;
-}[keyof T];
+import RequiredKeys from './types/RequiredKeys.js';
+import OptionalKeys from './types/OptionalKeys.js';
 
 // Gets the parts of an object that are optional
 type Options<T> = Pick<T, OptionalKeys<T>>;
-
-export type RequiredKeys<T> = {
-  [K in keyof T]-?: object extends Pick<T, K> ? never : K;
-}[keyof T];
 
 type ObjectWithNoKeys = Record<string | number, never>;
 
