@@ -1,4 +1,4 @@
-// Copyright 2019-2022, University of Colorado Boulder
+// Copyright 2019-2023, University of Colorado Boulder
 
 /**
  * Either horizontal or vertical, with helper values.  Moved from Area Model Common on Nov 7, 2019
