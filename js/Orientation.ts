@@ -41,6 +41,10 @@ class Orientation extends EnumerationValue {
     phetioDocumentation: 'Horizontal or vertical orientation'
   } );
 
+  public static fromLayoutOrientation( layoutOrientation: 'horizontal' | 'vertical' ): Orientation {
+    return layoutOrientation === 'horizontal' ? Orientation.HORIZONTAL : Orientation.VERTICAL;
+  }
+
   public readonly coordinate: 'x' | 'y'; // So you can position things like node[ orientation.coordinate ] = value
   public readonly centerCoordinate: 'centerX' | 'centerY'; // So you can center things like node[ orientation.centerCoordinate ] = value
   public readonly minCoordinate: 'minX' | 'minY'; // So you can center things like bounds[ orientation.minCoordinate ] = value
