@@ -23,14 +23,14 @@ type MVT = {
 
 class Orientation extends EnumerationValue {
 
-  public static readonly HORIZONTAL = new Orientation( 'x', 'centerX', 'minX', 'maxX', 'left', 'right', 'rectX', 'rectWidth', 'horizontal', 'width', 'column', 'preferredWidth', 'localPreferredWidth', 'widthSizable',
+  public static readonly HORIZONTAL = new Orientation( 'x', 'centerX', 'minX', 'maxX', 'left', 'right', 'minWidth', 'maxWidth','rectX', 'rectWidth', 'horizontal', 'width', 'column', 'preferredWidth', 'localPreferredWidth', 'widthSizable',
     ( modelViewTransform, value ) => modelViewTransform.modelToViewX( value ),
     ( modelViewTransform, value ) => modelViewTransform.viewToModelX( value ),
     // Pad with zeros to support up to Vector4
     <T>( a: number, b: number, VectorType: Constructor<T> ): T => new VectorType( a, b, 0, 0 )
   );
 
-  public static readonly VERTICAL = new Orientation( 'y', 'centerY', 'minY', 'maxY', 'top', 'bottom', 'rectY', 'rectHeight', 'vertical', 'height', 'row', 'preferredHeight', 'localPreferredHeight', 'heightSizable',
+  public static readonly VERTICAL = new Orientation( 'y', 'centerY', 'minY', 'maxY', 'top', 'bottom', 'minHeight', 'maxHeight', 'rectY', 'rectHeight', 'vertical', 'height', 'row', 'preferredHeight', 'localPreferredHeight', 'heightSizable',
     ( modelViewTransform, value ) => modelViewTransform.modelToViewY( value ),
     ( modelViewTransform, value ) => modelViewTransform.viewToModelY( value ),
     // Pad with zeros to support up to Vector4
@@ -51,6 +51,8 @@ class Orientation extends EnumerationValue {
   public readonly maxCoordinate: 'maxX' | 'maxY'; // So you can center things like bounds[ orientation.maxCoordinate ] = value
   public readonly minSide: 'left' | 'top'; // For getting the minimal/maximal values from bounds/nodes
   public readonly maxSide: 'right' | 'bottom';
+  public readonly minSize: 'minWidth' | 'minHeight';
+  public readonly maxSize: 'maxWidth' | 'maxHeight';
   public readonly rectCoordinate: 'rectX' | 'rectY'; // For being able to handle Rectangles (x/y) and (width/height)
   public readonly rectSize: 'rectWidth' | 'rectHeight';
   public readonly flowBoxOrientation: 'horizontal' | 'vertical'; // The name of the orientation when used for FlowBox
@@ -77,6 +79,8 @@ class Orientation extends EnumerationValue {
                maxCoordinate: 'maxX' | 'maxY',
                minSide: 'left' | 'top',
                maxSide: 'right' | 'bottom',
+               minSize: 'minWidth' | 'minHeight',
+               maxSize: 'maxWidth' | 'maxHeight',
                rectCoordinate: 'rectX' | 'rectY',
                rectSize: 'rectWidth' | 'rectHeight',
                flowBoxOrientation: 'horizontal' | 'vertical',
@@ -95,6 +99,8 @@ class Orientation extends EnumerationValue {
     this.maxCoordinate = maxCoordinate;
     this.minSide = minSide;
     this.maxSide = maxSide;
+    this.minSize = minSize;
+    this.maxSize = maxSize;
     this.rectCoordinate = rectCoordinate;
     this.rectSize = rectSize;
     this.flowBoxOrientation = flowBoxOrientation;
