@@ -15,7 +15,7 @@
     MyType.pool.freeToPool( this );
   }
 
- static pool = new Pool( MyType );
+ public static pool = new Pool( MyType );
 
  * and can additionally implement TPoolable to make it clear that the type is pooled
  *
