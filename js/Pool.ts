@@ -56,15 +56,13 @@ export type TPoolable = {
 };
 
 export default class Pool<T extends Constructor, Params extends IntentionalAny[] = ConstructorParameters<T>> {
-  // This should not be modified externally. In the future if desired, functions could be added to help adding/removing
-  // poolable instances manually.
-  public objects: InstanceType<T>[];
+  private readonly objects: InstanceType<T>[] = [];
 
   private _maxPoolSize: number;
-  private partialConstructor: ( ...args: IntentionalAny[] ) => IntentionalAny;
-  private DefaultConstructor: IntentionalAny;
-  private initialize: PoolableInitializer<T, Params>;
-  private useDefaultConstruction: boolean;
+  private readonly partialConstructor: ( ...args: IntentionalAny[] ) => IntentionalAny;
+  private readonly DefaultConstructor: IntentionalAny;
+  private readonly initialize: PoolableInitializer<T, Params>;
+  private readonly useDefaultConstruction: boolean;
 
   public constructor( type: T, providedOptions?: PoolableOptions<T, Params> ) {
     const options = optionize<PoolableOptions<T, Params>, PoolableOptions<T, Params>>()( {
@@ -94,15 +92,13 @@ export default class Pool<T extends Constructor, Params extends IntentionalAny[]
     this.initialize = options.initialize;
     this.useDefaultConstruction = options.useDefaultConstruction;
 
-    this.objects = [];
-
     // Initialize the pool (if it should have objects)
     while ( this.objects.length < options.initialSize ) {
       this.objects.push( this.createDefaultObject() );
     }
   }
 
-  private createDefaultObject(): IntentionalAny {
+  private createDefaultObject(): InstanceType<T> {
     return new ( this.DefaultConstructor )();
   }
 
@@ -110,7 +106,7 @@ export default class Pool<T extends Constructor, Params extends IntentionalAny[]
    * Returns an object with arbitrary state (possibly constructed with the default arguments).
    */
   public fetch(): InstanceType<T> {
-    return this.objects.length ? this.objects.pop() : this.createDefaultObject();
+    return this.objects.length ? this.objects.pop()! : this.createDefaultObject();
   }
 
   /**
@@ -162,6 +158,10 @@ export default class Pool<T extends Constructor, Params extends IntentionalAny[]
     if ( this.objects.length < this.maxPoolSize ) {
       this.objects.push( object );
     }
+  }
+
+  public forEach( callback: ( object: InstanceType<T> ) => void ): void {
+    this.objects.forEach( callback );
   }
 }
 
