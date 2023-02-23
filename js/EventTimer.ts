@@ -16,7 +16,7 @@
  *
  * For example, create a timer with a constant rate that will fire events every 1 time units:
  *
- * var timer = new phetCore.EventTimer( new phetCore.EventTimer.ConstantEventModel( 1 ), function( timeElapsed ) {
+ * var timer = new phet.phetCore.EventTimer( new phetCore.EventTimer.ConstantEventModel( 1 ), function( timeElapsed ) {
  *   console.log( 'event with timeElapsed: ' + timeElapsed );
  * } );
  *

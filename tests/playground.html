@@ -9,19 +9,19 @@
 
   <title>Phet-core Playground</title>
 
+  <script>
+    window.phet = window.phet || {};
+  </script>
+
   <script src="../../assert/js/assert.js"></script>
   <script src="../../sherpa/lib/lodash-4.17.4.js"></script>
-
-
 </head>
 <body>
 <script type="module">
   window.assertions.enableAssert();
   window.assertions.enableAssertSlow();
 
-  import phetCore from '../js/main.js';
-
-  window.phetCore = phetCore;
+  import '../../chipper/dist/js/phet-core/js/main.js';
 
   console.log( 'loaded' );
 </script>

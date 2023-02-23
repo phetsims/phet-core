@@ -4,7 +4,7 @@
  * Scans through potential properties on an object to detect prefixed forms, and returns the first match.
  *
  * E.g. currently:
- * phetCore.detectPrefix( document.createElement( 'div' ).style, 'transform' ) === 'webkitTransform'
+ * phet.phetCore.detectPrefix( document.createElement( 'div' ).style, 'transform' ) === 'webkitTransform'
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */

@@ -5,7 +5,7 @@
  * Scans through potential event properties on an object to detect prefixed forms, and returns the first match.
  *
  * E.g. currently:
- * phetCore.detectPrefixEvent( document, 'fullscreenchange' ) === 'webkitfullscreenchange'
+ * phet.phetCore.detectPrefixEvent( document, 'fullscreenchange' ) === 'webkitfullscreenchange'
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */

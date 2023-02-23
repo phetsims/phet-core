@@ -3,7 +3,7 @@
 /**
  * Creates an array of arrays, which consists of pairs of objects from the input array without duplication.
  *
- * For example, phetCore.pairs( [ 'a', 'b', 'c' ] ) will return:
+ * For example, phet.phetCore.pairs( [ 'a', 'b', 'c' ] ) will return:
  * [ [ 'a', 'b' ], [ 'a', 'c' ], [ 'b', 'c' ] ]
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
