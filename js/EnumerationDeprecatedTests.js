@@ -74,7 +74,7 @@ QUnit.test( 'Rich', assert => {
     }
 
     // @public
-    getText( name ) {
+    getString( name ) {
       return `${name} is a person from the ${this.order} planet.`;
     }
   }
@@ -87,7 +87,7 @@ QUnit.test( 'Rich', assert => {
   } );
 
   assert.ok( Planets.MARS.order === 2, 'mars order should match' );
-  assert.ok( typeof Planets.EARTH.getText( 'bob' ) === 'string', 'should return a string' );
+  assert.ok( typeof Planets.EARTH.getString( 'bob' ) === 'string', 'should return a string' );
   window.assert && assert.throws( () => {
     Planets.MARS = 'hello'; // fails because enumeration values should not be reassignable
   } );
