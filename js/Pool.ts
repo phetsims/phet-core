@@ -11,11 +11,11 @@
  *
  * With this style of pooling, the following should be standard boilerplate within the class:
 
- public freeToPool(): void {
+  public freeToPool(): void {
     MyType.pool.freeToPool( this );
   }
 
- public static pool = new Pool( MyType );
+  public static pool = new Pool( MyType );
 
  * and can additionally implement TPoolable to make it clear that the type is pooled
  *
