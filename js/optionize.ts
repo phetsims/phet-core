@@ -52,7 +52,7 @@ const merge4 = ( a: IntentionalAny, b?: IntentionalAny, c?: IntentionalAny, d?: 
 // ParentOptions = The public API for parent options, this will be exported by the parent class, like "NodeOptions"
 // KeysUsedInSubclassConstructor = list of keys from ParentOptions that are used in this constructor.
 export default function optionize<ProvidedOptions,
-  SelfOptions = ProvidedOptions,
+  SelfOptions = ProvidedOptions, // By default, every optional option in the ProvidedOptions must have a default unless you specify another object for SelfOptions
   ParentOptions = Record<never, never>>():
   <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
     defaults: OptionizeDefaults<SelfOptions, ParentOptions, ProvidedOptions>,
@@ -63,7 +63,7 @@ export default function optionize<ProvidedOptions,
 
 // Use this function to gain the typing that optionize provides but in a case where the first argument is an empty object.
 export function optionize3<ProvidedOptions,
-  SelfOptions = ProvidedOptions,
+  SelfOptions = ProvidedOptions, // By default, every optional option in the ProvidedOptions must have a default unless you specify another object for SelfOptions
   ParentOptions = Record<never, never>>():
   <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
     emptyObject: ObjectWithNoKeys,
