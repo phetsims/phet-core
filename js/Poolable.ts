@@ -55,6 +55,9 @@ type PoolableType<Type extends Constructor> = {
   get maxPoolSize(): number;
 } & PoolableExistingStatics<Type>;
 
+/**
+ * @deprecated - Please use Pool.ts instead as the new pooling pattern.
+ */
 const Poolable = {
   /**
    * Changes the given type (and its prototype) to support object pooling.
