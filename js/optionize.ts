@@ -8,7 +8,7 @@
  *
  * This pattern is still being solidified. Although the long term location of PhET's options pattern documentation
  * can be found at https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md#options-and-config,
- * that document is currently out of date. Please see https://github.com/phetsims/chipper/issues/1128 for current
+ * that document is currently out of date. Please see https://github.com/phetsims/phet-core/issues/128 for current
  * progress on this pattern.
  *
  * @author Sam Reid (PhET Interactive Simulations)

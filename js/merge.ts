@@ -59,7 +59,7 @@ function merge( target: IntentionalAny, ...sources: IntentionalAny[] ): Intentio
 }
 
 /**
- * TODO: can we remove assertIsMergeable? https://github.com/phetsims/chipper/issues/1128
+ * TODO: can we remove assertIsMergeable? https://github.com/phetsims/phet-core/issues/128
  * Asserts that the object is compatible with merge. That is, it's a POJSO.
  * This function must be called like: assert && assertIsMergeable( arg );
  */
