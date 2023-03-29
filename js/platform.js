@@ -85,6 +85,9 @@ const platform = {
   // Whether the browser is Chromium-based (usually Chrome)
   chromium: ( /chrom(e|ium)/ ).test( ua.toLowerCase() ) && !ua.match( /Edge\// ),
 
+  // Whether the platform is ChromeOS, https://stackoverflow.com/questions/29657165/detecting-chrome-os-with-javascript
+  chromeOS: ua.indexOf( 'CrOS' ) > 0,
+
   mac: navigator.platform.includes( 'Mac' )
 };
 phetCore.register( 'platform', platform );
