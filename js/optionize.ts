@@ -42,7 +42,10 @@ type OptionizeDefaults<SelfOptions = EmptySelfOptions, ParentOptions = EmptySelf
   { [k in RequiredKeys<ProvidedOptions>]?: never; } &
 
   // Any or none of Parent options can be provided
-  Partial<ParentOptions>;
+  Partial<ParentOptions>
+
+  // Include the required properties from ParentOptions that are not in the ProvidedOptions
+  & Required<Omit<Pick<ParentOptions, RequiredKeys<ParentOptions>>, RequiredKeys<ProvidedOptions>>>; // eslint-disable-line @typescript-eslint/ban-types
 
 // Factor out the merge arrow closure to avoid heap/cpu at runtime
 const merge4 = ( a: IntentionalAny, b?: IntentionalAny, c?: IntentionalAny, d?: IntentionalAny ) => merge( a, b, c, d );
