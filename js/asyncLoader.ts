@@ -32,6 +32,12 @@ class AsyncLoader {
     this.listeners = [];
   }
 
+  // Allow resetting this for sandbox or other non-sim purposes. We'll want to be able to load resources AFTER
+  // we've completed loading.
+  public reset(): void {
+    this.loadComplete = false;
+  }
+
   /**
    * @param listener - called when load is complete
    */
