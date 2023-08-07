@@ -36,6 +36,13 @@ class OrientationPair<T> extends EnumerationMap<Orientation, T> {
     this.set( Orientation.VERTICAL, value );
   }
 
+  public with( orientation: Orientation, value: T ): OrientationPair<T> {
+    return new OrientationPair(
+      orientation === Orientation.HORIZONTAL ? value : this.horizontal,
+      orientation === Orientation.VERTICAL ? value : this.vertical
+    );
+  }
+
   /**
    * Creates an orientation pair based on a factory method.
    *
