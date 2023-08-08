@@ -37,7 +37,7 @@ class Orientation extends EnumerationValue {
     <T>( a: number, b: number, VectorType: Constructor<T> ) => new VectorType( b, a, 0, 0 )
   );
 
-  public static enumeration = new Enumeration( Orientation, {
+  public static readonly enumeration = new Enumeration( Orientation, {
     phetioDocumentation: 'Horizontal or vertical orientation'
   } );
 

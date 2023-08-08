@@ -7,11 +7,11 @@
  * PhET's Enumeration pattern is:
  *
  * class MyEnumeration extends EnumerationValue {
- *   public static VALUE_1 = new MyEnumeration();
- *   public static VALUE_2 = new MyEnumeration();
+ *   public static readonly VALUE_1 = new MyEnumeration();
+ *   public static readonly VALUE_2 = new MyEnumeration();
  *
  *   // Make sure this is last, once all EnumerationValues have been declared statically.
- *   public static enumeration = new Enumeration( MyEnumeration );
+ *   public static readonly enumeration = new Enumeration( MyEnumeration );
  * }
  *
  * // Usage
