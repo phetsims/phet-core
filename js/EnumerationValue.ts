@@ -2,7 +2,7 @@
 
 /**
  * EnumerationValue is the base class for enumeration value instances.
- * See https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md#enumeration
+ * See https://github.com/phetsims/phet-info/blob/main/doc/phet-software-design-patterns.md#enumeration
  *
  * PhET's Enumeration pattern is:
  *

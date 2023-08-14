@@ -4,7 +4,7 @@
  * This implementation auto-detects the enumeration values by Object.keys and instanceof. Every property that has a
  * type matching the enumeration type is marked as a value.  See sample usage in Orientation.ts.
  *
- * For general pattern see https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md#enumeration
+ * For general pattern see https://github.com/phetsims/phet-info/blob/main/doc/phet-software-design-patterns.md#enumeration
  *
  * This creates 2-way maps (key-to-value and value-to-key) for ease of use and to enable phet-io serialization.
  *

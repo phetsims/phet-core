@@ -7,7 +7,7 @@
  * For up-to-date examples on how to use this file, see WILDER/WilderOptionsPatterns.ts
  *
  * This pattern is still being solidified. Although the long term location of PhET's options pattern documentation
- * can be found at https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md#options-and-config,
+ * can be found at https://github.com/phetsims/phet-info/blob/main/doc/phet-software-design-patterns.md#options-and-config,
  * that document is currently out of date. Please see https://github.com/phetsims/phet-core/issues/128 for current
  * progress on this pattern.
  *
