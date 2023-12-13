@@ -11,10 +11,10 @@ import arrayRemove from './arrayRemove.js';
 
 QUnit.module( 'arrayDifference' );
 
-function assertDifferences( assert, a, b, expectedAOnly, expectedBOnly, expectedBoth ) {
-  const aOnly = [];
-  const bOnly = [];
-  const inBoth = [];
+function assertDifferences( assert: Assert, a: unknown[], b: unknown[], expectedAOnly: unknown[], expectedBOnly: unknown[], expectedBoth: unknown[] ): void {
+  const aOnly: unknown[] = [];
+  const bOnly: unknown[] = [];
+  const inBoth: unknown[] = [];
   const result = arrayDifference( a, b, aOnly, bOnly, inBoth );
 
   assert.ok( _.isEqual( aOnly, expectedAOnly ), `aOnly: ${a.toString()} diff ${b.toString()} expected: ${expectedAOnly.toString()} actual: ${aOnly.toString()}` );
@@ -23,9 +23,9 @@ function assertDifferences( assert, a, b, expectedAOnly, expectedBOnly, expected
   assert.ok( _.isEqual( aOnly, result ), `return value: ${a.toString()} diff ${b.toString()}` );
 }
 
-function generatedTest( assert, maxNumber, aSize, bSize ) {
-  const a = [];
-  const b = [];
+function generatedTest( assert: Assert, maxNumber: number, aSize: number, bSize: number ): void {
+  const a: unknown[] = [];
+  const b: unknown[] = [];
   const aOnly = [];
   const bOnly = [];
   const inBoth = [];

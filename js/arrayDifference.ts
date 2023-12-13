@@ -10,7 +10,6 @@ import phetCore from './phetCore.js';
 
 /**
  * Given two arrays, find the items that are only in one of them (mutates the aOnly/bOnly/inBoth parameters)
- * @public
  *
  * NOTE: Assumes there are no duplicate values in each individual array.
  *
@@ -25,17 +24,17 @@ import phetCore from './phetCore.js';
  *   // bOnly is [ 5, 0 ]
  *   // inBoth is [ 2 ]
  *
- * @param {Array.<*>} a - Input array
- * @param {Array.<*>} b - Input array
- * @param {Array.<*>} [aOnly] - Output array (will be filled with all elements that are in `a` but NOT in `b`).
+ * @param a - Input array
+ * @param b - Input array
+ * @param [aOnly] - Output array (will be filled with all elements that are in `a` but NOT in `b`).
  *                              Ordered based on the order of `a`.
- * @param {Array.<*>} [bOnly] - Output array (will be filled with all elements that are in `b` but NOT in `a`).
+ * @param [bOnly] - Output array (will be filled with all elements that are in `b` but NOT in `a`).
  *                              Ordered based on the order of `b`.
- * @param {Array.<*>} [inBoth] - Output array (will be filled with all elements that are in both `a` AND `b`).
+ * @param [inBoth] - Output array (will be filled with all elements that are in both `a` AND `b`).
  *                               Ordered based on the order of `a`.
- * @returns {Array.<*>} - Returns the value of aOnly (the classic definition of difference)
+ * @returns - Returns the value of aOnly (the classic definition of difference)
  */
-function arrayDifference( a, b, aOnly, bOnly, inBoth ) {
+function arrayDifference<T>( a: T[], b: T[], aOnly?: T[], bOnly?: T[], inBoth?: T[] ): T[] {
   assert && assert( Array.isArray( a ) && _.uniq( a ).length === a.length, 'a is not an array of unique items' );
   assert && assert( Array.isArray( b ) && _.uniq( b ).length === b.length, 'b is not an array of unique items' );
 
