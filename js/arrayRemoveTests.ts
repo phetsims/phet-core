@@ -12,7 +12,7 @@ import arrayRemove from './arrayRemove.js';
 QUnit.module( 'arrayRemove' );
 
 QUnit.test( 'arrayRemove', assert => {
-  let arr = [ 4, 3, 2, 1, 3 ];
+  const arr = [ 4, 3, 2, 1, 3 ];
   arrayRemove( arr, 3 );
 
   assert.equal( arr[ 0 ], 4 );
@@ -26,10 +26,10 @@ QUnit.test( 'arrayRemove', assert => {
   const b = {};
   const c = {};
 
-  arr = [ a, b, c ];
-  arrayRemove( arr, b );
+  const arr2 = [ a, b, c ];
+  arrayRemove( arr2, b );
 
-  assert.equal( arr[ 0 ], a );
-  assert.equal( arr[ 1 ], c );
-  assert.equal( arr.length, 2 );
+  assert.equal( arr2[ 0 ], a );
+  assert.equal( arr2[ 1 ], c );
+  assert.equal( arr2.length, 2 );
 } );

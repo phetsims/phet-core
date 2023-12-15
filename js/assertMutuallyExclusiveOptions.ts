@@ -15,11 +15,11 @@
 import phetCore from './phetCore.js';
 
 /**
- * @param {Object|null|undefined} options - an options object.  Could be before or after merge, and may therefore
+ * @param options - an options object.  Could be before or after merge, and may therefore
  *                                        - be null or undefined
- * @param {...string[]} sets - families of mutually exclusive option keys, see examples above.
+ * @param sets - families of mutually exclusive option keys, see examples above.
  */
-const assertMutuallyExclusiveOptions = function( options, ...sets ) {
+const assertMutuallyExclusiveOptions = function( options: object | null | undefined, ...sets: string[][] ): void {
   if ( assert && options ) {
 
     // Determine which options are used from each set

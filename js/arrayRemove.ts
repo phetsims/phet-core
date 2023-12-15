@@ -8,14 +8,10 @@
 
 import phetCore from './phetCore.js';
 
-/*
- * @param {Array} array
- * @param {*} item - the item to remove from the array
- */
-function arrayRemove( array, item ) {
+function arrayRemove<T>( array: T[], toRemove: T ): void {
   assert && assert( Array.isArray( array ), 'arrayRemove takes an Array' );
 
-  const index = _.indexOf( array, item );
+  const index = _.indexOf( array, toRemove );
   assert && assert( index >= 0, 'item not found in Array' );
 
   array.splice( index, 1 );

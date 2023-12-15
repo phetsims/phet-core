@@ -17,18 +17,20 @@ QUnit.test( 'assertHasProperties', assert => {
 
     class MyObject {
 
-      // @public
-      aFunction() {}
+      public aFunction(): void {
+        // Empty
+      }
 
-      get getter() {return 'hi'; }
+      public get getter() { return 'hi'; }
     }
 
     class MyChild extends MyObject {
 
-      // @public
-      childMethod() {}
+      public childMethod(): void {
+        // Empty
+      }
 
-      get childGetter() { return 'I am a middle child'; }
+      public get childGetter() { return 'I am a middle child'; }
     }
 
     // Should not throw error because options are all from one set.
@@ -37,22 +39,22 @@ QUnit.test( 'assertHasProperties', assert => {
     assertHasProperties( { b: undefined }, [ 'b' ] );
     assertHasProperties( { b: null }, [ 'b' ] );
     assertHasProperties( { get b() { return 5; } }, [ 'b' ] );
-    assertHasProperties( { b() { } }, [ 'b' ] );
-    assertHasProperties( { set b( b ) { } }, [ 'b' ] );
+    assertHasProperties( { b() { /*empty*/ } }, [ 'b' ] );
+    assertHasProperties( { set b( b: unknown ) { /*empty*/ } }, [ 'b' ] );
     assertHasProperties( new MyObject(), [ 'aFunction', 'getter' ] );
     assertHasProperties( new MyChild(), [ 'aFunction', 'getter', 'childMethod', 'childGetter' ] );
 
     // Simulate scenery Node style types
     class Parent {
-      constructor() {
+      public opacityProperty: object;
+
+      public constructor() {
         this.opacityProperty = {};
       }
 
-      // @public
-      getOpacity() {return 0;}
+      public getOpacity(): number {return 0;}
 
-      // @public
-      get opacity() { return 0;}
+      public get opacity() { return 0;}
     }
 
     class Circle extends Parent {}
