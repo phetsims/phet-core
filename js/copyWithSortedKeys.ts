@@ -17,11 +17,11 @@ import phetCore from './phetCore.js';
 
 /**
  * Creates a new object, recursively, by sorting the keys at each level.
- * @param {Object} unordered - jsonifiable object to be sorted by key name.  Sorting is recursive and hence.
+ * @param unordered - jsonifiable object to be sorted by key name.  Sorting is recursive and hence.
  */
-const copyWithSortedKeys = unordered => {
+function copyWithSortedKeys<T>( unordered: T ): T {
   if ( Array.isArray( unordered ) ) {
-    return unordered.map( copyWithSortedKeys );
+    return unordered.map( copyWithSortedKeys ) as T;
   }
   else if ( typeof unordered !== 'object' || unordered === null ) {
     return unordered;
@@ -29,11 +29,14 @@ const copyWithSortedKeys = unordered => {
 
   const ordered = {};
   Object.keys( unordered ).sort().forEach( key => {
+
+    // @ts-expect-error
     const value = unordered[ key ];
+    // @ts-expect-error
     ordered[ key ] = copyWithSortedKeys( value );
   } );
-  return ordered;
-};
+  return ordered as T;
+}
 
 phetCore.register( 'copyWithSortedKeys', copyWithSortedKeys );
 

@@ -12,9 +12,8 @@
 
 import phetCore from './phetCore.js';
 
-function collect( iterate ) {
-  assert && assert( typeof iterate === 'function' );
-  const result = [];
+function collect<T>( iterate: ( func: ( item: T ) => void ) => void ): T[] {
+  const result: T[] = [];
   iterate( ob => {
     result.push( ob );
   } );

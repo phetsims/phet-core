@@ -9,7 +9,7 @@
 
 import phetCore from './phetCore.js';
 
-function cleanArray( arr ) {
+function cleanArray<T>( arr?: T[] | null | undefined ): T[] {
   assert && assert( !arr || ( Array.isArray( arr ) ), 'cleanArray either takes an Array' );
 
   if ( arr ) {

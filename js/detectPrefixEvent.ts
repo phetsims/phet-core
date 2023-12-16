@@ -13,14 +13,20 @@
 import phetCore from './phetCore.js';
 
 // @returns the best String str where obj['on'+str] !== undefined, or returns undefined if that is not available
-function detectPrefixEvent( obj, name, isEvent ) {
+function detectPrefixEvent( obj: object, name: string ): string | undefined {
+  // @ts-expect-error
   if ( obj[ `on${name}` ] !== undefined ) { return name; }
 
   // Chrome planning to not introduce prefixes in the future, hopefully we will be safe
+  // @ts-expect-error
   if ( obj[ `${'on' + 'moz'}${name}` ] !== undefined ) { return `moz${name}`; }
+  // @ts-expect-error
   if ( obj[ `${'on' + 'Moz'}${name}` ] !== undefined ) { return `Moz${name}`; } // some prefixes seem to have all-caps?
+  // @ts-expect-error
   if ( obj[ `${'on' + 'webkit'}${name}` ] !== undefined ) { return `webkit${name}`; }
+  // @ts-expect-error
   if ( obj[ `${'on' + 'ms'}${name}` ] !== undefined ) { return `ms${name}`; }
+  // @ts-expect-error
   if ( obj[ `${'on' + 'o'}${name}` ] !== undefined ) { return `o${name}`; }
   return undefined;
 }
