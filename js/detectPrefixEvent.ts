@@ -13,7 +13,7 @@
 import phetCore from './phetCore.js';
 
 // @returns the best String str where obj['on'+str] !== undefined, or returns undefined if that is not available
-function detectPrefixEvent( obj: object, name: string ): string | undefined {
+function detectPrefixEvent( obj: object, name: string ): string {
   // @ts-expect-error
   if ( obj[ `on${name}` ] !== undefined ) { return name; }
 
@@ -28,6 +28,7 @@ function detectPrefixEvent( obj: object, name: string ): string | undefined {
   if ( obj[ `${'on' + 'ms'}${name}` ] !== undefined ) { return `ms${name}`; }
   // @ts-expect-error
   if ( obj[ `${'on' + 'o'}${name}` ] !== undefined ) { return `o${name}`; }
+  // @ts-expect-error
   return undefined;
 }
 
