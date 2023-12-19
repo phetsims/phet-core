@@ -1,4 +1,4 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2020-2023, University of Colorado Boulder
 
 /**
  * Output deprecation warnings to console.warn when ?deprecationWarnings is specified

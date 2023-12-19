@@ -1,4 +1,4 @@
-// Copyright 2019-2020, University of Colorado Boulder
+// Copyright 2019-2023, University of Colorado Boulder
 
 /**
  * Throws an assertion error if mutually exclusive options are specified.
