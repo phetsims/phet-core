@@ -15,33 +15,28 @@
 
 import phetCore from './phetCore.js';
 
-/**
- * @typedef {Array.<MultidimensionalArray.<*>|*>} MultidimensionalArray.<*>
- */
+type MultidimensionalArray<T> = Array<MultidimensionalArray<T> | T>;
 
 /**
- * @param {number} dimension - The dimension of the array (how many levels of nested arrays there are). For instance,
+ * @param dimension - The dimension of the array (how many levels of nested arrays there are). For instance,
  *   [ 'a' ] is a 1-dimensional array, [ [ 'b' ] ] is a 2-dimensional array, etc.
- * @param {MultidimensionalArray.<*>} array - A multidimensional array of the specified dimension
- * @param {function} forEach - function( element: {*}, indices...: {Array.<number>} ). Called for each individual
+ * @param array - A multidimensional array of the specified dimension
+ * @param forEach - function( element: {*}, indices...: {Array.<number>} ). Called for each individual
  *   element. The indices are provided as the 2nd, 3rd, etc. parameters to the function (continues depending on the
  *   dimension). This is a generalization of the normal `forEach` function, which only provides the first index. Thus:
  *   array[ indices[ 0 ] ]...[ indices[ dimension - 1 ] ] === element
  */
-function dimensionForEach( dimension, array, forEach ) {
+function dimensionForEach<T>( dimension: number, array: MultidimensionalArray<T>, forEach: ( element: T, ...indices: number[] ) => void ): void {
 
   // Will get indices pushed when we go deeper into the multidimensional array, and popped when we go back, so that
   // this essentially represents our "position" in the multidimensional array during iteration.
-  const indices = [];
+  const indices: number[] = [];
 
   /**
    * Responsible for iterating through a multidimensional array of the given dimension, while accumulating
    * indices.
-   *
-   * @param {number} dim
-   * @param {MultidimensionalArray.<*>} arr
    */
-  function recur( dim, arr ) {
+  function recur( dim: number, arr: MultidimensionalArray<T> ): void {
     return arr.forEach( ( element, index ) => {
 
       // To process this element, we need to record our index (in case it is an array that we iterate through).
@@ -49,11 +44,11 @@ function dimensionForEach( dimension, array, forEach ) {
 
       // Our base case, where recur was passed a 1-dimensional array
       if ( dim === 1 ) {
-        forEach( ...[ element ].concat( indices ) );
+        forEach( element as T, ...indices );
       }
       // We have more dimensions
       else {
-        recur( dim - 1, element );
+        recur( dim - 1, element as MultidimensionalArray<T> );
       }
 
       // We are done with iteration

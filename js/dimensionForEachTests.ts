@@ -10,9 +10,11 @@ import dimensionForEach from './dimensionForEach.js';
 
 QUnit.module( 'dimensionForEach' );
 
+type Element = { element: number; index: number };
+
 QUnit.test( '1 dimensional', assert => {
-  const normalValues = [];
-  const ourValues = [];
+  const normalValues: Element[] = [];
+  const ourValues: Element[] = [];
 
   const arr = [ 1, 2, 4, 9 ];
 
@@ -38,7 +40,7 @@ QUnit.test( '2 dimensional', assert => {
     [ 1, 2, 4 ],
     [ 9, 5 ]
   ];
-  const values = [];
+  const values: Array<{ element: number; idx1: number; idx2: number }> = [];
   const expectedValues = [
     { element: 1, idx1: 0, idx2: 0 },
     { element: 2, idx1: 0, idx2: 1 },
@@ -68,7 +70,7 @@ QUnit.test( '3 dimensional', assert => {
       [ 3, 3, 4 ]
     ]
   ];
-  const values = [];
+  const values: Array<{ element: number; idx1: number; idx2: number; idx3: number }> = [];
   const expectedValues = [
     { element: 1, idx1: 0, idx2: 0, idx3: 0 },
     { element: 5, idx1: 0, idx2: 0, idx3: 1 },

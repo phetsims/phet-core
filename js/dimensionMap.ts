@@ -15,43 +15,41 @@
 
 import phetCore from './phetCore.js';
 
-/**
- * @typedef {Array.<MultidimensionalArray.<*>|*>} MultidimensionalArray.<*>
- */
+type MultidimensionalArray<T> = Array<MultidimensionalArray<T> | T>;
+
 
 /**
- * @param {number} dimension - The dimension of the array (how many levels of nested arrays there are). For instance,
+ * @param dimension - The dimension of the array (how many levels of nested arrays there are). For instance,
  *   [ 'a' ] is a 1-dimensional array, [ [ 'b' ] ] is a 2-dimensional array, etc.
- * @param {MultidimensionalArray.<*>} array - A multidimensional array of the specified dimension
- * @param {function} map - function( element: {*}, indices...: {Array.<number>} ): {*}. Called for each individual
+ * @param array - A multidimensional array of the specified dimension
+ * @param map - function( element: {*}, indices...: {Array.<number>} ): {*}. Called for each individual
  *   element. The indices are provided as the 2nd, 3rd, etc. parameters to the function (continues depending on the
  *   dimension). This is a generalization of the normal `map` function, which only provides the first index. Thus:
  *   array[ indices[ 0 ] ]...[ indices[ dimension - 1 ] ] === element
- * @returns {MultidimensionalArray.<*>} - A multidimensional array of the same dimension as our input, but with the
+ * @returns - A multidimensional array of the same dimension as our input, but with the
  *   values replaced with the return value of the map() calls for each element.
  */
-function dimensionMap( dimension, array, map ) {
+function dimensionMap<InputType, ReturnType>( dimension: number, array: MultidimensionalArray<InputType>,
+                                              map: ( element: InputType, ...indices: number[] ) => ReturnType ): MultidimensionalArray<ReturnType> {
 
   // Will get indices pushed when we go deeper into the multidimensional array, and popped when we go back, so that
   // this essentially represents our "position" in the multidimensional array during iteration.
-  const indices = [];
+  const indices: number[] = [];
 
   /**
    * Responsible for mapping a multidimensional array of the given dimension, while accumulating
    * indices.
-   *
-   * @param {number} dim
-   * @param {MultidimensionalArray.<*>} arr
-   * @returns {MultidimensionalArray.<*>}
    */
-  function recur( dim, arr ) {
+  function recur( dim: number, arr: MultidimensionalArray<InputType> ): MultidimensionalArray<ReturnType> {
     return arr.map( ( element, index ) => {
 
       // To process this element, we need to record our index (in case it is an array that we iterate through).
       indices.push( index );
 
       // If our dimension is 1, it's our base case (apply the normal map function), otherwise continue recursively.
-      const result = dim === 1 ? map( ...[ element ].concat( indices ) ) : recur( dim - 1, element );
+      const result: MultidimensionalArray<ReturnType> | ReturnType = dim === 1 ?
+                                                                     map( element as InputType, ...indices ) :
+                                                                     recur( dim - 1, element as MultidimensionalArray<InputType> );
 
       // We are done with iteration
       indices.pop();

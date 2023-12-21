@@ -11,7 +11,7 @@ import dimensionMap from './dimensionMap.js';
 QUnit.module( 'dimensionMap' );
 
 QUnit.test( '1 dimensional', assert => {
-  function checkMap( values, map, message ) {
+  function checkMap( values: number[], map: ( input: number, index: number ) => number, message: string ): void {
     assert.ok( _.isEqual( dimensionMap( 1, values, map ), values.map( map ) ), message );
   }
 
@@ -39,11 +39,11 @@ QUnit.test( 'multidimensional', assert => {
     ]
   ];
 
-  assert.ok( _.isEqual( dimensionMap( 2, dim2, x => x ), dim2 ), '2-dimensional identity' );
-  assert.ok( _.isEqual( dimensionMap( 3, dim3, x => x ), dim3 ), '3-dimensional identity' );
-  assert.ok( _.isEqual( dimensionMap( 2, dim2, ( x, idx1, idx2 ) => dim2[ idx1 ][ idx2 ] ), dim2 ), '2-dimensional indexing-based' );
-  assert.ok( _.isEqual( dimensionMap( 3, dim3, ( x, idx1, idx2, idx3 ) => dim3[ idx1 ][ idx2 ][ idx3 ] ), dim3 ), '3-dimensional indexing-based' );
-  assert.ok( _.isEqual( dimensionMap( 2, dim2, x => 2 * x ), [
+  assert.ok( _.isEqual( dimensionMap<number, number>( 2, dim2, x => x ), dim2 ), '2-dimensional identity' );
+  assert.ok( _.isEqual( dimensionMap<number, number>( 3, dim3, x => x ), dim3 ), '3-dimensional identity' );
+  assert.ok( _.isEqual( dimensionMap<number, number>( 2, dim2, ( x, idx1, idx2 ) => dim2[ idx1 ][ idx2 ] ), dim2 ), '2-dimensional indexing-based' );
+  assert.ok( _.isEqual( dimensionMap<number, number>( 3, dim3, ( x, idx1, idx2, idx3 ) => dim3[ idx1 ][ idx2 ][ idx3 ] ), dim3 ), '3-dimensional indexing-based' );
+  assert.ok( _.isEqual( dimensionMap<number, number>( 2, dim2, x => 2 * x ), [
     [ 2, 8, 20 ],
     [ 10, 6, -2 ]
   ] ), '2-dimensional times 2' );
