@@ -10,7 +10,7 @@
 
 import phetCore from './phetCore.js';
 
-function escapeHTML( str ) {
+function escapeHTML( str: string ): string {
   // see https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet
   // HTML Entity Encoding
   return str

@@ -7,14 +7,13 @@
  */
 
 import phetCore from './phetCore.js';
+import IntentionalAny from './types/IntentionalAny.js';
 
 /**
  * If the path exists on the window global, return it, otherwise returns null
- * @param {string} path a path to global, such as 'phet.joist.sim'
- * @returns {*|null}
+ * @param path a path to global, such as 'phet.joist.sim'
  */
-const getGlobal = path => {
-  assert && assert( typeof path === 'string', 'path must be a string' );
+const getGlobal = ( path: string ): IntentionalAny | null => {
   assert && assert( path.trim() === path, 'path must be trimmed' );
   const global = _.get( window, path );
   return global !== undefined ? global : null;

@@ -12,7 +12,7 @@
 
 import phetCore from './phetCore.js';
 
-function extendDefined( obj ) {
+function extendDefined<T>( obj: T ): T {
   // eslint-disable-next-line prefer-rest-params
   _.each( Array.prototype.slice.call( arguments, 1 ), source => {
     if ( source ) {

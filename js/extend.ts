@@ -12,12 +12,12 @@
 
 import phetCore from './phetCore.js';
 
-function extend( obj ) {
+function extend<T>( obj: T ): T {
   // eslint-disable-next-line prefer-rest-params
   _.each( Array.prototype.slice.call( arguments, 1 ), source => {
     if ( source ) {
       for ( const prop in source ) {
-        Object.defineProperty( obj, prop, Object.getOwnPropertyDescriptor( source, prop ) );
+        Object.defineProperty( obj, prop, Object.getOwnPropertyDescriptor( source, prop )! );
       }
     }
   } );
