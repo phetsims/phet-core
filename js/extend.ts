@@ -12,9 +12,8 @@
 
 import phetCore from './phetCore.js';
 
-function extend<T>( obj: T ): T {
-  // eslint-disable-next-line prefer-rest-params
-  _.each( Array.prototype.slice.call( arguments, 1 ), source => {
+function extend<T>( obj: T, ...sources: Array<object | undefined> ): T {
+  _.each( sources, source => {
     if ( source ) {
       for ( const prop in source ) {
         Object.defineProperty( obj, prop, Object.getOwnPropertyDescriptor( source, prop )! );

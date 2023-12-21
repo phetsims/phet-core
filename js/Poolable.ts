@@ -44,7 +44,7 @@ type PoolableInitializer<Type extends Constructor> = ( ...args: ConstructorParam
 type PoolableClass<Type extends Constructor> = ( new ( ...args: ConstructorParameters<Type> ) => ( PoolableVersion<Type> ) ) & PoolableType<Type>;
 type PoolableExistingStatics<Type extends Constructor> = {
   // We grab the static values of a type
-  [ Property in keyof Type ]: Type[ Property ]
+  [Property in keyof Type]: Type[ Property ]
 };
 type PoolableType<Type extends Constructor> = {
   pool: PoolableVersion<Type>[];
@@ -62,7 +62,7 @@ const Poolable = {
   /**
    * Changes the given type (and its prototype) to support object pooling.
    */
-  mixInto<Type extends Constructor>( type: Type, providedOptions?: PoolableOptions<Type> ) : PoolableClass<Type> {
+  mixInto<Type extends Constructor>( type: Type, providedOptions?: PoolableOptions<Type> ): PoolableClass<Type> {
     const options = optionize<PoolableOptions<Type>, PoolableOptions<Type>>()( {
 
       defaultArguments: [] as unknown as ConstructorParameters<Type>,
@@ -95,7 +95,7 @@ const Poolable = {
 
     const proto = type.prototype;
 
-    extend( type, {
+    extend<Type>( type, {
       /**
        * This should not be modified externally. In the future if desired, functions could be added to help
        * adding/removing poolable instances manually.
@@ -162,7 +162,7 @@ const Poolable = {
        */
       freeToPool() {
         if ( pool.length < maxPoolSize ) {
-          pool.push( this );
+          pool.push( this as InstanceType<Type> );
         }
       }
     } );
