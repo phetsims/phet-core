@@ -10,11 +10,8 @@ import phetCore from './phetCore.js';
 
 /**
  * Checks if the value passed is defined
- *
- * @param {*} entry - value to be checked
- * @returns {*} Returns the passed in value
  */
-function required( entry ) {
+function required<T>( entry: T ): T {
   assert && assert( entry !== undefined, 'Required field is undefined.' );
   return entry;
 }

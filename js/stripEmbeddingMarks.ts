@@ -10,11 +10,7 @@
 
 import phetCore from './phetCore.js';
 
-/**
- * @param {string} string
- * @returns {string}
- */
-function stripEmbeddingMarks( string ) {
+function stripEmbeddingMarks( string: string ): string {
   return string.replace( /\u202a|\u202b|\u202c/g, '' );
 }
 

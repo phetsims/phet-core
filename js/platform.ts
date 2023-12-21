@@ -15,13 +15,13 @@ import phetCore from './phetCore.js';
 const ua = navigator.userAgent;
 
 // Checks to see whether we are IE, and if so whether the version matches.
-function isIE( version ) {
+function isIE( version: number ): boolean {
   return getInternetExplorerVersion() === version;
 }
 
 // Whether the browser is most likely Safari running on iOS
 // See http://stackoverflow.com/questions/3007480/determine-if-user-navigated-from-mobile-safari
-function isMobileSafari() {
+function isMobileSafari(): boolean {
   return !!(
     ( window.phet && phet.chipper && phet.chipper.queryParameters && phet.chipper.queryParameters[ 'phet-app' ] ) ||
     ( ( ua.match( /(iPod|iPhone|iPad)/ ) || ( navigator.platform === 'MacIntel' && navigator.maxTouchPoints >= 2 ) ) && ua.match( /AppleWebKit/ ) )
@@ -30,7 +30,7 @@ function isMobileSafari() {
 
 //IE11 no longer reports MSIE in the user agent string, see https://github.com/phetsims/phet-core/issues/12
 //This code is adapted from http://stackoverflow.com/questions/17907445/how-to-detect-ie11
-function getInternetExplorerVersion() {
+function getInternetExplorerVersion(): number {
   let rv = -1;
   let re = null;
   if ( navigator.appName === 'Microsoft Internet Explorer' ) {
@@ -50,7 +50,7 @@ function getInternetExplorerVersion() {
 
 const platform = {
   // Whether the browser is most likely Firefox
-  firefox: ua.toLowerCase().indexOf( 'firefox' ) > -1,
+  firefox: ua.toLowerCase().includes( 'firefox' ),
 
   // Whether the browser is most likely Safari running on iOS
   mobileSafari: isMobileSafari(),

@@ -19,13 +19,7 @@ import phetCore from './phetCore.js';
 // `{}` in which `x === undefined` also.
 const placeholderObject = {};
 
-/**
- * @param {Object} object
- * @param {string} keyName1
- * @param {string} keyName2
- * @returns {Object} the passed in object
- */
-const swapObjectKeys = ( object, keyName1, keyName2 ) => {
+function swapObjectKeys<T extends object>( object: T, keyName1: keyof T, keyName2: keyof T ): T {
 
   // store both values into temp vars before trying to overwrite onto the object
   let value1 = placeholderObject;
@@ -39,6 +33,8 @@ const swapObjectKeys = ( object, keyName1, keyName2 ) => {
 
   // If the value changed, then swap the keys
   if ( value1 !== placeholderObject ) {
+
+    // @ts-expect-error - Typescript doesn't know these values can swap
     object[ keyName2 ] = value1;
   }
   else {
@@ -49,6 +45,8 @@ const swapObjectKeys = ( object, keyName1, keyName2 ) => {
 
   // If the value changed, then swap the keys
   if ( value2 !== placeholderObject ) {
+
+    // @ts-expect-error - Typescript doesn't know these values can swap
     object[ keyName1 ] = value2;
   }
   else {
@@ -57,7 +55,7 @@ const swapObjectKeys = ( object, keyName1, keyName2 ) => {
     delete object[ keyName1 ];
   }
   return object; // for chaining
-};
+}
 
 phetCore.register( 'swapObjectKeys', swapObjectKeys );
 

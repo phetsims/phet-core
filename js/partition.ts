@@ -11,9 +11,8 @@
 
 import phetCore from './phetCore.js';
 
-function partition( array, predicate ) {
+function partition<T>( array: T[], predicate: ( element: T ) => boolean ): readonly[ T[], T[] ] {
   assert && assert( Array.isArray( array ) );
-  assert && assert( typeof predicate === 'function' );
 
   const satisfied = [];
   const unsatisfied = [];

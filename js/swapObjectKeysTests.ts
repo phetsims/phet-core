@@ -7,11 +7,12 @@
  */
 
 import swapObjectKeys from './swapObjectKeys.js';
+import IntentionalAny from './types/IntentionalAny.js';
 
 QUnit.module( 'swapObjectKeys' );
 
 QUnit.test( 'swapObjectKeys', assert => {
-  let object = { x: 3, y: 4 };
+  let object: Record<string, IntentionalAny> = { x: 3, y: 4 };
   swapObjectKeys( object, 'x', 'y' );
   assert.ok( object.x === 4 );
   assert.ok( object.y === 3 );
