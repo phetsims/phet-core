@@ -36,9 +36,10 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-let isHMR;
+let isHMR: boolean;
 
 try {
+  // @ts-expect-error - hard to use typescript for this NodeJS context
   isHMR = module && module.hot;
 }
 catch( e ) {

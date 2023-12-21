@@ -18,12 +18,9 @@ import phetCore from './phetCore.js';
  * something.left = 5;
  * something.top = 0;
  *
- * @param {*} target - The object to mutate
- * @param {Array.<string>} orderedKeys
- * @param {Object} [options]
- *
+ * First param will be mutated
  */
-function mutate( target, orderedKeys, options ) {
+function mutate( target: object, orderedKeys: string[], options?: object ): void {
   assert && assert( target );
   assert && assert( Array.isArray( orderedKeys ) );
 
@@ -37,10 +34,14 @@ function mutate( target, orderedKeys, options ) {
   _.each( orderedKeys, key => {
 
     // See https://github.com/phetsims/scenery/issues/580 for more about passing undefined.
-    assert && assert( !options.hasOwnProperty( key ) || options[ key ] !== undefined, `Undefined not allowed for key: ${key}` );
+    // @ts-expect-error
+    assert && assert( !options.hasOwnProperty( key ) || options[ key ] !== undefined,
+      `Undefined not allowed for key: ${key}` );
 
+    // @ts-expect-error
     if ( options[ key ] !== undefined ) {
-      target[ key ] = options[ key ];
+      // @ts-expect-error
+      target[ key ] = options[ key ]!;
     }
   } );
 }

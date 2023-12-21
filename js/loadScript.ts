@@ -8,6 +8,13 @@
 
 import phetCore from './phetCore.js';
 
+type LoadScriptArgs = {
+  src: string;
+  callback?: VoidFunction;
+  async?: boolean;
+  cacheBust?: boolean;
+};
+
 /*
  * Load a script. The only required argument is src, and can be specified either as
  * loadScript( "<url>" ) or loadScript( { src: "<url>", ... other options ... } ).
@@ -18,11 +25,10 @@ import phetCore from './phetCore.js';
  *   async:       Whether the script should be loaded asynchronously. Defaults to true
  *   cacheBust: Whether the URL should have an appended query string to work around caches
  */
-function loadScript( args ) {
+function loadScript( inputArgs: LoadScriptArgs | string ): void {
+
   // handle a string argument
-  if ( typeof args === 'string' ) {
-    args = { src: args };
-  }
+  const args = typeof inputArgs === 'string' ? { src: inputArgs } : inputArgs;
 
   const src = args.src;
   const callback = args.callback;
@@ -34,7 +40,10 @@ function loadScript( args ) {
   const script = document.createElement( 'script' );
   script.type = 'text/javascript';
   script.async = async;
+
+  // @ts-expect-error
   script.onload = script.onreadystatechange = function() {
+    // @ts-expect-error
     const state = this.readyState;
     if ( state && state !== 'complete' && state !== 'loaded' ) {
       return;
@@ -53,7 +62,7 @@ function loadScript( args ) {
   script.src = src + ( cacheBust ? `?random=${Math.random().toFixed( 10 )}` : '' ); // eslint-disable-line bad-sim-text
 
   const other = document.getElementsByTagName( 'script' )[ 0 ];
-  other.parentNode.insertBefore( script, other );
+  other.parentNode!.insertBefore( script, other );
 }
 
 phetCore.register( 'loadScript', loadScript );

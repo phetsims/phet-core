@@ -10,16 +10,14 @@
 
 import phetCore from './phetCore.js';
 
-/*
- * @public
- * @param {Array.<*>} arr - The array in which to interleave elements
- * @param {function} generator - function( index: {number} ):{*} - 0-based index for which "separator" it is for. e.g.
- *                               [ _, f(0), _, f(1), _, f(2), ..., _ ]
- * @returns {Array.<*>}
+/**
+ * @param arr - The array in which to interleave elements
+ * @param generator - function( index: {number} ):{*} - 0-based index for which "separator" it is for. e.g.
+ *                               [ _, generator(0), _, generator(1), _, generator(2), ..., _ ]
+ * @returns - The interleaved array
  */
-function interleave( arr, generator ) {
+function interleave<T>( arr: readonly T[], generator: ( element: number ) => T ): T[] {
   assert && assert( Array.isArray( arr ) );
-  assert && assert( typeof generator === 'function' );
 
   const result = [];
   const finalLength = arr.length * 2 - 1;

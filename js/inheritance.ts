@@ -7,12 +7,13 @@
  */
 
 import phetCore from './phetCore.js';
+import IntentionalAny from './types/IntentionalAny.js';
 
 /*
- * @param {*} type - Constructor for the type in question.
- * @returns {Array.<*>}
+ * @param type - Constructor for the type in question.
+ * @returns - a list of the prototypes
  */
-function inheritance( type ) {
+function inheritance( type: IntentionalAny ): IntentionalAny[] {
   const types = [ type ];
 
   let proto = type.prototype;

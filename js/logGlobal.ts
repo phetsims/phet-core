@@ -12,10 +12,9 @@ import getGlobal from './getGlobal.js';
 import phetCore from './phetCore.js';
 
 /**
- * @param {string} globalString - the name of the global
+ * @param globalString - the name of the global
  */
-function logGlobal( globalString ) {
-  assert && assert( typeof globalString === 'string', `invalid globalString: ${globalString}` );
+function logGlobal( globalString: string ): void {
   phet.log && phet.log( `${globalString}: ${JSON.stringify( getGlobal( globalString ), null, 2 )}` );
 }
 
