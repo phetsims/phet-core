@@ -11,12 +11,13 @@ import phetCore from './phetCore.js';
 // contains all messages printed for deprecation warnings so that we do not print the same message multiple times
 const deprecatedMessages: Record<string, true> = {};
 
-const deprecationWarning = ( message: string ): void => {
-  if ( window.phet && window.phet.chipper && window.phet.chipper.queryParameters && phet.chipper.queryParameters.deprecationWarnings ) {
-    if ( !deprecatedMessages.hasOwnProperty( message ) ) {
-      deprecatedMessages[ message ] = true;
-      console.warn( `Deprecation warning: ${message}` );
-    }
+const deprecationWarning = ( message: string,
+                             showDeprecationWarnings: boolean = window.phet && window.phet.chipper &&
+                                                                window.phet.chipper.queryParameters &&
+                                                                phet.chipper.queryParameters.deprecationWarnings ): void => {
+  if ( showDeprecationWarnings && !deprecatedMessages.hasOwnProperty( message ) ) {
+    deprecatedMessages[ message ] = true;
+    console.warn( `Deprecation warning: ${message}` );
   }
 };
 
