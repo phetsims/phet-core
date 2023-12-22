@@ -1,4 +1,4 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2020-2023, University of Colorado Boulder
 
 /**
  * Hot module replacement (HMR) enables reloading and replacing a single module within a running, stateful application.

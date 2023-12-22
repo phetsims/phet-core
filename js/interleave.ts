@@ -1,4 +1,4 @@
-// Copyright 2018-2020, University of Colorado Boulder
+// Copyright 2018-2023, University of Colorado Boulder
 
 /**
  * Returns a copy of an array, with generated elements interleaved (inserted in-between) every element. For example, if

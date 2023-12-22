@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2023, University of Colorado Boulder
 
 /**
  * Logs a global variable by converting it to JSON, then writing to phet.log. If the global is undefined,
