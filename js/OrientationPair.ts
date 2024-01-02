@@ -52,6 +52,16 @@ class OrientationPair<T> extends EnumerationMap<Orientation, T> {
   public static create<T>( factory: ( o: Orientation ) => T ): OrientationPair<T> {
     return new OrientationPair( factory( Orientation.HORIZONTAL ), factory( Orientation.VERTICAL ) );
   }
+
+  /**
+   * Returns a new EnumerationMap with mapped values.
+   *
+   * @param mapFunction - function( {*}, {TEnumeration.*} ): {*}
+   * @returns With the mapped values
+   */
+  public override map( mapFunction: ( value: T, orientation: Orientation ) => T ): OrientationPair<T> {
+    return new OrientationPair( mapFunction( this.horizontal, Orientation.HORIZONTAL ), mapFunction( this.vertical, Orientation.VERTICAL ) );
+  }
 }
 
 phetCore.register( 'OrientationPair', OrientationPair );
