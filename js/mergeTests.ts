@@ -1,4 +1,5 @@
 // Copyright 2019-2022, University of Colorado Boulder
+// @author Michael Kauzmann (PhET Interactive Simulations)
 
 
 import Property from '../../axon/js/Property.js';
