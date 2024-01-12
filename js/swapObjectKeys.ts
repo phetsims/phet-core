@@ -13,17 +13,19 @@
  */
 
 import phetCore from './phetCore.js';
+import IntentionalAny from './types/IntentionalAny.js';
 
 // Get a unique object reference to compare against. This is preferable to comparing against `undefined` because
 // that doesn't differentiate between and object with a key that has a value of undefined, `{x:undefined}` verses
 // `{}` in which `x === undefined` also.
-const placeholderObject = {};
+const placeholderObject: IntentionalAny = {};
 
 function swapObjectKeys<T extends object>( object: T, keyName1: keyof T, keyName2: keyof T ): T {
+  const placeholderWithType: T[keyof T] = placeholderObject;
 
   // store both values into temp vars before trying to overwrite onto the object
-  let value1 = placeholderObject;
-  let value2 = placeholderObject;
+  let value1 = placeholderWithType;
+  let value2 = placeholderWithType;
   if ( object.hasOwnProperty( keyName1 ) ) {
     value1 = object[ keyName1 ];
   }
@@ -33,8 +35,6 @@ function swapObjectKeys<T extends object>( object: T, keyName1: keyof T, keyName
 
   // If the value changed, then swap the keys
   if ( value1 !== placeholderObject ) {
-
-    // @ts-expect-error - Typescript doesn't know these values can swap
     object[ keyName2 ] = value1;
   }
   else {
@@ -45,8 +45,6 @@ function swapObjectKeys<T extends object>( object: T, keyName1: keyof T, keyName
 
   // If the value changed, then swap the keys
   if ( value2 !== placeholderObject ) {
-
-    // @ts-expect-error - Typescript doesn't know these values can swap
     object[ keyName1 ] = value2;
   }
   else {
