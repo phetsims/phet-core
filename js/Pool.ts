@@ -27,7 +27,7 @@ import phetCore from './phetCore.js';
 import optionize from './optionize.js';
 import IntentionalAny from './types/IntentionalAny.js';
 
-export type SelfPoolableOptions<T extends Constructor> = {
+type SelfPoolableOptions<T extends Constructor> = {
   // If an object needs to be created without a direct call (say, to fill the pool initially), these are the arguments
   // that will be passed into the constructor
   defaultArguments?: ConstructorParameters<T>;
