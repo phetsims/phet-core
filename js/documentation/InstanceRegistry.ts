@@ -40,8 +40,16 @@ class InstanceRegistry {
       }
     }
   }
-}
 
+  /**
+   * Register a toolbox pattern node. There is no strict class for this, so this factored out method can be used by any constructor
+   */
+  public static registerToolbox( instance: NodeLike ): void {
+    if ( phet.chipper.queryParameters.binder ) {
+      InstanceRegistry.registerDataURL( 'sun', 'ToolboxPattern', instance );
+    }
+  }
+}
 
 phetCore.register( 'InstanceRegistry', InstanceRegistry );
 
