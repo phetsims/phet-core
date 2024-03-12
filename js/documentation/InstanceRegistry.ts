@@ -4,31 +4,31 @@
  * Tracks object allocations for reporting using binder.
  *
  * @author Sam Reid (PhET Interactive Simulations)
+ * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
 import phetCore from '../phetCore.js';
 
-// constants
-const map = {};
+type NodeLike = {
+  toDataURL: ( callback: ( data: string ) => void ) => void;
+};
 
 class InstanceRegistry {
+  public static map: Record<string, string[]> = {};
+
   /**
    * Adds a screenshot of the given scenery Node
-   * @param {string} repoName
-   * @param {string} typeName
-   * @param {../../../scenery/js/nodes/Node} instance
-   * @public
    */
-  static registerDataURL( repoName, typeName, instance ) {
+  public static registerDataURL( repoName: string, typeName: string, instance: NodeLike ): void {
     if ( phet.chipper.queryParameters.binder ) {
 
       // Create the map if we haven't seen that component type before
       const key = `${repoName}/${typeName}`;
-      map[ key ] = map[ key ] || [];
+      InstanceRegistry.map[ key ] = InstanceRegistry.map[ key ] || [];
 
       try {
         instance.toDataURL( dataURL => {
-          map[ key ].push( dataURL );
+          InstanceRegistry.map[ key ].push( dataURL );
         } );
       }
       catch( e ) {
@@ -40,10 +40,6 @@ class InstanceRegistry {
   }
 }
 
-/**
- * @public (read-only) - used by puppeteer in binder
- */
-InstanceRegistry.map = map;
 
 phetCore.register( 'InstanceRegistry', InstanceRegistry );
 
