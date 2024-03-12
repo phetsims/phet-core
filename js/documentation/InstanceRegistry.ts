@@ -14,7 +14,9 @@ type NodeLike = {
 };
 
 class InstanceRegistry {
-  public static map: Record<string, string[]> = {};
+
+  // Per named component, store image URIs of what their usages look like
+  public static componentMap: Record<string, string[]> = {};
 
   /**
    * Adds a screenshot of the given scenery Node
@@ -24,11 +26,11 @@ class InstanceRegistry {
 
       // Create the map if we haven't seen that component type before
       const key = `${repoName}/${typeName}`;
-      InstanceRegistry.map[ key ] = InstanceRegistry.map[ key ] || [];
+      InstanceRegistry.componentMap[ key ] = InstanceRegistry.componentMap[ key ] || [];
 
       try {
         instance.toDataURL( dataURL => {
-          InstanceRegistry.map[ key ].push( dataURL );
+          InstanceRegistry.componentMap[ key ].push( dataURL );
         } );
       }
       catch( e ) {
