@@ -1,4 +1,4 @@
-// Copyright 2022, University of Colorado Boulder
+// Copyright 2022-2024, University of Colorado Boulder
 
 /**
  * to specify when `any` is actually the best type for the case (albeit slightly unfortunate). This is not a to-do
