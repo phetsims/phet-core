@@ -8,15 +8,26 @@
  */
 
 import phetCore from '../phetCore.js';
+import Bounds2 from '../../../dot/js/Bounds2.js';
+import TReadOnlyProperty from '../../../axon/js/TReadOnlyProperty.js';
 
 type NodeLike = {
   toDataURL: ( callback: ( data: string ) => void ) => void;
+  boundsProperty: TReadOnlyProperty<Bounds2>;
 };
+
+type ComponentMap = Record<string, string[]>;
+
+function registerImplementation( instance: NodeLike, key: string, map: ComponentMap ): void {
+  instance.toDataURL( dataURL => {
+    map[ key ].push( dataURL );
+  } );
+}
 
 class InstanceRegistry {
 
   // Per named component, store image URIs of what their usages look like
-  public static componentMap: Record<string, string[]> = {};
+  public static componentMap: ComponentMap = {};
 
   /**
    * Adds a screenshot of the given scenery Node
@@ -29,9 +40,18 @@ class InstanceRegistry {
       InstanceRegistry.componentMap[ key ] = InstanceRegistry.componentMap[ key ] || [];
 
       try {
-        instance.toDataURL( dataURL => {
-          InstanceRegistry.componentMap[ key ].push( dataURL );
-        } );
+        if ( instance.boundsProperty.value.isFinite() ) {
+          registerImplementation( instance, key, InstanceRegistry.componentMap );
+        }
+        else {
+          const boundsListener = ( bounds: Bounds2 ) => {
+            if ( bounds.isFinite() ) {
+              registerImplementation( instance, key, InstanceRegistry.componentMap );
+              instance.boundsProperty.unlink( boundsListener ); // less for memory, and more to not double add
+            }
+          };
+          instance.boundsProperty.lazyLink( boundsListener );
+        }
       }
       catch( e ) {
 
