@@ -11,5 +11,5 @@ import IntentionalAny from './IntentionalAny.js';
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-type Concat<T> = T extends [ infer A, ...infer Rest ] ? A extends IntentionalAny[] ? [ ...A, ...Concat<Rest> ] : A : T;
+type Concat<T> = T extends [ infer A, ...infer Rest ] ? A extends IntentionalAny[] ? [ ...A, ...( Concat<Rest> extends IntentionalAny[] ? Concat<Rest> : [] ) ] : A : T;
 export default Concat;
