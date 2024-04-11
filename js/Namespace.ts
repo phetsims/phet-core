@@ -1,6 +1,9 @@
 // Copyright 2015-2023, University of Colorado Boulder
 
 /**
+ * For debugging or usage in the console, Namespace associates modules with a namespaced global for use in the browser.
+ * This does not work in Node.js.
+ *
  * @author Jonathan Olson
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,6 +16,11 @@ class Namespace {
   public constructor( name: string ) {
 
     this.name = name;
+
+    // Unsupported in Node.js
+    if ( typeof window === 'undefined' ) {
+      return;
+    }
 
     if ( window.phet ) {
       // We already create the chipper namespace, so we just attach to it with the register function.
@@ -44,6 +52,11 @@ class Namespace {
    * then the register function will navigate to the object x.A.B and add x.A.B.C = C.
    */
   public register<T>( key: string, value: T ): T {
+
+    // Unsupported in Node.js
+    if ( typeof window === 'undefined' ) {
+      return value;
+    }
 
     // When using hot module replacement, a module will be loaded and initialized twice, and hence its namespace.register
     // function will be called twice.  This should not be an assertion error.
