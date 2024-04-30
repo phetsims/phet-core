@@ -16,7 +16,7 @@
  *
  * For example, create a timer with a constant rate that will fire events every 1 time units:
  *
- * var timer = new phet.phetCore.EventTimer( new phetCore.EventTimer.ConstantEventModel( 1 ), function( timeElapsed ) {
+ * var timer = new phet.phetCore.EventTimer( new phetCore.ConstantEventModel( 1 ), function( timeElapsed ) {
  *   console.log( 'event with timeElapsed: ' + timeElapsed );
  * } );
  *
@@ -124,69 +124,73 @@ export default class EventTimer {
   public getRatio(): number {
     return ( this.period - this.timeBeforeNextEvent ) / this.period;
   }
-
-  public static readonly ConstantEventModel = class ConstantEventModel {
-
-    /*
-     * Event model that will fire events at a constant rate. An event will occur every 1/rate time units.
-     */
-    public constructor( private readonly rate: number ) {
-      assert && assert( rate > 0, 'We need to have a strictly positive rate in order to prevent infinite loops.' );
-    }
-
-    public getPeriodBeforeNextEvent(): number {
-      return 1 / this.rate;
-    }
-  };
-
-  public static readonly UniformEventModel = class UniformEventModel {
-    
-    /*
-     * Event model that will fire events averaging a certain rate, but with the time between events being uniformly
-     * random.
-     *
-     * The pseudoRandomNumberSource, when called, should generate uniformly distributed random numbers in the range [0,1).
-     */
-    public constructor( private readonly rate: number, private readonly pseudoRandomNumberSource: () => number ) {
-      assert && assert( rate > 0, 'We need to have a strictly positive rate in order to prevent infinite loops.' );
-    }
-
-    public getPeriodBeforeNextEvent(): number {
-      const uniformRandomNumber = this.pseudoRandomNumberSource();
-      assert && assert( uniformRandomNumber >= 0 && uniformRandomNumber < 1,
-        `Our uniform random number is outside of its expected range with a value of ${uniformRandomNumber}` );
-
-      // sample the exponential distribution
-      return uniformRandomNumber * 2 / this.rate;
-    }
-  };
-
-  public static readonly PoissonEventModel = class PoissonEventModel {
-
-    /*
-     * Event model that will fire events corresponding to a Poisson process with the specified rate.
-     * The pseudoRandomNumberSource, when called, should generate uniformly distributed random numbers in the range [0,1).
-     */
-    public constructor( private readonly rate: number, private readonly pseudoRandomNumberSource: () => number ) {
-      assert && assert( rate > 0,
-        'We need to have a strictly positive poisson rate in order to prevent infinite loops.' );
-    }
-
-    public getPeriodBeforeNextEvent(): number {
-
-      // A poisson process can be described as having an independent exponential distribution for the time between
-      // consecutive events.
-      // see http://en.wikipedia.org/wiki/Exponential_distribution#Generating_exponential_variates and
-      // http://en.wikipedia.org/wiki/Poisson_process
-
-      const uniformRandomNumber = this.pseudoRandomNumberSource();
-      assert && assert( uniformRandomNumber >= 0 && uniformRandomNumber < 1,
-        `Our uniform random number is outside of its expected range with a value of ${uniformRandomNumber}` );
-
-      // sample the exponential distribution
-      return -Math.log( uniformRandomNumber ) / this.rate;
-    }
-  };
 }
+
+export class ConstantEventModel {
+
+  /*
+   * Event model that will fire events at a constant rate. An event will occur every 1/rate time units.
+   */
+  public constructor( private readonly rate: number ) {
+    assert && assert( rate > 0, 'We need to have a strictly positive rate in order to prevent infinite loops.' );
+  }
+
+  public getPeriodBeforeNextEvent(): number {
+    return 1 / this.rate;
+  }
+}
+
+export class UniformEventModel {
+
+  /*
+   * Event model that will fire events averaging a certain rate, but with the time between events being uniformly
+   * random.
+   *
+   * The pseudoRandomNumberSource, when called, should generate uniformly distributed random numbers in the range [0,1).
+   */
+  public constructor( private readonly rate: number, private readonly pseudoRandomNumberSource: () => number ) {
+    assert && assert( rate > 0, 'We need to have a strictly positive rate in order to prevent infinite loops.' );
+  }
+
+  public getPeriodBeforeNextEvent(): number {
+    const uniformRandomNumber = this.pseudoRandomNumberSource();
+    assert && assert( uniformRandomNumber >= 0 && uniformRandomNumber < 1,
+      `Our uniform random number is outside of its expected range with a value of ${uniformRandomNumber}` );
+
+    // sample the exponential distribution
+    return uniformRandomNumber * 2 / this.rate;
+  }
+}
+
+export class PoissonEventModel {
+
+  /*
+   * Event model that will fire events corresponding to a Poisson process with the specified rate.
+   * The pseudoRandomNumberSource, when called, should generate uniformly distributed random numbers in the range [0,1).
+   */
+  public constructor( private readonly rate: number, private readonly pseudoRandomNumberSource: () => number ) {
+    assert && assert( rate > 0,
+      'We need to have a strictly positive poisson rate in order to prevent infinite loops.' );
+  }
+
+  public getPeriodBeforeNextEvent(): number {
+
+    // A poisson process can be described as having an independent exponential distribution for the time between
+    // consecutive events.
+    // see http://en.wikipedia.org/wiki/Exponential_distribution#Generating_exponential_variates and
+    // http://en.wikipedia.org/wiki/Poisson_process
+
+    const uniformRandomNumber = this.pseudoRandomNumberSource();
+    assert && assert( uniformRandomNumber >= 0 && uniformRandomNumber < 1,
+      `Our uniform random number is outside of its expected range with a value of ${uniformRandomNumber}` );
+
+    // sample the exponential distribution
+    return -Math.log( uniformRandomNumber ) / this.rate;
+  }
+}
+
+phetCore.register( 'PoissonEventModel', PoissonEventModel );
+phetCore.register( 'UniformEventModel', UniformEventModel );
+phetCore.register( 'ConstantEventModel', ConstantEventModel );
 
 phetCore.register( 'EventTimer', EventTimer );

@@ -82,17 +82,17 @@
   var totalPoissonEvents = 0;
   var totalUniformEvents = 0;
 
-  var constantTimer = new phetCore.EventTimer( new phetCore.EventTimer.ConstantEventModel( 5 ), function( timeElapsed ) {
+  var constantTimer = new phetCore.EventTimer( new phetCore.ConstantEventModel( 5 ), function( timeElapsed ) {
     totalConstantEvents++;
     constantPositions.unshift( timeElapsed );
   } );
 
-  var poissonTimer = new phetCore.EventTimer( new phetCore.EventTimer.PoissonEventModel( 5, Math.random ), function( timeElapsed ) {
+  var poissonTimer = new phetCore.EventTimer( new phetCore.PoissonEventModel( 5, Math.random ), function( timeElapsed ) {
     totalPoissonEvents++;
     poissonPositions.unshift( timeElapsed );
   } );
 
-  var uniformTimer = new phetCore.EventTimer( new phetCore.EventTimer.UniformEventModel( 5, Math.random ), function( timeElapsed ) {
+  var uniformTimer = new phetCore.EventTimer( new phetCore.UniformEventModel( 5, Math.random ), function( timeElapsed ) {
     totalUniformEvents++;
     uniformPositions.unshift( timeElapsed );
   } );
