@@ -96,7 +96,7 @@ export function optionize4<ProvidedOptions,
   ParentOptions = object>():
   <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
     emptyObject: ObjectWithNoKeys,
-    defaults1: Partial<ParentOptions>,
+    optionsFromConstant: Partial<ParentOptions>,
     defaults2: OptionizeDefaults<SelfOptions, ParentOptions>,
     providedOptions?: ProvidedOptions
   ) => OptionizeDefaults<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>> {
