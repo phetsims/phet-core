@@ -19,5 +19,5 @@ QUnit.test( 'escapeHTML', assert => {
   assert.equal( escapeHTML( 'A\'B' ), 'A&#x27;B', 'simple \'' );
   assert.equal( escapeHTML( 'A/B' ), 'A&#x2F;B', 'simple /' );
 
-  assert.equal( escapeHTML( '&amp; & ""' ), '&amp;amp; &amp; &quot;&quot;', 'multiple escaping' );
+  assert.equal( escapeHTML( '&amp; & ""' ), '&amp;amp;&nbsp;&amp;&nbsp;&quot;&quot;', 'multiple escaping' );
 } );
