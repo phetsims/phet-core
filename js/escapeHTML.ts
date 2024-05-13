@@ -19,7 +19,8 @@ function escapeHTML( str: string ): string {
     .replace( />/g, '&gt;' )
     .replace( /"/g, '&quot;' )
     .replace( /'/g, '&#x27;' )
-    .replace( /\//g, '&#x2F;' );
+    .replace( /\//g, '&#x2F;' )
+    .replace( / /g, '&nbsp;' );
 }
 
 phetCore.register( 'escapeHTML', escapeHTML );
