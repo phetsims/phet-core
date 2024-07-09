@@ -59,7 +59,7 @@ export default function optionize<ProvidedOptions,
   ParentOptions = Record<never, never>>():
   <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
     defaults: OptionizeDefaults<SelfOptions, ParentOptions, ProvidedOptions>,
-    providedOptions?: ProvidedOptions
+    providedOptions: ProvidedOptions | undefined
   ) => OptionizeDefaults<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>> {
   return merge4;
 }
@@ -71,7 +71,7 @@ export function optionize3<ProvidedOptions,
   <KeysUsedInSubclassConstructor extends keyof ( ParentOptions )>(
     emptyObject: ObjectWithNoKeys,
     defaults: OptionizeDefaults<SelfOptions, ParentOptions>,
-    providedOptions?: ProvidedOptions
+    providedOptions: ProvidedOptions | undefined
   ) => OptionizeDefaults<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>> {
   return merge4;
 }
@@ -98,7 +98,7 @@ export function optionize4<ProvidedOptions,
     emptyObject: ObjectWithNoKeys,
     optionsFromConstant: Partial<ParentOptions>,
     defaults2: OptionizeDefaults<SelfOptions, ParentOptions>,
-    providedOptions?: ProvidedOptions
+    providedOptions: ProvidedOptions | undefined
   ) => OptionizeDefaults<SelfOptions, ParentOptions> & ProvidedOptions & Required<Pick<ParentOptions, KeysUsedInSubclassConstructor>> {
   return merge4;
 }
