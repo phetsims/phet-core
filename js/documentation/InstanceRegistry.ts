@@ -18,6 +18,21 @@ type NodeLike = {
 
 type ComponentMap = Record<string, string[]>;
 
+// A duck type for HotkeyData in scenery, which we cannot import into phet-core.
+type HotkeyData = {
+  keyStringProperties: TReadOnlyProperty<string>[];
+  keyboardHelpDialogLabelStringProperty: TReadOnlyProperty<string> | null;
+  serialize: () => SerializedHotkeyData;
+};
+
+// The expected serialized type for HotkeyData to pass over to binder.
+type SerializedHotkeyData = {
+  keyStrings: string[];
+  repoName: string;
+  binderName: string;
+  global: boolean;
+};
+
 function registerImplementation( instance: NodeLike, key: string, map: ComponentMap ): void {
   instance.toDataURL( dataURL => {
     map[ key ].push( dataURL );
@@ -28,6 +43,9 @@ class InstanceRegistry {
 
   // Per named component, store image URIs of what their usages look like
   public static componentMap: ComponentMap = {};
+
+  // An array of all Hotkeys that have been registered.
+  public static hotkeys: SerializedHotkeyData[] = [];
 
   /**
    * Adds a screenshot of the given scenery Node
@@ -67,6 +85,15 @@ class InstanceRegistry {
   public static registerToolbox( instance: NodeLike ): void {
     if ( phet.chipper.queryParameters.binder ) {
       InstanceRegistry.registerDataURL( 'sun', 'ToolboxPattern', instance );
+    }
+  }
+
+  /**
+   * Register a Hotkey for binder documentation.
+   */
+  public static registerHotkey( hotkeyData: HotkeyData ): void {
+    if ( phet.chipper.queryParameters.binder ) {
+      InstanceRegistry.hotkeys.push( hotkeyData.serialize() );
     }
   }
 }
