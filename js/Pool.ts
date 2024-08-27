@@ -64,7 +64,7 @@ export type TPoolable = {
 
 // Our linter complains that {} should be either Record<string, unknown>, unknown, or Record<string, never>. However in
 // this case, we actually want it to be any type of non-nullish structural type, to see if there is anything required.
-export type PossiblyRequiredParameterSpread<T> = ( {} extends T ? [ T? ] : [ T ] ); // eslint-disable-line @typescript-eslint/ban-types
+export type PossiblyRequiredParameterSpread<T> = ( {} extends T ? [ T? ] : [ T ] ); // eslint-disable-line @typescript-eslint/no-restricted-types
 
 export default class Pool<T extends Constructor> {
   private readonly objects: InstanceType<T>[] = [];

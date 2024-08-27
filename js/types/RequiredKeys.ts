@@ -10,6 +10,6 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-type RequiredKeys<T> = { [K in keyof T]-?: {} extends Pick<T, K> ? never : K }[keyof T]; // eslint-disable-line @typescript-eslint/ban-types
+type RequiredKeys<T> = { [K in keyof T]-?: {} extends Pick<T, K> ? never : K }[keyof T]; // eslint-disable-line @typescript-eslint/no-restricted-types
 
 export default RequiredKeys;

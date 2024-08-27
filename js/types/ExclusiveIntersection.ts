@@ -11,8 +11,8 @@ type ExclusiveIntersection<A,
   B extends { [K in keyof B]: K extends keyof A ? never : B[K] },
 
   // assumes A and B have something, so we don't end up with {} & {} & {}
-  C extends { [K in keyof C]: K extends keyof A ? never : K extends keyof B ? never : C[K] } = {}, // eslint-disable-line @typescript-eslint/ban-types
-  D extends { [K in keyof D]: K extends keyof A ? never : K extends keyof B ? never : K extends keyof C ? never : D[K] } = {}> // eslint-disable-line @typescript-eslint/ban-types
+  C extends { [K in keyof C]: K extends keyof A ? never : K extends keyof B ? never : C[K] } = {}, // eslint-disable-line @typescript-eslint/no-restricted-types
+  D extends { [K in keyof D]: K extends keyof A ? never : K extends keyof B ? never : K extends keyof C ? never : D[K] } = {}> // eslint-disable-line @typescript-eslint/no-restricted-types
   = A & B & C & D;
 
 export default ExclusiveIntersection;

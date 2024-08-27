@@ -36,7 +36,7 @@ type EmptySelfOptionsKeys = keyof EmptySelfOptions;
 type OptionizeDefaults<SelfOptions = EmptySelfOptions, ParentOptions = EmptySelfOptions, ProvidedOptions = EmptySelfOptions> =
 
 // Everything optional from SelfOptions must have a default specified
-  Omit<Required<Options<SelfOptions>>, EmptySelfOptionsKeys> & // eslint-disable-line @typescript-eslint/ban-types
+  Omit<Required<Options<SelfOptions>>, EmptySelfOptionsKeys> & // eslint-disable-line @typescript-eslint/no-restricted-types
 
   // Anything required in the ProvidedOptions should not show up in the "defaults" object
   { [k in RequiredKeys<ProvidedOptions>]?: never; } &
@@ -45,7 +45,7 @@ type OptionizeDefaults<SelfOptions = EmptySelfOptions, ParentOptions = EmptySelf
   Partial<ParentOptions>
 
   // Include the required properties from ParentOptions that are not in the ProvidedOptions
-  & Required<Omit<Pick<ParentOptions, RequiredKeys<ParentOptions>>, RequiredKeys<ProvidedOptions>>>; // eslint-disable-line @typescript-eslint/ban-types
+  & Required<Omit<Pick<ParentOptions, RequiredKeys<ParentOptions>>, RequiredKeys<ProvidedOptions>>>; // eslint-disable-line @typescript-eslint/no-restricted-types
 
 // Factor out the merge arrow closure to avoid heap/cpu at runtime
 const merge4 = ( a: IntentionalAny, b?: IntentionalAny, c?: IntentionalAny, d?: IntentionalAny ) => merge( a, b, c, d );

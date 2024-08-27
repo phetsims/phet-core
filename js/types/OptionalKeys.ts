@@ -10,6 +10,6 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-type OptionalKeys<T> = { [K in keyof T]-?: {} extends Pick<T, K> ? K : never }[keyof T]; // eslint-disable-line @typescript-eslint/ban-types
+type OptionalKeys<T> = { [K in keyof T]-?: {} extends Pick<T, K> ? K : never }[keyof T]; // eslint-disable-line @typescript-eslint/no-restricted-types
 
 export default OptionalKeys;
