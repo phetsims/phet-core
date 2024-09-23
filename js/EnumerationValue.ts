@@ -26,8 +26,8 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import phetCore from './phetCore.js';
 import Enumeration from './Enumeration.js';
+import phetCore from './phetCore.js';
 import Constructor from './types/Constructor.js';
 
 class EnumerationValue {

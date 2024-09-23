@@ -7,9 +7,9 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import phetCore from './phetCore.js';
 import Enumeration from './Enumeration.js';
 import EnumerationValue from './EnumerationValue.js';
+import phetCore from './phetCore.js';
 import Constructor from './types/Constructor.js';
 import IntentionalAny from './types/IntentionalAny.js';
 
@@ -74,23 +74,23 @@ class Orientation extends EnumerationValue {
   public opposite: Orientation;
 
   public constructor( coordinate: 'x' | 'y',
-               centerCoordinate: 'centerX' | 'centerY',
-               minCoordinate: 'minX' | 'minY',
-               maxCoordinate: 'maxX' | 'maxY',
-               minSide: 'left' | 'top',
-               maxSide: 'right' | 'bottom',
-               minSize: 'minWidth' | 'minHeight',
-               maxSize: 'maxWidth' | 'maxHeight',
-               rectCoordinate: 'rectX' | 'rectY',
-               rectSize: 'rectWidth' | 'rectHeight',
-               flowBoxOrientation: 'horizontal' | 'vertical',
-               size: 'width' | 'height',
-               line: 'column' | 'row',
-               preferredSize: 'preferredWidth' | 'preferredHeight',
-               localPreferredSize: 'localPreferredWidth' | 'localPreferredHeight',
-               sizable: 'widthSizable' | 'heightSizable',
-               modelToView: ( m: MVT, n: number ) => number,
-               viewToModel: ( m: MVT, n: number ) => number, toVector: <T>( n: number, m: number, VectorType: new ( x: number, y: number, ...args: IntentionalAny[] ) => T ) => T ) {
+                      centerCoordinate: 'centerX' | 'centerY',
+                      minCoordinate: 'minX' | 'minY',
+                      maxCoordinate: 'maxX' | 'maxY',
+                      minSide: 'left' | 'top',
+                      maxSide: 'right' | 'bottom',
+                      minSize: 'minWidth' | 'minHeight',
+                      maxSize: 'maxWidth' | 'maxHeight',
+                      rectCoordinate: 'rectX' | 'rectY',
+                      rectSize: 'rectWidth' | 'rectHeight',
+                      flowBoxOrientation: 'horizontal' | 'vertical',
+                      size: 'width' | 'height',
+                      line: 'column' | 'row',
+                      preferredSize: 'preferredWidth' | 'preferredHeight',
+                      localPreferredSize: 'localPreferredWidth' | 'localPreferredHeight',
+                      sizable: 'widthSizable' | 'heightSizable',
+                      modelToView: ( m: MVT, n: number ) => number,
+                      viewToModel: ( m: MVT, n: number ) => number, toVector: <T>( n: number, m: number, VectorType: new ( x: number, y: number, ...args: IntentionalAny[] ) => T ) => T ) {
 
     super();
     this.coordinate = coordinate;

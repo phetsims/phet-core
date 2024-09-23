@@ -11,11 +11,11 @@
  *
  * With this style of pooling, the following should be standard boilerplate within the class:
 
-  public freeToPool(): void {
-    MyType.pool.freeToPool( this );
-  }
+ public freeToPool(): void {
+ MyType.pool.freeToPool( this );
+ }
 
-  public static readonly pool = new Pool( MyType );
+ public static readonly pool = new Pool( MyType );
 
  * and can additionally implement TPoolable to make it clear that the type is pooled
  *
@@ -50,9 +50,9 @@ type SelfPoolableOptions<T extends Constructor> = {
 
 export type PoolableOptions<T extends Constructor> =
   SelfPoolableOptions<T> & ( InstanceType<T> extends { initialize: PoolableInitializer<T> } ? unknown : {
-    // Require initialize if our type doesn't have a compatible initialize method.
-    initialize: PoolableInitializer<T>;
-  } );
+  // Require initialize if our type doesn't have a compatible initialize method.
+  initialize: PoolableInitializer<T>;
+} );
 type PoolableInitializer<T extends Constructor> = ( ...args: ConstructorParameters<T> ) => InstanceType<T>;
 
 export type TPoolable = {

@@ -25,12 +25,12 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import phetCore from './phetCore.js';
-import TEnumeration from './TEnumeration.js';
 import EnumerationValue from './EnumerationValue.js';
 import inheritance from './inheritance.js';
-import Constructor from './types/Constructor.js';
 import optionize from './optionize.js';
+import phetCore from './phetCore.js';
+import TEnumeration from './TEnumeration.js';
+import Constructor from './types/Constructor.js';
 
 export type EnumerationOptions<T extends EnumerationValue> = {
   phetioDocumentation?: string;

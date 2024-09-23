@@ -15,8 +15,8 @@
  */
 
 import inheritance from './inheritance.js';
-import IntentionalAny from './types/IntentionalAny.js';
 import phetCore from './phetCore.js';
+import IntentionalAny from './types/IntentionalAny.js';
 
 const assertHasProperties = ( object: IntentionalAny, properties: string[] ): void => {
   if ( assert && object ) {

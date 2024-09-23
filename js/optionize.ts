@@ -15,11 +15,11 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import phetCore from './phetCore.js';
 import merge from './merge.js';
+import phetCore from './phetCore.js';
 import IntentionalAny from './types/IntentionalAny.js';
-import RequiredKeys from './types/RequiredKeys.js';
 import OptionalKeys from './types/OptionalKeys.js';
+import RequiredKeys from './types/RequiredKeys.js';
 
 // Gets the parts of an object that are optional
 type Options<T> = Pick<T, OptionalKeys<T>>;
