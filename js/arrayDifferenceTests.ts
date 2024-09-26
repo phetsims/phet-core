@@ -36,12 +36,12 @@ function generatedTest( assert: Assert, maxNumber: number, aSize: number, bSize:
   const bRange = range.slice();
 
   while ( a.length < aSize ) {
-    item = _.sample( aRange ); // eslint-disable-line bad-sim-text
+    item = _.sample( aRange ); // eslint-disable-line phet/bad-sim-text
     arrayRemove( aRange, item );
     a.push( item );
   }
   while ( b.length < bSize ) {
-    item = _.sample( bRange ); // eslint-disable-line bad-sim-text
+    item = _.sample( bRange ); // eslint-disable-line phet/bad-sim-text
     arrayRemove( bRange, item );
     b.push( item );
   }

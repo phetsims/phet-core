@@ -59,7 +59,7 @@ function loadScript( inputArgs: LoadScriptArgs | string ): void {
   };
 
   // make sure things aren't cached, just in case
-  script.src = src + ( cacheBust ? `?random=${Math.random().toFixed( 10 )}` : '' ); // eslint-disable-line bad-sim-text
+  script.src = src + ( cacheBust ? `?random=${Math.random().toFixed( 10 )}` : '' ); // eslint-disable-line phet/bad-sim-text
 
   const other = document.getElementsByTagName( 'script' )[ 0 ];
   other.parentNode!.insertBefore( script, other );
