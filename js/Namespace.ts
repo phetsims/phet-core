@@ -8,8 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import isHMR from './isHMR.js';
-
 class Namespace {
   public readonly name: string;
 
@@ -63,11 +61,9 @@ class Namespace {
 
     // If the key isn't compound (doesn't contain '.'), we can just look it up on this namespace
     if ( key.includes( '.' ) ) {
-      if ( !isHMR ) {
 
-        // @ts-expect-error
-        assert && assert( !this[ key ], `${key} is already registered for namespace ${this.name}` );
-      }
+      // @ts-expect-error
+      assert && assert( !this[ key ], `${key} is already registered for namespace ${this.name}` );
 
       // @ts-expect-error
       this[ key ] = value;
@@ -80,11 +76,9 @@ class Namespace {
       let parent = this; // eslint-disable-line consistent-this, @typescript-eslint/no-this-alias
       for ( let i = 0; i < keys.length - 1; i++ ) { // for all but the last key
 
-        if ( !isHMR ) {
-          // @ts-expect-error
-          assert && assert( !!parent[ keys[ i ] ],
-            `${[ this.name ].concat( keys.slice( 0, i + 1 ) ).join( '.' )} needs to be defined to register ${key}` );
-        }
+        // @ts-expect-error
+        assert && assert( !!parent[ keys[ i ] ],
+          `${[ this.name ].concat( keys.slice( 0, i + 1 ) ).join( '.' )} needs to be defined to register ${key}` );
 
         // @ts-expect-error
         parent = parent[ keys[ i ] ];
@@ -93,10 +87,8 @@ class Namespace {
       // Write into the inner namespace, e.g. x.A.B[ 'C' ] = C
       const lastKey = keys[ keys.length - 1 ];
 
-      if ( !isHMR ) {
-        // @ts-expect-error
-        assert && assert( !parent[ lastKey ], `${key} is already registered for namespace ${this.name}` );
-      }
+      // @ts-expect-error
+      assert && assert( !parent[ lastKey ], `${key} is already registered for namespace ${this.name}` );
 
       // @ts-expect-error
       parent[ lastKey ] = value;
