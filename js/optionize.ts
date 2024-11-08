@@ -39,7 +39,7 @@ type OptionizeDefaults<SelfOptions = EmptySelfOptions, ParentOptions = EmptySelf
   Omit<Required<Options<SelfOptions>>, EmptySelfOptionsKeys> & // eslint-disable-line @typescript-eslint/no-restricted-types
 
   // Anything required in the ProvidedOptions should not show up in the "defaults" object
-  { [k in RequiredKeys<ProvidedOptions>]?: never; } &
+  Partial<Record<RequiredKeys<ProvidedOptions>, never>> &
 
   // Any or none of Parent options can be provided
   Partial<ParentOptions>

@@ -14,6 +14,7 @@ type IfEquals<X, Y, A=X, B=never> =
   ( <T>() => T extends Y ? 1 : 2 ) ? A : B;
 
 type ReadonlyKeys<T> = {
-  [P in keyof T]-?: IfEquals<{ [Q in P]: T[P] }, { -readonly [Q in P]: T[P] }, never, P>
+  // eslint-disable-next-line @typescript-eslint/consistent-indexed-object-style
+  [P in keyof T]-?: IfEquals<Record<P, T[P]>, { -readonly [Q in P]: T[P] }, never, P>
 }[keyof T];
 export default ReadonlyKeys;
