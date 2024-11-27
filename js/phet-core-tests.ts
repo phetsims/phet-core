@@ -7,7 +7,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import qunitStart from '../../chipper/js/sim-tests/qunitStart.js';
+import qunitStart from '../../chipper/js/browser/sim-tests/qunitStart.js';
 import './arrayDifferenceTests.js';
 import './arrayRemoveTests.js';
 import './assertHasPropertiesTests.js';
