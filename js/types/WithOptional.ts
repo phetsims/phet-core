@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
-import StrictOmit from './StrictOmit.js';
 import PickOptional from './PickOptional.js';
+import StrictOmit from './StrictOmit.js';
 
 /**
  * Creates a type like the input type T, but with all certain properties optional.

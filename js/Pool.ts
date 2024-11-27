@@ -22,9 +22,9 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-import Constructor from './types/Constructor.js';
-import phetCore from './phetCore.js';
 import optionize from './optionize.js';
+import phetCore from './phetCore.js';
+import Constructor from './types/Constructor.js';
 import IntentionalAny from './types/IntentionalAny.js';
 
 type SelfPoolableOptions<T extends Constructor> = {

@@ -7,9 +7,9 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import phetCore from '../phetCore.js';
-import Bounds2 from '../../../dot/js/Bounds2.js';
 import TReadOnlyProperty from '../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../dot/js/Bounds2.js';
+import phetCore from '../phetCore.js';
 
 type NodeLike = {
   toDataURL: ( callback: ( data: string ) => void ) => void;
