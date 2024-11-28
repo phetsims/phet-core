@@ -1,4 +1,4 @@
-// Copyright 2022, University of Colorado Boulder
+// Copyright 2022-2024, University of Colorado Boulder
 
 import PickOptional from './PickOptional.js';
 import StrictOmit from './StrictOmit.js';
