@@ -1,0 +1,8 @@
+{
+  "extends": "../tsconfig-browser-and-node.json",
+  "references": [
+    {
+      "path": "../../perennial-alias/js/browser-and-node/tsconfig.json"
+    }
+  ]
+}

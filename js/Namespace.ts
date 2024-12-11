@@ -1,5 +1,13 @@
 // Copyright 2015-2024, University of Colorado Boulder
 
+import affirm, { isAffirmEnabled } from '../../perennial-alias/js/browser-and-node/affirm.js';
+import IntentionalAny from './types/IntentionalAny.js';
+
+// Experiment to allow accessing these off window. See https://stackoverflow.com/questions/12709074/how-do-you-explicitly-set-a-new-property-on-window-in-typescript
+declare global {
+  var phet: Record<string, IntentionalAny>; // eslint-disable-line no-var
+}
+
 /**
  * For debugging or usage in the console, Namespace associates modules with a namespaced global for use in the browser.
  * This does not work in Node.js.
@@ -16,23 +24,23 @@ class Namespace {
     this.name = name;
 
     // Unsupported in Node.js
-    if ( typeof window === 'undefined' ) {
+    if ( !globalThis.hasOwnProperty( 'window' ) ) {
       return;
     }
 
-    if ( window.phet ) {
+    if ( globalThis.phet ) {
       // We already create the chipper namespace, so we just attach to it with the register function.
       if ( name === 'chipper' ) {
-        window.phet.chipper.name = 'chipper';
-        window.phet.chipper.register = this.register.bind( window.phet.chipper );
-        return window.phet.chipper; // eslint-disable-line -- we want to provide the namespace API on something already existing
+        globalThis.phet.chipper.name = 'chipper';
+        globalThis.phet.chipper.register = this.register.bind( globalThis.phet.chipper );
+        return globalThis.phet.chipper; // eslint-disable-line -- we want to provide the namespace API on something already existing
       }
       else {
-        /* TODO: Ideally we should always assert this, but in PhET-iO wrapper code, multiple built modules define the
-           TODO: same namespace, this should be fixed in https://github.com/phetsims/phet-io-wrappers/issues/631 */
-        const ignoreAssertion = !_.hasIn( window, 'phet.chipper.brand' );
-        assert && !ignoreAssertion && assert( !window.phet[ name ], `namespace ${name} already exists` );
-        window.phet[ name ] = this;
+        // TODO: Ideally we should always assert this, but in PhET-iO wrapper code, multiple built modules define the
+        //       same namespace, this should be fixed in https://github.com/phetsims/phet-io-wrappers/issues/631
+        const ignoreAssertion = !( globalThis.phet?.chipper?.brand );
+        isAffirmEnabled() && !ignoreAssertion && affirm( !globalThis.phet[ name ], `namespace ${name} already exists` );
+        globalThis.phet[ name ] = this;
       }
     }
   }
@@ -52,7 +60,7 @@ class Namespace {
   public register<T>( key: string, value: T ): T {
 
     // Unsupported in Node.js
-    if ( typeof window === 'undefined' ) {
+    if ( !globalThis.hasOwnProperty( 'window' ) ) {
       return value;
     }
 
@@ -63,7 +71,7 @@ class Namespace {
     if ( key.includes( '.' ) ) {
 
       // @ts-expect-error
-      assert && assert( !this[ key ], `${key} is already registered for namespace ${this.name}` );
+      affirm( !this[ key ], `${key} is already registered for namespace ${this.name}` );
 
       // @ts-expect-error
       this[ key ] = value;
@@ -77,7 +85,7 @@ class Namespace {
       for ( let i = 0; i < keys.length - 1; i++ ) { // for all but the last key
 
         // @ts-expect-error
-        assert && assert( !!parent[ keys[ i ] ],
+        affirm( !!parent[ keys[ i ] ],
           `${[ this.name ].concat( keys.slice( 0, i + 1 ) ).join( '.' )} needs to be defined to register ${key}` );
 
         // @ts-expect-error
@@ -88,7 +96,7 @@ class Namespace {
       const lastKey = keys[ keys.length - 1 ];
 
       // @ts-expect-error
-      assert && assert( !parent[ lastKey ], `${key} is already registered for namespace ${this.name}` );
+      affirm( !parent[ lastKey ], `${key} is already registered for namespace ${this.name}` );
 
       // @ts-expect-error
       parent[ lastKey ] = value;

@@ -9,6 +9,7 @@
 
 import phetLibraryEslintConfig from '../perennial-alias/js/eslint/config/phet-library.eslint.config.mjs';
 
+// TODO: support browser-and-node linting, https://github.com/phetsims/chipper/issues/1523
 export default [
   ...phetLibraryEslintConfig
 ];

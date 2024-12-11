@@ -1,0 +1,15 @@
+{
+  "extends": "../perennial-alias/tsconfig/tsconfig-browser-and-node.json",
+  "include": [
+    "js/types/**/*",
+    "js/optionize.ts",
+    "js/merge.ts",
+    "js/phetCore.ts",
+    "js/Namespace.ts"
+  ],
+  "references": [
+    {
+      "path": "../perennial-alias/js/browser-and-node/tsconfig.json"
+    }
+  ]
+}

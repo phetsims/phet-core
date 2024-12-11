@@ -6,9 +6,19 @@
     "mipmaps/**/*",
     "sounds/**/*"
   ],
+  "exclude": [
+    "js/types/**/*",
+    "js/optionize.ts",
+    "js/merge.ts",
+    "js/phetCore.ts",
+    "js/Namespace.ts"
+  ],
   "references": [
     {
       "path": "../perennial-alias/tsconfig/buildjson/tsconfig.json"
+    },
+    {
+      "path": "./tsconfig-browser-and-node.json"
     }
   ]
 }
