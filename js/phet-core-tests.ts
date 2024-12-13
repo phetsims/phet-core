@@ -7,7 +7,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import qunitStart from '../../chipper/js/browser/sim-tests/qunitStart.js';
+import qunitStartWithoutPhetio from './qunitStartWithoutPhetio.js';
 import './arrayDifferenceTests.js';
 import './arrayRemoveTests.js';
 import './assertHasPropertiesTests.js';
@@ -28,4 +28,4 @@ import './partitionTests.js';
 import './swapObjectKeysTests.js';
 
 // Since our tests are loaded asynchronously, we must direct QUnit to begin the tests
-qunitStart();
+qunitStartWithoutPhetio();

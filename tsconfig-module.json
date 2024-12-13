@@ -1,0 +1,27 @@
+{
+  "extends": "../perennial-alias/tsconfig/tsconfig-browser.json",
+  "include": [
+    "js/**/*",
+    "images/**/*",
+    "mipmaps/**/*",
+    "sounds/**/*"
+  ],
+  "exclude": [
+    // Browser-and-node
+    "js/types/**/*",
+    "js/optionize.ts",
+    "js/merge.ts",
+    "js/phetCore.ts",
+    "js/Namespace.ts",
+    // Tests
+    "js/phet-core-tests.ts",
+    "js/qunitStartWithoutPhetio.js",
+    "*.Tests.js",
+    "*.Tests.ts"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig-browser-and-node.json"
+    }
+  ]
+}

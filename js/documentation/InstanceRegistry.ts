@@ -7,21 +7,20 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import TReadOnlyProperty from '../../../axon/js/TReadOnlyProperty.js';
-import Bounds2 from '../../../dot/js/Bounds2.js';
 import phetCore from '../phetCore.js';
+import IntentionalAny from '../types/IntentionalAny.js';
 
 type NodeLike = {
   toDataURL: ( callback: ( data: string ) => void ) => void;
-  boundsProperty: TReadOnlyProperty<Bounds2>;
+  boundsProperty: IntentionalAny;
 };
 
 type ComponentMap = Record<string, string[]>;
 
 // A duck type for HotkeyData in scenery, which we cannot import into phet-core.
 type HotkeyData = {
-  keyStringProperties: TReadOnlyProperty<string>[];
-  keyboardHelpDialogLabelStringProperty: TReadOnlyProperty<string> | null;
+  keyStringProperties: IntentionalAny[];
+  keyboardHelpDialogLabelStringProperty: IntentionalAny | null;
   serialize: () => SerializedHotkeyData;
 };
 
@@ -62,7 +61,7 @@ class InstanceRegistry {
           registerImplementation( instance, key, InstanceRegistry.componentMap );
         }
         else {
-          const boundsListener = ( bounds: Bounds2 ) => {
+          const boundsListener = ( bounds: IntentionalAny ) => {
             if ( bounds.isFinite() ) {
               registerImplementation( instance, key, InstanceRegistry.componentMap );
               instance.boundsProperty.unlink( boundsListener ); // less for memory, and more to not double add

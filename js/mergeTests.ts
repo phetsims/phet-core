@@ -2,8 +2,6 @@
 // @author Michael Kauzmann (PhET Interactive Simulations)
 
 
-import Property from '../../axon/js/Property.js';
-import EnumerationDeprecated from './EnumerationDeprecated.js';
 import merge from './merge.js';
 import IntentionalAny from './types/IntentionalAny.js';
 
@@ -421,34 +419,6 @@ QUnit.test( 'test wrong args', assert => {
   merge( { xOptions: { test: 1 } }, { xOptions: null } );
   merge( {}, { someOptions: null }, {} );
   merge( {}, { someOptions: undefined }, {} );
-} );
-
-QUnit.test( 'do not recurse for non *Options', assert => {
-
-  const testFirstProperty = new Property( 'hi' );
-  const testSecondProperty = new Property( 'hi2' );
-  const TestEnumeration = EnumerationDeprecated.byKeys( [ 'ONE', 'TWO' ] );
-  const TestEnumeration2 = EnumerationDeprecated.byKeys( [ 'ONE1', 'TWO2' ] );
-  const original = {
-    prop: testFirstProperty,
-    enum: TestEnumeration,
-    someOptions: { nestedProp: testFirstProperty }
-  };
-
-  let newObject = merge( {}, original );
-  assert.ok( _.isEqual( original, newObject ), 'should be equal from reference equality' );
-  assert.ok( original.prop === newObject.prop, 'same Property' );
-  assert.ok( original.enum === newObject.enum, 'same EnumerationDeprecated' );
-
-  // test defaults with other non mergeable objects
-  newObject = merge( {
-    prop: testSecondProperty,
-    enum: TestEnumeration2,
-    someOptions: { nestedProp: testSecondProperty }
-  }, original );
-  assert.ok( _.isEqual( original, newObject ), 'should be equal' );
-  assert.ok( original.prop === newObject.prop, 'same Property, ignore default' );
-  assert.ok( original.enum === newObject.enum, 'same EnumerationDeprecated, ignore default' );
 } );
 
 QUnit.test( 'support optional options', assert => {
