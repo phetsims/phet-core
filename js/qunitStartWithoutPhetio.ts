@@ -1,4 +1,4 @@
-// Copyright 2020-2024, University of Colorado Boulder
+// Copyright 2024, University of Colorado Boulder
 
 /**
  * Start Qunit while all runtime modalities (debugging/headless puppeteer).
