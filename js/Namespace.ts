@@ -31,6 +31,9 @@ class Namespace {
     if ( globalThis.phet ) {
       // We already create the chipper namespace, so we just attach to it with the register function.
       if ( name === 'chipper' ) {
+
+        globalThis.phet.chipper = globalThis.phet.chipper || {};
+
         globalThis.phet.chipper.name = 'chipper';
         globalThis.phet.chipper.register = this.register.bind( globalThis.phet.chipper );
         return globalThis.phet.chipper; // eslint-disable-line -- we want to provide the namespace API on something already existing
