@@ -26,7 +26,7 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import Enumeration from './Enumeration.js';
+import type Enumeration from './Enumeration.js';
 import phetCore from './phetCore.js';
 import Constructor from './types/Constructor.js';
 
