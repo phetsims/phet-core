@@ -10,8 +10,7 @@
     // These files are for tests, and should be identical to those included by the top level config
     "js/**/*Tests.ts",
     "js/**/*Tests.js",
-    "js/phet-core-tests.ts",
-    "js/qunitStartWithoutPhetio.ts"
+    "js/phet-core-tests.ts"
   ],
   "references": [
     {

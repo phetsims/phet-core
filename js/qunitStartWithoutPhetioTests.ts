@@ -34,6 +34,6 @@ export const qunitStartImplementation = ( ready: VoidFunction ): void => {
   }
 };
 
-const qunitStartWithoutPhetio = (): void => qunitStartImplementation( () => QUnit.start() );
+const qunitStartWithoutPhetioTests = (): void => qunitStartImplementation( () => QUnit.start() );
 
-export default qunitStartWithoutPhetio;
+export default qunitStartWithoutPhetioTests;

@@ -7,7 +7,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import qunitStartWithoutPhetio from './qunitStartWithoutPhetio.js';
+import qunitStartWithoutPhetioTests from './qunitStartWithoutPhetioTests.js';
 import './arrayDifferenceTests.js';
 import './arrayRemoveTests.js';
 import './assertHasPropertiesTests.js';
@@ -28,4 +28,4 @@ import './partitionTests.js';
 import './swapObjectKeysTests.js';
 
 // Since our tests are loaded asynchronously, we must direct QUnit to begin the tests
-qunitStartWithoutPhetio();
+qunitStartWithoutPhetioTests();
