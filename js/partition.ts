@@ -9,10 +9,11 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
+import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';
 import phetCore from './phetCore.js';
 
 function partition<T>( array: T[], predicate: ( element: T ) => boolean ): readonly[ T[], T[] ] {
-  assert && assert( Array.isArray( array ) );
+  affirm( Array.isArray( array ) );
 
   const satisfied = [];
   const unsatisfied = [];

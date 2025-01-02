@@ -10,6 +10,7 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
+import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';
 import extend from './extend.js';
 import optionize from './optionize.js';
 import phetCore from './phetCore.js';
@@ -72,8 +73,8 @@ const Poolable = {
       useDefaultConstruction: false
     }, providedOptions ) as Required<PoolableOptions<Type>>;
 
-    assert && assert( options.maxSize >= 0 );
-    assert && assert( options.initialSize >= 0 );
+    affirm( options.maxSize >= 0 );
+    affirm( options.initialSize >= 0 );
 
     // The actual array we store things in. Always push/pop.
     const pool: InstanceType<Type>[] = [];
@@ -142,7 +143,7 @@ const Poolable = {
        * Sets the maximum pool size.
        */
       set maxPoolSize( value: number ) {
-        assert && assert( value === Number.POSITIVE_INFINITY || ( Number.isInteger( value ) && value >= 0 ), 'maxPoolSize should be a non-negative integer or infinity' );
+        affirm( value === Number.POSITIVE_INFINITY || ( Number.isInteger( value ) && value >= 0 ), 'maxPoolSize should be a non-negative integer or infinity' );
 
         maxPoolSize = value;
       },

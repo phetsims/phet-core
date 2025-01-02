@@ -6,6 +6,7 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
+import { isAffirmEnabled } from '../../perennial-alias/js/browser-and-node/affirm.js';
 import assertHasProperties from './assertHasProperties.js';
 
 QUnit.module( 'assertHasProperties' );
@@ -13,7 +14,7 @@ QUnit.module( 'assertHasProperties' );
 QUnit.test( 'assertHasProperties', assert => {
   assert.ok( true, 'one test whether or not assertions are enabled' );
 
-  if ( window.assert ) {
+  if ( isAffirmEnabled() ) {
 
     class MyObject {
 

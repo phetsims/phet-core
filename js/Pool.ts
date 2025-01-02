@@ -22,6 +22,7 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
+import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from './optionize.js';
 import phetCore from './phetCore.js';
 import Constructor from './types/Constructor.js';
@@ -87,8 +88,8 @@ export default class Pool<T extends Constructor> {
       useDefaultConstruction: false
     }, providedOptionsSpread[ 0 ] );
 
-    assert && assert( options.maxSize >= 0 );
-    assert && assert( options.initialSize >= 0 );
+    affirm( options.maxSize >= 0 );
+    affirm( options.initialSize >= 0 );
 
     this._maxPoolSize = options.maxSize;
 
@@ -103,7 +104,7 @@ export default class Pool<T extends Constructor> {
     this.DefaultConstructor = this.partialConstructor( ...options.defaultArguments! ); // eslint-disable-line @typescript-eslint/no-unnecessary-type-assertion
 
     this.initialize = options.initialize;
-    assert && assert( this.initialize, 'Either pass in an initialize option, or provide a method named initialize on the type with the proper signature' );
+    affirm( this.initialize, 'Either pass in an initialize option, or provide a method named initialize on the type with the proper signature' );
 
     this.useDefaultConstruction = options.useDefaultConstruction;
 
@@ -157,7 +158,7 @@ export default class Pool<T extends Constructor> {
    * Sets the maximum pool size.
    */
   public set maxPoolSize( value: number ) {
-    assert && assert( value === Number.POSITIVE_INFINITY || ( Number.isInteger( value ) && value >= 0 ), 'maxPoolSize should be a non-negative integer or infinity' );
+    affirm( value === Number.POSITIVE_INFINITY || ( Number.isInteger( value ) && value >= 0 ), 'maxPoolSize should be a non-negative integer or infinity' );
 
     this._maxPoolSize = value;
   }

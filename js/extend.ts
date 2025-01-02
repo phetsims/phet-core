@@ -11,6 +11,7 @@
  */
 
 import phetCore from './phetCore.js';
+import _ from '../../sherpa/js/lodash.js';
 
 function extend<T>( obj: T, ...sources: Array<object | undefined> ): T {
   _.each( sources, source => {

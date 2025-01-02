@@ -6,6 +6,7 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
+import _ from '../../sherpa/js/lodash.js';
 import arrayDifference from './arrayDifference.js';
 import arrayRemove from './arrayRemove.js';
 

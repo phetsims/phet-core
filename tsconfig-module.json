@@ -1,27 +1,21 @@
 {
-  "extends": "../perennial-alias/tsconfig/tsconfig-browser.json",
+  "extends": "../perennial-alias/tsconfig/tsconfig-browser-and-node.json",
   "include": [
     "js/**/*",
-    "images/**/*",
-    "mipmaps/**/*",
-    "sounds/**/*"
+    // TODO: https://github.com/phetsims/chipper/issues/1523 sherpa could have a mini tsconfig module for lodash?
+    "../sherpa/js/lodash.ts",
+    "../sherpa/lodash-es/lodash.js"
   ],
   "exclude": [
-    // Browser-and-node
-    "js/types/**/*",
-    "js/optionize.ts",
-    "js/merge.ts",
-    "js/phetCore.ts",
-    "js/Namespace.ts",
-    // Tests
+    // These files are for tests, and should be identical to those included by the top level config
+    "js/**/*Tests.ts",
+    "js/**/*Tests.js",
     "js/phet-core-tests.ts",
-    "js/qunitStartWithoutPhetio.js",
-    "*.Tests.js",
-    "*.Tests.ts"
+    "js/qunitStartWithoutPhetio.ts"
   ],
   "references": [
     {
-      "path": "./tsconfig-browser-and-node.json"
+      "path": "../perennial-alias/js/browser-and-node/tsconfig.json"
     }
   ]
 }

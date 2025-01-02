@@ -8,6 +8,7 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
+import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';
 import phetCore from './phetCore.js';
 
 /**
@@ -17,7 +18,7 @@ import phetCore from './phetCore.js';
  * @returns - The interleaved array
  */
 function interleave<T>( arr: readonly T[], generator: ( element: number ) => T ): T[] {
-  assert && assert( Array.isArray( arr ) );
+  affirm( Array.isArray( arr ) );
 
   const result = [];
   const finalLength = arr.length * 2 - 1;

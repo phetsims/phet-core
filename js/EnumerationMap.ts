@@ -7,6 +7,7 @@
  */
 
 import phetCore from './phetCore.js';
+import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';
 
 type TEnumeration<T> = {
   enumeration: {
@@ -31,7 +32,7 @@ class EnumerationMap<T, U> {
 
     this._values = enumeration.enumeration.values;
     this._values.forEach( entry => {
-      assert && assert( !this._map.has( entry ), 'Enumeration key override problem' );
+      affirm( !this._map.has( entry ), 'Enumeration key override problem' );
       this._map.set( entry, factory( entry ) );
     } );
   }
@@ -40,8 +41,8 @@ class EnumerationMap<T, U> {
    * Returns the value associated with the given enumeration entry.
    */
   public get( entry: T ): U {
-    assert && assert( this._values.includes( entry ) );
-    assert && assert( this._map.has( entry ) );
+    affirm( this._values.includes( entry ) );
+    affirm( this._map.has( entry ) );
     return this._map.get( entry )!;
   }
 
@@ -49,7 +50,7 @@ class EnumerationMap<T, U> {
    * Sets the value associated with the given enumeration entry.
    */
   public set( entry: T, value: U ): void {
-    assert && assert( this._values.includes( entry ) );
+    affirm( this._values.includes( entry ) );
     this._map.set( entry, value );
   }
 

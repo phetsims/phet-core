@@ -6,7 +6,9 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
+import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';
 import phetCore from './phetCore.js';
+import _ from '../../sherpa/js/lodash.js';
 
 /**
  * Given two arrays, find the items that are only in one of them (mutates the aOnly/bOnly/inBoth parameters)
@@ -35,16 +37,16 @@ import phetCore from './phetCore.js';
  * @returns - Returns the value of aOnly (the classic definition of difference)
  */
 function arrayDifference<T>( a: T[], b: T[], aOnly?: T[], bOnly?: T[], inBoth?: T[] ): T[] {
-  assert && assert( Array.isArray( a ) && _.uniq( a ).length === a.length, 'a is not an array of unique items' );
-  assert && assert( Array.isArray( b ) && _.uniq( b ).length === b.length, 'b is not an array of unique items' );
+  affirm( Array.isArray( a ) && _.uniq( a ).length === a.length, 'a is not an array of unique items' );
+  affirm( Array.isArray( b ) && _.uniq( b ).length === b.length, 'b is not an array of unique items' );
 
   aOnly = aOnly || [];
   bOnly = bOnly || [];
   inBoth = inBoth || [];
 
-  assert && assert( Array.isArray( aOnly ) && aOnly.length === 0 );
-  assert && assert( Array.isArray( bOnly ) && bOnly.length === 0 );
-  assert && assert( Array.isArray( inBoth ) && inBoth.length === 0 );
+  affirm( Array.isArray( aOnly ) && aOnly.length === 0 );
+  affirm( Array.isArray( bOnly ) && bOnly.length === 0 );
+  affirm( Array.isArray( inBoth ) && inBoth.length === 0 );
 
   Array.prototype.push.apply( aOnly, a );
   Array.prototype.push.apply( bOnly, b );

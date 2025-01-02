@@ -12,6 +12,8 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import affirm, { isAffirmEnabled } from '../../perennial-alias/js/browser-and-node/affirm.js';
+import _ from '../../sherpa/js/lodash.js';
 import phetCore from './phetCore.js';
 
 /**
@@ -20,7 +22,7 @@ import phetCore from './phetCore.js';
  * @param sets - families of mutually exclusive option keys, see examples above.
  */
 const assertMutuallyExclusiveOptions = function( options: object | null | undefined, ...sets: string[][] ): void {
-  if ( assert && options ) {
+  if ( isAffirmEnabled() && options ) {
 
     // Determine which options are used from each set
     const usedElementsFromEachSet = sets.map( set => Object.keys( _.pick( options, ...set ) ) );
@@ -29,7 +31,7 @@ const assertMutuallyExclusiveOptions = function( options: object | null | undefi
     if ( usedElementsFromEachSet.filter( usedElements => usedElements.length > 0 ).length > 1 ) {
 
       // Output the errant options.
-      assert && assert( false, `Cannot simultaneously specify ${usedElementsFromEachSet.join( ' and ' )}` );
+      affirm( false, `Cannot simultaneously specify ${usedElementsFromEachSet.join( ' and ' )}` );
     }
   }
 };

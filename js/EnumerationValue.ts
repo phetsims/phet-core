@@ -17,7 +17,7 @@
  * // Usage
  * console.log( MyEnumeration.VALUE_1 );
  * const printValue = enumValue => {
- *   assert && assert( enumValue.enumeration.values.includes(enumValue));
+ *   affirm( enumValue.enumeration.values.includes(enumValue));
  *   console.log( enumValue );
  * };
  * printValue( MyEnumeration.VALUE_2 );
@@ -26,6 +26,7 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
+import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';
 import type Enumeration from './Enumeration.js';
 import phetCore from './phetCore.js';
 import Constructor from './types/Constructor.js';
@@ -50,30 +51,30 @@ class EnumerationValue {
 
   public constructor() {
     const c = this.constructor as Constructor<EnumerationValue>;
-    assert && assert( !EnumerationValue.sealedCache.has( c ), 'cannot create instanceof of a sealed constructor' );
+    affirm( !EnumerationValue.sealedCache.has( c ), 'cannot create instanceof of a sealed constructor' );
 
     this._name = null;
     this._enumeration = null;
   }
 
   public set name( name: string ) {
-    assert && assert( !this._name, 'name cannot be changed once defined.' );
+    affirm( !this._name, 'name cannot be changed once defined.' );
     this._name = name;
   }
 
   public get name(): string {
-    assert && assert( this._name, 'name cannot be retrieved until it has been filled in by Enumeration.' );
-    return this._name!;
+    affirm( this._name, 'name cannot be retrieved until it has been filled in by Enumeration.' );
+    return this._name;
   }
 
   public set enumeration( enumeration: Enumeration<this> ) {
-    assert && assert( !this._enumeration, 'enumeration cannot be changed once defined.' );
+    affirm( !this._enumeration, 'enumeration cannot be changed once defined.' );
     this._enumeration = enumeration;
   }
 
   public get enumeration(): Enumeration<this> {
-    assert && assert( this._enumeration, 'enumeration cannot be retrieved until it has been filled in by Enumeration.' );
-    return this._enumeration!;
+    affirm( this._enumeration, 'enumeration cannot be retrieved until it has been filled in by Enumeration.' );
+    return this._enumeration;
   }
 }
 

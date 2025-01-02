@@ -7,10 +7,11 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
+import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';
 import phetCore from './phetCore.js';
 
 function cleanArray<T>( arr?: T[] | null | undefined ): T[] {
-  assert && assert( !arr || ( Array.isArray( arr ) ), 'cleanArray either takes an Array' );
+  affirm( !arr || ( Array.isArray( arr ) ), 'cleanArray either takes an Array' );
 
   if ( arr ) {
     // fastest way to clear an array (http://stackoverflow.com/questions/1232040/how-to-empty-an-array-in-javascript, http://jsperf.com/array-destroy/32)

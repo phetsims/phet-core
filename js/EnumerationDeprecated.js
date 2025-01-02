@@ -52,7 +52,7 @@
  *
  *     // @param {Scene} mode - value from Scene EnumerationDeprecated
  *     setSceneMode( mode ) {
- *       assert && assert( Scene.includes( mode ) );
+ *       affirm( Scene.includes( mode ) );
  *       //...
  *     }
  *
@@ -62,6 +62,8 @@
 import deprecationWarning from './deprecationWarning.js';
 import merge from './merge.js';
 import phetCore from './phetCore.js';
+import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';
+import _ from '../../sherpa/js/lodash.js';
 
 /**
  * @deprecated
@@ -77,11 +79,11 @@ class EnumerationDeprecated {
   constructor( config ) {
     deprecationWarning( 'EnumerationDeprecated should be exchanged for classes that extend EnumerationValue, see WilderEnumerationPatterns for examples.' );
 
-    assert && assert( config, 'config must be provided' );
+    affirm( config, 'config must be provided' );
 
     const keysProvided = !!config.keys;
     const mapProvided = !!config.map;
-    assert && assert( keysProvided !== mapProvided, 'must provide one or the other but not both of keys/map' );
+    affirm( keysProvided !== mapProvided, 'must provide one or the other but not both of keys/map' );
 
     const keys = config.keys || Object.keys( config.map );
     const map = config.map || {};
@@ -99,16 +101,16 @@ class EnumerationDeprecated {
       beforeFreeze: null
     }, config );
 
-    assert && assert( Array.isArray( keys ), 'Values should be an array' );
-    assert && assert( _.uniq( keys ).length === keys.length, 'There should be no duplicated values provided' );
+    affirm( Array.isArray( keys ), 'Values should be an array' );
+    affirm( _.uniq( keys ).length === keys.length, 'There should be no duplicated values provided' );
     assert && keys.forEach( value => assert( typeof value === 'string', 'Each value should be a string' ) );
     assert && keys.forEach( value => assert( /^[A-Z][A-Z0-9_]*$/g.test( value ),
       'EnumerationDeprecated values should be uppercase alphanumeric with underscores and begin with a letter' ) );
-    assert && assert( !_.includes( keys, 'VALUES' ),
+    affirm( !_.includes( keys, 'VALUES' ),
       'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
-    assert && assert( !_.includes( keys, 'KEYS' ),
+    affirm( !_.includes( keys, 'KEYS' ),
       'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
-    assert && assert( !_.includes( keys, 'includes' ),
+    affirm( !_.includes( keys, 'includes' ),
       'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
 
     // @public (phet-io) - provides additional documentation for PhET-iO which can be viewed in studio
@@ -125,8 +127,8 @@ class EnumerationDeprecated {
       const value = map[ key ] || {};
 
       // Set attributes of the enumeration value
-      assert && assert( value.name === undefined, '"rich" enumeration values cannot provide their own name attribute' );
-      assert && assert( value.toString === Object.prototype.toString, '"rich" enumeration values cannot provide their own toString' );
+      affirm( value.name === undefined, '"rich" enumeration values cannot provide their own name attribute' );
+      affirm( value.toString === Object.prototype.toString, '"rich" enumeration values cannot provide their own toString' );
 
       // @public {string} (read-only) - PhET-iO public API relies on this mapping, do not change it lightly
       value.name = key;
@@ -223,8 +225,8 @@ class EnumerationDeprecated {
    * @public
    */
   static byKeys( keys, options ) {
-    assert && assert( Array.isArray( keys ), 'keys must be an array' );
-    assert && assert( !options || options.keys === undefined );
+    affirm( Array.isArray( keys ), 'keys must be an array' );
+    affirm( !options || options.keys === undefined );
     return new EnumerationDeprecated( merge( { keys: keys }, options ) );
   }
 
@@ -236,11 +238,11 @@ class EnumerationDeprecated {
    * @public
    */
   static byMap( map, options ) {
-    assert && assert( !options || options.map === undefined );
+    affirm( !options || options.map === undefined );
     if ( assert ) {
       const values = _.values( map );
-      assert && assert( values.length >= 1, 'must have at least 2 entries in an enumeration' );
-      assert && assert( _.every( values, value => value.constructor === values[ 0 ].constructor ), 'Values must have same constructor' );
+      affirm( values.length >= 1, 'must have at least 2 entries in an enumeration' );
+      affirm( _.every( values, value => value.constructor === values[ 0 ].constructor ), 'Values must have same constructor' );
     }
     return new EnumerationDeprecated( merge( { map: map }, options ) );
   }

@@ -6,13 +6,14 @@
  * @author Denzell Barnett (PhET Interactive Simulations)
  */
 
+import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';
 import phetCore from './phetCore.js';
 
 /**
  * Checks if the value passed is defined
  */
 function required<T>( entry: T ): T {
-  assert && assert( entry !== undefined, 'Required field is undefined.' );
+  affirm( entry !== undefined, 'Required field is undefined.' );
   return entry;
 }
 

@@ -6,6 +6,7 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
+import _ from '../../sherpa/js/lodash.js';
 import dimensionMap from './dimensionMap.js';
 
 QUnit.module( 'dimensionMap' );

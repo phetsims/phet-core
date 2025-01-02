@@ -6,6 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import { isAffirmEnabled } from '../../perennial-alias/js/browser-and-node/affirm.js';
 import assertMutuallyExclusiveOptions from './assertMutuallyExclusiveOptions.js';
 
 QUnit.module( 'assertMutuallyExclusiveOptions' );
@@ -13,7 +14,7 @@ QUnit.module( 'assertMutuallyExclusiveOptions' );
 QUnit.test( 'assertMutuallyExclusiveOptions', assert => {
   assert.ok( true, 'one test whether or not assertions are enabled' );
 
-  if ( window.assert ) {
+  if ( isAffirmEnabled() ) {
 
     // Should not throw error because options are all from one set.
     assertMutuallyExclusiveOptions( { a: true, b: false }, [ 'a', 'b' ], [ 'c' ] );

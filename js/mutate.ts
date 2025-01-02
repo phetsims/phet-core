@@ -6,6 +6,8 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
+import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';
+import _ from '../../sherpa/js/lodash.js';
 import phetCore from './phetCore.js';
 
 /**
@@ -21,21 +23,21 @@ import phetCore from './phetCore.js';
  * First param will be mutated
  */
 function mutate( target: object, orderedKeys: string[], options?: object ): void {
-  assert && assert( target );
-  assert && assert( Array.isArray( orderedKeys ) );
+  affirm( target );
+  affirm( Array.isArray( orderedKeys ) );
 
   if ( !options ) {
     return;
   }
 
-  assert && assert( Object.getPrototypeOf( options ) === Object.prototype,
+  affirm( Object.getPrototypeOf( options ) === Object.prototype,
     'Extra prototype on options object is a code smell' );
 
   _.each( orderedKeys, key => {
 
     // See https://github.com/phetsims/scenery/issues/580 for more about passing undefined.
     // @ts-expect-error
-    assert && assert( !options.hasOwnProperty( key ) || options[ key ] !== undefined,
+    affirm( !options.hasOwnProperty( key ) || options[ key ] !== undefined,
       `Undefined not allowed for key: ${key}` );
 
     // @ts-expect-error

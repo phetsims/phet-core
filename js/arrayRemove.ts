@@ -6,13 +6,15 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
+import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';
 import phetCore from './phetCore.js';
+import _ from '../../sherpa/js/lodash.js';
 
 function arrayRemove<T>( array: T[], toRemove: T ): void {
-  assert && assert( Array.isArray( array ), 'arrayRemove takes an Array' );
+  affirm( Array.isArray( array ), 'arrayRemove takes an Array' );
 
   const index = _.indexOf( array, toRemove );
-  assert && assert( index >= 0, 'item not found in Array' );
+  affirm( index >= 0, 'item not found in Array' );
 
   array.splice( index, 1 );
 }

@@ -2,6 +2,8 @@
 // @author Michael Kauzmann (PhET Interactive Simulations)
 
 
+import { isAffirmEnabled } from '../../perennial-alias/js/browser-and-node/affirm.js';
+import _ from '../../sherpa/js/lodash.js';
 import merge from './merge.js';
 import IntentionalAny from './types/IntentionalAny.js';
 
@@ -215,7 +217,7 @@ QUnit.test( 'check for proper assertion errors', assert => {
     }
   };
 
-  if ( window.assert ) {
+  if ( isAffirmEnabled() ) {
     assert.throws( () => merge( original, merges.a ), 'merge should not allow arrays to be merged' );
     assert.throws( () => merge( original, merges.b ), 'merge should not allow inherited objects to be merged' );
     assert.throws( () => merge( original, merges.f ), 'merge should not allow instances to be merged' );
@@ -372,7 +374,7 @@ QUnit.test( 'minor change', assert => {
 } );
 
 QUnit.test( 'test wrong args', assert => {
-  if ( window.assert ) {
+  if ( isAffirmEnabled() ) {
 
     // in first arg
     assert.throws( () => merge( undefined, {} ), 'unsupported first arg "undefined"' );

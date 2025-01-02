@@ -6,6 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';
 import arrayRemove from '../../phet-core/js/arrayRemove.js';
 import phetCore from './phetCore.js';
 import IntentionalAny from './types/IntentionalAny.js';
@@ -50,7 +51,7 @@ class AsyncLoader {
    */
   private proceedIfReady(): void {
     if ( this.pendingLocks.length === 0 ) {
-      assert && assert( !this.loadComplete, 'cannot complete load twice' );
+      affirm( !this.loadComplete, 'cannot complete load twice' );
       this.loadComplete = true;
 
       this.listeners.forEach( listener => listener() );
@@ -61,10 +62,10 @@ class AsyncLoader {
    * Creates a lock, which is a callback that needs to be run before we can proceed.
    */
   public createLock( object?: IntentionalAny ): AsyncLoaderLock {
-    assert && assert( !this.loadComplete, 'Cannot create more locks after load-step has completed' );
+    affirm( !this.loadComplete, 'Cannot create more locks after load-step has completed' );
     this.pendingLocks.push( object );
     return () => {
-      assert && assert( this.pendingLocks.includes( object ), 'invalid lock' );
+      affirm( this.pendingLocks.includes( object ), 'invalid lock' );
       arrayRemove( this.pendingLocks, object );
       this.proceedIfReady();
     };

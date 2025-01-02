@@ -75,6 +75,7 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
+import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';
 import phetCore from './phetCore.js';
 
 export default class EventTimer {
@@ -132,7 +133,7 @@ export class ConstantEventModel {
    * Event model that will fire events at a constant rate. An event will occur every 1/rate time units.
    */
   public constructor( private readonly rate: number ) {
-    assert && assert( rate > 0, 'We need to have a strictly positive rate in order to prevent infinite loops.' );
+    affirm( rate > 0, 'We need to have a strictly positive rate in order to prevent infinite loops.' );
   }
 
   public getPeriodBeforeNextEvent(): number {
@@ -149,12 +150,12 @@ export class UniformEventModel {
    * The pseudoRandomNumberSource, when called, should generate uniformly distributed random numbers in the range [0,1).
    */
   public constructor( private readonly rate: number, private readonly pseudoRandomNumberSource: () => number ) {
-    assert && assert( rate > 0, 'We need to have a strictly positive rate in order to prevent infinite loops.' );
+    affirm( rate > 0, 'We need to have a strictly positive rate in order to prevent infinite loops.' );
   }
 
   public getPeriodBeforeNextEvent(): number {
     const uniformRandomNumber = this.pseudoRandomNumberSource();
-    assert && assert( uniformRandomNumber >= 0 && uniformRandomNumber < 1,
+    affirm( uniformRandomNumber >= 0 && uniformRandomNumber < 1,
       `Our uniform random number is outside of its expected range with a value of ${uniformRandomNumber}` );
 
     // sample the exponential distribution
@@ -169,7 +170,7 @@ export class PoissonEventModel {
    * The pseudoRandomNumberSource, when called, should generate uniformly distributed random numbers in the range [0,1).
    */
   public constructor( private readonly rate: number, private readonly pseudoRandomNumberSource: () => number ) {
-    assert && assert( rate > 0,
+    affirm( rate > 0,
       'We need to have a strictly positive poisson rate in order to prevent infinite loops.' );
   }
 
@@ -181,7 +182,7 @@ export class PoissonEventModel {
     // http://en.wikipedia.org/wiki/Poisson_process
 
     const uniformRandomNumber = this.pseudoRandomNumberSource();
-    assert && assert( uniformRandomNumber >= 0 && uniformRandomNumber < 1,
+    affirm( uniformRandomNumber >= 0 && uniformRandomNumber < 1,
       `Our uniform random number is outside of its expected range with a value of ${uniformRandomNumber}` );
 
     // sample the exponential distribution

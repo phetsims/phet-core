@@ -14,17 +14,19 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
+import affirm, { isAffirmEnabled } from '../../perennial-alias/js/browser-and-node/affirm.js';
+import _ from '../../sherpa/js/lodash.js';
 import inheritance from './inheritance.js';
 import phetCore from './phetCore.js';
 import IntentionalAny from './types/IntentionalAny.js';
 
 const assertHasProperties = ( object: IntentionalAny, properties: string[] ): void => {
-  if ( assert && object ) {
+  if ( isAffirmEnabled() && object ) {
 
 
     properties.forEach( property => {
 
-      assert && assert( Object.getOwnPropertyDescriptor( object, property ) || // support fields directly on the object
+      affirm( Object.getOwnPropertyDescriptor( object, property ) || // support fields directly on the object
 
                         // test up the class hierarchy for if the property is defined on a prototype.
                         _.some( inheritance( object.constructor ).map( type => Object.getOwnPropertyDescriptor( type.prototype, property ) ) ),
