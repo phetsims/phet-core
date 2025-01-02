@@ -10,6 +10,8 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+/* globals navigator phet window  */
+
 import phetCore from './phetCore.js';
 
 const ua = navigator.userAgent;

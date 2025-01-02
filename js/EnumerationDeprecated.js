@@ -59,11 +59,11 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
+import affirm, { isAffirmEnabled } from '../../perennial-alias/js/browser-and-node/affirm.js';
+import _ from '../../sherpa/js/lodash.js';
 import deprecationWarning from './deprecationWarning.js';
 import merge from './merge.js';
 import phetCore from './phetCore.js';
-import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';
-import _ from '../../sherpa/js/lodash.js';
 
 /**
  * @deprecated
@@ -103,8 +103,8 @@ class EnumerationDeprecated {
 
     affirm( Array.isArray( keys ), 'Values should be an array' );
     affirm( _.uniq( keys ).length === keys.length, 'There should be no duplicated values provided' );
-    assert && keys.forEach( value => assert( typeof value === 'string', 'Each value should be a string' ) );
-    assert && keys.forEach( value => assert( /^[A-Z][A-Z0-9_]*$/g.test( value ),
+    isAffirmEnabled() && keys.forEach( value => affirm( typeof value === 'string', 'Each value should be a string' ) );
+    isAffirmEnabled() && keys.forEach( value => affirm( /^[A-Z][A-Z0-9_]*$/g.test( value ),
       'EnumerationDeprecated values should be uppercase alphanumeric with underscores and begin with a letter' ) );
     affirm( !_.includes( keys, 'VALUES' ),
       'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
@@ -142,10 +142,10 @@ class EnumerationDeprecated {
     } );
 
     config.beforeFreeze && config.beforeFreeze( this );
-    assert && Object.freeze( this );
-    assert && Object.freeze( this.VALUES );
-    assert && Object.freeze( this.KEYS );
-    assert && keys.forEach( key => assert && Object.freeze( map[ key ] ) );
+    isAffirmEnabled() && Object.freeze( this );
+    isAffirmEnabled() && Object.freeze( this.VALUES );
+    isAffirmEnabled() && Object.freeze( this.KEYS );
+    isAffirmEnabled() && keys.forEach( key => isAffirmEnabled() && Object.freeze( map[ key ] ) );
   }
 
   /**
@@ -239,7 +239,7 @@ class EnumerationDeprecated {
    */
   static byMap( map, options ) {
     affirm( !options || options.map === undefined );
-    if ( assert ) {
+    if ( isAffirmEnabled() ) {
       const values = _.values( map );
       affirm( values.length >= 1, 'must have at least 2 entries in an enumeration' );
       affirm( _.every( values, value => value.constructor === values[ 0 ].constructor ), 'Values must have same constructor' );

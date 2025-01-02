@@ -6,7 +6,10 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
+/* globals QueryStringMachine */
+
 import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';
+import _ from '../../sherpa/js/lodash.js';
 
 affirm( QUnit, 'QUnit global needed to start QUnit' );
 

@@ -382,7 +382,7 @@ QUnit.test( 'test wrong args', assert => {
     assert.throws( () => merge( true, {} ), 'unsupported arg "boolean"' );
     assert.throws( () => merge( 'hello', {} ), 'unsupported arg "string"' );
     assert.throws( () => merge( 4, {} ), 'unsupported arg "number"' );
-    assert.throws( () => merge( Image, {} ), 'unsupported arg of Object with extra prototype' );
+    assert.throws( () => merge( Array, {} ), 'unsupported arg of Object with extra prototype' );
     assert.throws( () => merge( { get hi() { return 3; } }, {} ), 'unsupported arg with getter' );
     assert.throws( () => merge( { set hi( stuff: number ) { /* noop */} }, {} ), 'unsupported arg with setter' );
 
@@ -390,7 +390,7 @@ QUnit.test( 'test wrong args', assert => {
     assert.throws( () => merge( {}, true, {} ), 'unsupported second arg "boolean"' );
     assert.throws( () => merge( {}, 'hello', {} ), 'unsupported second arg "string"' );
     assert.throws( () => merge( {}, 4, {} ), 'unsupported second arg "number"' );
-    assert.throws( () => merge( {}, Image, {} ), 'unsupported second arg of Object with extra prototype' );
+    assert.throws( () => merge( {}, Array, {} ), 'unsupported second arg of Object with extra prototype' );
     assert.throws( () => merge( {}, { get hi() { return 3; } }, {} ), 'unsupported second arg with getter' );
     assert.throws( () => merge( {}, { set hi( stuff: number ) {/* noop */} }, {} ), 'unsupported second arg with setter' );
 
@@ -398,7 +398,7 @@ QUnit.test( 'test wrong args', assert => {
     assert.throws( () => merge( {}, true ), 'unsupported second arg with no third "boolean"' );
     assert.throws( () => merge( {}, 'hello' ), 'unsupported second arg with no third "string"' );
     assert.throws( () => merge( {}, 4 ), 'unsupported second arg with no third "number"' );
-    assert.throws( () => merge( {}, Image ), 'unsupported second arg with no third of Object with extra prototype' );
+    assert.throws( () => merge( {}, Array ), 'unsupported second arg with no third of Object with extra prototype' );
     assert.throws( () => merge( {}, { get hi() { return 3; } } ), 'unsupported second arg with no third with getter' );
     assert.throws( () => merge( {}, { set hi( stuff: number ) {/* noop */} } ), 'unsupported second arg with no third with getter' );
 
@@ -406,7 +406,7 @@ QUnit.test( 'test wrong args', assert => {
     assert.throws( () => merge( {}, { someOptions: true }, {} ), 'unsupported arg in options "boolean"' );
     assert.throws( () => merge( {}, { someOptions: 'hello' }, {} ), 'unsupported arg in options "string"' );
     assert.throws( () => merge( {}, { someOptions: 4 }, {} ), 'unsupported arg in options "number"' );
-    assert.throws( () => merge( {}, { someOptions: Image }, {} ), 'unsupported arg in options of Object with extra prototype' );
+    assert.throws( () => merge( {}, { someOptions: Array }, {} ), 'unsupported arg in options of Object with extra prototype' );
     assert.throws( () => merge( {}, { someOptions: { get hi() { return 3; } } }, {} ), 'unsupported arg in options with getter' );
     assert.throws( () => merge( {}, { someOptions: { set hi( stuff: number ) {/* noop */} } }, {} ), 'unsupported arg in options with getter' );
   }

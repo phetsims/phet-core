@@ -6,6 +6,7 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
+import affirm, { isAffirmEnabled } from '../../perennial-alias/js/browser-and-node/affirm.js';
 import EnumerationDeprecated from './EnumerationDeprecated.js';
 
 QUnit.module( 'EnumerationDeprecated' );
@@ -29,11 +30,11 @@ QUnit.test( 'Basic enumeration', assert => {
   object[ CardinalDirection.NORTH ] = 'exit';
   assert.equal( object.NORTH, 'exit', 'toString should work seamlessly' );
 
-  window.assert && assert.throws( () => {
+  isAffirmEnabled() && assert.throws( () => {
     CardinalDirection.SOMETHING_AFTER_THE_FREEZE = 5;
   }, 'Should not be able to set things after initialization' );
 
-  window.assert && assert.throws( () => {
+  isAffirmEnabled() && assert.throws( () => {
     const X = EnumerationDeprecated.byKeys( [ 'lowercase', 'should', 'fail' ] );
     assert.ok( !!X, 'fake assertion so x is used' );
   }, 'EnumerationDeprecated should fail for lowercase values' );
@@ -43,7 +44,7 @@ QUnit.test( 'Before freeze test', assert => {
   const E = EnumerationDeprecated.byKeys( [ 'A', 'B' ], {
     beforeFreeze: E => {
       E.opposite = e => {
-        window.assert && window.assert( E.includes( e ) );
+        affirm( E.includes( e ) );
         return e === E.A ? E.B : E.A;
       };
     }
@@ -54,7 +55,7 @@ QUnit.test( 'Before freeze test', assert => {
   assert.equal( E.opposite( E.A ), E.B, 'Custom function check 1' );
   assert.equal( E.opposite( E.B ), E.A, 'Custom function check 2' );
 
-  window.assert && assert.throws( () => {
+  isAffirmEnabled() && assert.throws( () => {
     E.SOMETHING_AFTER_THE_FREEZE = 5;
   }, 'Should not be able to set things after initialization' );
 } );
@@ -62,7 +63,7 @@ QUnit.test( 'Before freeze test', assert => {
 QUnit.test( 'VALUES', assert => {
   const People = EnumerationDeprecated.byKeys( [ 'ALICE', 'BOB' ] );
   assert.ok( true, 'at least one assertion must run per test' );
-  window.assert && assert.throws( () => {
+  isAffirmEnabled() && assert.throws( () => {
     People.VALUES = 'something else';
   }, 'Setting values after initialization should throw an error.' );
 } );
@@ -88,15 +89,15 @@ QUnit.test( 'Rich', assert => {
 
   assert.ok( Planets.MARS.order === 2, 'mars order should match' );
   assert.ok( typeof Planets.EARTH.getString( 'bob' ) === 'string', 'should return a string' );
-  window.assert && assert.throws( () => {
+  isAffirmEnabled() && assert.throws( () => {
     Planets.MARS = 'hello'; // fails because enumeration values should not be reassignable
   } );
 
-  window.assert && assert.throws( () => {
+  isAffirmEnabled() && assert.throws( () => {
     Planets.MARS.name = 'not mars!'; // Should not be able to reassign enumeration value properties
   } );
 
-  window.assert && assert.throws( () => {
+  isAffirmEnabled() && assert.throws( () => {
     EnumerationDeprecated.byMap( {
       MARS: new Planet( 2 ),
       EARTH: new Planet( 3 ),
