@@ -2,9 +2,8 @@
   "extends": "../perennial-alias/tsconfig/tsconfig-browser.json",
   // These files are for tests, and should be identical to those excluded by tsconfig-module.json
   "include": [
-    "js/**/*Tests.ts",
-    "js/**/*Tests.js",
-    "js/phet-core-tests.ts"
+    "js/**/*Tests.*",
+    "js/**/*-tests.*"
   ],
   "references": [
     {
