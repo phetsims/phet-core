@@ -1,4 +1,4 @@
-// Copyright 2021-2024, University of Colorado Boulder
+// Copyright 2021-2025, University of Colorado Boulder
 
 /**
  * This implementation auto-detects the enumeration values by Object.keys and instanceof. Every property that has a

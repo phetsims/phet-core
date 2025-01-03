@@ -1,4 +1,4 @@
-// Copyright 2021-2024, University of Colorado Boulder
+// Copyright 2021-2025, University of Colorado Boulder
 /**
  * Singleton which keeps track of all async items currently loading, and doesn't proceed until all have been loaded.
  *
