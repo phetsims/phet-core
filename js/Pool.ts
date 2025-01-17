@@ -28,7 +28,7 @@ import phetCore from './phetCore.js';
 import Constructor from './types/Constructor.js';
 import IntentionalAny from './types/IntentionalAny.js';
 
-type SelfPoolableOptions<T extends Constructor> = {
+type SelfPoolOptions<T extends Constructor> = {
   // If an object needs to be created without a direct call (say, to fill the pool initially), these are the arguments
   // that will be passed into the constructor
   defaultArguments?: ConstructorParameters<T>;
@@ -49,8 +49,8 @@ type SelfPoolableOptions<T extends Constructor> = {
   useDefaultConstruction?: boolean;
 };
 
-export type PoolableOptions<T extends Constructor> =
-  SelfPoolableOptions<T> & ( InstanceType<T> extends { initialize: PoolableInitializer<T> } ? unknown : {
+export type PoolOptions<T extends Constructor> =
+  SelfPoolOptions<T> & ( InstanceType<T> extends { initialize: PoolableInitializer<T> } ? unknown : {
   // Require initialize if our type doesn't have a compatible initialize method.
   initialize: PoolableInitializer<T>;
 } );
@@ -78,8 +78,8 @@ export default class Pool<T extends Constructor> {
 
   // The `initialize` option is required if the type doesn't have a correctly-typed initialize method. Therefore, we
   // do some Typescript magic to require providedOptions if that's the case (otherwise providedOptions is optional).
-  public constructor( type: T, ...providedOptionsSpread: PossiblyRequiredParameterSpread<PoolableOptions<T>> ) {
-    const options = optionize<SelfPoolableOptions<T>, SelfPoolableOptions<T>>()( {
+  public constructor( type: T, ...providedOptionsSpread: PossiblyRequiredParameterSpread<PoolOptions<T>> ) {
+    const options = optionize<SelfPoolOptions<T>, SelfPoolOptions<T>>()( {
 
       defaultArguments: [] as unknown as ConstructorParameters<T>,
       initialize: ( type.prototype as unknown as { initialize: PoolableInitializer<T> } ).initialize,
