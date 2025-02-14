@@ -28,11 +28,13 @@
  *
  * The 0.5 above is because after 1.5 seconds of time, the event will have happened 0.5 seconds ago:
  *
+ * #begin monospace
  *           step 1.5
  * |------------------------>|
  * |                *        |          *                     *    <- constant time of 1 between each event
  * |                <--------|
  *                 0.5 seconds past the event now
+ * #end monospace
  *
  * Stepping for a longer time will result in more events:
  *
@@ -44,6 +46,7 @@
  * > event with timeElapsed: 1.5
  * > event with timeElapsed: 0.5
  *
+ * #begin monospace
  *       step 1.5                                  step 6                                 step 0   step 1.5
  * |---------------->|---------------------------------------------------------------------->|---------------->|
  * |           *           *           *           *           *           *           *           *           *
@@ -54,6 +57,7 @@
  * |           |           |                                  2.5          <-----------------|              time
  * |     callback( t ) called, etc.                                       1.5          <-----|
  * |
+ * #end monospace
  *
  * A step with zero time will trigger no events:
  *
