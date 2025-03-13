@@ -122,7 +122,7 @@
   // Queue all of the preloads to be loaded.
   preloads.forEach( preload => loadURL( preload ) );
 
-  const targetSource = esbuild ? './dist/bundle.js' : '../chipper/dist/js/phet-core/js/phet-core-tests.js';
+  const targetSource = esbuild ? '../chipper/dist/dev-server-runnable/phet-core.js' : '../chipper/dist/js/phet-core/js/phet-core-tests.js';
 
   // Module loading in compilation-free (development) mode will be kicked off once strings are loaded.
   // This is done in load-unbuilt-strings.js
