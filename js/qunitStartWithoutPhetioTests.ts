@@ -27,6 +27,7 @@ export const qunitStartImplementation = ( ready: VoidFunction ): void => {
   };
 
   // When running in the puppeteer harness, we need the opportunity to wire up listeners before QUnit begins.
+  // TODO: how should phet-core depend on QSM? https://github.com/phetsims/query-string-machine/issues/45
   if ( QueryStringMachine.containsKey( 'qunitHooks' ) ) {
 
     // @ts-expect-error - global that is listened to by out puppeteer harness, don't worry about it.
