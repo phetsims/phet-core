@@ -6,8 +6,6 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-/* globals QueryStringMachine */
-
 import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';
 import _ from '../../sherpa/js/lodash.js';
 
@@ -27,8 +25,7 @@ export const qunitStartImplementation = ( ready: VoidFunction ): void => {
   };
 
   // When running in the puppeteer harness, we need the opportunity to wire up listeners before QUnit begins.
-  // TODO: how should phet-core depend on QSM? https://github.com/phetsims/query-string-machine/issues/45
-  if ( QueryStringMachine.containsKey( 'qunitHooks' ) ) {
+  if ( new URLSearchParams( window.location.search ).has( 'qunitHooks' ) ) {
 
     // @ts-expect-error - global that is listened to by out puppeteer harness, don't worry about it.
     window.qunitLaunchAfterHooks = start;
