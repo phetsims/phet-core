@@ -41,7 +41,7 @@ class Namespace {
       else {
         // TODO: Ideally we should always assert this, but in PhET-iO wrapper code, multiple built modules define the
         //       same namespace, this should be fixed in https://github.com/phetsims/phet-io-wrappers/issues/631
-        const ignoreAssertion = !( globalThis.phet?.chipper?.brand );
+        const ignoreAssertion = !( globalThis.phet?.chipper?.brand ) || name === 'joist'; // SceneryStack also needs to declare a joist object.
         isAffirmEnabled() && !ignoreAssertion && affirm( !globalThis.phet[ name ], `namespace ${name} already exists` );
         globalThis.phet[ name ] = this;
       }
