@@ -1,4 +1,4 @@
-// Copyright 2015-2024, University of Colorado Boulder
+// Copyright 2015-2025, University of Colorado Boulder
 
 import affirm, { isAffirmEnabled } from '../../perennial-alias/js/browser-and-node/affirm.js';
 import IntentionalAny from './types/IntentionalAny.js';
