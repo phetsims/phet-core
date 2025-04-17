@@ -1,12 +1,13 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
-import EnumerationValue from './EnumerationValue.js';
-
 /**
  * Abstraction used by EnumerationProperty, and implemented by Enumeration.ts
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
+
+import EnumerationValue from './EnumerationValue.js';
+
 type TEnumeration<T extends EnumerationValue> = {
 
   // The possible keys for the enumeration

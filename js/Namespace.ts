@@ -1,13 +1,5 @@
 // Copyright 2015-2025, University of Colorado Boulder
 
-import affirm, { isAffirmEnabled } from '../../perennial-alias/js/browser-and-node/affirm.js';
-import IntentionalAny from './types/IntentionalAny.js';
-
-// Experiment to allow accessing these off window. See https://stackoverflow.com/questions/12709074/how-do-you-explicitly-set-a-new-property-on-window-in-typescript
-declare global {
-  var phet: Record<string, IntentionalAny>; // eslint-disable-line no-var
-}
-
 /**
  * For debugging or usage in the console, Namespace associates modules with a namespaced global for use in the browser.
  * This does not work in Node.js.
@@ -15,6 +7,14 @@ declare global {
  * @author Jonathan Olson
  * @author Chris Malley (PixelZoom, Inc.)
  */
+
+import affirm, { isAffirmEnabled } from '../../perennial-alias/js/browser-and-node/affirm.js';
+import IntentionalAny from './types/IntentionalAny.js';
+
+// Experiment to allow accessing these off window. See https://stackoverflow.com/questions/12709074/how-do-you-explicitly-set-a-new-property-on-window-in-typescript
+declare global {
+  var phet: Record<string, IntentionalAny>; // eslint-disable-line no-var
+}
 
 class Namespace {
   public readonly name: string;

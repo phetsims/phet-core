@@ -1,7 +1,5 @@
 // Copyright 2022-2024, University of Colorado Boulder
 
-import IntentionalAny from './IntentionalAny.js';
-
 /**
  * Concatenating tuple types, see https://stackoverflow.com/questions/64630803/concat-tuple-types-in-typescript
  *
@@ -10,6 +8,9 @@ import IntentionalAny from './IntentionalAny.js';
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
+
+import IntentionalAny from './IntentionalAny.js';
+
 
 type Concat<T> = T extends [ infer A, ...infer Rest ] ? A extends IntentionalAny[] ? [ ...A, ...( Concat<Rest> extends IntentionalAny[] ? Concat<Rest> : [] ) ] : A : T;
 export default Concat;
