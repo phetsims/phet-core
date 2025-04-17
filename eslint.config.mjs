@@ -31,10 +31,5 @@ export default [
         phet: 'readonly'
       }
     }
-  },
-  {
-    rules: {
-      'phet/documentation-before-imports': 'off'
-    }
   }
 ];
