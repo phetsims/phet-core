@@ -26,7 +26,6 @@
  */
 
 import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';
-import _ from '../../sherpa/js/lodash.js';
 import EnumerationValue from './EnumerationValue.js';
 import inheritance from './inheritance.js';
 import optionize from './optionize.js';
@@ -61,7 +60,7 @@ class Enumeration<T extends EnumerationValue> implements TEnumeration<T> {
 
     // Iterate over the type hierarchy to support augmenting enumerations, but reverse so that newly added enumeration
     // values appear after previously existing enumeration values
-    const types = _.reverse( inheritance( Enumeration ) );
+    const types = [ ...inheritance( Enumeration ) ].reverse();
 
     affirm( types.includes( instanceType ), 'the specified type should be in its own hierarchy' );
 
