@@ -50,6 +50,8 @@ function getInternetExplorerVersion(): number {
   return rv;
 }
 
+const mac = navigator.platform.includes( 'Mac' );
+
 const platform = {
   // Whether the browser is most likely Firefox
   firefox: ua.toLowerCase().includes( 'firefox' ),
@@ -90,8 +92,16 @@ const platform = {
   // Whether the platform is ChromeOS, https://stackoverflow.com/questions/29657165/detecting-chrome-os-with-javascript
   chromeOS: ua.indexOf( 'CrOS' ) > 0,
 
-  mac: navigator.platform.includes( 'Mac' )
-};
+  mac: mac,
+
+  ////////////////
+  // Derived values, i.e. data that PhET infers based on platform information
+  //
+
+  // Whether the platform probably uses the enter key labeled "Return" or "Enter"
+  enterOrReturn: mac ? 'return' : 'enter'
+} as const;
+
 phetCore.register( 'platform', platform );
 
 export default platform;
