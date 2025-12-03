@@ -99,7 +99,10 @@ const platform = {
   //
 
   // Whether the platform probably uses the enter key labeled "Return" or "Enter"
-  enterOrReturn: mac ? 'return' : 'enter'
+  keys: {
+    enterOrReturn: mac ? 'return' : 'enter'
+  }
+
 } as const;
 
 phetCore.register( 'platform', platform );
