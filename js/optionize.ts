@@ -4,7 +4,8 @@
  * Optionize is a TypeScript layer built on PHET_CORE/merge. Its goal is to satisfy type safety within PhET's "options"
  * pattern.
  *
- * For up-to-date examples on how to use this file, see WILDER/WilderOptionsPatterns.ts
+ * For up-to-date examples on how to use this file and information about limitations and known problems, see
+ * WILDER/WilderOptionsPatterns.ts.
  *
  * This pattern is still being solidified. Although the long term location of PhET's options pattern documentation
  * can be found at https://github.com/phetsims/phet-info/blob/main/doc/phet-software-design-patterns.md#options-and-config,
