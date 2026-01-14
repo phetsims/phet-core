@@ -50,7 +50,7 @@
  * (6) Values of the EnumerationDeprecated are considered instances of the EnumerationDeprecated in documentation. For example, a method
  *     that that takes an EnumerationDeprecated value as an argument would be documented like this:
  *
- *     // @param {Scene} mode - value from Scene EnumerationDeprecated
+ *     // @param mode - value from Scene EnumerationDeprecated
  *     setSceneMode( mode ) {
  *       affirm( Scene.includes( mode ) );
  *       //...
@@ -64,19 +64,30 @@ import _ from '../../sherpa/js/lodash.js';
 import deprecationWarning from './deprecationWarning.js';
 import merge from './merge.js';
 import phetCore from './phetCore.js';
+import IntentionalAny from './types/IntentionalAny.js';
 
 /**
  * @deprecated
  */
 class EnumerationDeprecated {
 
+  // provides additional documentation for PhET-iO which can be viewed in studio
+  // Note this uses the same term as used by PhetioObject, but via a different channel.
+  public readonly phetioDocumentation: string;
+
+  // the string keys of the enumeration
+  public readonly KEYS: string[];
+
+  // the object values of the enumeration
+  public readonly VALUES: IntentionalAny[];
+
   /**
-   * @param {Object} config - must provide keys such as {keys:['RED','BLUE]}
+   * @param config - must provide keys such as {keys:['RED','BLUE]}
    *                          - or map such as {map:{RED: myRedValue, BLUE: myBlueValue}}
    *
-   * @private - clients should use EnumerationDeprecated.byKeys or EnumerationDeprecated.byMap
+   * clients should use EnumerationDeprecated.byKeys or EnumerationDeprecated.byMap
    */
-  constructor( config ) {
+  private constructor( config?: IntentionalAny ) {
     deprecationWarning( 'EnumerationDeprecated should be exchanged for classes that extend EnumerationValue, see WilderEnumerationPatterns for examples.' );
 
     affirm( config, 'config must be provided' );
@@ -113,14 +124,8 @@ class EnumerationDeprecated {
     affirm( !_.includes( keys, 'includes' ),
       'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
 
-    // @public (phet-io) - provides additional documentation for PhET-iO which can be viewed in studio
-    // Note this uses the same term as used by PhetioObject, but via a different channel.
     this.phetioDocumentation = config.phetioDocumentation;
-
-    // @public {string[]} (read-only) - the string keys of the enumeration
     this.KEYS = keys;
-
-    // @public {Object[]} (read-only) - the object values of the enumeration
     this.VALUES = [];
 
     keys.forEach( key => {
@@ -130,13 +135,13 @@ class EnumerationDeprecated {
       affirm( value.name === undefined, '"rich" enumeration values cannot provide their own name attribute' );
       affirm( value.toString === Object.prototype.toString, '"rich" enumeration values cannot provide their own toString' );
 
-      // @public {string} (read-only) - PhET-iO public API relies on this mapping, do not change it lightly
+      // PhET-iO public API relies on this mapping, do not change it lightly
       value.name = key;
 
-      // @public {function():string} (read-only)
       value.toString = () => key;
 
       // Assign to the enumeration
+      // @ts-expect-error
       this[ key ] = value;
       this.VALUES.push( value );
     } );
@@ -150,81 +155,61 @@ class EnumerationDeprecated {
 
   /**
    * Based solely on the keys in EnumerationDeprecated.
-   * @public
-   *
-   * @returns {String}
    */
-
-  toString() {
+  public toString(): string {
     return this.KEYS.join( ', ' );
   }
 
   /**
    * Checks whether the given value is a value of this enumeration. Should generally be used for assertions
-   * @public
-   *
-   * @param {Object} value
-   * @returns {boolean}
    */
-  includes( value ) {
+  public includes( value: IntentionalAny ): boolean {
     return _.includes( this.VALUES, value );
   }
 
   /**
    * To support consistent API with Enumeration.
-   * @public
-   * @param {string} key
-   * @returns {*}
    */
-  getValue( key ) {
+  public getValue( key: string ): IntentionalAny {
+
+    // @ts-expect-error
     return this[ key ];
   }
 
   /**
    * To support consistent API with Enumeration.
-   * @public
-   * @param {Object} enumerationValue
-   * @returns {string}
    */
-  getKey( enumerationValue ) {
+  public getKey( enumerationValue: IntentionalAny ): string {
     return enumerationValue.name;
   }
 
   /**
    * To support consistent API with Enumeration.
-   * @public
-   * @returns {Object[]}
    */
-  get values() {
+  public get values(): IntentionalAny[] {
     return this.VALUES;
   }
 
   /**
    * To support consistent API with Enumeration.
-   * @public
-   * @returns {string[]}
    */
-  get keys() {
+  public get keys(): string[] {
     return this.KEYS;
   }
 
   /**
    * To support consistent API with Enumeration.
-   * @public
-   * @returns {EnumerationDeprecated}
    */
-  get enumeration() {
+  public get enumeration(): EnumerationDeprecated {
     return this;
   }
 
   /**
    * Creates an enumeration based on the provided string array
-   * @param {string[]} keys - such as ['RED','BLUE']
-   * @param {Object} [options]
-   * @returns {EnumerationDeprecated}
-   * @public
+   * @param keys - such as ['RED','BLUE']
+   * @param [options]
    */
-  static byKeys( keys, options ) {
+  public static byKeys( keys: string[], options?: IntentionalAny ): EnumerationDeprecated {
     affirm( Array.isArray( keys ), 'keys must be an array' );
     affirm( !options || options.keys === undefined );
     return new EnumerationDeprecated( merge( { keys: keys }, options ) );
@@ -232,12 +217,10 @@ class EnumerationDeprecated {
 
   /**
    * Creates a "rich" enumeration based on the provided map
-   * @param {Object} map - such as {RED: myRedValue, BLUE: myBlueValue}
-   * @param {Object} [options]
-   * @returns {EnumerationDeprecated}
-   * @public
+   * @param map - such as {RED: myRedValue, BLUE: myBlueValue}
+   * @param [options]
    */
-  static byMap( map, options ) {
+  public static byMap( map: IntentionalAny, options?: IntentionalAny ): EnumerationDeprecated {
     affirm( !options || options.map === undefined );
     if ( isAffirmEnabled() ) {
       const values = _.values( map );
