@@ -64,7 +64,24 @@ import _ from '../../sherpa/js/lodash.js';
 import deprecationWarning from './deprecationWarning.js';
 import merge from './merge.js';
 import phetCore from './phetCore.js';
-import IntentionalAny from './types/IntentionalAny.js';
+
+// An enumeration value object - gets name and toString added dynamically
+type EnumerationValue = {
+  name?: string;
+  toString?: () => string;
+};
+
+// Options that can be passed to byKeys or byMap
+type EnumerationDeprecatedOptions = {
+  phetioDocumentation?: string | null;
+  beforeFreeze?: ( ( enumeration: EnumerationDeprecated ) => void ) | null;
+};
+
+// Internal config type used by the constructor
+type EnumerationDeprecatedConfig = EnumerationDeprecatedOptions & {
+  keys?: string[];
+  map?: Record<string, EnumerationValue>;
+};
 
 /**
  * @deprecated
@@ -73,13 +90,13 @@ class EnumerationDeprecated {
 
   // provides additional documentation for PhET-iO which can be viewed in studio
   // Note this uses the same term as used by PhetioObject, but via a different channel.
-  public readonly phetioDocumentation: string;
+  public readonly phetioDocumentation: string | null;
 
   // the string keys of the enumeration
   public readonly KEYS: string[];
 
   // the object values of the enumeration
-  public readonly VALUES: IntentionalAny[];
+  public readonly VALUES: EnumerationValue[];
 
   /**
    * @param config - must provide keys such as {keys:['RED','BLUE]}
@@ -87,7 +104,7 @@ class EnumerationDeprecated {
    *
    * clients should use EnumerationDeprecated.byKeys or EnumerationDeprecated.byMap
    */
-  private constructor( config?: IntentionalAny ) {
+  private constructor( config: EnumerationDeprecatedConfig ) {
     deprecationWarning( 'EnumerationDeprecated should be exchanged for classes that extend EnumerationValue, see WilderEnumerationPatterns for examples.' );
 
     affirm( config, 'config must be provided' );
@@ -96,7 +113,7 @@ class EnumerationDeprecated {
     const mapProvided = !!config.map;
     affirm( keysProvided !== mapProvided, 'must provide one or the other but not both of keys/map' );
 
-    const keys = config.keys || Object.keys( config.map );
+    const keys = config.keys || Object.keys( config.map! );
     const map = config.map || {};
 
     config = merge( {
@@ -124,7 +141,7 @@ class EnumerationDeprecated {
     affirm( !_.includes( keys, 'includes' ),
       'This is the name of a built-in provided value, so it cannot be included as an enumeration value' );
 
-    this.phetioDocumentation = config.phetioDocumentation;
+    this.phetioDocumentation = config.phetioDocumentation ?? null;
     this.KEYS = keys;
     this.VALUES = [];
 
@@ -163,30 +180,30 @@ class EnumerationDeprecated {
   /**
    * Checks whether the given value is a value of this enumeration. Should generally be used for assertions
    */
-  public includes( value: IntentionalAny ): boolean {
+  public includes( value: unknown ): boolean {
     return _.includes( this.VALUES, value );
   }
 
   /**
    * To support consistent API with Enumeration.
    */
-  public getValue( key: string ): IntentionalAny {
+  public getValue( key: string ): EnumerationValue {
 
-    // @ts-expect-error
+    // @ts-expect-error - dynamic property access by key
     return this[ key ];
   }
 
   /**
    * To support consistent API with Enumeration.
    */
-  public getKey( enumerationValue: IntentionalAny ): string {
-    return enumerationValue.name;
+  public getKey( enumerationValue: EnumerationValue ): string {
+    return enumerationValue.name!;
   }
 
   /**
    * To support consistent API with Enumeration.
    */
-  public get values(): IntentionalAny[] {
+  public get values(): EnumerationValue[] {
     return this.VALUES;
   }
 
@@ -209,9 +226,9 @@ class EnumerationDeprecated {
    * @param keys - such as ['RED','BLUE']
    * @param [options]
    */
-  public static byKeys( keys: string[], options?: IntentionalAny ): EnumerationDeprecated {
+  public static byKeys( keys: string[], options?: EnumerationDeprecatedOptions ): EnumerationDeprecated {
     affirm( Array.isArray( keys ), 'keys must be an array' );
-    affirm( !options || options.keys === undefined );
+    affirm( !options || ( options as EnumerationDeprecatedConfig ).keys === undefined );
     return new EnumerationDeprecated( merge( { keys: keys }, options ) );
   }
 
@@ -220,8 +237,8 @@ class EnumerationDeprecated {
    * @param map - such as {RED: myRedValue, BLUE: myBlueValue}
    * @param [options]
    */
-  public static byMap( map: IntentionalAny, options?: IntentionalAny ): EnumerationDeprecated {
-    affirm( !options || options.map === undefined );
+  public static byMap( map: Record<string, EnumerationValue>, options?: EnumerationDeprecatedOptions ): EnumerationDeprecated {
+    affirm( !options || ( options as EnumerationDeprecatedConfig ).map === undefined );
     if ( isAffirmEnabled() ) {
       const values = _.values( map );
       affirm( values.length >= 1, 'must have at least 2 entries in an enumeration' );
