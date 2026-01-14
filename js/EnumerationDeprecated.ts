@@ -80,7 +80,7 @@ type EnumerationDeprecatedOptions = {
 // Internal config type used by the constructor
 type EnumerationDeprecatedConfig = EnumerationDeprecatedOptions & {
   keys?: string[];
-  map?: Record<string, EnumerationValue>;
+  map?: Record<string, object>;
 };
 
 /**
@@ -146,7 +146,7 @@ class EnumerationDeprecated {
     this.VALUES = [];
 
     keys.forEach( key => {
-      const value = map[ key ] || {};
+      const value = ( map[ key ] || {} ) as EnumerationValue;
 
       // Set attributes of the enumeration value
       affirm( value.name === undefined, '"rich" enumeration values cannot provide their own name attribute' );
@@ -158,7 +158,7 @@ class EnumerationDeprecated {
       value.toString = () => key;
 
       // Assign to the enumeration
-      // @ts-expect-error
+      // @ts-expect-error - dynamic property assignment by key
       this[ key ] = value;
       this.VALUES.push( value );
     } );
@@ -237,7 +237,7 @@ class EnumerationDeprecated {
    * @param map - such as {RED: myRedValue, BLUE: myBlueValue}
    * @param [options]
    */
-  public static byMap( map: Record<string, EnumerationValue>, options?: EnumerationDeprecatedOptions ): EnumerationDeprecated {
+  public static byMap<T extends object>( map: Record<string, T>, options?: EnumerationDeprecatedOptions ): EnumerationDeprecated {
     affirm( !options || ( options as EnumerationDeprecatedConfig ).map === undefined );
     if ( isAffirmEnabled() ) {
       const values = _.values( map );

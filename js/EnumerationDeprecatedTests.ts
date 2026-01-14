@@ -12,7 +12,8 @@ import EnumerationDeprecated from './EnumerationDeprecated.js';
 QUnit.module( 'EnumerationDeprecated' );
 
 QUnit.test( 'Basic enumeration', assert => {
-  const CardinalDirection = EnumerationDeprecated.byKeys( [ 'NORTH', 'SOUTH', 'EAST', 'WEST' ] );
+  const CardinalDirection = EnumerationDeprecated.byKeys( [ 'NORTH', 'SOUTH', 'EAST', 'WEST' ] ) as
+    EnumerationDeprecated & { NORTH: unknown; SOUTH: unknown; EAST: unknown; WEST: unknown; SOMETHING_AFTER_THE_FREEZE: number };
 
   assert.equal( CardinalDirection.NORTH, 'NORTH', 'Equality for NORTH' );
   assert.equal( CardinalDirection.SOUTH, 'SOUTH', 'Equality for SOUTH' );
@@ -26,8 +27,8 @@ QUnit.test( 'Basic enumeration', assert => {
   assert.equal( CardinalDirection.includes( { name: 'NORTH' } ), false, 'Should not be able to synthesize EnumerationDeprecated values' );
 
   // Test toString
-  const object = {};
-  object[ CardinalDirection.NORTH ] = 'exit';
+  const object: Record<string, string> = {};
+  object[ CardinalDirection.NORTH as string ] = 'exit';
   assert.equal( object.NORTH, 'exit', 'toString should work seamlessly' );
 
   isAffirmEnabled() && assert.throws( () => {
@@ -41,14 +42,18 @@ QUnit.test( 'Basic enumeration', assert => {
 } );
 
 QUnit.test( 'Before freeze test', assert => {
+
+  type EType = EnumerationDeprecated & { A: unknown; B: unknown; opposite: ( e: unknown ) => unknown; SOMETHING_AFTER_THE_FREEZE: number };
+
   const E = EnumerationDeprecated.byKeys( [ 'A', 'B' ], {
-    beforeFreeze: E => {
-      E.opposite = e => {
+    beforeFreeze: ( E: EnumerationDeprecated ) => {
+      const typedE = E as EType;
+      typedE.opposite = e => {
         affirm( E.includes( e ) );
-        return e === E.A ? E.B : E.A;
+        return e === typedE.A ? typedE.B : typedE.A;
       };
     }
-  } );
+  } ) as EType;
 
   assert.equal( E.A, 'A', 'Equality for A' );
   assert.equal( E.B, 'B', 'Equality for B' );
@@ -64,37 +69,40 @@ QUnit.test( 'VALUES', assert => {
   const People = EnumerationDeprecated.byKeys( [ 'ALICE', 'BOB' ] );
   assert.ok( true, 'at least one assertion must run per test' );
   isAffirmEnabled() && assert.throws( () => {
-    People.VALUES = 'something else';
+    ( People as { VALUES: unknown } ).VALUES = 'something else';
   }, 'Setting values after initialization should throw an error.' );
 } );
 
 QUnit.test( 'Rich', assert => {
   class Planet {
-    constructor( order ) {
+    public readonly order: number;
+
+    public constructor( order: number ) {
       this.order = order;
     }
 
-    // @public
-    getString( name ) {
+    public getString( name: string ): string {
       return `${name} is a person from the ${this.order} planet.`;
     }
   }
 
   class Venus extends Planet {}
 
+  type PlanetsType = EnumerationDeprecated & { MARS: Planet; EARTH: Planet };
+
   const Planets = EnumerationDeprecated.byMap( {
     MARS: new Planet( 2 ),
     EARTH: new Planet( 3 )
-  } );
+  } ) as PlanetsType;
 
   assert.ok( Planets.MARS.order === 2, 'mars order should match' );
   assert.ok( typeof Planets.EARTH.getString( 'bob' ) === 'string', 'should return a string' );
   isAffirmEnabled() && assert.throws( () => {
-    Planets.MARS = 'hello'; // fails because enumeration values should not be reassignable
+    ( Planets as { MARS: unknown } ).MARS = 'hello'; // fails because enumeration values should not be reassignable
   } );
 
   isAffirmEnabled() && assert.throws( () => {
-    Planets.MARS.name = 'not mars!'; // Should not be able to reassign enumeration value properties
+    ( Planets.MARS as unknown as { name: string } ).name = 'not mars!'; // Should not be able to reassign enumeration value properties
   } );
 
   isAffirmEnabled() && assert.throws( () => {
