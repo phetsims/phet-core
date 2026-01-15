@@ -107,7 +107,7 @@ const Poolable = {
        * Returns an object with arbitrary state (possibly constructed with the default arguments).
        */
       dirtyFromPool(): PoolableVersion<Type> {
-        return pool.length ? pool.pop() : new DefaultConstructor();
+        return pool.length ? pool.pop() as PoolableVersion<Type> : new DefaultConstructor();
       },
 
       /**
