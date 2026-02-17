@@ -5,7 +5,7 @@
  *
  * See https://stackoverflow.com/questions/49579094/typescript-conditional-types-filter-out-readonly-properties-pick-only-requir
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 // NOTE: Did not refactor out this IfEquals, because it doesn't handle all cases correctly

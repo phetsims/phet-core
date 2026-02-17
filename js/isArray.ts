@@ -3,7 +3,7 @@
 /**
  * Tests whether a reference is to an array.
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import phetCore from './phetCore.js';

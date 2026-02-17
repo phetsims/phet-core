@@ -7,7 +7,7 @@
  * essentially able to "re-run" the constructor. Then when putting the object back in the pool, references should be
  * released, so memory isn't leaked.
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';

@@ -3,7 +3,7 @@
 /**
  * Tests for dimensionForEach
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import _ from '../../sherpa/js/lodash.js';

@@ -3,7 +3,7 @@
 /**
  * Generalized support for mutating objects that take ES5 getters/setters, similar to Node.
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';

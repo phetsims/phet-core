@@ -4,7 +4,7 @@
  * Strips embedding marks out of a string. Embedding marks are added to support directional languages and PhET i18n in
  * general.
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 

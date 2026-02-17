@@ -7,7 +7,7 @@
  *
  * extendDefined( { a: 5 }, { a: undefined } ) will return { a: 5 }
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import phetCore from './phetCore.js';

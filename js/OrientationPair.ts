@@ -3,7 +3,7 @@
 /**
  * An object that contains a value for each item in an enumeration.
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import EnumerationMap from './EnumerationMap.js';

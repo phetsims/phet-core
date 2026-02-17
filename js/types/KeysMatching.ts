@@ -6,7 +6,7 @@
  *
  * For instance, KeysMatching<{ foo: number; x: string; k: number; }, number> will be 'foo' | 'k'
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 type KeysMatching<T, V> = { [K in keyof T]-?: T[K] extends V ? K : never }[keyof T];

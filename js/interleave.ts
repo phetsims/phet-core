@@ -5,7 +5,7 @@
  * you call `interleave( [ a, b, c ], Math.random )`, it will result in the equivalent:
  * `[ a, Math.random(), b, Math.random(), c ]`.
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';

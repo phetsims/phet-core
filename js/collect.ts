@@ -7,7 +7,7 @@
  * collect( function( callback ) { f( callback ); } );
  * will return [1,2,3].
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import phetCore from './phetCore.js';

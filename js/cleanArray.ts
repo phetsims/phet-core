@@ -4,7 +4,7 @@
  * If given an Array, removes all of its elements and returns it. Otherwise, if given a falsy value
  * (null/undefined/etc.), it will create and return a fresh Array.
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';

@@ -3,7 +3,7 @@
 /**
  * Converts an instance type to a constructor type.
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import IntentionalAny from './IntentionalAny.js';

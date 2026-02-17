@@ -6,7 +6,7 @@
  *
  * e.g. partition( [1,2,3,4], function( n ) { return n % 2 === 0; } ) will return [[2,4],[1,3]]
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';

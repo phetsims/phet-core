@@ -6,7 +6,7 @@
  * For instance, Concat<[A, B], [C, D]> is equivalent to [A, B, C, D]. This can also flatten an array with
  * Concat<...types>.
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import IntentionalAny from './IntentionalAny.js';

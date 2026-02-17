@@ -7,7 +7,7 @@
  *
  * See https://github.com/documentcloud/underscore/pull/986.
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import phetCore from './phetCore.js';

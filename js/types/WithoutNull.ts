@@ -11,7 +11,7 @@
  * type X = WithoutNull<T>; // { a: number, b: string | number[], c: { x: 5 } }
  * type Y = WithoutNull<T, 'a'>; // { a: number, b: string | number[] | null, c: { x: 5 } }
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import NotNull from './NotNull.js';

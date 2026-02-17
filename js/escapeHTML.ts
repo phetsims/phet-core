@@ -5,7 +5,7 @@
  *
  * This is NOT for escaping something in other HTML contexts, for example as an attribute value
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import phetCore from './phetCore.js';

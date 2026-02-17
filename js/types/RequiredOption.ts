@@ -9,7 +9,7 @@
  *
  * something: RequiredOption<SelfOptions, 'something'>;
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import NotUndefined from './NotUndefined.js';

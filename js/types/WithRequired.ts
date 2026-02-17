@@ -3,7 +3,7 @@
 /**
  * Creates a type like the input type T, but with all certain properties required.
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  * @author Sam Reid (PhET Interactive Simulations)
  */
 

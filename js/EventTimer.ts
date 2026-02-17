@@ -76,7 +76,7 @@
  * - modelElement.step( callbackTimeElapsed );
  * And you don't want to apply step( dt ) to it directly afterwards.
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';

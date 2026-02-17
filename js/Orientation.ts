@@ -3,7 +3,7 @@
 /**
  * Either horizontal or vertical, with helper values.  Moved from Area Model Common on Nov 7, 2019
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  * @author Sam Reid (PhET Interactive Simulations)
  */
 

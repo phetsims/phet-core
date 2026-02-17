@@ -3,7 +3,7 @@
 /**
  * Returns the intersection of up to 4 types, ensuring that none of them have any keys in common.
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  * @author Sam Reid (PhET Interactive Simulations)
  */
 

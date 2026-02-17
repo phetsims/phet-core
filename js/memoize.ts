@@ -3,7 +3,7 @@
 /**
  * Caches the results of previous single-argument function applications to the same object.
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import phetCore from './phetCore.js';

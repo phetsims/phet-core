@@ -3,7 +3,7 @@
 /**
  * Similar to the built-in NotNullable, but just for undefined
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 type NotUndefined<T> = T extends undefined ? never : T;

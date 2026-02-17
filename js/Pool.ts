@@ -19,7 +19,7 @@
 
  * and can additionally implement TPoolable to make it clear that the type is pooled
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import affirm from '../../perennial-alias/js/browser-and-node/affirm.js';
