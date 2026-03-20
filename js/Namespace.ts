@@ -52,12 +52,12 @@ class Namespace {
    * Registers a key-value pair with the namespace.
    *
    * If there are no dots ('.') in the key, it will be assigned to the namespace. For example:
-   * - x.register( 'A', A );
-   * will set x.A = A.
+   * - axon.register( 'A', A );
+   * will set axon.A = A.
    *
    * If the key contains one or more dots ('.'), it's treated somewhat like a path expression. For instance, if the
    * following is called:
-   * - x.register( 'A.B.C', C );
+   * - axon.register( 'A.B.C', C );
    * then the register function will navigate to the object x.A.B and add x.A.B.C = C.
    */
   public register<T>( key: string, value: T ): T {
@@ -79,7 +79,7 @@ class Namespace {
       // @ts-expect-error
       this[ key ] = value;
     }
-    // Compound (contains '.' at least once). x.register( 'A.B.C', C ) should set x.A.B.C.
+    // Compound (contains '.' at least once). axon.register( 'A.B.C', C ) should set axon.A.B.C.
     else {
       const keys = key.split( '.' ); // e.g. [ 'A', 'B', 'C' ]
 
