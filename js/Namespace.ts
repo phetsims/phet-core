@@ -1,4 +1,4 @@
-// Copyright 2015-2025, University of Colorado Boulder
+// Copyright 2015-2026, University of Colorado Boulder
 
 /**
  * For debugging or usage in the console, Namespace associates modules with a namespaced global for use in the browser.
